@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+您 Web 项目的发布/打包进程将使用此文件。您可以通过编辑此 MSBuild 文件
+来自定义该进程的行为。若要了解与此相关的详细信息，请访问 http://go.microsoft.com/fwlink/?LinkID=208121。
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>E:\WebRelese\LazyAtHome.API.Mobile</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="Activity.html">
+      <publishTime>03/19/2015 13:38:56</publishTime>
+    </File>
+    <File Include="bin/LazyAtHome.API.Mobile.dll">
+      <publishTime>04/20/2015 13:31:12</publishTime>
+    </File>
+    <File Include="bin/LazyAtHome.Core.dll">
+      <publishTime>02/09/2015 15:29:33</publishTime>
+    </File>
+    <File Include="bin/LazyAtHome.Library.Pay.dll">
+      <publishTime>04/15/2015 08:05:56</publishTime>
+    </File>
+    <File Include="bin/LazyAtHome.WCF.Common.Contract.dll">
+      <publishTime>02/09/2015 15:29:33</publishTime>
+    </File>
+    <File Include="bin/LazyAtHome.WCF.OrderSystem.Contract.dll">
+      <publishTime>04/16/2015 08:53:59</publishTime>
+    </File>
+    <File Include="bin/LazyAtHome.WCF.UserSystem.Contract.dll">
+      <publishTime>02/09/2015 15:29:31</publishTime>
+    </File>
+    <File Include="bin/LazyAtHome.WCF.Wash.Contract.dll">
+      <publishTime>02/09/2015 15:29:30</publishTime>
+    </File>
+    <File Include="bin/Microsoft.ApplicationServer.Caching.Client.dll">
+      <publishTime>02/09/2015 15:29:30</publishTime>
+    </File>
+    <File Include="bin/Microsoft.ApplicationServer.Caching.Core.dll">
+      <publishTime>02/09/2015 15:29:31</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.EnterpriseLibrary.Common.dll">
+      <publishTime>02/09/2015 15:29:33</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.EnterpriseLibrary.Data.dll">
+      <publishTime>02/09/2015 15:29:33</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.EnterpriseLibrary.Security.Cryptography.dll">
+      <publishTime>02/09/2015 15:29:33</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.ServiceLocation.dll">
+      <publishTime>02/09/2015 15:29:30</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.Unity.dll">
+      <publishTime>02/09/2015 15:29:31</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.Unity.Interception.dll">
+      <publishTime>02/09/2015 15:29:33</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>04/20/2015 11:47:56</publishTime>
+    </File>
+    <File Include="bin/Microsoft.WindowsFabric.Common.dll">
+      <publishTime>02/09/2015 15:29:31</publishTime>
+    </File>
+    <File Include="bin/Microsoft.WindowsFabric.Data.Common.dll">
+      <publishTime>02/09/2015 15:29:33</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>04/20/2015 11:47:52</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>04/20/2015 11:47:12</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>04/20/2015 11:47:44</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>04/20/2015 11:47:52</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>04/20/2015 11:47:52</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>04/20/2015 11:47:52</publishTime>
+    </File>
+    <File Include="bin/Web.config">
+      <publishTime>04/20/2015 13:31:13</publishTime>
+    </File>
+    <File Include="bin/Web.Debug.config">
+      <publishTime>03/19/2015 13:38:56</publishTime>
+    </File>
+    <File Include="bin/Web.Release.config">
+      <publishTime>03/19/2015 13:38:56</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.Helpers.resources.dll">
+      <publishTime>04/20/2015 11:47:55</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.Mvc.resources.dll">
+      <publishTime>04/20/2015 11:47:38</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.Razor.resources.dll">
+      <publishTime>04/20/2015 11:47:56</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.WebPages.Deployment.resources.dll">
+      <publishTime>04/20/2015 11:47:55</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.WebPages.Razor.resources.dll">
+      <publishTime>04/20/2015 11:47:55</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.WebPages.resources.dll">
+      <publishTime>04/20/2015 11:47:55</publishTime>
+    </File>
+    <File Include="Content/Css/base.css">
+      <publishTime>03/19/2015 13:38:56</publishTime>
+    </File>
+    <File Include="Content/Images/act-xdbtn.jpg">
+      <publishTime>03/19/2015 13:38:56</publishTime>
+    </File>
+    <File Include="Content/Images/act-yybtn.jpg">
+      <publishTime>03/19/2015 13:38:56</publishTime>
+    </File>
+    <File Include="Content/Images/activity_banner.jpg">
+      <publishTime>03/19/2015 13:38:56</publishTime>
+    </File>
+    <File Include="Content/Images/ewm-pic.jpg">
+      <publishTime>03/19/2015 13:38:56</publishTime>
+    </File>
+    <File Include="Content/Images/ewm-pic.png">
+      <publishTime>03/19/2015 13:38:56</publishTime>
+    </File>
+    <File Include="Content/Images/hd01.png">
+      <publishTime>03/19/2015 13:38:56</publishTime>
+    </File>
+    <File Include="Content/Images/hd02-banner.jpg">
+      <publishTime>03/19/2015 13:38:56</publishTime>
+    </File>
+    <File Include="Content/Images/hd02.png">
+      <publishTime>03/19/2015 13:38:56</publishTime>
+    </File>
+    <File Include="Content/Images/hd04-banner.jpg">
+      <publishTime>03/19/2015 13:38:56</publishTime>
+    </File>
+    <File Include="Content/Images/startpage.jpg">
+      <publishTime>03/19/2015 13:38:56</publishTime>
+    </File>
+    <File Include="favicon.ico">
+      <publishTime>03/19/2015 13:38:56</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>03/19/2015 13:38:56</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>03/19/2015 13:38:55</publishTime>
+    </File>
+    <File Include="Service.html">
+      <publishTime>03/19/2015 13:38:56</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>04/20/2015 13:31:13</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

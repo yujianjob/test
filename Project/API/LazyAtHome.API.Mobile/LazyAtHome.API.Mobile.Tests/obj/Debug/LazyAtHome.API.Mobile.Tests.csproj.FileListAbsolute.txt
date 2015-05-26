@@ -1,0 +1,1 @@
+E:\workspace\Project\API\LazyAtHome.API.Mobile\LazyAtHome.API.Mobile.Tests\obj\Debug\LazyAtHome.API.Mobile.Tests.csprojResolveAssemblyReference.cache
