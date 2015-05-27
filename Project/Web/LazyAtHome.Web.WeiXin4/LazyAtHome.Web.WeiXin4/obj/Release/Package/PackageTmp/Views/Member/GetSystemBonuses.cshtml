@@ -1,0 +1,198 @@
+﻿@{
+    ViewBag.Title = "抢红包";
+}
+
+<section>
+    <div class="page">
+        <div id="page01" class="page01">
+            <div class="page_head">
+                <div class="user_new">
+                    <img alt="" src="/img/user_new.png" class="new_img">
+                    <hr class="clearfix">
+                </div>
+            </div>
+            <div class="page_prize">
+                <div class="prize_box">
+                    @if (ViewBag.Coupon > 0)
+                    {
+                        <div class="box_result">
+                            <div class="result_title">本次领取</div>
+                            <div class="result_content">
+                                <span class="result_num"><label>@ViewBag.Coupon</label></span>
+                                <span class="result_per">元</span>
+                            </div>
+                        </div>
+                    }
+                    @if (ViewBag.NextActivedTime > 0)
+                    {
+                        <div class="box_nxtime">
+                            已领取<br> <label>@ViewBag.NextActivedTime</label><label>@ViewBag.NextActivedDay</label>后再来
+</div>
+                    }
+                </div>
+            </div>
+            <div class="page_form">
+                @if (ViewBag.Coupon > 0)
+                {
+                    <div class="form02">
+                        <div class="prize_account">红包已放入懒到家账户 <span id="lazy_account">@ViewBag.UserPhone</span></div>
+                        <div class="prize_listlink"><a onclick="location.href = '/Member/MyBonusesList?MPNo=@(ViewBag.UserPhone)'">查看我的红包</a></div>
+                        <div class="prize_action">
+                            <a class="btn_download" href="/Home/DownAPP">下载APP</a>
+                            <a class="btn_share">点击右上角分享红包</a>
+                            <hr class="clearfix">
+                        </div>
+                        <div class="prize_comment">
+                            不要吝啬哦，红包可以分享给好友呢<br>
+                            分享后自己也可以抢，叠加使用更实惠！
+                        </div>
+                    </div>
+                }
+                @if (ViewBag.NextActivedTime > 0)
+                {
+                    <div class="form03">
+                        <div class="prize_account">红包已放入懒到家账户 <span id="lazy_account">@ViewBag.UserPhone</span></div>
+                        <div class="prize_listlink">&nbsp;</div>
+                        <div class="prize_action">
+                            <a class="btn_prizelist" onclick="location.href = '/Member/MyBonusesList?MPNo=@(ViewBag.UserPhone)'">查看红包</a>
+                            <a class="btn_share">点右上角分享</a>
+                            <hr class="clearfix">
+                        </div>
+                        <div class="prize_comment">
+                            不要吝啬哦，红包可以分享给好友呢<br>
+                            分享后自己也可以抢，叠加使用更实惠！
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="page_tip">
+                <div class="tip01">
+                    <h4 class="tip_title">红包是什么？</h4>
+                    <ul class="tip_list">
+                        <li class="tip_text"><span class="bullet">1、</span>红包可用于在线支付抵扣，可叠加使用。</li>
+                        <li class="tip_text"><span class="bullet">2、</span>红包不找零、不兑现。</li>
+                        <li class="tip_text"><span class="bullet">3、</span>红包从领取当天起“寿命”是7天，过期作废不能使用。</li>
+                    </ul>
+                </div>
+                <div class="tip02">
+                    <h4 class="tip_title">如何获得红包？</h4>
+                    <ul class="tip_list">
+                        <li class="tip_text"><span class="bullet">1、</span>秘诀一【系统发放】：拼人品的时刻到了，每7天就可以领取一次系统发放红包金额随机。</li>
+                        <li class="tip_text"><span class="bullet">2、</span>秘诀二【每周分享】：每周领完系统红包后，慷慨分享给好友，发完后自己也可以火速去抢。</li>
+                        <li class="tip_text"><span class="bullet">3、</span>秘诀三【评价分享】：每次订单完成后良心评价，然后慷慨分享，发完后自己也可以火速去抢呦。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section scripts
+{
+    <script type="text/javascript" src="/Scripts/hui.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery-2.1.3.js"></script>
+    <script type="text/javascript">
+        var page = { moving: false };
+        page.init = function () {
+            page.tap = function () { };
+            page.swipeUp = function () { };
+            page.swipeRight = function () { };
+            page.swipeDown = function () { };
+            page.swipeLeft = function () { };
+            page.repaint = function () { };
+        };
+        page.onresize = function () {
+            document.documentElement.style.fontSize = parseInt($('.page').get(0).offsetWidth) / 24 + 'px';
+            // page.repaint();
+        };
+        page.init();
+
+        $(window).on('resize', function () { page.onresize(); });
+
+    </script>
+
+
+
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script language="javascript">
+        var CouponID = "@ViewBag.CouponID";
+        var MarketID = "@ViewBag.MarketID";
+        var BaseUrl = "@ViewBag.BaseUrl";
+        var UserPhone="@ViewBag.UserPhone";
+        var appId = "@ViewBag.appId";
+        function redirect()
+        {
+            alert(UserPhone);
+            location.href = '/Member/MyBonusesList?MPNo=' + UserPhone;
+        }
+        function nonstr(len) {
+            len = len || 32;
+            var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'; // 默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1
+            var maxPos = $chars.length;
+            var pwd = '';
+            for (i = 0; i < len; i++) {
+                pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+            }
+            return pwd;
+        }
+        var ts = Math.round(new Date().getTime() / 1000).toString();
+        var url = location.href;
+        var str = nonstr(16).toLowerCase();
+        var signa;
+
+        $.ajax({
+            type: "post",
+            url: "/Member/GetSignature",
+            data: { "noncestr": str, "timestamp": ts, "url": url },
+            dataType: "json",
+            success: function (resultJson) {
+                if (resultJson != null) {
+                    if (resultJson.Code == 1) {
+                        //好友
+                        wx.config({
+                            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                            appId: appId, // 必填，公众号的唯一标识
+                            timestamp: ts, // 必填，生成签名的时间戳
+                            nonceStr: str, // 必填，生成签名的随机串
+                            signature: resultJson.Msg,// 必填，签名，见附录1
+                            jsApiList: ['onMenuShareAppMessage', 'onMenuShareTimeline'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                        });
+
+                        wx.ready(function () {
+
+                            wx.onMenuShareTimeline({
+                                title: '有懒到家,最低一元洗衣,妈妈再也不用担心我的脏衣啦', // 分享标题
+                                link: BaseUrl + "/Member/SystemBonuses", // 分享链接
+                                imgUrl: BaseUrl+'/img/prize_cover.png', // 分享图标
+                                success: function () {
+                                    // 用户确认分享后执行的回调函数
+                                },
+                                cancel: function () {
+                                    // 用户取消分享后执行的回调函数
+                                }
+                            });
+
+                            // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+                            wx.onMenuShareAppMessage({
+                                title: '有懒到家,最低一元洗衣,妈妈再也不用担心我的脏衣啦', // 分享标题
+                                desc: '红包可在订单支付的时候当钱抵扣', // 分享描述
+                                link: BaseUrl + "/Member/SystemBonuses", // 分享链接
+                                imgUrl: BaseUrl+'/img/prize_cover.png', // 分享图标
+                                success: function () {
+                                    // 用户确认分享后执行的回调函数
+                                },
+                                cancel: function () {
+                                    // 用户取消分享后执行的回调函数
+                                }
+                            });
+                        });
+                    }
+                }
+            },
+            error: function (msg) {
+                alert(msg.toString());
+            }
+        });
+
+    </script>
+}
+

@@ -1,0 +1,141 @@
+﻿@model LazyAtHome.Web.WashSite.Models.Home.ArtifactViewModel
+@{
+    //ViewBag.Title = "懒人神器";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home", new { index = "lazypack" });}
+
+<!--内容-->
+<div id="content">
+    <div class="luxuryTitle">懒人神器</div>
+    <div class="packageTitle">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="95" align="right">关键字：</td>
+                <td>
+                    <form id="artifactSubmit" action="/LazyArtifact/Index" method="post">
+                        <input id="Type" name="Type" type="hidden" value="@Model.Type" />
+                        <input id="Class" name="Class" type="hidden" value="@Model.Class" />
+                        <input id="TypeValue" name="TypeValue" type="hidden" value="@Model.TypeValue" />
+                        <input id="OrderType" name="OrderType" type="hidden" value="@Model.OrderType" />
+                        <dl class="keywords">
+                            <dt>@Html.EditorFor(model => model.Keyword)</dt>
+                            <dd><input name="" type="submit" value="搜索" /></dd>
+                        </dl>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">产品类型：</td>
+                <td>
+                    <ul>
+                        <li type="sType" value="">不限</li>
+                        <li type="sType" value="1">懒人卡</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">价格：</td>
+                <td>
+                    <ul>
+                        <li type="sTypeValue" value="">不限</li>
+                        <li type="sTypeValue" value="100">100</litype>
+                        <li type="sTypeValue" value="200">200</li>
+                        <li type="sTypeValue" value="500">500</li>
+                        <li type="sTypeValue" value="1000">1000</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">类型：</td>
+                <td>
+                    <ul>
+                        <li type="sClass" value="">不限</li>
+                        <li type="sClass" value="2">电子卡</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="packageFont">为您搜索到<span>@(ViewBag.List.Length)件</span>产品</div>
+    <div class="packageListTitle">
+        <dl>
+            <dt>排序：</dt>
+            <dd>默认</dd>
+            <dd>价格↓</dd>
+            <dd>销量↑</dd>
+        </dl>
+    </div>
+    <div class="packageList">
+        <ul>
+            @foreach (LazyAtHome.WCF.Wash.Contract.DataContract.web.web_Mall_ProductDC item in ViewBag.List)
+            {
+                <li><a href="@Url.Action("Show", new { id = item.ID})"><img src="@item.Picture" width="212" height="135" /></a><h2>@item.Name<b><span>￥</span>@item.SalesPrice</b></h2><h3><a href="@Url.Action("Show", new { id = item.ID})">购买</a></h3></li>
+            }
+        </ul>
+    </div>
+    <div class="page" style="text-align:right;">上一页<span><a href="#" class="this">1</a></span>下一页</div>
+    @{Html.RenderAction("MoreWash", "Wash");}
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/Scripts/gundong.js")
+    <script type="text/javascript">
+        $(function () {
+            //奢侈品保养
+            $('.luxuryList li').hover(function () {
+                $(this).find('span').addClass('this');
+            }, function () {
+                $(this).find('span').removeClass('this');
+            })
+            //滚动
+            var BOX = $('.cartLuxuryList ul');
+            var HHUM = $('.cartLuxuryList li');
+            var LEFT = $('.cartLuxuryZuo');
+            var RIGHT = $('.cartLuxuryYou');
+            var WIDTH = 184;//单个宽度
+            var PLAY = 5000;//自动播放的时间
+            var SPEED = 500;//切换速度
+            var AOUT = true;//是否自动播放
+            IMG(BOX, LEFT, RIGHT, WIDTH, HHUM, PLAY, SPEED, AOUT);
+
+            $('.cartLuxuryList li').hover(function () {
+                $(this).find('.cartLuxuryListImg').addClass('this');
+            }, function () {
+                $(this).find('.cartLuxuryListImg').removeClass('this');
+            })
+
+            $("li[type='sClass']").click(ClassChange);
+            $("li[type='sTypeValue']").click(TypeValueChange);
+            $("li[type='sType']").click(TypeChange);
+
+            var rtn = $("li[type='sClass'][value='@Model.Class']").attr("class", "this");
+            var rtn = $("li[type='sTypeValue'][value='@Model.TypeValue']").attr("class", "this");
+            var rtn = $("li[type='sType'][value='@Model.Type']").attr("class", "this");
+        })
+
+        function ClassChange(obj) {
+            $("li[type='sClass']").attr("class", "");
+            $(this).attr("class", "this");
+            Class.value = $(this).attr("value");
+            $("#artifactSubmit").submit();
+        }
+
+        function TypeValueChange() {
+            $("li[type='sTypeValue']").attr("class", "");
+            $(this).attr("class", "this");
+            TypeValue.value = $(this).attr("value");
+            $("#artifactSubmit").submit();
+        }
+
+        function TypeChange() {
+            $("li[type='sType']").attr("class", "");
+            $(this).attr("class", "this");
+            Type.value = $(this).attr("value");
+            $("#artifactSubmit").submit();
+        }
+    </script>
+}

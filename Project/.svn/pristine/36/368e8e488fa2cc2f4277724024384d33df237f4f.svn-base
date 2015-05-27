@@ -1,0 +1,137 @@
+﻿@model LazyAtHome.Web.WashSite.Models.User.UserInfo
+@{
+    //ViewBag.Title = "购物车";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+<!--内容-->
+<div id="content">
+    <div id="cartTitle">购物车<img src="~/Content/Images/cartTitle_01.gif" /></div>
+    <div class="cartList">
+        <form action="cartSubmit.html" method="post">
+            <table width="998" border="0" cellspacing="0" cellpadding="0">
+                <tr class="cartListTitle">
+                    <td width="80" align="right"><p class="quanxuan"></p></td>
+                    <td width="86"><p>　</p></td>
+                    <td width="452"><p>服务产品</p></td>
+                    <td width="70" align="center"><p>单价</p></td>
+                    <td width="140" align="center"><p>数量</p></td>
+                    <td width="70" align="center"><p>小计</p></td>
+                    <td width="100" align="center"><p>操作</p></td>
+                </tr>
+                @foreach (var item in Model.Cart.ProductList)
+                {
+                    <tr>
+                        <td align="right"></td>
+                        <td><a target="_blank" href="/Wash/Show/@item.ProductInfo.CategoryID?subid=@item.ProductInfo.ID"><img width="75" height="auto" src="@item.ProductInfo.PictureM" class="cartListImg" /></a></td>
+                        <td><a target="_blank" href="/Wash/Show/@item.ProductInfo.CategoryID?subid=@item.ProductInfo.ID"><h3>@item.ProductInfo.Name</h3>@item.ProductInfo.WebName</a></td>
+                        <td align="center"><span>￥</span><b>@item.ProductInfo.SalesPrice</b></td>
+                        <td>
+                            <dl class="shuliang">
+                                <dt id="jian" pid="@item.ProductInfo.ID" class="jian">-</dt>
+                                <dd><input id="pcount" name="pcount" type="text" value="@item.Count" readonly="readonly" /></dd>
+                                <dt id="jia" pid="@item.ProductInfo.ID" class="jia">+</dt>
+                            </dl>
+                        </td>
+                        <td align="center"><span>￥</span><b>@(item.ProductInfo.SalesPrice * item.Count)</b></td>
+                        <td align="center"><p><b><a href="@Url.Action("CartDelete", "Cart", new { id = item.ProductInfo.ID })">删除</a></b></p></td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="7" align="right">
+                        <font>全场单笔订单满25元，免运费！</font>
+                        <p class="jiage"><span>总价：</span>￥@Model.Cart.TotalPrice</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="7" align="right">
+                        <a href="@Url.Action("Index","Wash")"><img src="~/Content/images/continue_select_btn.gif" /></a>
+                        <a href="@Url.Action("Submit")" onclick="return formSubmit()" style="margin-right:24px;margin-left:15px;"><img src="~/Content/images/settlement-btn.gif" /></a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div class="height_50"></div>
+@{Html.RenderAction("MoreWash", "Wash");}
+    <div class="contentTitle">送衣流程</div>
+    <div class="contentBox"><img src="~/Content/Images/pic_10.jpg" width="996" height="160" /></div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/Scripts/gundong.js")
+    <script language="javascript" type="text/javascript">
+        var cCount = "@Model.Cart.ProductList.Count";
+        $(function () {
+            //滚动
+            var BOX = $('.cartLuxuryList ul');
+            var HHUM = $('.cartLuxuryList li');
+            var LEFT = $('.cartLuxuryZuo');
+            var RIGHT = $('.cartLuxuryYou');
+            var WIDTH = 184;//单个宽度
+            var PLAY = 5000;//自动播放的时间
+            var SPEED = 500;//切换速度
+            var AOUT = true;//是否自动播放
+            IMG(BOX, LEFT, RIGHT, WIDTH, HHUM, PLAY, SPEED, AOUT);
+
+            $('.cartLuxuryList li').hover(function () {
+                $(this).find('.cartLuxuryListImg').addClass('this');
+            }, function () {
+                $(this).find('.cartLuxuryListImg').removeClass('this');
+            })
+
+
+            //右侧选择
+            $('.luxuryShowAbout .xx span').click(function () {
+                $(this).parent().find('span').removeClass('this');
+                $(this).addClass('this');
+            })
+            //右侧数量
+
+
+            $('.shuliang .jian').click(function () {                
+                var lis = parseInt($(this).parent().find('input').attr('value')) - 1;
+                if (lis <= 1) {
+                    var lis = 1;
+                }
+                $(this).parent().find('input').attr('value', lis)
+                PCountChange($(this).attr("pid"), lis);
+            })
+            $('.shuliang .jia').click(function () {                
+                var lis = parseInt($(this).parent().find('input').attr('value')) + 1;
+                $(this).parent().find('input').attr('value', lis)
+                PCountChange($(this).attr("pid"), lis);
+            })
+        })
+
+        function formSubmit()
+        {
+            if (cCount == "0")
+            {                
+                return false;
+            }
+        }
+
+        function PCountChange(pid,count) {
+            var postData = { "pid": pid, "pcount": count };
+
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("CartCountChange")",
+                data: postData,
+                dataType: "json",
+                success: ProcessData,
+                error: function (msg) {
+                    alert("异常发生异常，请稍微再试。");
+                }
+            })
+        }
+
+        function ProcessData(resultJson) {
+            window.location.reload();
+        }
+    </script>
+}

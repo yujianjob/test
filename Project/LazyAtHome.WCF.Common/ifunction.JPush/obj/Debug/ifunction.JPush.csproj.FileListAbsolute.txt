@@ -1,0 +1,6 @@
+E:\workspace\Project\LazyAtHome.WCF.Common\ifunction.JPush\bin\Debug\ifunction.JPush.dll
+E:\workspace\Project\LazyAtHome.WCF.Common\ifunction.JPush\bin\Debug\ifunction.JPush.pdb
+E:\workspace\Project\LazyAtHome.WCF.Common\ifunction.JPush\bin\Debug\Newtonsoft.Json.dll
+E:\workspace\Project\LazyAtHome.WCF.Common\ifunction.JPush\bin\Debug\Newtonsoft.Json.xml
+E:\workspace\Project\LazyAtHome.WCF.Common\ifunction.JPush\obj\Debug\ifunction.JPush.dll
+E:\workspace\Project\LazyAtHome.WCF.Common\ifunction.JPush\obj\Debug\ifunction.JPush.pdb

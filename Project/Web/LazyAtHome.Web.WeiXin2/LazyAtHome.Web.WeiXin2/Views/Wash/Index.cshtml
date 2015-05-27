@@ -1,0 +1,243 @@
+﻿@{
+    ViewBag.Title = "洗涤服务";
+}
+
+<div class="page-content inset washing-service">
+    <div class="row">
+        <div class="col-md-7 col-md-offset-1">
+            <!--缩小后的洗衣篮div-->
+            <div class="relative-div visible-xs visible-sm">
+                <button class="visible-xs visible-sm btn btn-sm pull-right viewshopcart" style="z-index:10" onclick="shopcartCollpase(this);">查看洗衣篮(<span id="tc">0</span>)</button>
+                <div class="shopcart-collapse" style="display:none;">
+                    <div class="shopcartList-collapse" style="padding:10px;">
+                        <div class="tit">
+                            <span class="pull-left">洗衣篮</span>
+                            <span class="pull-right"><a href="#" onclick="ClearCart();">清除</a></span>
+                        </div>
+                        <div class="biaot">
+                            <div class="bt pull-left">服务产品</div>
+                            <div class="p-num pull-right">数量</div>
+                        </div>
+                        <div class="gwlist" id="gwlist">
+                            <div>
+                                <div class="unit">
+                                    <div class="lfbt">西装皮质</div>
+                                    <div class="setnum">
+                                        <button>+</button>
+                                        <input type="text">
+                                        <button>-</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="total-price">总计 <b>￥0.00</b></span>
+                        <a class="btn btn-block btn-sm js-btn" href="/Cart/OrderConfirm">去结算</a>
+                    </div>
+                </div>
+            </div>
+            <!--缩小后的洗衣篮div-->
+
+            <h2><img src="/img/icon-currency.png">服务费</h2>
+            <table class="table servicefee-tabs">
+                <tbody>
+                    <tr>
+                        <td class="servicefee-bt">同城快递</td>
+                        <td class="price"><font color="#d9534f">￥18.00(满18元免快递费)</font></td>
+                        <td class="servicefee-bt">24小时加急</td>
+                        <td class="price">￥100.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="panel-group" id="activeRule">
+                <div class="panel panel-default">
+                    <div class="panel-heading" data-parent="#activeRule" data-toggle="collapse" data-target="#activityRule" onclick="showXdfw(this);">
+                        <h4 class="panel-title">
+                            <span class="cloth-bt">活动规则</span>
+                            <a data-toggle="collapse">∧</a>
+                        </h4>
+                    </div>
+                    <div id="activityRule" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <p style="line-height:25px;">
+                                1、活动时间:<strong>2014年9月15日-2014年12月31日</strong><br>
+                                2、活动期间，在懒到家下单用户<strong>只需支付18元</strong>同城快递费，即可尊享<strong>3件以内衣物免洗特权</strong>，同单3件以上每件增
+
+                                收6元快递费（本活动适用于规定内的免费洗适用产品，皮质、丝质衣物不参与本活动）。<br>
+                                3、正常产品下单或者含正常产品的订单，<strong>免收18元快递费用</strong>，若此订单含有免费洗产品，则按照每件6元收取费用。<br>
+                                4、本活动的最终解释及变更权由懒到家所有。<br>
+                                5、<a href="/Activites/Index#tt" target="_blank" style="text-decoration:underline">免费洗适用产品</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tagSwitch">
+                <ul class="nav nav-tabs" role="tablist">
+                    @foreach (LazyAtHome.WCF.Wash.Contract.DataContract.web.web_Wash_ClassDC item in ViewBag.WashClass)
+                    {
+                        <li class="active" classid="@item.ID"><a href="javascript:void(0)">@item.Name</a></li>
+                    }
+                </ul>
+                <div class="tab-content xdfw-box">
+                    <div class="tab-pane active" id="sz">
+                        <div class="panel-group" id="accordion">                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 hidden-xs hidden-sm">
+            <div class="shopcartList">                
+                <div class="full-shopcart" style="display:-none">
+                    <div class="tit">
+                        <span class="pull-left">洗衣篮</span>
+                        <span class="pull-right"><a href="#" onclick="ClearCart();">清除</a></span>
+                    </div>
+                    <div class="biaot">
+                        <div class="bt pull-left">服务产品</div>
+                        <div class="p-num pull-right">数量</div>
+                    </div>
+                    <div class="gwlist">
+                        <div class="unit">
+                            <div class="lfbt">西装皮质</div>
+                            <div class="setnum">
+                                <button>+</button>
+                                <input type="text">
+                                <button>-</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <span class="total-price">总计 <b>￥120.00</b></span>-->
+                    <a class="btn btn-block btn-sm js-btn" style="margin:10px 0 0 0" href="/Cart/OrderConfirm">去结算</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        var totalCount = 0;
+        $(function () {
+            $(".nav-tabs li").each(function () {
+                $(this).click(function () {
+                    $(".nav-tabs li").removeClass("active");
+                    $(this).addClass("active");
+                    Show($(this).attr("classid"));
+                });
+            });
+            $(".nav-tabs li").eq(0).click();
+            AddToCart(0);
+        });
+        function Show(id) {
+            var postData = { classid: id };
+            $.ajax({
+                type: "post",
+                url: "/Wash/ClassShow",
+                data: postData,
+                dataType: "json",
+                success: function (resultJson) {
+                    if (resultJson != null) {
+                        if (resultJson.code == 1) {
+                            $("#accordion").html(resultJson.msg);
+                            $(".panel-collapse").eq(1).addClass("in");
+                        }
+                        else
+                            alert(resultJson.msg);
+                    }
+                },
+                error: function (msg) {
+                    $("#msg").html("服务器异常，请稍微再试！");
+                }
+            });
+        }
+
+        function AddToCart(pid, opear) {
+            if (opear == null)
+                opear = true;
+
+            var postData = { pid: pid, opearFlag: opear };
+            $.ajax({
+                type: "post",
+                url: "/Cart/jsAddToCart",
+                data: postData,
+                dataType: "json",
+                success: function (resultJson) {
+                    if (resultJson != null) {
+                        if (resultJson.Code == 1) {
+                            $(".gwlist").html(resultJson.Content);
+                            totalCount = resultJson.TotalCount;
+                            $("#tc").html(totalCount);
+                            $(".total-price").html("总计 <b>￥" + resultJson.TotalPrice.toFixed(2) + "</b>");
+                        }
+                        else
+                            alert(resultJson.Msg);
+                    }
+                },
+                error: function (msg) {
+                    $("#msg").html("服务器异常，请稍微再试！");
+                }
+            });
+        }
+
+        function ClearCart() {
+            $.ajax({
+                type: "post",
+                url: "/Cart/jsCartClear",
+                dataType: "json",
+                success: function (resultJson) {
+                    if (resultJson != null) {
+                        if (resultJson.Code == 1) {
+                            $(".gwlist").html("");
+                            totalCount = 0;
+                            $("#tc").html(totalCount);
+                            $(".total-price").html("总计 <b>￥0.00</b>");
+                            $(".estimator").show();
+                            $(".full-shopcart").hide();
+                        }
+                        else
+                            alert(resultJson.Msg);
+                    }
+                },
+                error: function (msg) {
+                    $("#msg").html("服务器异常，请稍微再试！");
+                }
+            });
+        }
+
+        var isMask = true, isTxt = true;
+        function shopcartCollpase(obj) {
+            if (isMask) {
+                //$("body").prepend("<div class='visible-xs visible-sm mask'></div>");
+                isMask = false;
+            }
+            if (isTxt) {
+                $(obj).html("关闭洗衣篮(<span id='tc'>" + totalCount + "</span>)");
+                var clientw = $(window).width();
+                var offsetTop = $(obj).offset().top;
+                var offsetLeft = $(obj).offset().left;
+                var h = $(window).height() - offsetTop;
+                $(".shopcart-collapse").show();
+                isTxt = false;
+            } else {
+                $(obj).html("查看洗衣篮(<span id='tc'>" + totalCount + "</span>)");
+                $(".shopcart-collapse").hide();
+                //$(".mask").remove();
+                isMask = true;
+                isTxt = true;
+            }
+            $(window).resize(function () {
+                var clientw1 = $(window).width();
+                var offsetTop1 = parseInt($(obj).offset().top);
+                var offsetLeft1 = $(obj).offset().left;
+                var h1 = $(window).height() - offsetTop1;
+                if (!isMask) {
+                    $(".shopcart-collapse").show();
+                }
+            });
+        }
+    </script>
+}

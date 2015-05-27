@@ -1,0 +1,35 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\niuzaiyi1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、第一次洗时在水中倒一些白醋，同时把牛仔衣翻转过来浸湿大约半小时，可以减少褪色。 </p>
+				<p>2、将牛仔反面放入水中，手洗避免清洗褪色。 </p>
+				<p>3、千万别用热水浸泡牛仔，那会有很大程度的缩水现象，水温保持30度以下。 </p>
+				<p>4、勿用漂白剂或任何添加漂白剂或荧光剂的产品。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>褪色是牛仔面料最大的缺点。你忍心放纵时尚个性的牛仔上衣刚穿过几次就面目全非吗？懒到家，让您的牛仔上衣洁净如新，让您的个性持续演绎。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\niuzaiyi2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>牛仔衣服几乎是我们生活的主旋律，它是经久不衰的“永恒”的流行服饰，可是不管多么好、多么贵的牛仔衣都会有一个共同的特点——清洗的时候褪色。因此在清洗牛仔衣前不妨放入盐水中浸泡10个小时，巩固牛仔衣的本色，减少牛仔衣的褪色情况。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

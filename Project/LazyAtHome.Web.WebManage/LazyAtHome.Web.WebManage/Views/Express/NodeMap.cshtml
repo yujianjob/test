@@ -1,0 +1,330 @@
+﻿@model IList<LazyAtHome.Web.WebManage.Models.Express.ExpNodeMap>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <script src="~/Scripts/Jquery/jquery-1.7.2.js" type="text/javascript"></script>
+    <style type="text/css">
+        #search-box {
+            position: absolute;
+            left: 0;
+            top: 20px;
+            z-index: 10000;
+        }
+
+        #infoBox {
+            position: absolute;
+            width: 350px;
+            height: 150px;
+            background: white;
+            z-index: 10000;
+            top: 60px;
+            border: 1px solid #ccc;
+        }
+
+        .btnGroups {
+            padding: 10px;
+        }
+
+        .rgGroups {
+            padding: 10px;
+        }
+
+        .longati {
+            padding: 20px 10px 10px 10px;
+        }
+
+        body, html, #allmap {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            font-family: "微软雅黑";
+        }
+
+        #l-map {
+            height: 100%;
+            width: 78%;
+            float: left;
+            border-right: 2px solid #bcbcbc;
+        }
+
+        #r-result {
+            height: 100%;
+            width: 20%;
+            float: left;
+        }
+    </style>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=XHMrT6GKi5OGpGpNlBuD5gGc"></script>
+    <title>站点信息</title>
+</head>
+<body>
+    <div id="search-box" class="hidden-xs">
+        <input type="search" name="wd" id="kw1" maxlength="100" style="width:300px;" autocomplete="off">
+        <span class="btn_wr">
+            <input type="submit" value="搜索" id="su1" class="_btn" onmousedown="this.className='_btn btn_h'" onmouseout="this.className='_btn'" onclick="search();">
+        </span>
+    </div>
+    <div id="infoBox">
+        <div class="longati">经度:<span id="longitude" style="margin-right:20px"></span>纬度:<span id="latitude"></span></div>
+        <div class="btnGroups">a
+            <span style="margin-right:20px">启用手工定位:</span>
+            <button id="btnEnablePoint" style="margin-right:20px" onclick="enablePoint()" >启用</button>
+            <button id="btnDisablePoint" style="margin-right:20px" onclick="disablePoint()" disabled="true">禁用</button>
+        </div>
+        <div class="rgGroups">
+            <input id="rg" type="range" style="margin-right:2px" min="100" max="5000" value="100" onchange="rangeonchange()" step="10" onmousedown="rangeonchange()">
+            <button style="margin-right:2px" onclick="rgUp()">+</button>
+            <button style="margin-right:10px" onclick="rgDown()">-</button>
+            <span id="rangevalue" style="margin-right:20px;">半径100米</span>
+        </div>
+    </div>
+    <div id="allmap"></div>
+    <table id="nodeMap" cellpadding="0" cellspacing="0" border="0">
+
+        @{
+            foreach (var item in @Model)
+            {
+                <tr>
+                    <td>@item.Longitude</td>
+                    <td>@item.Latitude</td>
+                    <td>@item.Radius</td>
+                    <td>@item.NodeName</td>
+                    <td>@item.KeyWord</td>
+                </tr>
+            }
+
+        }
+
+    </table>
+</body>
+</html>
+<script type="text/javascript">
+
+    function rgUp() {
+        var rgvalue = parseInt(document.getElementById("rg").value);
+        if (rgvalue < 50 || rgvalue > 5000) {
+            return;
+        }
+        //alert(rgvalue);
+        document.getElementById("rg").value = (rgvalue + 10);
+        rangeonchange();
+    }
+    function rgDown() {
+        var rgvalue = parseInt(document.getElementById("rg").value);
+        if (rgvalue < 50 || rgvalue > 5000) {
+            return;
+        }
+        //alert(rgvalue);
+        document.getElementById("rg").value = (rgvalue - 10);
+        rangeonchange();
+    }
+
+    var enable_userdefiPoint = false;
+
+    function enablePoint() {
+        if (enable_userdefiPoint) {
+            return;
+        }
+        document.getElementById("btnEnablePoint").disabled = true;
+        document.getElementById("btnDisablePoint").disabled = false;
+        enable_userdefiPoint = true;
+        addPoint();
+    }
+
+    function disablePoint() {
+        if (!enable_userdefiPoint) {
+            return;
+        }
+        document.getElementById("btnEnablePoint").disabled = false;
+        document.getElementById("btnDisablePoint").disabled = true;
+        enable_userdefiPoint = false;
+        removePoint();
+    }
+
+    var userdefi_marker = null;
+    var userdefi_circle = null;
+
+    function addPoint() {
+        if (!enable_userdefiPoint) {
+            return;
+        }
+
+        if (longitude == 0) {
+            return;
+        }
+
+        if (userdefi_marker != null) {
+            removePoint();
+        }
+        var point = new BMap.Point(longitude, latitude);
+        userdefi_marker = new BMap.Marker(point);
+        map.addOverlay(userdefi_marker);
+
+        //增加圆 在地图上添加一个椭圆，圆的颜色为蓝色、线宽2px、透明度为1，填充颜色为白色，透明度为0.7 http://developer.baidu.com/map/reference/index.php?title=Class:%E8%A6%86%E7%9B%96%E7%89%A9%E7%B1%BB/CircleOptions
+
+        userdefi_circle = new BMap.Circle(point, document.getElementById("rg").value, { strokeColor: "blue", strokeWeight: 2, strokeOpacity: 0.4, fillOpacity: 0.3 });
+        map.addOverlay(userdefi_circle);
+    }
+
+    function removePoint() {
+        if (userdefi_marker != null) {
+            map.removeOverlay(userdefi_marker);
+            userdefi_marker = null;
+        }
+        if (userdefi_circle != null) {
+            map.removeOverlay(userdefi_circle);
+            userdefi_circle = null;
+        }
+    }
+
+    function rangeonchange() {
+        var text = document.getElementById("rg").value;
+
+        document.getElementById("rangevalue").innerHTML = '半径' + text + '米';
+
+        addPoint();
+    }
+
+    function search() {
+        var text = document.getElementById("kw1").value;
+        if (text == null || text.length == 0) {
+            return;
+        }
+        var local = new BMap.LocalSearch(map, {
+            renderOptions: { map: map }
+        });
+        local.search(text);
+    }
+
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");
+    var point = new BMap.Point(121.4536, 31.36);
+    map.enableScrollWheelZoom();//启用滚轮放大缩小
+    map.centerAndZoom(point, 13);
+
+    //个性化在线编辑器地址：http://developer.baidu.com/map/custom/
+    var styleJson = [
+          {
+              "featureType": "road",
+              "elementType": "all",
+              "stylers": {
+                  "lightness": 20
+              }
+          },
+          {
+              "featureType": "highway",
+              "elementType": "geometry",
+              "stylers": {
+                  "color": "#f49935"
+              }
+          },
+          {
+              "featureType": "railway",
+              "elementType": "all",
+              "stylers": {
+                  "visibility": "off"
+              }
+          },
+          {
+              "featureType": "local",
+              "elementType": "labels",
+              "stylers": {
+                  "visibility": "off"
+              }
+          },
+          {
+              "featureType": "water",
+              "elementType": "all",
+              "stylers": {
+                  "color": "#d1e5ff"
+              }
+          },
+		  {
+		      "featureType": "poi",
+		      "elementType": "labels.icon",
+		      "stylers": {
+		          "visibility": "off"
+		      }
+		  }
+    ]
+
+    map.setMapStyle({ styleJson: styleJson });
+
+    var opts = {
+        width: 250,     // 信息窗口宽度
+        height: 80,     // 信息窗口高度
+        //position : new BMap.Point(data_info[i][0], data_info[i][1]),    // 指定文本标注所在的地理位置
+        //offset   : new BMap.Size(10, 10)    //设置文本偏移量
+        enableMessage: false//设置允许信息窗发送短息
+    }
+
+
+    //单击获取点击的经纬度
+    var longitude = 0, latitude = 0;
+
+    function addLabel() {
+        for (var i = 0; i < data_info.length; i++) {
+            var point = new BMap.Point(data_info[i][0], data_info[i][1]);
+            var marker = new BMap.Marker(point);
+            var content = data_info[i][3] + '</br>' + data_info[i][4];
+
+            map.addOverlay(marker);
+
+            //增加圆 在地图上添加一个椭圆，圆的颜色为蓝色、线宽2px、透明度为1，填充颜色为白色，透明度为0.7 http://developer.baidu.com/map/reference/index.php?title=Class:%E8%A6%86%E7%9B%96%E7%89%A9%E7%B1%BB/CircleOptions
+            var circle = new BMap.Circle(point, data_info[i][2], { strokeColor: "blue", strokeWeight: 2, strokeOpacity: 0.4, fillOpacity: 0.3 });
+            map.addOverlay(circle);
+
+            addClickHandler(content, marker);
+        }
+    }
+
+    //地图点击事件 读取经纬度
+    map.addEventListener("click", function (e) {
+        //alert(e.point.lng + "," + e.point.lat);
+        longitude = e.point.lng;
+        latitude = e.point.lat;
+        document.getElementById("longitude").innerHTML = longitude;
+        document.getElementById("latitude").innerHTML = latitude;
+
+        if (enable_userdefiPoint) {
+            addPoint();
+        }
+
+    });
+
+    function addClickHandler(content, marker) {
+        marker.addEventListener("click", function (e) {
+            openInfo(content, e)
+        }
+		);
+    }
+
+    function openInfo(content, e) {
+        var p = e.target;
+        var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+        var infoWindow = new BMap.InfoWindow(content, opts);  // 创建信息窗口对象
+        map.openInfoWindow(infoWindow, point); //开启信息窗口
+    }
+
+    //var data_info = [
+	//	[121.443539, 31.372364, 1200, "莲花山路517弄", "关键字|关键字1|关键字2"],
+	//	[121.4403506779, 31.3585278772, 500, "友邦大厦(东门)", "关键字"]
+    //];
+
+    var data_info = [];
+    $("#nodeMap tr").each(function () {
+        var col1 = $(this).find("td").eq(0).html();
+        var col2 = $(this).find("td").eq(1).html();
+        var col3 = $(this).find("td").eq(2).html();
+        var col4 = $(this).find("td").eq(3).html();
+        var col5 = $(this).find("td").eq(4).html();
+        $subDate = [col1, col2, col3, col4, col5];
+        data_info.push($subDate);
+    });
+
+    addLabel();
+
+</script>
+

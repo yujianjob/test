@@ -1,0 +1,65 @@
+﻿@{
+    //ViewBag.Title = "首页";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home", new { index = "home" });}
+
+<!--内容-->
+<div id="home">
+    <div class="homeZuo left">
+        @{Html.RenderAction("IndexLeftNav");}
+        <div class="homeZuoBox">
+            <h2>微信服务<span><a href="/Activities/weixin" target="_blank">查看&gt;&gt;</a></span></h2>
+            <div class="hdbanner">
+                <ul>
+                    <li><a href="/Activities/weixin" target="_blank"><img src="/Content/images/s-cpsjt-pic.jpg" width="211" height="189" /></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="homeZuoBox">
+            <h2>洗衣小常识<span><a href="/Home/LaundryTips">更多&gt;&gt;</a></span></h2>
+            <div class="homeZuoSense">
+                <ul>
+                    <li><a href="~/Home/TipsShow/04" target="_blank">1、怎样决定洗衣粉用量</a></li>
+                    <li><a href="~/Home/TipsShow/01" target="_blank">2、白色衣物染色怎么办？</a></li>
+                    <li><a href="~/Home/TipsShow/03" target="_blank">3、毛衣缩水怎么办？</a></li>
+                    <li><a href="~/Home/TipsShow/05" target="_blank">4、皮包应该如何保养与护理？</a></li>
+                    <li><a href="~/Home/TipsShow/11" target="_blank">5、怎样清洗衣物上的果汁？</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="homeYou right">
+        <div class="homeBanner">
+            <span class="left-arrow"></span>
+            <span class="right-arrow"></span>
+            <ul>
+                <li><a href="/Activities/Recruit"><img src="~/Content/Images/home-hyzm-banner.jpg" width="750" height="370" title="会员招募" /></a></li>
+                <li><a href="/Activities/Bossmad"><img src="~/Content/Images/home-lpb-banner.jpg" width="750" height="370" title="老板疯了" /></a></li>
+                <li><a href="/Activities/RegGifts" target="_blank"><img src="~/Content/Images/home-zcsl-banner.jpg" width="750" height="371" title="注册送礼" /></a></li>
+                <li><a href="/Activities/SummerWear" target="_blank"><img src="~/Content/Images/home-xzxd-banner.jpg" width="750" height="371" title="夏装洗涤" /></a></li>
+                <li><a href="/Activities/FourPiece" target="_blank"><img src="~/Content/Images/home-cpsjt-banner.jpg" width="750" height="371" title="床品四件套" /></a></li>
+                <li><a href="/Activities/WinterWear" target="_blank"><img src="~/Content/Images/home-dzby-banner.jpg" width="750" height="371" title="冬装保养" /></a></li>
+                <li><a href="/Activities/Core" target="_blank"><img src="~/Content/Images/home-hxys-banner.jpg" width="750" height="371" title="核心优势" /></a></li>
+                <li><a href="/Activities/weixin" target="_blank"><img src="~/Content/Images/home-ewm-banner.jpg" width="750" height="371" title="微信服务" /></a></li>
+            </ul>
+            <dl>
+                <dt class="this"></dt>
+                <dt></dt>
+                <dt></dt>
+                <dt></dt>
+                <dt></dt>
+                <dt></dt>
+                <dt></dt>
+                <dt></dt>
+            </dl>
+        </div>
+        @{Html.RenderAction("IndexDayTop");}
+        <div class="homeYouBox">
+            <div class="homeYouTitle">送衣流程</div>
+            <div class="homeImg"><img src="~/Content/Images/pic_03.jpg" width="743" height="168" /></div>
+        </div>
+    </div>
+</div>

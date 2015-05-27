@@ -1,0 +1,14 @@
+﻿  <!--网站侧边导航 start-->
+<div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+        <li class="sidebar-brand"> <img src="/Img/logo.png"> </li>
+        <li> <a class="active" href="/Wash" onclick="ga('send','event','左导航','洗涤服务','左导航_列表');"> <span class="icon-white-xdfw"></span> <span class="nav-title">洗涤服务</span></a></li>
+        <li> <a href="/Cart/OneKey" onclick="ga('send','event','左导航','一键下单','左导航_列表');"> <span class="icon-white-hl"></span> <span class="nav-title">一键下单</span> </a> </li>
+        <li> <a href="/Activites" onclick="ga('send', 'event', '左导航', '缤纷活动', '左导航_列表');"> <span class="icon-white-bfhd"></span> <span class="nav-title">缤纷活动</span> </a> </li>
+        <li> <a href="/Member/MyOrders" onclick="ga('send','event','左导航','我的订单','左导航_列表');"> <span class="icon-white-myorder"></span> <span class="nav-title">我的订单</span> </a> </li>
+        <li> <a href="/Member/HistoryOrder" onclick="ga('send','event','左导航','历史订单','左导航_列表');"> <span class=" icon-white-history"></span> <span class="nav-title">历史订单</span> </a> </li>
+        <li> <a href="/Home/Help" onclick="ga('send','event','左导航','帮助与反馈','左导航_列表');"> <span class="icon-white-fback"></span> <span class="nav-title">帮助与反馈</span> </a> </li>
+        <li> <a href="/Home/About" onclick="ga('send','event','左导航','关于懒到家','左导航_列表');"> <span class="icon-white-about"></span> <span class="nav-title">关于懒到家</span> </a> </li>
+    </ul>
+</div>
+<!--网站侧边导航 end-->

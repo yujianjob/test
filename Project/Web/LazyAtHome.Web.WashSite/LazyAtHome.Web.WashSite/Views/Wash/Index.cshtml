@@ -1,0 +1,118 @@
+﻿@model IList<LazyAtHome.WCF.Wash.Contract.DataContract.web.web_Wash_ClassDC>
+@{
+    //ViewBag.Title = "洗涤服务";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home", new { index = "wash" });}
+
+<!--内容-->
+<div id="content">
+    @if (Model.Count > 0)
+    {
+        <div class="contentZuo contentZuoNav washingNav left">
+            <ul>
+                @foreach (var item in Model)
+                {
+                    <li><a href="#F@(item.ID)">@item.Name</a></li>
+                }
+            </ul>
+        </div>
+
+        <div class="contentYou right">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <div class="contentYouTitle"><span><b>@(i + 1)F.</b>@Model[i].Name</span><a name="F@(Model[i].ID)"></a></div>
+                <div class="contentYouList">
+                    <dl class="left">@Model[i].Name</dl>
+                    <ul class="right">
+                        @foreach (var item in Model[i].CategoryList)
+                        {
+                            <li><a href="@Url.Action("Show", "Wash", new { id = @item.ID })" class="contentYouListImg"><img data-original="@item.PictureM" src="" width="137" height="137" /></a><p>@item.Name<span>￥<b>@item.SalesPriceInterval</b></span></p></li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="contentYou" style="width:1000px">
+            <div class="contentYouTitle"><span style="width:300px; text-align:left;">找到 0 个 <b>[@ViewBag.KeyWord]</b> 的搜索结果</span></div>
+            <div class="contentYouList" style="background:none">
+                <p style="text-align:center;font-size:16px; padding:50px 0 100px 0;">抱歉,没有找到您要搜索的</p>
+            </div>
+        </div>
+
+    }
+</div>
+@section scripts
+{
+    @Scripts.Render("~/Scripts/jquery.lazyload.min.js");
+    <script language="javascript" type="text/javascript">
+        $(function () {
+            $('.titleCart dl').hover(function () {
+                $(this).find('ul').show();
+            }, function () {
+                $(this).find('ul').hide();
+            })
+            $('.washingNav li').click(function () {
+                $('.contentZuoNav li').find('a').removeClass('this');
+                $(this).find('a').addClass('this');
+            })
+            $("img").lazyload({ effect: "fadeIn" });
+        })
+        //左侧导航锚点
+        var dis_w = 0;
+        (function subNavPos() {
+            var t_h = $(".washingNav").offset().top;
+            dis_w = $("#content").offset().left;
+            $(window).bind("resize", function () {
+                dis_w = $("#content").offset().left;
+                var scroll_t = $(window).scrollTop();
+                if (scroll_t >= t_h && dis_w > 0) {
+                    $(".washingNav").css({
+                        'position': 'fixed',
+                        left: dis_w,
+                        top: 0,
+                        'marginTop': 0
+                    });
+                }
+                if (scroll_t >= t_h && dis_w <= 0) {
+                    $(".washingNav").css({
+                        'position': 'fixed',
+                        left: 0,
+                        top: 0,
+                        'marginTop': 0
+                    });
+                }
+                setPos(dis_w);
+            });
+            $(window).scroll(function () {
+                setPos(dis_w);
+            });
+            function setPos(dis_w) {
+                var scroll_t = $(window).scrollTop();
+                if (scroll_t >= t_h + 50) {
+                    $(".washingNav").css({
+                        'position': 'fixed',
+                        left: dis_w,
+                        top: 0
+                    });
+                } else {
+                    $(".washingNav").css({
+                        'position': '',
+                        left: 0,
+                        top: 0
+                    });
+                }
+                var mt = $(document).height() - 246 - $(".washingNav").height() - scroll_t;
+                if (mt > 0) mt = 0;
+                $(".washingNav").css({
+                    'marginTop': mt
+                });
+            }
+        })();
+    </script>
+}

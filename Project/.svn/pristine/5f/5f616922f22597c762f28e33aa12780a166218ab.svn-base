@@ -1,0 +1,65 @@
+﻿@{
+    //ViewBag.Title = "懒到家邀您实惠洗衣啦";
+}
+
+
+<div class="page-content inset service-fee">
+    <div class="row">
+        <div class="col-md-7 col-md-offset-1">
+            <a href="@Url.Action("Index")" class="btn btn-danger btn-md" style="margin-bottom:20px">返回</a>
+            <div class="activityBox">
+                <div class="banner">
+                    <img src="/img/activity/banner.jpg">
+                </div>
+                <div class="pic">
+                    <img src="/img/activity/pic1.jpg">
+                </div>
+                <div class="pic">
+                    <img src="/img/activity/pic2.jpg">
+                </div>
+                <p>
+                    <strong>【活动详情】</strong><br>
+                    还记得懒到家6元春秋装、9元洗秋冬装的活动嘛？深受大众喜爱呢，为了回馈新老用户的大力支持，懒到家携手到喜啦为广大群众派送好礼啦，即日起关注懒到家官方微博并@懒到家@到喜啦及3位好友，或通过微信分享(微信图文消息链接)到朋友圈，截图发送到懒到家生活服务微信；均可参与抽奖活动，参与者即可赢得一次免费洗的尊贵服务，还有机会赢得到喜啦提供的“120粒好时臻吻”巧克力大礼包。
+                </p>
+                <div class="pic">
+                    <img src="/img/activity/pic3.jpg">
+                </div>
+                <p>
+                    <strong>【参与方式】</strong><br>
+                    1、通过新浪微博转发本活动，并@懒到家@到喜啦及3位好友；<br>
+                    2、通过微信分享到朋友圈，截图发送到懒到家生活服务微信；<br>
+                    3、通过以上两种方式均可参与抽奖：<br>
+                    幸福懒人奖：到喜啦豪华巧克力大礼包（120粒好时臻吻巧克力）<br>
+                    幸运参与奖：参与即可拥有一次懒到家免费洗衣体验
+                </p>
+                <div class="pic">
+                    <img src="/img/activity/pic4.jpg" style="width:100%;">
+                </div>
+                <p>
+                    <strong>【活动规则】</strong><br>
+                    @*1、活动时间：#######   <br>
+                    2、活动对象：上海用户<br>
+                    3、每个ID只能领取1次奖品   <br>
+                    4、免费洗仅适用于6元专区或9元专区的洗涤产品。  <br>
+                    5、本活动最终解释权归懒到家所有！*@
+
+                    1、活动对象：上海用户<br>
+                    2、每个ID只能领取1次奖品   <br>
+                    3、免费洗仅适用于6元专区或9元专区的洗涤产品。  <br>
+                    4、本活动最终解释权归懒到家所有！
+                </p>
+                <div class="ewm">
+                    <div class="cont">
+                        <img src="/img/activity/ewmpic1.jpg">
+                        <img src="/img/activity/ewmpic2.jpg">
+                        <span>
+                            <strong>扫码下载  关注更多甜蜜信息</strong><br>
+                            当你还在恋爱时，结婚预订专家“到喜啦”已经为亲准备好一切！扫码下载“到喜啦手机APP”，免费礼券等你领！本活动由到喜啦app亲情赞助。
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

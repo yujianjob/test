@@ -1,0 +1,94 @@
+﻿@model LazyAtHome.WCF.OrderSystem.Contract.DataContract.Order_OrderDC
+@{
+    Layout = null;
+    ViewBag.Title = "订单详情";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>@ViewBag.Title</title>
+    <meta name="keywords" content="@ViewBag.Keywords" />
+    <meta name="description" content="@ViewBag.Description" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="Shortcut icon" href="/img/landaojia.ico" type="image/x-icon" />
+    <link href="/Content/bootstrap.css" rel="stylesheet">
+    <link href="/Content/ldj.css" media="screen" rel="stylesheet">
+    <script src="/Scripts/jquery-2.1.1.js"></script>
+
+</head>
+<body>
+    @{decimal totalMoney = 0;}
+<div class="page-content inset myorder" style="margin: 20px auto">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2" style="padding-left:0; padding-right:0">
+            @*<a class="pull-right btn btn-sm btn-danger" href="/Member/HistoryOrder" style="margin-bottom:20px;">返回</a>*@
+            <div style="clear:both"></div>
+            <div class="order-detail">
+                <div class="container-fluid">
+                    <div class="row">
+
+                        @{
+                            if (Model == null)
+                            {
+                                <div class="receive-ifo">
+                                    <h2>订单不存在</h2>
+                                </div>
+                            }
+                            else
+                            { 
+                                <div class="receive-ifo" style="padding:0 0px">
+                                    <h2 style="margin-left:-10px">订单编号：@Model.OrderNumber</h2>
+                                    @*<p>
+                                        收货人：@Model.GetAddress.Consignee<br>
+                                        地址：@Model.GetAddress.Address<br>
+                                        手机号码：@Model.GetAddress.Mpno<br>
+                                        电子邮件：@Model.GetAddress.Email
+                                    </p>*@
+                                </div>
+                                @*<div class="payMethod"><h2>支付方式</h2>货到付款</div>*@
+                                <div class="proinfo" style="padding:0 0px">
+                                    <h2 style="text-indent:10px">产品信息：</h2>
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>名称</th>
+                                                <th>单价</th>
+                                                <th>数量</th>
+                                                <th>小计(元)</th>
+                                            </tr>
+                                        </thead>
+                                        @foreach (LazyAtHome.Web.Wash2.Models.ProductItemModel pItem in ViewBag.ProductList)
+                                        {
+                                            <tr><td>@pItem.ProductInfo.Name</td><td>￥@pItem.ProductInfo.Price</td><td>@(pItem.Count)件</td><td>￥@(pItem.ProductInfo.Price * pItem.Count)</td></tr>
+                                            totalMoney += pItem.ProductInfo.Price * pItem.Count;
+                                        }
+                                    </table>
+                                </div>
+                                <p style="text-align:right;padding-right:20px;border-top:1px dashed #ccc;padding-top:20px">
+                                    合计：￥@totalMoney<br />
+                                    @foreach (var amount in Model.AmountList)
+                                    {
+                                        @(amount.Content + "：￥" + @amount.Money)<br />
+                                    }
+                                    @foreach (var payment in Model.PaymentList)
+                                    {
+                                        @(UIHelper.ConvertPayMoneyType(payment.PayMoneyType) + "：￥-" + payment.PayMoney)<br />
+                                    }
+                                    <b>应付金额：<span class="total-price">￥@(Model.TotalAmount - Model.PayAmount)</span></b>
+                                </p>
+                            }
+                        }
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

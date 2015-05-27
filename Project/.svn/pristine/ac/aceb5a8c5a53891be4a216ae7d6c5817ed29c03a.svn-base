@@ -1,0 +1,37 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\chuanglian1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、窗帘一般应该每周去尘一次，尤其注意去除织物结构间的积尘。</p>
+				<p>2、如沾染上污渍，可用干净的抹布蘸水拭去。为免留下印记，最好从污渍外围抹起。</p>
+				<p>3、清洗时一定要注意窗帘的材质，普通布料窗帘可用湿布擦洗或水洗，易缩水的面料或进口高档面料建议选择干洗。</p>
+				<p>4、清洗窗帘不能使用含有漂白成分的洗涤剂，每过半年就应该清洗一次。</p>
+				<p>5、发现线头松脱，不可用手扯断，应用剪刀剪齐。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>设备过硬：国际领先的干洗设备，国际检测认证，真正健康环保的洗涤用品。<br />健康洗衣：100%杀菌消毒，100%专业洗涤，100%让您满意。<br />
+                超值服务：缓解您舟车劳顿之苦、48小时快速洗衣服务。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\chuanglian2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p> 窗帘挂久了由于沾染灰尘会变得色泽暗淡。机洗会使窗帘变得皱巴巴的，甚至还会缩水导致窗幔衔接不了，并且也失去了以往的光亮颜色，这样就不能起到装饰家居营造温馨的作用。各个房间的窗帘颜色不同，为避免混洗染色，必须分开洗涤，为此会给您的洗涤带来很大不便。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

@@ -1,0 +1,94 @@
+﻿@model LazyAtHome.Web.WebManage.Models.Express.ExpStorageItemModel
+
+@{
+    <script src="@Url.Content("~/Scripts/Express/expstorage.js")" type="text/javascript"></script>
+}
+<!--报错信息-->
+@Html.Raw(ViewBag.Script)
+
+<div class="pageContent">
+    <form method="post" action="@Url.Action("", "Express")" id="frmSaveExpStorage" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
+        <div class="pageFormContent" layouth="56">
+            <div class="panel">
+                <h1>基本信息</h1>
+                <div>
+                    @Html.HiddenFor(model => model.StorageItemInfo.ID)
+                    <div class="unit">
+                        <p>
+                            <label>编号：</label>
+                            @Html.TextBoxFor(model => model.StorageItemInfo.Number, new { @readonly = "readonly" })
+                        </p>
+                        <p>
+                            <label>子编号：</label>
+                            @Html.TextBoxFor(model => model.StorageItemInfo.OtherNumber, new { @readonly = "readonly" })
+                        </p>
+                    </div>
+
+                    <div class="unit">
+                        <p>
+                            <label>物品名称：</label>
+                            @Html.TextBoxFor(model => model.StorageItemInfo.ItemName, new { @readonly = "readonly" })
+                        </p>
+                        <p>
+                            <label>物品描述：</label>
+                            @Html.TextBoxFor(model => model.StorageItemInfo.ItemDetail, new { @readonly = "readonly" })
+                        </p>
+                    </div>
+
+
+                    <div class="unit">
+                        <p>
+                            <label>物品类型：</label>
+                            @Html.HiddenFor(model => model.StorageItemInfo.ItemType)
+                            <input type="text" name="StorageItemInfo_ItemTypeDisplayName" id="StorageItemInfo_ItemTypeDisplayName" value="@UIHelper.FormatStorageItemType(Model.StorageItemInfo.ItemType)" readonly="readonly" />
+
+                            @*@Html.DropDownListFor(model => model.StorageItemInfo.ItemType, new SelectList(new List<SelectListItem> {
+                                new SelectListItem { Text = "包裹", Value = "1" },
+                                new SelectListItem { Text = "衣物", Value = "2" }},
+                                    "Value", "Text", Model.StorageItemInfo.ItemType), new { style = "width:80px;"})*@
+                        </p>
+                        <p>
+                            <label>当前所在地：</label>
+                            @Html.TextBoxFor(model => model.StorageItemInfo.StorageName, new { @readonly = "readonly" })
+                        </p>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="panel">
+                <h1>物品调整</h1>
+                <div>
+                    @Html.HiddenFor(model => model.StorageItemInfo.StorageID)
+                    @Html.Hidden("hdAdjustStorageItemUrl", @Url.Action("AdjustStorageItem"))
+
+                    <div>
+                        <dl class="nowrap">
+                            <dt>强归所在地：</dt>
+                            <dd>
+                                <input id="StorageInfo_TargetStorageID" name="StorageInfo.TargetStorageID" value="" type="hidden" />
+                                <input id="StorageInfo_TargetStorageType" name="StorageInfo.TargetStorageType" value="" type="hidden" />
+                                <input id="StorageInfo_TargetStorageName" name="StorageInfo.TargetStorageName" class="required" type="text" lookupgroup="StorageInfo" value="" readonly="readonly" />
+                                <a class="btnLook" href="@Url.Action("StorageView", "Express")" lookupgroup="StorageInfo">选择所在地</a>
+                                <span class="info">选择所在地</span>
+                                <div class="button"><div class="buttonContent"><button type="button" id="btnEditStorageItemIO">强归所在地</button></div></div>
+                            </dd>
+                        </dl>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="formBar">
+            <ul>
+                <!--<li><a class="buttonActive" href="javascript:;"><span>保存</span></a></li>-->
+                @*<li><div class="buttonActive"><div class="buttonContent"><button type="submit" id="btnSave">保存</button></div></div></li>*@
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>

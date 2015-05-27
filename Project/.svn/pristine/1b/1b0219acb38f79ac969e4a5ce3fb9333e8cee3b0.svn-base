@@ -1,0 +1,140 @@
+﻿@model LazyAtHome.Web.WebManage.Models.Express.ExpNodeListModel
+
+<form id="pagerForm" method="post" action="@Url.Action("SearchExpNodeForOrder")">
+    <input type="hidden" name="status" value="@Model.SearchInfo.status">
+    <input type="hidden" name="keywords" value="@Model.SearchInfo.keywords" />
+    <input type="hidden" name="pageNum" value="@Model.SearchInfo.pageNum" />
+    <input type="hidden" name="numPerPage" value="@Model.SearchInfo.numPerPage" />
+    <input type="hidden" name="orderField" value="@Model.SearchInfo.orderField" />
+</form>
+
+<!--报错信息-->
+@Html.Raw(ViewBag.Script)
+
+<!--搜索条-->
+<div class="pageHeader">
+    <form id="searchForm" onsubmit="return dwzSearch(this, 'dialog');" action="@Url.Action("SearchExpNodeForOrder")" method="post" rel="pagerForm">
+        <div class="searchBar">
+            <table class="searchContent">
+                <tr>
+                    <td>
+                        @*行政区划：@{Html.RenderAction("Divisions", "Common", new { id = Model.SearchInfo.DistrictID == null ? 0 : Model.SearchInfo.DistrictID, bindName = "BDVIdL" });}*@
+                        区域：@Html.DropDownList("AreaID", (SelectList)(ViewData["AreaID"]), new { style = "width:80px;" })
+                    </td>
+                    <td>
+                        站点名称：<input type="text" name="name" value="@Model.SearchInfo.Name" maxlength="20" />
+                    </td>
+                    <td>
+                        站点类型：
+                        @Html.DropDownList("Type", new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text="请选择", Value = "-1" },
+                            new SelectListItem { Text="站点", Value = "1" },
+                            new SelectListItem { Text="干线", Value = "2" },
+                            new SelectListItem { Text="工厂", Value = "3" }},
+                                              "Value", "Text", Model.SearchInfo.Type))
+                    </td>
+                    
+                </tr>
+            </table>
+            <input type="hidden" name="source" value="@Model.SearchInfo.Source" />
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+                    @*<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>*@
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="pageContent">
+    <!--功能按键-->
+    <div class="panelBar">
+        <ul class="toolBar">
+            @*<li><a class="add" href="@Url.Action("")?nid=0" target="navTab" rel="expnodedit" title="添加"><span>添加</span></a></li>*@
+            @*<li><a class="delete" href="@Url.Action("DeleteActivity")?aid={aid}" target="ajaxTodo" title="确定要删除吗?"><span>删除</span></a></li>*@
+            @*<li><a class="edit" href="@Url.Action("")?nid={nid}" target="navTab" rel="expnodedit" title="查看物流订单"><span>查看</span></a></li>*@
+            @*<li class="line">line</li>*@
+            @*<li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targettype="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>*@
+        </ul>
+    </div>
+
+    <!--列表页-->
+    <table class="table" width="100%" layouth="137">
+        <thead>
+            <tr>
+                <th width="10" align="center"></th>
+                <th width="80" align="center">选择</th>
+                <th width="80" align="center">ID</th>
+                <th width="100" align="center">编号</th>
+                <th width="100" align="center">点位名称</th>
+                <th width="100" align="center">类型</th>
+                <th width="120" align="center">地址</th>
+                <th width="120" align="center">经度</th>
+                <th width="100" align="center">纬度</th>
+                <th width="120" align="center">创建时间</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (@Model.ExpNodeList != null)
+            {
+                int no = 1;
+                foreach (var item in @Model.ExpNodeList)
+                {
+                    <tr target="nid" rel="@item.ID">
+                        <td>@(no++)</td>
+
+                        @{
+                            if (Model.SearchInfo.Source == 1 || Model.SearchInfo.Source == 3)
+                            {
+                                <td><a class="btnSelect" href="javascript:$.bringBack({NodeID:'@item.ID', NodeName:'@item.Name'})" title="选中后返回">选择</a></td>
+                            }
+                            else if (Model.SearchInfo.Source == 2)
+                            { 
+                                <td><a class="btnSelect" href="javascript:$.bringBack({ParentID:'@item.ID', ParentName:'@item.Name'})" title="选中后返回">选择</a></td>
+                            }
+                        }
+
+                        
+                        <td>@item.ID</td>
+                        <td>@item.No</td>
+                        <td>@item.Name</td>
+                        <td>@UIHelper.FormatNodeType(item.Type)</td>
+                        <td>@item.Address</td>
+                        <td>@item.Longitude</td>
+                        <td>@item.Latitude</td>
+                        <td>@UIHelper.FormatDate(item.Obj_Cdate)</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+    <!--分页条-->
+    <div class="panelBar">
+        <script type="text/javascript">
+            $(function () {
+                $("#@Model.SearchInfo.numPerPageName").attr("value", "@Model.SearchInfo.numPerPage");
+            });
+        </script>
+        <div class="pages">
+            <span>显示</span>
+            <select onchange="dwzPageBreak({targetType:dialog, numPerPage: this.value })" class="combox" id="@Model.SearchInfo.numPerPageName" name="@Model.SearchInfo.numPerPageName">
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+            <span>条，共 @Model.SearchInfo.RecCount 条</span>
+        </div>
+
+        <div class="pagination" targettype="dialog" totalcount="@Model.SearchInfo.RecCount" numperpage="@Model.SearchInfo.numPerPage" pagenumshown="@Model.SearchInfo.pageNumShown" currentpage="@Model.SearchInfo.pageNum"></div>
+    </div>
+</div>
+
+
+
+

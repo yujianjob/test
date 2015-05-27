@@ -1,0 +1,42 @@
+﻿
+@{
+    //ViewBag.Title = "找回密码";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--内容-->
+<div id="password">
+    <div class="password">
+        <div class="passwordTitle">找回密码</div>
+        <div class="passwordBox">
+            <div class="passwordUrl"><img src="~/Content/Images/password_03.gif" /></div>
+            <div class="password_01">
+                <form action="password_04.html" method="post">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td align="right">请输入新密码：</td>
+                            <td><input name="" type="text" class="srk" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" height="18">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="290">再次确认密码：</td>
+                            <td><input name="" type="text" class="srk" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" height="35">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td><input name="" type="submit" value="确认" class="anniu"></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="passwordBottom"><img src="~/Content/Images/reg_01.gif" /></div>
+</div>
+
+

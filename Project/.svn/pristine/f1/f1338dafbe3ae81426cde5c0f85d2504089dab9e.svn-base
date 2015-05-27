@@ -1,0 +1,77 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+</head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta content="minimum-scale=1.0, width=device-width, maximum-scale=3" name="viewport" />
+<link rel="stylesheet" type="text/css" href="~/Content/gw-3.css" />
+<body>
+    <div class="Meng">
+        <ul style="background:#171717;">
+            <li class="lis"><a><img src="~/Content/img/4.jpg" /></a></li>
+            <li class="get"><a><img src="~/Content/img/qw.jpg" /></a></li>
+            <div style="clear:both;"></div>
+        </ul>
+        <div class="Hg">
+            <li class="KL"><img src="~/Content/img/gwc.jpg" /></li>
+            <li class="JSD">
+                JackJones杰克晾斯纯棉男士提华病接男士长袖衬衫W|213405026030<br />
+                单价：￥499.0
+            </li>
+        </div>
+        <div class="KF">
+            <ul>
+                <li class="ge"><img src="~/Content/img/gwc4.jpg" /></li>
+                <li class="FE"><a href="#"><img src="~/Content/img/gwc2.jpg" /></a></li>
+                <p class="topp">
+                    数量：
+                    <input type="text" value="1" />
+                </p>
+                <li class="ER">共计：￥499.00</li>
+            </ul>
+        </div>
+
+        <div class="Hg">
+
+            <li class="KL"><img src="~/Content/img/gwc.jpg" /></li>
+            <li class="JSD">
+                JackJones杰克晾斯纯棉男士提华病接男士长袖衬衫W|213405026030<br />
+                单价：￥499.0
+            </li>
+        </div>
+        <div class="KF">
+            <ul>
+                <li class="ge"><img src="~/Content/img/gwc4.jpg" /></li>
+                <li class="FE"><a href="#"><img src="~/Content/img/gwc2.jpg" /></a></li>
+                <p class="topp">
+                    数量：
+                    <input type="text" value="1" />
+                </p>
+                <li class="ER">共计：￥499.00</li>
+            </ul>
+        </div>
+
+        <div class="Cheng">
+            <p style="font-size:36px;margin:24px 27px;">付款方式：在线支付</p>
+            <p style="text-align:center;"><img src="~/Content/img/gwc6.jpg" /></p>
+            <ul>
+                <li class="CF"><img src="~/Content/img/gwc4.jpg" /></li>
+                <li class="SF">全选</li>
+                <li style="margin:-59px 218px;">共计：￥499.00</li>
+                <li style="margin:-27px 56px;
+float: right;"><img src="~/Content/img/gwc1.jpg" /></li>
+            </ul>
+        </div>
+        <div style="margin-top: -36px;">
+            <img src="~/Content/img/gwc7.jpg" />
+        </div>
+    </div>
+</body>
+</html>

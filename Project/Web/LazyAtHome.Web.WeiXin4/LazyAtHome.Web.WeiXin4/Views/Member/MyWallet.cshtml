@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "我的钱包";
+}
+
+<section>
+    <div class="WalletBox">
+        <div class="unit" onclick="location.href = '/Member/MyBonusesList?MPNo=@(ViewBag.MPNo)'">
+            <span class="bt">我的红包</span>
+            <span class="num">@ViewBag.Bonuses</span>
+        </div>
+        <div class="unit" >
+            <span class="bt">余额</span>
+            <span class="num">￥@ViewBag.Money</span>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,36 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\ditan1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、在清洗地毯时注意将地毯下面的地板清扫干净。 </p> 
+				<p>2、地毯铺几年后要调整一下位置，使之磨损均匀。 </p> 
+				<p>3、可以用醋消除地毯上的宠物异味。</p>
+				<p>4、可用干布或面纸吸取水份，可用白酒或酒精擦除地毯上的咖啡渍。</p>
+				<p>5、用塑料袋装上冰块的方法可以清除黏附在地毯上的口香糖。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>多数传统干洗店由于店面空间有限导致地毯清洗不彻底，还容易造成二次污染。懒到家洗涤工厂规模大，能为您提供更全面贴心的服务。家用地毯可以考虑3-6个月清洗一次为宜。单位地毯建议2-3个月清洗一次，公共地毯最好15-20天清洗一次。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\ditan2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>因为地毯织品大多经纬线较粗，空隙较大，最易积聚灰尘。而微量的灰尘逸散到室内空气中，会污染室内空气，更会导致一些微生物如蜱螨的繁殖，蜱螨一旦进入肺或支气管，会使人体发病。尤其是长毛绒地毯，更容易储存一些杂物而不易被清理。保持居室美观的同时，也不要忽略室内空气的质量啊！</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

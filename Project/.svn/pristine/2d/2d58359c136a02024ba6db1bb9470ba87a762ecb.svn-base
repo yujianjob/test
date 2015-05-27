@@ -1,0 +1,133 @@
+﻿@model IList<LazyAtHome.WCF.UserSystem.Contract.DataContract.User_CardDC>
+@{
+    ViewBag.Title = "我的懒人卡";
+}
+<div class="page-content inset mylanren-card">
+    <div class="row" style="padding-top:40px">
+        <div class="col-md-9 col-md-offset-1">
+            <div class="lrk-bind">
+                <h3>懒人卡绑定</h3>
+                <div class="row">
+                    <div class="cardn col-lg-2" style="padding-left:15px;">懒到家卡密:</div>
+                    <div class="col-lg-10">
+                        <input id="pw1" name="pw1" onkeyup="FuncCheckPass(this)" type="text" style="width:16%"> - <input id="pw2" name="pw2" onkeyup="FuncCheckPass(this)" type="text" style="width:16%"> -
+                        <input id="pw3" name="pw3" onkeyup="FuncCheckPass(this)" type="text" style="width:16%"> - <input id="pw4" name="pw4" onkeyup="FuncCheckPass(this)" type="text" style="width:16%">
+                        <a class="btn btn-danger pull-right btn-lg bind-btn" onclick="FuncBindCard();">绑 定</a>
+                        <div class="help-block">卡密不区分大小写</div>
+
+                    </div><!-- /.col-lg-6 -->
+                </div>
+            </div>
+            <div class="panel-group" id="accordion">
+                @foreach (var item in Model)
+                {
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <div class="lf">
+                                    <span class="card-number">@item.Number</span><br>
+                                    <span class="binding-time">有效期：@item.ExpiryDate.ToString("yyyy年MM月dd日")</span>
+                                </div>
+                                <div class="ctr">余额:￥@item.Money</div>
+                                <div class="rt"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="lrkCollapse(this);">∧ </a> </div>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-xs-11 col-sm-11 col-xs-offset-1 col-sm-offset-1" style="padding-left:0px">
+                                        <table class="table">
+                                            @if (item.CardLogList != null)
+                                            {
+                                                foreach (var log in item.CardLogList)
+                                                {
+                                                    <tr>
+                                                        <td>@log.Obj_Cdate.Value.ToString("yyyy.MM.dd HH:mm")</td>
+                                                        <td>@UIHelper.ConvertCardLogType(log.Type)</td>
+                                                        <td>￥@log.Money</td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script language="javascript" type="text/javascript">
+        function FuncCheckPass(obj) {
+            if (!obj.value.match("^[0-9a-fA-F]{1,4}$"))
+                obj.value = obj.value.substr(0, obj.value.length - 1).toUpperCase();
+            else
+                obj.value = obj.value.toUpperCase();
+            if (obj.value.length == 4) {
+                switch (obj.name) {
+                    case "pw1":
+                        pw2.focus();
+                        break;
+                    case "pw2":
+                        pw3.focus();
+                        break;
+                    case "pw3":
+                        pw4.focus();
+                        break;
+                }
+            }
+        }
+
+        function FuncBindCard() {
+            if (pw1.value.length != 4) {
+                pw1.focus();
+                return false;
+            }
+
+            if (pw2.value.length != 4) {
+                pw2.focus();
+                return false;
+            }
+
+            if (pw3.value.length != 4) {
+                pw3.focus();
+                return false;
+            }
+
+            if (pw4.value.length != 4) {
+                pw4.focus();
+                return false;
+            }
+
+            var sPass = pw1.value + pw2.value + pw3.value + pw4.value;
+            var postData = { "cardPass": sPass };
+
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("User_BindCard", "Member")",
+                data: postData,
+                dataType: "json",
+                success: ProcessCardBind,
+                error: function (msg) {
+                    showPopDiv(msg.toString(), false);
+                }
+            });
+        }
+
+        function ProcessCardBind(resultJson) {
+            if (resultJson != null) {
+                if (resultJson.Code == 1) {
+                    pw1.value = ""; pw2.value = ""; pw3.value = ""; pw4.value = "";
+                    showPopDiv("绑定成功", true);
+                }
+                else {
+                    showPopDiv(resultJson.Msg, false);
+                }
+            }
+        }
+    </script>
+}

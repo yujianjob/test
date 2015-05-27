@@ -1,0 +1,11 @@
+﻿<div id="nav">
+    <div class="nav">
+        <ul>
+            <li><a href="@Url.Action("Index","Home")" @UIHelper.NavStyleSelect(ViewBag.Index, "home")>首页<p>Home</p></a></li>
+            <li><a href="@Url.Action("Index","Wash")" @UIHelper.NavStyleSelect(ViewBag.Index, "wash")>洗涤服务<p>Washing</p></a></li>
+            <li><a href="@Url.Action("Index", "Luxury")" @UIHelper.NavStyleSelect(ViewBag.Index, "luxury")>奢侈品保养<p>Luxury</p></a></li>
+            <li><a href="@Url.Action("Index", "LazyArtifact")" @UIHelper.NavStyleSelect(ViewBag.Index, "lazypack")>懒人神器<p>Lazy Artifact</p></a></li>
+            <li><a href="@Url.Action("Index", "Activities")" @UIHelper.NavStyleSelect(ViewBag.Index, "app")>主题活动<p>Theme Activity</p></a></li>
+        </ul>
+    </div>
+</div>

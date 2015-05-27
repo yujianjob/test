@@ -1,0 +1,206 @@
+﻿@model LazyAtHome.Web.WebManage.Models.Category.CategoryModel
+@{
+    <script src="@Url.Content("~/Scripts/Common/uploadifyimage.js")" type="text/javascript"></script>
+}
+
+<!--报错信息-->
+@Html.Raw(ViewBag.Script)
+
+<div class="pageContent">
+    <form method="post" action="@Url.Action("SaveCategory", "Category")" id="frmSaveCategory" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
+        <div class="pageFormContent" layouth="56">
+            <div class="panel">
+                <h1>基本信息</h1>
+                <div>
+                    @Html.HiddenFor(model => model.CategoryInfo.ID)
+                    <p>
+                        <label>产品编号：</label>
+                        @Html.TextBoxFor(model => model.CategoryInfo.Code, new { @maxlength = 20, @class = "required" })
+                    </p>
+                    <p>
+                        <label>产品名称：</label>
+                        @Html.TextBoxFor(model => model.CategoryInfo.Name, new { @maxlength = 50, @class = "required" })
+                    </p>
+                    <p>
+                        <label>产品类别：</label>
+                        @{Html.RenderAction("WashClass", "Common", new { pid = Model == null ? 0 : Model.CategoryInfo.ParentClassID, id = Model == null ? 0 : Model.CategoryInfo.ClassID, bindName = "BDVIdL" });}
+                    </p>
+                    <p>
+                        <label>单位：</label>
+                        @Html.TextBoxFor(model => model.CategoryInfo.Unit, new { @maxlength = 20, @class = "required" })
+                    </p>
+                    <p>
+                        <label>搜索关键字：</label>
+                        @Html.TextBoxFor(model => model.CategoryInfo.Keyword, new { @maxlength = 100, alt = "请以空格分隔" })
+                    </p>
+                    <p>
+                        <label>状态：</label>
+                        @Html.RadioButtonFor(model => model.CategoryInfo.Enable, 1, new { @checked = "checked" })在售
+                        @Html.RadioButtonFor(model => model.CategoryInfo.Enable, 0)下架
+                    </p>
+                    <p>
+                        <dl class="nowrap">
+                            <dt>描述：</dt>
+                            <dd>
+                                @Html.TextAreaFor(model => model.CategoryInfo.Content, new { @maxlength = 100, cols = "82", rows = "3", @class = "textarea" })
+                            </dd>
+                        </dl>
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="panel">
+                <h1>图片信息</h1>
+                <div>
+                    <table>
+                        <tr>
+                            <td width="200px" valign="top">
+                                <input id="categoryFileInputL" type="file" name="categoryimagel"
+                                       uploaderoption="{
+                                       swf:'../scripts/uploadify/scripts/uploadify.swf',
+                                uploader:'@Url.Action("UploadImage", "Category")',
+                                formData:{imagetype:'categoryimagel'},
+                                buttonText:'大图上传',
+                                fileSizeLimit:'200KB',
+                                fileTypeDesc:'*.jpg;*.jpeg;*.gif;*.png;',
+                                fileTypeExts:'*.jpg;*.jpeg;*.gif;*.png;',
+                                auto:true,
+                                multi:true,
+                                onUploadSuccess:uploadifyImageSuccess
+                                }" />
+
+                                @Html.HiddenFor(model => model.CategoryInfo.PictureL, new { id = "hdcategoryimagel" })
+                                <input type="hidden" id="hdcategoryimagelroot" value="@(LazyAtHome.Web.WebManage.CodeSource.Common.ConstConfig.IMAGE_PATH + LazyAtHome.Web.WebManage.CodeSource.Common.ConstConfig.CATEGORY_IMG_PATH)" />
+                                @{
+                                    string pathl = string.Empty;
+                                    if (!string.IsNullOrEmpty(Model.CategoryInfo.PictureL))
+                                    {
+                                        pathl = LazyAtHome.Web.WebManage.CodeSource.Common.ConstConfig.IMAGE_PATH + LazyAtHome.Web.WebManage.CodeSource.Common.ConstConfig.CATEGORY_IMG_PATH + Model.CategoryInfo.PictureL;
+
+                                    }
+                                    <img id="categoryimagel" alt="@Model.CategoryInfo.PictureL" src="@pathl" />
+                                }
+                            </td>
+                            <td width="200px" valign="top">
+                                <input id="categoryFileInputM" type="file" name="categoryimagem"
+                                       uploaderoption="{
+                                       swf:'../scripts/uploadify/scripts/uploadify.swf',
+                                uploader:'@Url.Action("UploadImage", "Category")',
+                                formData:{imagetype:'categoryimagem'},
+                                buttonText:'中图上传',
+                                fileSizeLimit:'200KB',
+                                fileTypeDesc:'*.jpg;*.jpeg;*.gif;*.png;',
+                                fileTypeExts:'*.jpg;*.jpeg;*.gif;*.png;',
+                                auto:true,
+                                multi:true,
+                                onUploadSuccess:uploadifyImageSuccess
+                                }" />
+
+                                @Html.HiddenFor(model => model.CategoryInfo.PictureM, new { id = "hdcategoryimagem" })
+                                <input type="hidden" id="hdcategoryimagemroot" value="@(LazyAtHome.Web.WebManage.CodeSource.Common.ConstConfig.IMAGE_PATH + LazyAtHome.Web.WebManage.CodeSource.Common.ConstConfig.CATEGORY_IMG_PATH)" />
+                                @{
+                                    string pathm = string.Empty;
+                                    if (!string.IsNullOrEmpty(Model.CategoryInfo.PictureM))
+                                    {
+                                        pathm = LazyAtHome.Web.WebManage.CodeSource.Common.ConstConfig.IMAGE_PATH + LazyAtHome.Web.WebManage.CodeSource.Common.ConstConfig.CATEGORY_IMG_PATH + Model.CategoryInfo.PictureM;
+
+                                    }
+                                    <img id="categoryimagem" alt="@Model.CategoryInfo.PictureM" src="@pathm" />
+                                }
+                            </td>
+                            <td width="200px" valign="top">
+                                <input id="categoryFileInputS" type="file" name="categoryimages"
+                                       uploaderoption="{
+                                       swf:'../scripts/uploadify/scripts/uploadify.swf',
+                                uploader:'@Url.Action("UploadImage", "Category")',
+                                formData:{imagetype:'categoryimages'},
+                                buttonText:'小图上传',
+                                fileSizeLimit:'200KB',
+                                fileTypeDesc:'*.jpg;*.jpeg;*.gif;*.png;',
+                                fileTypeExts:'*.jpg;*.jpeg;*.gif;*.png;',
+                                auto:true,
+                                multi:true,
+                                onUploadSuccess:uploadifyImageSuccess
+                                }" />
+
+                                @Html.HiddenFor(model => model.CategoryInfo.PictureS, new { id = "hdcategoryimages" })
+                                <input type="hidden" id="hdcategoryimagesroot" value="@(LazyAtHome.Web.WebManage.CodeSource.Common.ConstConfig.IMAGE_PATH + LazyAtHome.Web.WebManage.CodeSource.Common.ConstConfig.CATEGORY_IMG_PATH)" />
+                                @{
+                                    string paths = string.Empty;
+                                    if (!string.IsNullOrEmpty(Model.CategoryInfo.PictureS))
+                                    {
+                                        paths = LazyAtHome.Web.WebManage.CodeSource.Common.ConstConfig.IMAGE_PATH + LazyAtHome.Web.WebManage.CodeSource.Common.ConstConfig.CATEGORY_IMG_PATH + Model.CategoryInfo.PictureS;
+
+                                    }
+                                    <img id="categoryimages" alt="@Model.CategoryInfo.PictureS" src="@paths" />
+                                }
+
+
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="divider"></div>
+
+                    <div class="unit">
+                        <label>图片描述：</label>
+                        @Html.TextAreaFor(model => model.CategoryInfo.PictureAlt, new { @maxlength = 100, cols = "82", rows = "3", @class = "textarea" })
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+            @*<fieldset>
+                <legend>产品属性选择</legend>
+                @Html.HiddenFor(model => model.strAttributeIDSelected, new { id = "Chosesecond" })
+                @if (@Model.AttributeList != null)
+                {
+
+                    foreach (var item in Model.AttributeList)
+                    {
+                        <div id="tt" style="float:left; display:block; margin:10px; overflow:auto; width:200px; height:150px; border:solid 1px #CCC; line-height:21px; background:#FFF;">
+                            备选属性!
+                            <ul class="tree treeFolder expand">
+                                <li>
+                                    <a tname="first" tvalue="@item.ParentAttribute.ID">@item.ParentAttribute.Name</a>
+                                    <ul>
+                                        @if (item.SubAttributeList != null)
+                                        {
+                                            foreach (var subitem in item.SubAttributeList)
+                                            {
+
+                                                <li><label><input type="checkbox" id="@subitem.SubWashAttribute.ID" checked="@subitem.isSelected" />@subitem.SubWashAttribute.Name</label></li>
+                                            }
+                                        }
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+
+
+                }
+
+            </fieldset>*@
+
+
+
+
+</div>
+
+        <div class="formBar">
+            <ul>
+                <!--<li><a class="buttonActive" href="javascript:;"><span>保存</span></a></li>-->
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit" id="btnSave">保存</button></div></div></li>
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>

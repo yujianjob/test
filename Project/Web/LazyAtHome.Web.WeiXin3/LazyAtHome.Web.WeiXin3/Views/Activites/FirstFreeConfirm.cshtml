@@ -1,0 +1,70 @@
+﻿@model LazyAtHome.Web.WeiXin3.Models.RHModel
+@{
+    ViewBag.Title = "免洗订单确认";
+}
+
+<section>
+    <div class="addressModify">
+        <form>
+            <label><span>用户名</span> <input type="text" value="@Model.NickName" /></label>
+            <label><span>手机号</span><span class="qrTxt">@Model.MPNo</span></label>
+            <label
+                <span>送件地址</span><span class="qrTxt">@Model.Address</span>
+            </label>
+            <div style="clear:both"></div>
+            <label style="margin-bottom:0px">
+                <font style="color:#4cc7c8">产品信息</font>
+                <div class="proInfo">
+                    <table cellpadding="0" cellspacing="0" border="0" class="proListTable">
+                        <tbody>
+                            @foreach (var item in Model.ProductList)
+                            {
+                                <tr><td>@item.Product.Name</td><td>@(item.Count)件</td></tr>
+                            }
+                        </tbody>
+                    </table>
+                    <p>
+                        合计:￥@Model.TotalPrice<br>
+                        优惠金额:￥-@Model.TotalPrice<br>
+                        快递费:￥0.00<br>
+                        应付:<font class="red lg">￥0.00</font>
+                    </p>
+                </div>
+            </label>
+            <div class="addModifyGroup">
+                <button class="saveUserInfo-btn" type="button" onclick="formsubmit();">提交</button>
+                <button class="cancelUserInfo-btn" type="button">取消</button>
+            </div>
+
+        </form>
+    </div>
+</section>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+        });
+
+        function formsubmit() {
+            $.ajax({
+                type: "post",
+                url: "/Activites/FirstFreeSubmit",
+                dataType: "json",
+                success: function (resultJson) {
+                    if (resultJson != null) {
+                        if (resultJson.Code == 1) {
+                            showPopDiv("订单提交成功", true, null, resultJson.TagUrl);
+                            //window.location.href = resultJson.TagUrl;
+                        }
+                        else
+                            showPopDiv(resultJson.Msg);
+                    }
+                },
+                error: function (msg) {
+                    showPopDiv("服务器异常，请稍微再试");
+                }
+            });
+        }
+    </script>
+}

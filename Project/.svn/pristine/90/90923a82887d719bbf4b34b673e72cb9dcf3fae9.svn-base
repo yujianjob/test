@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/ldj.css" media="screen" rel="stylesheet">
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+</head>
+<body>
+<div class="how-it-works">
+	<div class="container-fluid">
+    	<div class="row">
+        	<div class="col-xs-12 col-md-7">
+                <div class="logo">
+                   <img src="img/home-logo.png" alt="">
+                </div>
+                <h2>足不出户 坐享洁净</h2>
+                <p>懒是一种生活品质 懒是一种生活态度</p>
+                <p>
+                <a class="btn btn-lg btn-primary btn-shadow bs3-link" href="我的订单.html" target="_blank" role="button">开始体验</a>
+               </p>
+               <span class="hr">◆</span>
+				<!--
+                <div class="serbar">
+                    <input type="text" placeholder="请输入您的手机号">
+                    <button class="serbtn">获取链接</button>
+                </div>-->
+                <div style="margin-top:30px">
+                    <a class="btn btn-danger btn-lg" style="background:#ff586c;margin-right:20px">登录</a>
+                    <a class="btn btn-danger btn-lg" style="background:#ff586c">注册</a>
+                </div>
+            </div>
+            <div class="col-md-5 hidden-xs">
+            	<img src="img/welcome-phone-3.png">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

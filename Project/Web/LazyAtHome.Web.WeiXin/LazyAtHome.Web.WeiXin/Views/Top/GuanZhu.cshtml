@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "25元现金免费领";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="reccashBox">
+    <h3>拉上小伙伴，25元现金免费领！</h3>
+    <span class="time">2014-6-22<a href="javascript:void(0)" target="_blank" onclick="Contact()">懒到家</a></span>
+    <div class="concernBanner"><img src="/images/concern-banner.jpg" /></div>
+    <div class="concernPro"><img src="/images/concern-pic.jpg" /></div>
+</div>
+
+@section scripts
+{
+@Scripts.Render("/Scripts/weixinShare.js?v=2014070801")
+    <script type="text/javascript">
+        $(window).load(function () {
+            $(".reccashBox").css({
+                "paddingBottom": 10
+            });
+        });
+        function Contact() {
+            alert("AddContact2");
+            AddContact2();
+            //var rtn = AddContact('gh_f48133ed2c12');
+            //if (rtn = "add_contact:added")
+            //    alert("您已经关注过了懒到家。" + rtn);
+            //else if (rtn == "add_contact:ok")
+            //    alert("关注懒到家成功" + rtn);
+        }
+    </script>
+}

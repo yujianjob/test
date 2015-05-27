@@ -1,0 +1,96 @@
+﻿@{
+    //ViewBag.Title = "床品四件套";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--活动主体内容 start-->
+<div id="activity-main">
+
+    <span class="title">活动中心</span>
+    <div class="cpsjt-banner"></div>
+    <!--立即下单 start-->
+    <div class="place-order">
+        <div class="item">
+            <div class="freecharge"></div>
+            <div class="p-img"><a href="/Wash/Show/62" target="_blank"><img src="http://img.landaojia.com/Category/zhentao002.png" /></a></div>
+            <p class="tit">
+                <span class="name">
+                    枕套 <br />
+                    <em>￥15.00</em>
+                </span>
+            </p>
+        </div>
+        <div class="add-icn"></div>
+        <div class="item">
+            <div class="freecharge"></div>
+            <div class="p-img"><a href="/Wash/Show/62" target="_blank"><img src="http://img.landaojia.com/Category/zhentao002.png" /></a></div>
+            <p class="tit">
+                <span class="name">
+                    枕套 <br />
+                    <em>￥15.00</em>
+                </span>
+            </p>
+        </div>
+        <div class="add-icn"></div>
+        <div class="item">
+            <div class="freecharge"></div>
+            <div class="p-img"><a href="/Wash/Show/63" target="_blank"><img src="http://img.landaojia.com/Category/chuangdan002.png" /></a></div>
+            <p class="tit">
+                <span class="name">
+                    床单 <br />
+                    <em>￥20.00</em>
+                </span>
+            </p>
+        </div>
+        <div class="add-icn"></div>
+        <div class="item">
+            <div class="freecharge"></div>
+            <div class="p-img"><a href="/Wash/Show/64" target="_blank"><img src="http://img.landaojia.com/Category/beitao002.png" /></a></div>
+            <p class="tit">
+                <span class="name">
+                    被套 <br />
+                    <em>￥30.00</em>
+                </span>
+            </p>
+        </div>
+        <div class="equal-icn"></div>
+        <div class="placeorder-price">
+            <p>
+                <label class="activity-price-tit">活动价:</label>
+                <span class="activity-price">50元</span>
+            </p>
+            <p>
+                <label class="original-price-tit">原&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价:</label>
+                <span class="original-price">80元</span>
+            </p>
+            <p><label>总优惠价:</label><span class="total-price">30元</span></p>
+            <a href="/Activities/Submit/1"><img class="placeorder-btn" src="~/Content/images/placeorder-btn.jpg" /></a>
+        </div>
+    </div>
+    <!--立即下单 end-->
+    <!--活动说明 start-->
+    <div class="activity-description">
+        <img src="~/Content/images/description-img.jpg" />
+        <div class="txt">
+            <h2>活动说明</h2>
+            <p>
+                懒到家上线啦！特大优惠空前绝后，原价80元的床上四件套（2枕套+床单+被套）洗涤，仅需50元即可，如此特惠活动怎能放过，赶快参与进来！<br />
+                选择懒到家，清凉一夏！
+            </p>
+        </div>
+    </div>
+    <!--活动说明 end-->
+    <!--温馨提醒 start-->
+    <div class="warm-reminder">
+        <div class="txt">
+            <h2>温馨提醒</h2>
+            <p>夏季来临，床单被套要勤洗勤换，以免螨虫袭来，影响睡眠以及健康，懒到家为你的健康生活负责，采用最新绿色洗涤技术，给你一个高质量睡眠。</p>
+        </div>
+        <img src="~/Content/images/reminder-img.jpg" />
+    </div>
+    <!--温馨提醒 end-->
+</div>
+<!--活动主体内容 end-->

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/ldj.css" media="screen" rel="stylesheet">
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/landaojia.js"></script>
+</head>
+<body >
+<div id="page-content-wrapper reg-page">
+	<div class="page-content">
+    	<div class="row reg-row">
+            <div class="col-md-12 full-width" >
+        	<img class="centered-logo" src="img/navbar-logo.png">
+            <div class="fade-in centered-box">
+            	<form method="post" action="">
+                   <header>
+                   		<a class="btn-prev" href="用户登录.html">‹</a>
+                        <h2>用户注册</h2>
+                   </header>
+                   <section class="reg-content">
+                        <div class="input-group">
+                        	<input type="text" placeholder="用户名/手机号">
+                            <p class="help-block">用户名输入错误</p>
+                        </div>                       
+                         <div class="input-group">
+                            <input type="text" placeholder="昵称">
+                        </div>
+                         <div class="input-group">
+                            <input type="text" placeholder="手机" class="radius-left b-half">
+                            <button type="button" class="radius-right s-half">获取验证码</button>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" placeholder="验证码">
+                        </div>
+                        <div class="input-group">
+                            <input type="text" placeholder="邮箱">
+                        </div>
+                       <div class="checkbox">
+                        <label>
+                          <input type="checkbox">我已阅读并同意 <a href="#">懒到家服务协议</a>
+                        </label>
+                       </div>
+                    </section>
+                    <button class="btn-lg btn-danger reg-btn">立即注册</button>
+                </form>
+            </div>
+        </div>  
+        </div>
+    </div>
+</div>
+</body>
+</html>

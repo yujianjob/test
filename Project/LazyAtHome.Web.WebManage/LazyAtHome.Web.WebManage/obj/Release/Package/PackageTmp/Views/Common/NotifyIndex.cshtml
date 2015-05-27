@@ -1,0 +1,152 @@
+﻿@model LazyAtHome.Web.WebManage.Models.Common.NotifyListModel
+
+<form id="pagerForm" method="post" action="@Url.Action("SearchNotify")">
+    <input type="hidden" name="status" value="@Model.SearchInfo.status">
+    <input type="hidden" name="keywords" value="@Model.SearchInfo.keywords" />
+    <input type="hidden" name="pageNum" value="@Model.SearchInfo.pageNum" />
+    <input type="hidden" name="numPerPage" value="@Model.SearchInfo.numPerPage" />
+    <input type="hidden" name="orderField" value="@Model.SearchInfo.orderField" />
+</form>
+
+<!--报错信息-->
+@Html.Raw(ViewBag.Script)
+
+<!--搜索条-->
+<div class="pageHeader">
+    <form id="searchForm" onsubmit="return navTabSearch(this);" action="@Url.Action("SearchNotify")" method="post" rel="pagerForm">
+        <div class="searchBar">
+            <table class="searchContent">
+                <tr>
+                    <td>
+                        事件编号：<input type="text" name="eventnumber" value="@Model.SearchInfo.EventNumber" maxlength="20" />
+                    </td>
+                    <td>
+                        订单编号：<input type="text" name="ordernumber" value="@Model.SearchInfo.OrderNumber" maxlength="20" />
+                    </td>
+                    <td>
+                        标题：<input type="text" name="title" value="@Model.SearchInfo.Title" maxlength="20" />
+                    </td>
+                    <td>
+                        事件等级：
+                        @Html.DropDownList("Level", new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text="全部", Value="-1"},
+                            new SelectListItem { Text="信息", Value = "2" },
+                            new SelectListItem { Text="通知", Value = "3" },
+                            new SelectListItem { Text="警告", Value = "4" }},
+                                "Value", "Text", Model.SearchInfo.Level))
+                    </td>
+
+                    <td>
+                        处理状态：
+                        @Html.DropDownList("NotifyStatus", new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text="全部", Value="-1"},
+                            new SelectListItem { Text="待处理", Value = "100" },
+                            new SelectListItem { Text="未处理", Value = "0" },
+                            new SelectListItem { Text="处理中", Value = "1" },
+                            new SelectListItem { Text="处理完成", Value = "2" },
+                            new SelectListItem { Text="关闭", Value = "6" }},
+                                "Value", "Text", Model.SearchInfo.NotifyStatus))
+                    </td>
+                </tr>
+
+            </table>
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+                    @*<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>*@
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="pageContent">
+    <!--功能按键-->
+    <div class="panelBar">
+        <ul class="toolBar">
+            @*<li><a class="add" href="@Url.Action("EditNotify")?nid=0" target="navTab" rel="notifyedit" title="添加"><span>添加</span></a></li>*@
+            @*<li><a class="delete" href="@Url.Action("DeleteNotify")?aid={aid}" target="ajaxTodo" title="确定要删除吗?"><span>删除</span></a></li>*@
+            <li><a class="edit" href="@Url.Action("EditNotify")?nid={nid}" target="navTab" rel="notifyedit" title="查看消息通知"><span>查看</span></a></li>
+            <li class="line">line</li>
+            @*<li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targettype="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>*@
+        </ul>
+    </div>
+
+    <!--列表页-->
+    <table class="table" width="100%" layouth="137">
+        <thead>
+            <tr>
+                <th width="10" align="center"></th>
+                <th width="120" align="center">事件编号</th>
+                <th width="120" align="center">订单号</th>
+                <th width="120" align="center">标题</th>
+                <th width="200" align="center">内容</th>
+                <th width="80" align="center">等级</th>
+                <th width="100" align="center">处理状态</th>
+                <th width="100" align="center">处理人</th>
+                <th width="120" align="center">创建时间</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (@Model.NotifyList != null)
+            {
+                int no = 1;
+                foreach (var item in @Model.NotifyList)
+                {
+                    <tr target="nid" rel="@item.ID">
+                        <td>@(no++)</td>          
+                        <td><a href="@Url.Action("EditNotify", new { nid = item.ID })" target="navTab" rel="notifyedit" title="查看消息通知">@item.EventNumber</a></td>
+                        @*<td><a href="@Url.Action("EditOrderByOrderNumber", "Order", new { onumber = item.OrderNumber })" target="navTab" rel="orderedit" title="订单详情">@item.OrderNumber</a></td>*@
+                        <td>@item.OrderNumber</td>
+                        <td>@item.Title</td>
+                        <td>@item.Content</td>
+                        <td>@UIHelper.FormatNotifyLevel(item.Level)</td>
+                        <td>@UIHelper.FormatNotifyStatus(item.NotifyStatus)</td>
+
+                        @{
+                            if (item.PersonnelID == 0)
+                            {
+                                <td><a href="@Url.Action("DealNotifyByIndex", new { notifyid = @item.ID })" target="navTab" class="btnEdit" rel="notifyedit" title="我来处理">我来处理</a></td>
+                            }
+                            else
+                            {
+                                <td>@item.PersonnelName</td>
+                            }
+                        }
+
+                        
+                        <td>@UIHelper.FormatDate(item.Obj_Cdate)</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+    <!--分页条-->
+    <div class="panelBar">
+        <script type="text/javascript">
+            $(function () {
+                $("#@Model.SearchInfo.numPerPageName").attr("value", "@Model.SearchInfo.numPerPage");
+            });
+        </script>
+        <div class="pages">
+            <span>显示</span>
+            <select class="combox" id="@Model.SearchInfo.numPerPageName" name="@Model.SearchInfo.numPerPageName" onchange="navTabPageBreak({numPerPage:this.value})">
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+            <span>条，共 @Model.SearchInfo.RecCount 条</span>
+        </div>
+
+        <div class="pagination" targettype="navTab" totalcount="@Model.SearchInfo.RecCount" numperpage="@Model.SearchInfo.numPerPage" pagenumshown="@Model.SearchInfo.pageNumShown" currentpage="@Model.SearchInfo.pageNum"></div>
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,25 @@
+﻿@model IList<LazyAtHome.WCF.Wash.Contract.DataContract.web.web_Wash_ProductDC>
+<div class="homeYouShop">
+    <div class="homeYouShopTitle">
+        <ul>
+            <li class="this">每日特惠</li>
+        </ul>
+    </div>
+    <div class="homeYouShopList">
+        <ul style="display:block;">
+            @for (int i = 0; i < 4; i++)
+            {
+                if (i >= Model.Count)
+                {
+                    break;
+                }
+                var item = Model[i];
+                <li>
+                    <a href="@Url.Action("Show", "Wash", new { id = item.CategoryID, subid = item.ID })"><img src="@item.PictureM" width="154" height="155" class="homeYouShopListImg" /></a>
+                    <p>@item.Name<span>￥<b>@item.SalesPrice.ToString("0")</b>.00</span></p>
+                    <a href="@Url.Action("CartAdd", "Cart", new { spid = item.ID, pcount = 1, submitType=1 })"><img src="~/Content/Images/addCart.gif" /></a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

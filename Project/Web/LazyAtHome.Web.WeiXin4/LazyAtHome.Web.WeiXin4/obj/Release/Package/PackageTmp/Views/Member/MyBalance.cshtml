@@ -1,0 +1,25 @@
+﻿@model IList<LazyAtHome.WCF.UserSystem.Contract.DataContract.User_AmountLogDC>
+@{
+    ViewBag.Title = "我的余额";
+}
+
+<section>
+    <div class="yuBox">总金额（元）<br><h2>￥@ViewBag.Balance</h2></div>
+    <div class="myBalance">
+        <div class="cont">
+            <p class="yup">余额明细</p>
+            <table cellpadding="0" cellspacing="0" border="0" class="yuTable">
+                <tbody>
+                    @foreach (LazyAtHome.WCF.UserSystem.Contract.DataContract.User_AmountLogDC item in Model)
+                    {
+                        <tr>
+                            <td width="50%">@item.Obj_Cdate.Value.ToString()</td>
+                            <td width="20%">@item.Content</td>
+                            <td width="30%" class="green">￥@(item.AfterValue-item.BeforeValue)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

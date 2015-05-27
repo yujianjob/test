@@ -1,0 +1,25 @@
+﻿
+@{
+    //ViewBag.Title = "支付成功";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--内容-->
+<div id="content">
+    <div id="cartTitle" class="cartTitle">支付订单<img src="~/Content/Images/cartTitle_04.gif" /></div>
+    <div class="height_50"></div>
+    <div class="cartPaymentOk">
+        <div class="cartPaymentOkPic"><img src="~/Content/Images/daDuihao.gif" /></div>
+        <h2>恭喜您，订单已提交成功！</h2>
+        <h3>订单号：@ViewBag.OrderNum</h3>
+        <ul><a href="@Url.Action("MyOrders","Member")" class="fanhui"></a><a href="@Url.Action("OrderDetail", "Member", new { orderNum = ViewBag.OrderNum })" class="xiangqing"></a></ul>
+        <dl>
+            <p>我们确认收到您的订单后，将在12小时内上门取件，请保持手机勈。</p>
+            <p>如有疑问，请<a href="#">与客服联系</a>。</p>
+            <p>您还可以到“<a href="/Member/MyOrders">我的订单</a>”中查看订单的最新状态。</p>
+        </dl>
+    </div>
+</div>

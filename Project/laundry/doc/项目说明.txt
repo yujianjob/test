@@ -1,0 +1,11 @@
+﻿laundry
+懒到家洗衣-洗衣工厂项目，主要包含2部分：洗衣工厂客户端和web服务端
+
+【模块介绍】
+laundry-client：洗衣工厂客户端系统，javaFx启动html5浏览器外壳，访问laundry-web的网页。调用本地摄像头、打印机、连接frid扫描等外设。
+laundry-common：公共层，基础方法，被其他模块依赖。
+laundry-dao：数据库访问层。
+laundry-service：(业务逻辑)服务层。
+laundry-web：web服务端系统，提供网页和服务端处理逻辑，被laundry-client调用。
+
+

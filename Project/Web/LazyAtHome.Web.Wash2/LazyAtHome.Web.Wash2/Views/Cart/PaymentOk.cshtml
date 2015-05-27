@@ -1,0 +1,16 @@
+﻿@{
+    //ViewBag.Title = "支付完成";
+}
+
+<div class="page-content inset order-confirm">
+    <div class="row">
+        <div class="col-md-7 col-md-offset-1 paysuccess">
+            <h2>您的订单[@ViewBag.OrderNum]已经支付完成，感谢您使用懒到家。</h2>
+            <button type="button" class="btn btn-success btn-lg" style="display:block;margin:0 auto" onclick="window.location.href = '/Member/MyOrders'">查看完成订单</button>
+            <p class="paytips">
+                <b>特别提示:</b><br>
+                如您在购买过程中遇到问题，请您联系我们的客服：400-876-2799!
+            </p>
+        </div>
+    </div>
+</div>

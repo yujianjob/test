@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/ldj.css" media="screen" rel="stylesheet">
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/judgePlatform.js"></script>
+<script>
+	if(browser.versions.mobile){
+	document.write("<script type='text/javascript' src='js/iscroll.js'><\/script><script type='text/javascript' src='js/iscrollobj.js'><\/script>");
+	}
+</script>
+<!--[if lt IE 9]>
+    <script src="js/html5.js"></script>
+    <script src="js/respond.min.js"></script>
+<![endif]-->
+<script src="js/landaojia.js"></script>
+</head>
+<body>
+<div id="page-content-wrapper signin-page">
+ <img class="blue-bg" src="img/bg-large.jpg">
+ <!--用户登录 start-->
+ <div class="page-content inset centered">
+	<div class="row" style="padding-top:50px">
+    	<div class="col-md-6 col-md-offset-3">
+        	<img src="img/home-logo.png">
+            <h3 class="hidden-xs">懒是一种生活品质 懒是一种生活态度</h3>
+            <div class="fade-in login-box">
+            	<form class="shake-animate" method="post" action="">
+                	<div class="input-group">
+                    	<input type="text" placeholder="用户名/手机号">
+                        <p class="help-block">用户名输入错误</p>
+                    </div>
+                    <div class="input-group">
+                    	<input type="password" placeholder="密码">
+                    </div>
+                    <div class="input-group">
+                    	<button type="button" class="btn btn-primary btn-block btn-lg login-btn">登录</button>
+                    </div>
+                </form>
+                <span class="hr">or</span>
+                <button class="btn btn-danger btn-block btn-lg btn-register" onclick="window.location.href='用户注册.html'">注册</button>
+                <p class="shareicn">
+                	<img src="img/tsina-icn.png">
+                    <img src="img/tqq-icn.png">
+                    <img src="img/trenren-icn.png">
+                    <img src="img/tweixin-icn.png">
+                </p>
+                <a href="/" class="forgetcode">忘记密码?</a>
+            </div>
+        </div>
+    </div>
+ </div>
+ <!--用户登录 end-->
+</div>
+</body>
+</html>

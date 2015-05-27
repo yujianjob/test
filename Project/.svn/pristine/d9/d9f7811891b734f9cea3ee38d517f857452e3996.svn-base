@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "服务价格";
+}
+
+<section>
+    <div class="xdfw">
+        <ul class="tabSwitch">
+            @foreach (LazyAtHome.WCF.Wash.Contract.DataContract.web.web_Wash_ClassDC item in ViewBag.WashClass)
+            {
+                <li classid="@item.ID"><span>@item.Name</span></li>
+            }
+        </ul>
+        <div class="list">
+        </div>
+    </div>
+</section>
+
+@section scripts
+{
+    <script type="text/javascript">
+        var totalCount = 0;
+        $(function () {
+            $(".tabSwitch li").each(function () {
+                $(this).click(function () {
+                    $(".tabSwitch li").removeClass("active");
+                    $(this).addClass("active");
+                    Show($(this).attr("classid"));
+                });
+            });
+            $(".tabSwitch li").eq(0).click();
+            AddToCart(0, null, null);
+        });
+
+        function Show(id) {
+            process();
+            var postData = { classid: id };
+            $.ajax({
+                type: "post",
+                url: "/Cart/ClassShow",
+                data: postData,
+                dataType: "json",
+                success: function (resultJson) {
+                    removeProcess();
+                    if (resultJson != null) {
+                        if (resultJson.code == 1) {
+                            $(".list").html(resultJson.msg);
+                        }
+                        else
+                            alert(resultJson.msg);
+                    }
+                },
+                error: function (msg) {
+                    $("#msg").html("服务器异常，请稍微再试！");
+                }
+            });
+        }
+    </script>
+}

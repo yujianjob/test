@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+    <title>@ViewBag.Title</title>
+    <meta name="keywords" content="@ViewBag.Keywords" />
+    <meta name="description" content="@ViewBag.Description" />
+    <link rel="Shortcut Icon" type="image/ico" href="~/Content/Images/favicon.ico" />
+    @Styles.Render("~/Content/Css/base.css?v2014070101")
+    @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+    @Scripts.Render("~/Scripts/home.js")
+    @Scripts.Render("~/Scripts/comm.js")
+
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?b367ddbad6e93878ec0c6ca2cf9e4d72";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+</head>
+<body>
+    <!--[if IE 6]>
+    <div class="IE6">您的浏览器版本过低，请更新IE浏览器至IE7以上，或者使用其他浏览器!</div>
+    <![endif]-->
+    <!--头部-->
+    @{Html.RenderAction("Header", "Home");}
+
+    @RenderBody()
+
+    <!--尾巴-->
+    @{Html.RenderPartial("_Footer");}
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

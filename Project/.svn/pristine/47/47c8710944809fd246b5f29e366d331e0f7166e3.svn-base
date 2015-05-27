@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/ldj.css" media="screen" rel="stylesheet">
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/judgePlatform.js"></script>
+<script>
+	if(browser.versions.android || browser.versions.iPhone || browser.versions.iPad || browser.versions.ios){
+	document.write("<script type='text/javascript' src='js/iscroll.js'><\/script><script type='text/javascript' src='js/iscrollobj.js'><\/script>");
+	}
+</script>
+<!--[if lt IE 9]>
+    <script src="js/html5.js"></script>
+    <script src="js/respond.min.js"></script>
+<![endif]-->
+<script src="js/landaojia.js"></script>
+</head>
+<body >
+<div class="wrapper">
+  <!--网站侧边导航 start-->
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-brand"> <img src="img/logo.png"> </li>
+      <li> <a class="active" href="洗涤服务.html"> <span class="icon-white-xdfw"></span> <span class="nav-title">洗涤服务</span> </a> </li>
+      <li> <a href="奢侈品护理.html"> <span class="icon-white-hl"></span> <span class="nav-title">奢侈品护理</span> </a> </li>
+      <li> <a href="懒人神器.html"> <span class="icon-white-lrsq"></span> <span class="nav-title">懒人神器</span> </a> </li>
+      <li> <a href="缤纷活动.html"> <span class="icon-white-bfhd"></span> <span class="nav-title">缤纷活动</span> </a> </li>
+      <li> <a href="我的订单.html"> <span class="icon-white-myorder"></span> <span class="nav-title">我的订单</span> </a> </li>
+      <li> <a href="历史订单.html"> <span class="icon-white-history"></span> <span class="nav-title">历史订单</span> </a> </li>     
+      <li> <a href="帮助与反馈.html"> <span class="icon-white-history"></span> <span class="nav-title">帮助与反馈</span> </a> </li>
+      <li> <a href="关于懒到家.html"> <span class="icon-white-about"></span> <span class="nav-title">关于懒到家</span> </a> </li>
+    </ul>
+  </div>
+  <!--网站侧边导航 end-->
+  <div id="page-content-wrapper"> 
+   <!--主体内容头部 start-->
+  	<div class="navbar" role="navigation">
+    	<div class="container-fluid">
+       		<div class="row">
+            	<div class="col-sm-9 col-md-1">
+                    <a id="navbar-logo" data-toggle="offcanvas" class="brand-toggle" onClick="showHideSiderbar();">
+                        <img src="img/navbar-logo.png">
+                    </a>
+                    <h2 class="navbar-brand visible-xs visible-sm" style="float:left;">我的订单</h2>
+                    <button type="button" class="visible-xs navbar-toggle collapsed icon-collapsed pull-right" data-toggle="collapse" data-target="#navbar-collapse-1"> 
+                        <img src="img/dropdown-cog-blue.png"> 
+                    </button>
+                </div>
+                <div class="col-sm-7 col-md-7 hidden-sm hidden-xs">
+                	<h2 class="navbar-brand" style="float:left;padding:10px 0 0 0">我的订单</h2>
+                    <div style="margin-left:150px;">
+                           <form method="post" action="" class="tsearch">
+                                <input type="text" placeholder="搜索清洗服务">
+                                <button class="icon-search"><img src="img/icon-search.png"></button>
+                            </form>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-md-4 hidden-xs">
+                    <ul class="nav navbar-nav navbar-right">
+                         <li class="dropdown"> 
+                        	 <a class="dropdown-toggle memberCentre" data-toggle="dropdown"> 
+                                <span class="name">会员名</span> 
+                                <span class="icon-member"></span> 
+                             </a>
+                              <ul class="dropdown-menu" id="member-info">
+                                <li><a href="用户中心.html">用户中心</a></li>
+                                <li class="divider"></li>
+                                <li><a href="地址管理.html">地址管理</a></li>
+                                <li><a href="我的懒人卡.html">我的懒人卡</a></li>
+                                <li><a href="我的优惠劵.html">我的优惠劵</a></li>
+                                <li class="divider"></li>
+                                <li><a href="社区中心.html">社区中心</a></li>
+                                <li class="divider"></li>
+                                <li><a>退出</a></li>
+                              </ul>
+                         </li>
+                    	<li class="hidden-sm navbar-question"> <a href="#">我们的服务流程?</a> </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="visible-xs">
+              <div class="collapse navbar-collapse" id="navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-c">
+                  <li><a href="用户中心.html">用户中心</a></li>
+                  <li class="divider"></li>
+                  <li><a href="地址管理.html">地址管理</a></li>
+                  <li><a href="我的懒人卡.html">我的懒人卡</a></li>
+                  <li><a href="我的优惠劵.html">我的优惠劵</a></li>
+                  <li class="divider"></li>
+                  <li><a href="社区中心.html">社区中心</a></li>
+                  <li class="divider"></li>
+                  <li><a>退出</a></li>
+                </ul>
+              </div>
+         </div>
+        <div class="visible-xs visible-sm s-search-bar">
+          <div>
+            <input type="text">
+            <button class="icon-search"><img src="img/icon-search.png"></button>
+          </div>
+        </div>
+    </div>
+   <!--主体内容头部 end-->
+   <div class="page-content inset myorder">
+            	<div class="row">
+                	<div class="col-md-7 col-md-offset-1">
+                    
+                    <div class="help-feedback">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                          <li class="active"><a href="#helpcentre" role="tab" data-toggle="tab">我的订单</a></li>
+                          <li><a href="#xiditips" role="tab" data-toggle="tab">历史订单</a></li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="helpcentre">
+                                <div class="cont">
+                                    <!--一键下单start-->
+                                    <div class="yjxd-container">
+                                        <h3><a href="/">一键下单</a></h3>
+                                        <img src="img/yjxd-wheel-bg.png">
+                                    </div><!--一键下单end-->
+                                    <!--缩小后的购物车div-->
+                                     <div class="relative-div visible-xs visible-sm">
+                                         <button class="visible-xs visible-sm btn btn-sm pull-right viewshopcart" onClick="orderCollpase(this);">查看订单</button>
+                                         <div class="order-collapse" style="display:none">
+                                              <div class="tit"> 
+                                                  <span class="pull-left">订单列表</span> 
+                                                  <span class="pull-right"><a href="#">清除</a></span> 
+                                              </div>
+                                              <div class="biaot">
+                                                <div class="bt pull-left">订单号</div>
+                                                <div class="price pull-left">价格</div>
+                                                <div class="p-num pull-right">操作</div>
+                                              </div>
+                                              <div class="order">
+                                                <div class="unit">
+                                                  <div class="lfbt">5898789458612345</div>
+                                                  <div class="prices"><span class="total-price">￥515.00</span></div>
+                                                  <div class="act"><a href="#">查看</a></div>
+                                                </div>
+                                              </div>
+                                         </div>
+                                     </div>
+                                     <!--缩小后的购物车div-->
+                                     <div class="progress-container">
+                                            <h3>待取件</h3>
+                                            <img src="img/wheel-progress-2.png">
+                                     </div>
+                                    <p class="btngroup">
+                                        <button class="btn btn-lg btn-info">付款</button>
+                                        <button class="btn btn-lg btn-info">取消</button>
+                                    </p>
+                                    <div class="row" style="display:-none">
+                                        <div class="col-md-6 col-sm-6 col-xs-6" style="padding-left:15px">
+                                            <div class="delivery-box">
+                                                <table class="table">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td colspan="2" class="timestatus"><span>13:00</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="status-delivery-date" colspan="2">星期三 7月16日</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2" class="status-delivery-type">取件</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div class="progress progress-striped active">
+                                                    <div id="progress-bar-pickup" class="progress-bar" aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" style="width:25%">
+                                                    <span class="sr-only">45% Complete</span>
+                                                    </div>
+                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <div class="delivery-box">
+                                                <table class="table">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td colspan="2" class="timestatus"><span>13:00</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="status-delivery-date" colspan="2">星期三 7月16日</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2" class="status-delivery-type">取件</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div class="progress progress-striped active">
+                                                    <div id="progress-bar-pickup" class="progress-bar" aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" style="width:25%">
+                                                    <span class="sr-only">45% Complete</span>
+                                                    </div>
+                                                 </div>
+                                            </div>
+                                        </div>
+                       			 </div>
+					<div class="order-detail">
+                       	<div class="container-fluid">
+                           <div class="row">
+                           <div class="receive-ifo">
+                               <h2>收货人信息</h2>
+                               <p>收货人：wangyu<br>
+                                地址：上海市上海市黄浦区24254245<br>
+                                手机号码：13524639765<br>
+                                电子邮件： </p>
+                            </div>
+                            <div class="payMethod"><h2>支付方式</h2>货到付款</div>
+                            <div class="proinfo">
+                            	<h2>产品信息</h2>
+                                <table class="table table-striped">
+                                	<thead>
+                                    	<tr>
+                                        	<th>商品编号</th><th>单价</th><th>数量</th><th>小计(元)</th>
+                                        </tr>
+                                    </thead>
+                                    <tr><td>56</td><td>￥15.00</td><td>2件</td><td>￥35.00</td></tr>
+                                    <tr><td>56</td><td>￥15.00</td><td>2件</td><td>￥35.00</td></tr>
+                                </table>
+                            </div>
+                           <p style="text-align:right;padding-right:20px;border-top:1px dashed #ccc;padding-top:20px">总商品金额：￥23.00<br>快递费:￥15.00<br>合计:<span class="total-price">￥15.00</span></p>
+                            </div>
+                        </div>
+                        </div>                                 
+                              </div>
+                          </div>
+                          <div class="tab-pane" id="xiditips">
+                            <div class="cont">
+                                <div class="order-unit">
+                                  <div class="history-orderthead">
+                                        <span class="visible-lg visible-md visible-sm">订单编号：<br>2589658745616987</span> 
+                                        <span class="visible-xs">订单编号：2589658745616987</span> 
+                                        <span class="visible-lg visible-md visible-sm">提交时间：<br>2014.04.25</span> 
+                                        <span class="visible-lg visible-md visible-sm">完成时间：<br>2014.04.25</span> 
+                                        <span class="operate"> 
+                                            <img src="img/del-icn.png" style="margin-right:10px;"> 
+                                            <img src="img/comment-icn.png"> 
+                                        </span> 
+                                    </div>
+                                      <table border="0" cellspacing="0" cellpadding="0" class="historyorder-tab">
+                                        <tr>
+                                          <td>
+                                          <table border="0" cellspacing="0" cellpadding="0" class="order-prolist">
+                                              <tr>
+                                                <td width="30%">衬衫</td>
+                                                <td width="30%">2件</td>
+                                                <td>￥58.00</td>
+                                              </tr>
+                                              <tr>
+                                                <td>衬衫</td>
+                                                <td>2件</td>
+                                                <td>￥58.00</td>
+                                              </tr>
+                                              <tr>
+                                                <td>衬衫</td>
+                                                <td>2件</td>
+                                                <td>￥58.00</td>
+                                              </tr>
+                                              <tr>
+                                                <td>衬衫</td>
+                                                <td>2件</td>
+                                                <td>￥58.00</td>
+                                              </tr>
+                                              <tr>
+                                                <td>衬衫</td>
+                                                <td>2件</td>
+                                                <td>￥58.00</td>
+                                              </tr>
+                                            </table>
+                                            </td>
+                                          <td class="total-price">￥558.00</td>
+                                          <td>
+                                            <a href="订单详情.html">订单详情</a><br>
+                                            <a href="/">查看物流</a><br>
+                                            <a href="评论.html">追加评论</a><br>
+                                            <a href="订单确认.html">再次购买</a>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                 </div>
+                             </div>
+                          </div>
+                        </div>
+                   </div>
+                   
+                   
+
+
+
+                        
+                        
+                    </div>
+                    <div class="col-md-4 hidden-xs hidden-sm">
+                    <div class="myorderList">
+                      <div class="tit"> <span class="pull-left">订单列表</span> <span class="pull-right"><a href="#">清除</a></span> </div>
+                      <div class="biaot">
+                        <div class="bt pull-left">订单号</div>
+                        <div class="price pull-left">价格</div>
+                        <div class="p-num pull-right">操作</div>
+                      </div>
+                      <div class="order">
+                        <div class="unit">
+                          <div class="lfbt">5898789458612345</div>
+                          <div class="prices"><span class="total-price">￥515.00</span></div>
+                          <div class="act"><a href="#">查看</a></div>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                </div>
+		</div>
+    </div>
+</div>
+</body>
+</html>

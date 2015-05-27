@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyAtHome.Winform.FactoryPortal", "LazyAtHome.Winform.FactoryPortal\LazyAtHome.Winform.FactoryPortal.csproj", "{56FFFE40-5B9E-4F91-BB53-E7DBAFA86080}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoUpdater", "AutoUpdater\AutoUpdater.csproj", "{8A7504D6-2CB4-4E89-8A48-8821219E6206}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{56FFFE40-5B9E-4F91-BB53-E7DBAFA86080}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56FFFE40-5B9E-4F91-BB53-E7DBAFA86080}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56FFFE40-5B9E-4F91-BB53-E7DBAFA86080}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56FFFE40-5B9E-4F91-BB53-E7DBAFA86080}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A7504D6-2CB4-4E89-8A48-8821219E6206}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A7504D6-2CB4-4E89-8A48-8821219E6206}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A7504D6-2CB4-4E89-8A48-8821219E6206}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A7504D6-2CB4-4E89-8A48-8821219E6206}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+EndGlobal

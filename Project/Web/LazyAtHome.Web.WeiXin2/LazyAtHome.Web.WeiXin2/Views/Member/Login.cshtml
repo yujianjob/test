@@ -1,0 +1,117 @@
+﻿@{
+    ViewBag.Title = "用户登录";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link href="/Content/bootstrap.css" rel="stylesheet">
+    <link href="/Content/ldj.css" media="screen" rel="stylesheet">
+    <script src="/Scripts/jquery-2.1.1.js"></script>
+    <script src="/Scripts/bootstrap.js"></script>
+    <script src="/Scripts/landaojia.js"></script>
+</head>
+<body>
+    <div id="page-content-wrapper signin-page">
+        <img class="blue-bg" src="/img/bg-large.jpg">
+        <!--用户登录 start-->
+        <div class="page-content inset centered">
+            <div class="row" style="padding-top:50px">
+                <div class="col-md-6 col-md-offset-3">
+                    <img src="/img/home-logo.png">
+                    <h3 class="hidden-xs">懒是一种生活品质 懒是一种生活态度</h3>
+                    <div class="fade-in login-box">
+                        <form class="shake-animate" method="post" action="">
+                            <div class="input-group">
+                                <input id="txtAccount" type="text" placeholder="手机号/邮箱" value="13000000000">
+                            </div>
+                            <div class="input-group">
+                                <input id="txtPass" type="password" placeholder="密码" value="111111">
+                            </div>
+                            <div class="input-group">
+                                <p id="msg" class="help-block" style="text-align:center"></p>
+                                <button type="button" class="btn btn-primary btn-block btn-lg login-btn">登录</button>
+                            </div>
+                        </form>
+                        <span class="hr">or</span>
+                        <button class="btn btn-danger btn-block btn-lg btn-register" onclick="window.location.href='reg'">注册</button>
+                        <p class="shareicn">
+                            <img src="/img/tsina-icn.png">
+                            <img src="/img/tqq-icn.png">
+                            <img src="/img/trenren-icn.png">
+                            <img src="/img/tweixin-icn.png">
+                        </p>                       
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--用户登录 end-->
+    </div>
+    <script type="text/javascript">
+        var logType = 0;
+        $(function () {
+            $(".btn-primary").click(function () {
+                if (Check()) {
+                    var postData = { user: $("#txtAccount").val().trim(), pass: $("#txtPass").val().trim(), type: logType, vcode: "" };
+
+                    $.ajax({
+                        type: "post",
+                        url: "/Member/User_Login",
+                        data: postData,
+                        dataType: "json",
+                        success: function (resultJson) {
+                            if (resultJson != null) {
+                                if (resultJson.Code == 1) {
+                                    window.location.href = "@ViewBag.ReturnUrl";
+                                }
+                                else {
+                                    $("#msg").html(resultJson.Msg);
+                                }
+                            }
+                        },
+                        error: function (msg) {
+                            $("#msg").html("验证通讯失败");
+                        }
+                    });
+                }
+            });
+        });
+
+        function Check() {
+            $("#msg").html("");
+
+            if ($("#txtAccount").val().trim() == "") {
+                $("#msg").html("登录账号不能为空！");
+                $("#txtAccount").focus();
+                return false;
+            }
+
+            if ($("#txtAccount").val().indexOf("@@") != -1) {
+                var checkEmailRtn = CheckEmail($("#txtAccount"));
+                if (checkEmailRtn.code == 1)
+                    logType = 3;
+                else
+                    return false;
+            }
+            else {
+                var checkMobileRtn = CheckMobile($("#txtAccount"));
+                if (checkMobileRtn.code == 1)
+                    logType = 2;
+                else
+                    logType = 1;
+            }
+
+            if ($("#txtPass").val().trim() == "") {
+                $("#msg").html("密码不能为空！");
+                $("#txtPass").focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

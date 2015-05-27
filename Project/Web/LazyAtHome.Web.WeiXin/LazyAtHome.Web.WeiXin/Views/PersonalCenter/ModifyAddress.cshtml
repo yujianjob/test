@@ -1,0 +1,91 @@
+﻿@model LazyAtHome.WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC
+@{
+    ViewBag.Title = "收货地址";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="yuyue">
+    <div class="yuyue">
+        <div class="newaddress">
+            @using (Html.BeginForm("ModifyAddressUpdate", "PersonalCenter", FormMethod.Post, new { id = "addressForm" }))
+            {
+                @Html.AntiForgeryToken()
+                <p><input id="Consignee" name="Consignee" type="text" value="@Model.Consignee" onfocus="if(value=='收件人姓名'){value=''}" onblur="if (value ==''){value='收件人姓名'}" /></p>
+                <p><input id="MPNo" name="MPNo" type="text" value="@Model.MPNo" onfocus="if(value=='联系电话'){value=''}" onblur="if (value ==''){value='联系电话'}" /></p>
+                <h4>
+                    <select id="ProvinceName" name="ProvinceName" style="margin-right:15px;">
+                        <option selected="selected" value="上海市">上海市</option>
+                    </select>
+                    <select id="CityName" name="CityName">
+                        <option selected="selected" value="上海市">上海市</option>
+                    </select>
+                    <select id="DistrictID" name="DistrictID">
+                        <option selected="selected" value="310101">黄浦区</option>
+                        <option value="310104">徐汇区</option>
+                        <option value="310105">长宁区</option>
+                        <option value="310106">静安区</option>
+                        <option value="310107">普陀区</option>
+                        <option value="310108">闸北区</option>
+                        <option value="310109">虹口区</option>
+                        <option value="310110">杨浦区</option>
+                        <option value="310112">闵行区</option>
+                        <option value="310113">宝山区</option>
+                        <option value="310114">嘉定区</option>
+                        <option value="310115">浦东新区</option>
+                        <option value="310116">金山区</option>
+                        <option value="310117">松江区</option>
+                        <option value="310118">青浦区</option>
+                        <option value="310120">奉贤区</option>
+                        <option value="310230">崇明县</option>
+                    </select>
+                </h4>
+                <input id="ID" name="ID" type="hidden" value="@Model.ID" />
+                <p style="padding-bottom:30%;"><input id="Address" name="Address" type="text" value="@Model.Address" onfocus="if(value=='详细地址'){value=''}" onblur="if (value ==''){value='详细地址'}" /></p>
+                <label><input id="Default" name="Default" type="checkbox" />设为默认</label>
+                <h3><a href="javascript:void(0)" onclick="formSubmit();"><img src="~/images/lan51.jpg" /></a></h3>
+            }
+        </div>
+    </div>
+</div>
+<div class="footer foot"><img src="~/images/lan8.jpg" /></div>
+@section scripts
+{
+    @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript">
+        $(function () {
+            var disID = "@Model.DistrictID";
+            if (disID != "0")
+                DistrictID.value = disID;
+
+            var isDef = "@Model.IsDefault";
+            if (isDef == "1")
+                Default.checked = true;
+        })
+
+        function formSubmit() {
+            if (Consignee.value == "收件人姓名") {
+                alert("收件人姓名不能为空");
+                Consignee.focus();
+                return false;
+            }
+            if (MPNo.value == "联系电话") {
+                alert("联系电话不能为空");
+                MPNo.focus();
+                return false;
+            }
+            if (!$("#MPNo").val().match(/^0?(13[0-9]|15[012356789]|18[0-9]|14[57])[0-9]{8}$/)) {
+                alert("手机号码格式不正确！");
+                MPNo.focus();
+                return false;
+            }
+
+            if (Address.value == "详细地址") {
+                alert("详细地址不能为空");
+                Address.focus();
+                return false;
+            }
+
+            $("#addressForm").submit();
+        }
+    </script>
+}

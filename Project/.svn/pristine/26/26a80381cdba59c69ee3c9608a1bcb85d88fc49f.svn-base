@@ -1,0 +1,241 @@
+﻿@{
+    //ViewBag.Title = "登录";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--内容-->
+<div id="login">
+    <div class="login">
+        <div class="loginPic left"><img src="~/Content/Images/pic_14.jpg" width="537" height="321" /></div>
+        <div class="loginBiaodan right">
+            <ul class="login-tab"><li class="active" type="1"><span>用户登录</span></li><li type="2"><span>微信用户入口</span></li></ul>
+            <!--用户登录 start-->
+            <div class="content">
+                <dl class="biaodan">
+                    <dt><input id="MPNo" name="MPNo" type="text" value="请输入手机号/邮箱地址" /></dt>
+                    <dd><input id="passwordId" name="passwordId" type="password" value="" /></dd>
+                </dl>
+                <p id="msg" style="color:red;padding-bottom:10px;display:block;overflow:hidden"></p>
+                <dl class="anniu">
+                    <dt><a href="@Url.Action("Reg","Member")"><img src="~/Content/images/login_01.gif" width="108" height="35" /></a></dt>
+                    <dd><img src="~/Content/images/login_03.gif" width="36" height="35" /></dd>
+                    <dt><input name="" type="submit" value="" onclick="formSubmit()" /></dt>
+                </dl>
+                <p class="font"><a href="@Url.Action("Password")">忘记密码？</a></p>
+            </div>
+            <!--用户登录 end-->
+            <!--微信用户入口 start-->
+            <div class="content" style="display:none">
+                <ul class="mobile-verify">
+                    <li><label>手机号:</label><input id="wxMPNo" name="wxMPNo" type="text" value="请输入手机号" /><input name="btnSmsCode" id="btnSmsCode" type="button" value="获取验证码" style="width: 70px; background: #71b582; color: white; height: 30px;" onclick="VerifyMobile()" /></li>
+                    <li><label>短信验证:</label><input id="wxCode" name="wxCode" type="text" /></li>
+                </ul>
+                <ul class="setpass">
+                    <li><label>设置密码:</label><input id="wxPass" name="wxPass" type="password" /></li>
+                    <li><label>确认密码:</label><input id="wxPassConfirm" name="wxPassConfirm" type="password" /></li>
+                </ul>
+                <p id="wxmsg" style="color:red;padding-bottom:10px;display:block;overflow:hidden"></p>
+                <img src="~/Content/images/finish-btn.jpg" style="margin-left:50px" onclick="formSubmit()" />
+            </div>
+            <!--微信用户入口 end-->
+
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script language="javascript" type="text/jscript">
+        var currTab = 0;
+        var objMpno = null;
+        var objPass = null;
+        var objMsg = null;
+        var timer = null;
+        $(function () {
+            $(document).keyup(function (event) {
+                if (event.keyCode == 13) {
+                    formSubmit();
+                }
+            });
+            //登录标签切换
+            $(".loginBiaodan .login-tab li").each(function (i) {
+                $(this).click(function () {
+                    $(".loginBiaodan .login-tab li").removeClass("active");
+                    $(this).addClass("active");
+                    if (i == 1)
+                        currTab = 90;
+                    else
+                        currTab = 2;
+                    $(".loginBiaodan .content").hide();
+                    $(".loginBiaodan .content").eq(i).show();
+                    if (i == 0) {
+                        objMpno = MPNo;
+                        objPass = passwordId;
+                        objMsg = $("#msg");
+                    }
+                    else {
+                        objMpno = wxMPNo;
+                        objPass = wxPass;
+                        objMsg = $("#wxmsg");
+                    }
+                });
+            });
+            objMpno = MPNo;
+            objPass = passwordId;
+            objMsg = $("#msg");
+            //帐号焦点
+            $('#MPNo').focus(function () {
+                if (MPNo.value.trim() == '请输入手机号/邮箱地址') {
+                    MPNo.value = "";
+                }
+            }).blur(function () {
+                if (MPNo.value.trim() == "")
+                    MPNo.value = "请输入手机号/邮箱地址";
+            });
+
+            $('#wxMPNo').focus(function () {
+                if (wxMPNo.value.trim() == '请输入手机号') {
+                    wxMPNo.value = "";
+                }
+            }).blur(function () {
+                if (wxMPNo.value.trim() == "")
+                    wxMPNo.value = "请输入手机号";
+            });
+        });
+        function CheckInfo() {
+            $("#msg").html("");
+            $("#wxmsg").html("");
+
+            if (objMpno.value.trim() == "" || objMpno.value.trim() == "请输入手机号/邮箱地址" || objMpno.value.trim() == "请输入手机号")
+            {
+                objMsg.html("登录账号不能为空。");
+                objMpno.focus();
+                return false;
+            }
+
+            if (currTab == 90) {
+                var checkMobileRtn = CheckMobile(objMpno, objMsg);
+                if (checkMobileRtn.code != 1)
+                    return false;
+            }
+            else {
+                if (objMpno.value.indexOf("@@") != -1) {
+                    var checkEmailRtn = CheckEmail(objMpno, objMsg);
+                    if (checkEmailRtn.code == 1)
+                        currTab = 3;
+                    else
+                        return false;
+                }
+                else {
+                    var checkMobileRtn = CheckMobile(objMpno, objMsg);
+                    if (checkMobileRtn.code == 1)
+                        currTab = 2;
+                    else
+                        return false;
+                }
+            }
+
+            if (objPass.value.trim() == "") {
+                objMsg.html("密码不能为空！");
+                objPass.focus();
+                return false;
+            }
+
+            if (currTab == 90) {
+                if (!wxCode.value.match("^[0-9]{6}$")) {
+                    objMsg.html("请输入6位验证码");
+                    wxCode.focus();
+                    return false;
+                }
+                if (objPass.value.trim() != wxPassConfirm.value.trim()) {
+                    objMsg.html("两次输入的密码不一致");
+                    wxPassConfirm.focus();
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function formSubmit() {
+
+            if (!CheckInfo())
+                return false;
+
+            var userType = currTab;
+            if (userType == 90)
+                userType = 2;
+
+            var postData = { user: objMpno.value, pass: objPass.value, type: userType, vcode: wxCode.value };
+
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("User_Login")",
+                data: postData,
+                dataType: "json",
+                success: ProcessUserLogin,
+                error: function (msg) {
+                    $("#msg").html("验证通讯失败");
+                }
+            });
+        }
+
+        function ProcessUserLogin(resultJson) {
+            if (resultJson != null) {
+
+                if (resultJson.Code == 1) {
+                    window.location.href = "@ViewBag.ReturnUrl";
+                }
+                else {
+                    objMsg.html(resultJson.Msg);
+                }
+            }
+        }
+
+        function VerifyMobile() {
+            if (timer != null)
+                return false;
+            if (CheckMobile(wxMPNo, $("#wxmsg")).code == 0) {
+                wxMPNo.focus();
+                return false;
+            }
+            $("#wxmsg").html("");
+
+            var postData = { "mpno": wxMPNo.value.trim(), check: 0 };
+
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("VerifyMobile", "Member")",
+                data: postData,
+                dataType: "json",
+                success: function (resultJson) {
+                    if (resultJson.Code == 1) {
+                        $("#wxmsg").html("验证码已发送，请查收!");
+                        daojishi();
+                    }
+                    else {
+                        $("#wxmsg").html(resultJson.Msg);
+                    }
+                },
+                error: function (msg) {
+                    alert(msg.toString());
+                }
+            });
+        }
+        function daojishi() {
+            var i = 60;
+            if (!timer) {
+                $("#btnSmsCode").css({ "background": "#ccc", "color": "black" }).attr("value", i);
+                timer = setInterval(function () {
+                    i--;
+                    $("#btnSmsCode").attr("value", i);
+                    if (i == -1) {
+                        clearInterval(timer);
+                        timer = null;
+                        $("#btnSmsCode").css({ "background": "#71b582", "color": "white" }).attr("value", "获取验证码");
+                    }
+                }, 1000);
+            }
+        }
+    </script>
+}

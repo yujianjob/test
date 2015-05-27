@@ -1,0 +1,18 @@
+﻿@model LazyAtHome.Web.WeiXin.Models.JsonResult.WeixinUserInfoResult
+
+@{
+    ViewBag.Title = "UserInfo";
+    Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
+}
+
+
+<p>@Html.DisplayNameFor(model => model.subscribe) : @Html.DisplayFor(model => model.subscribe)</p>
+<p>@Html.DisplayNameFor(model => model.openid) : @Html.DisplayFor(model => model.openid)</p>
+<p>@Html.DisplayNameFor(model => model.nickname) : @Html.DisplayFor(model => model.nickname)</p>
+<p>@Html.DisplayNameFor(model => model.headimgurl) : <img src="@Model.headimgurl" width="50%" /></p>
+<p>@Html.DisplayNameFor(model => model.language) : @Html.DisplayFor(model => model.language)</p>
+<p>@Html.DisplayNameFor(model => model.sex) : @UIHelper.ConvertSex(Model.sex)</p>
+<p>@Html.DisplayNameFor(model => model.city) : @Html.DisplayFor(model => model.city)</p>
+<p>@Html.DisplayNameFor(model => model.province) : @Html.DisplayFor(model => model.province)</p>
+<p>@Html.DisplayNameFor(model => model.country) : @Html.DisplayFor(model => model.country)</p>
+<p>@Html.DisplayNameFor(model => model.subscribe_time) : @UIHelper.ConvertIntDateTime(Model.subscribe_time)</p>

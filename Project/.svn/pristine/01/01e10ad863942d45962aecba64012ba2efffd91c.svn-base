@@ -1,0 +1,38 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\lvxingxiang1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、被雨淋湿后用柔软的布赶擦后在阴凉处晾干。</p>
+                <p>2、当手垢等醒目时请用皮革专用除污器。但是由于有的会出现掉色等情况，请务必先在不显眼处进行试擦。还有，由于粘水的皮革不能用除污器，故请用干擦或橡皮。</p>
+				<p>3、为了防止皮膜损伤、掉色等原因，请避免使用汽油、香蕉水等酒精类溶剂和在水中整个洗。</p>
+				<p>4、做工保持了皮革本来的属性，会出现因雨淋或摩擦而起的掉色，弄脏衣服等情况。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>设备过硬：国际领先的干洗设备，国际检测认证，真正健康环保的洗涤用品。<br />健康洗衣：100%杀菌消毒，100%专业洗涤，100%让您满意。<br />
+                超值服务：缓解您舟车劳顿之苦、49小时快速洗衣服务。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\lvxingxiang2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>帆布旅行箱：用微湿得毛巾把箱子弄潮、然后把洗洁精放在毛巾上揉揉、再向箱子污处擦拭、然后用清水把毛巾洗净、拧半干、再擦、重复拧干擦拭、直至污点去除。</p>
+				<p> 布制旅行箱：其实用废旧的牙刷就很好呀，比较柔软，不会刷坏布面，用牙刷在透明皂上抹几下，然后再刷。买个柔软点的毛刷+洗衣粉刷就行了。别用硬毛刷把布刷烂就行。</p>
+				<p>真皮旅行箱：用软布抹去皮具表面的灰尘，再让真皮饱吃一餐皮模拟油皮革护理剂，这样真皮就会得到最有效的护理，待皮革护理剂自然干燥后，对二年以上难于清除的重度污垢，请使用专为重度污垢及白色真皮而设计的皮革清洁剂，如果清洁效果不太理想时，请用毛刷湿一点水再刷。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

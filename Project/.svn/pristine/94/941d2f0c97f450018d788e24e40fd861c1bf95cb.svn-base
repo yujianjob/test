@@ -1,0 +1,849 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using LazyAtHome.Library.Pay.Common.Alipay;
+using System.Collections.Specialized;
+
+namespace LazyAtHome.Web.Wash2.Controllers
+{
+    public class CartController : BaseController
+    {
+        //
+        // GET: /Cart/
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult OneKey()
+        {
+            var user = GetUserInfo();
+
+            ViewBag.Money = user.User.Money;
+
+            var rtn = App_Code.Proxy.UserProxycs.Select_UserAddress(user.User.ID);
+            if (rtn.Success)
+            {
+                ViewBag.AddressList = rtn.OBJ;
+            }
+
+            var rtnCouponList = App_Code.Proxy.UserProxycs.User_Coupon_SELECT_List(user.User.ID, null, null, WCF.UserSystem.Contract.Enumerate.CouponStatus.Normal, null, null, 1, 20);
+            if (rtnCouponList.Success)
+            {
+                ViewBag.CouponList = rtnCouponList.OBJ.ReturnList;
+            }
+
+            return View();
+        }
+
+        [Authorize]
+        public JsonResult OneKeySubmit(int getAddressID, int sendAddreddID, DateTime? exceptTime, string remark, int? couponid, bool userMoney)
+        {
+            int code = 0;
+            string msg = "";
+
+            //判断收衣时间逻辑是否正确
+            if (exceptTime != null)
+            {
+                if(exceptTime.Value < System.DateTime.Now)
+                {
+                    return Json(new { Code = -1, Msg = "收衣日期不合法！" });
+                }
+            }
+            //if (exceptTime.Value.Date < System.DateTime.Now.Date)
+            //{
+            //    return Json(new { Code = -1, Msg = "请选择有效日期" });
+            //}
+            //if (exceptTime.Value.Date == System.DateTime.Now.Date)
+            //{
+            //    if (System.DateTime.Now.Hour >= 12)
+            //    {
+            //        return Json(new { Code = -1, Msg = "当日12时以后下单，只能次日才能上门取件" });
+            //    }
+            //    else if (System.DateTime.Now.Hour < 12 && timeType == 0)
+            //    {
+            //        return Json(new { Code = -1, Msg = "当日12时之前下单，只能当日下午或次日上门取件" });
+            //    }
+            //}
+
+            //if (timeType == 0)
+            //    exceptTime = exceptTime.Value.Date.AddHours(10).AddMinutes(1);
+            //else
+            //    exceptTime = exceptTime.Value.Date.AddHours(15).AddMinutes(1);
+
+            //暂定取送为一个地址
+            sendAddreddID = getAddressID;
+
+            var user = GetUserInfo();
+            WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC GetAddress = null;
+            WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC SendAddress = null;
+
+            var rtn = App_Code.Proxy.UserProxycs.User_ConsigneeAddress_SELECT_Entity(getAddressID);
+            if (rtn.Success)
+                GetAddress = rtn.OBJ;
+
+            if (sendAddreddID == getAddressID)
+                SendAddress = GetAddress;
+            else
+            {
+                rtn = App_Code.Proxy.UserProxycs.User_ConsigneeAddress_SELECT_Entity(sendAddreddID);
+                if (rtn.Success)
+                    SendAddress = rtn.OBJ;
+            }
+
+            if (GetAddress == null)
+            {
+                code = -1;
+                msg = "请添加取件地址";
+            }
+            else if (SendAddress == null)
+            {
+                code = -1;
+                msg = "请添加送件地址";
+            }
+
+            if (ViewBag.Msg != null)
+                return Json(new { Code = code, Msg = msg });
+
+            WCF.OrderSystem.Contract.DataContract.Order_ConsigneeAddressDC GA = new WCF.OrderSystem.Contract.DataContract.Order_ConsigneeAddressDC();
+            GA.Consignee = GetAddress.Consignee;
+            GA.Mpno = GetAddress.MPNo;
+            GA.Address = GetAddress.DistrictName + GetAddress.Address;
+            GA.CityName = GetAddress.CityName;
+            GA.ProvinceName = GetAddress.ProvinceName;
+            GA.DistrictID = GetAddress.DistrictID;
+
+            WCF.OrderSystem.Contract.DataContract.Order_ConsigneeAddressDC SA = new WCF.OrderSystem.Contract.DataContract.Order_ConsigneeAddressDC();
+            SA.Consignee = SendAddress.Consignee;
+            SA.Mpno = SendAddress.MPNo;
+            SA.Address = SendAddress.DistrictName + SendAddress.Address;
+            SA.CityName = SendAddress.CityName;
+            SA.ProvinceName = SendAddress.ProvinceName;
+            SA.DistrictID = SendAddress.DistrictID;
+
+            if (couponid == 0)
+            {
+                couponid = null;
+            }
+
+            var orderRTN = App_Code.Proxy.OrderProxy.Order_Onekey_Create(user.User.ID, 1, WCF.OrderSystem.Contract.Enumerate.Channel.Web, GA, SA, exceptTime, remark, couponid, userMoney ? 1 :0 );
+            if (!orderRTN.Success)
+            {
+                code = orderRTN.Code;
+                msg = orderRTN.Message;
+            }
+            else
+            {
+                code = 1;
+                msg = "一键下单完成";
+            }
+
+            return Json(new { Code = code, Msg = msg });
+            //return RedirectToAction("PaymentOk", "Cart", new { orderNum = orderRTN.OBJ.OrderNumber });
+        }
+
+        public void CartProductAdd(int spid, int pcount)
+        {
+            var user = GetUserInfo();
+            var rtn = WCF.Wash.Contract.ClientProxy.web_ProductClient.Cache_web_Wash_Product_SELECT_Entity(spid);
+
+            var pItem = user.Cart.ProductList.FirstOrDefault(p => p.ProductInfo.ID == spid);
+            if (pItem == null)
+            {
+                pItem = new Models.CartProductItemModel();
+                pItem.ProductInfo = rtn.OBJ;
+                pItem.Count = pcount;
+                user.Cart.ProductList.Add(pItem);
+            }
+            else
+                pItem.Count += pcount;
+
+            user.Cart.TotalPrice += pItem.ProductInfo.SalesPrice * pcount;
+            user.Cart.TotalCount += pcount;
+
+            ClearPayInfo(user.Cart);
+        }
+
+        public JsonResult jsAddToCart(int pid, bool opearFlag)
+        {
+            int code = 0;
+            string msg = "";
+            var user = GetUserInfo();            
+            if (pid != 0)
+            {
+                var pItem = user.Cart.ProductList.FirstOrDefault(p => p.ProductInfo.ID == pid);
+                if (pItem == null)
+                {
+                    var rtn = WCF.Wash.Contract.ClientProxy.web_ProductClient.Cache_web_Wash_Product_SELECT_Entity(pid);
+                    pItem = new Models.CartProductItemModel();
+                    pItem.ProductInfo = rtn.OBJ;
+                    pItem.Count = 1;
+                    user.Cart.ProductList.Add(pItem);
+                }
+                else
+                {
+                    if (opearFlag)
+                        pItem.Count++;
+                    else
+                        pItem.Count--;
+
+                    if (pItem.Count < 1)
+                        user.Cart.ProductList.Remove(pItem);
+                    if (pItem.Count > 20)
+                        pItem.Count = 20;
+                }
+                //ClearPayInfo(user.Cart);
+                user.Cart.TotalProductInfo();
+                msg = pItem.ProductInfo.Name;
+            }
+
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            foreach (var item in user.Cart.ProductList)
+            {
+                sb.Append("<div class=\"unit\"><div class=\"lfbt\">" + item.ProductInfo.Name + "</div><div class=\"setnum\"><button onclick=\"AddToCart(" + item.ProductInfo.ID + ", true)\">+</button><input type=\"text\" readonly=\"readonly\" value=\"" + item.Count + "\"><button onclick=\"AddToCart(" + item.ProductInfo.ID + ", false)\">-</button></div></div>");
+            }
+            code = 1;
+
+            return Json(new { Code = code, Msg = msg, Content = sb.ToString(), TotalPrice = user.Cart.PayPrice, ProductPrice = (user.Cart.PayPrice -user.Cart.ExpressMoney), ExpressMoney = user.Cart.ExpressMoney });
+        }
+
+        public JsonResult jsCartClear()
+        {
+            int code = 0;
+            string msg = "";
+            var user = GetUserInfo();
+            user.Cart.Clear();
+            code = 1;
+            return Json(new { Code = code, Msg = msg });
+        }
+
+        public JsonResult jsCartDelete(int id)
+        {
+            int code = 1;
+            string rtnMsg = null;
+
+            var user = GetUserInfo();
+            var item = user.Cart.ProductList.FirstOrDefault(p => p.ProductInfo.ID == id);
+            if (item != null)
+            {
+                user.Cart.ProductList.Remove(item);
+                user.Cart.TotalCount -= item.Count;
+                user.Cart.TotalPrice -= item.ProductInfo.SalesPrice * item.Count;
+            }
+            ClearPayInfo(user.Cart);
+            return Json(new { Code = code, Msg = rtnMsg, Price = user.Cart.TotalPrice, Count = user.Cart.TotalCount });
+        }
+
+        /// <summary>
+        /// 清除抵扣记录
+        /// </summary>
+        public void ClearPayInfo(Models.CartModel Cart)
+        {
+            if (Cart != null)
+            {
+                Cart.UseBalance = 0;
+                Cart.UseCard.Clear();
+                Cart.UseCoupon.Clear();
+            }
+        }
+
+        [Authorize]
+        public ActionResult OrderConfirm()
+        {
+            var user = GetUserInfo();
+            var rtn = App_Code.Proxy.UserProxycs.Select_UserAddress(user.User.ID);
+            if (rtn.Success)
+            {
+                ViewBag.AddressList = rtn.OBJ;
+            }
+
+            user.Cart.Clear(false);
+
+            var rtnCardList = App_Code.Proxy.UserProxycs.Select_UserCardList(user.User.ID);
+            if (rtnCardList.Success)
+            {
+                ViewBag.CardList = rtnCardList.OBJ;
+            }            
+
+            var rtnCouponList = App_Code.Proxy.UserProxycs.User_Coupon_SELECT_List(user.User.ID, null, null, WCF.UserSystem.Contract.Enumerate.CouponStatus.Normal, null, null, 1, 20);
+            if (rtnCouponList.Success)
+            {
+                ViewBag.CouponList = rtnCouponList.OBJ.ReturnList;
+            }
+
+            return View(user);
+        }
+
+        public JsonResult OrderCancel(int orderID)
+        {
+            int code = 1;
+            string rtnMsg = null;
+
+            var rtn = App_Code.Proxy.OrderProxy.Order_Order_Cancel(orderID, WCF.OrderSystem.Contract.Enumerate.OrderStatus.UserChannel);
+            if (rtn.Success)
+            {
+                code = 1;
+
+                //***************** add by yfyang 2014-10-09 ******************
+                //修订退单后，确认下单页面没有及时显示返还余额
+                UpdateUserInfo();
+                //*************************************************************
+
+            }
+            else
+            {
+                code = rtn.Code;
+                rtnMsg = rtn.Message;
+            }
+            return Json(new { Code = code, Msg = rtnMsg });
+        }
+
+        public JsonResult CalcuPayMoney(int payType, int cardid, int opera, int source = 0)
+        {
+            int code = 1;
+            string rtnMsg = null;
+
+            var u = GetUserInfo();
+            var user = u.User;
+
+            Models.CartModel cart = null;
+            //if (source == 1)
+            //    cart = u.ActiveCart;
+            //else
+            //    cart = u.Cart;
+            cart = u.Cart;
+
+            switch (payType)
+            {
+                case 1:
+                    //余额支付
+                    if (opera == 0)
+                        cart.UseBalanceEnable = false;
+                    else
+                        cart.UseBalanceEnable = true;
+                    break;
+                case 2:
+                    //懒人卡支付
+                    
+                        cart.UseCard.Clear();
+                        if (opera != 0)
+                            cart.UseCard[cardid] = 0;
+                    break;
+                case 3:
+                    //优惠券
+                    cart.UseCoupon.Clear();
+                    if (cardid != 0)
+                        cart.UseCoupon.Add(cardid, 0);
+                    break;
+            }
+            cart.ExpressEnable = true;
+            cart.TotalProductInfo();
+            decimal TotalPayPrice = cart.PayPrice;
+
+            //cart.PayPrice = cart.TotalPrice;
+            cart.UseCardPrice = 0;
+            cart.UseBalance = 0;
+            cart.UseCouponPrice = 0;
+
+            //cart.ExpressEnable = true;
+
+            //if (cart.SalePrice != 0)
+            //    TotalPayPrice -= cart.SalePrice;
+
+            int couponID = 0;
+            //使用优惠券抵扣
+            if (cart.UseCoupon.Count > 0)
+            {
+                var userCouponList = App_Code.Proxy.UserProxycs.User_Coupon_SELECT_List(user.ID, null, null, WCF.UserSystem.Contract.Enumerate.CouponStatus.Normal, null, null, 1, 20);
+                if (userCouponList.Success)
+                {
+                    var cList = cart.UseCoupon.ToList();
+                    foreach (var item in cList)
+                    {
+                        if (TotalPayPrice == 0)
+                        {
+                            cart.UseCoupon.Remove(item.Key);
+                            continue;
+                        }
+                        var couponItem = userCouponList.OBJ.ReturnList.FirstOrDefault(p => p.ID == item.Key);
+                        if (couponItem != null)
+                        {
+                            if (couponItem.CouponID == 4 || couponItem.CouponID == 5)
+                            {
+                                cart.ExpressEnable = false;
+                                cart.TotalProductInfo();
+                                TotalPayPrice = cart.PayPrice;
+                                if (cart.MaxFreeMoney != 0)
+                                {
+                                    cart.UseCouponPrice += cart.MaxFreeMoney;
+                                    TotalPayPrice -= cart.MaxFreeMoney;
+                                }
+                                else
+                                {
+                                    code = -3;
+                                    rtnMsg = "该券不适用于此类产品！";
+                                    return Json(new { Code = code, Msg = rtnMsg });
+                                }
+                            }
+                            //18元券使用非正价产品修订
+                            else if (couponItem.CouponID == 2)
+                            {
+                                cart.ExpressEnable = false;
+                                cart.TotalProductInfo();
+                                TotalPayPrice = cart.PayPrice;
+
+                                if (cart.TotalFreeMoney != 0)
+                                {
+                                    //if (cart.TotalFreeMoney > 18)
+                                    //{
+                                    //    cart.UseCouponPrice = 18;
+                                    //    TotalPayPrice -= 18;
+                                    //}
+                                    //6元9元活动产品该9.9元
+                                    if (cart.TotalFreeMoney > 19.8m)
+                                    {
+                                        cart.UseCouponPrice = 19.8m;
+                                        TotalPayPrice -= 19.8m;
+                                    }
+                                    else
+                                    {
+                                        cart.UseCouponPrice += cart.TotalFreeMoney;
+                                        TotalPayPrice -= cart.TotalFreeMoney;
+                                    }
+
+                                }
+                                else
+                                {
+                                    code = -3;
+                                    rtnMsg = "该券不适用于此类产品！";//"18元优惠券只能在6或9元产品使用！";
+                                    return Json(new { Code = code, Msg = rtnMsg });
+                                }
+                            }
+                            else
+                            {
+                                cart.UseCoupon[item.Key] = couponItem.FaceValue;
+                                if (TotalPayPrice > couponItem.FaceValue)
+                                {
+                                    cart.UseCouponPrice += couponItem.FaceValue;
+                                    TotalPayPrice -= couponItem.FaceValue;
+                                }
+                                else
+                                {
+                                    cart.UseCouponPrice += TotalPayPrice;
+                                    TotalPayPrice = 0;
+                                }
+                            }
+                            couponID = item.Key;
+                        }
+
+                    }
+                }
+            }
+
+            //进行懒人卡抵扣计算
+            if (cart.UseCard.Count > 0)
+            {
+                var userCardList = App_Code.Proxy.UserProxycs.Select_UserCardList(user.ID);
+                if (userCardList.Success)
+                {
+                    var CartUseCardList = cart.UseCard.ToList();
+                    foreach (var pair in CartUseCardList)
+                    {
+                        var cardItem = userCardList.OBJ.FirstOrDefault(p => p.ID == pair.Key);
+                        if (cardItem != null)
+                        {
+                            decimal tmpPrice = 0;
+                            //计算懒人卡抵扣
+                            if (TotalPayPrice != 0)
+                            {
+                                if (cardItem.Balance > TotalPayPrice)
+                                {
+                                    tmpPrice = TotalPayPrice;
+                                    TotalPayPrice = 0;
+                                }
+                                else
+                                {
+                                    tmpPrice = cardItem.Balance;
+                                    TotalPayPrice -= tmpPrice;
+                                }
+                                cart.UseCardPrice += tmpPrice;
+                                cart.UseCard[pair.Key] = tmpPrice;
+                            }
+                        }
+                    }
+                }
+            }
+
+            //使用余额抵扣
+            if (cart.UseBalanceEnable && TotalPayPrice != 0)
+            {
+                if (user.Money > TotalPayPrice)
+                {
+                    cart.UseBalance += TotalPayPrice;
+                    TotalPayPrice = 0;
+                }
+                else
+                {
+                    cart.UseBalance += user.Money;
+                    TotalPayPrice -= user.Money;
+                }
+            }
+
+            var rtnCardList = new List<SelectListItem>();
+            foreach (var c in cart.UseCard)
+            {
+                SelectListItem li = new SelectListItem();
+                li.Text = c.Key.ToString();
+                li.Value = c.Value.ToString();
+                rtnCardList.Add(li);
+            }
+
+            return Json(new { Code = code, Msg = rtnMsg, Pay = TotalPayPrice, Balance = cart.UseBalance, CardPay = cart.UseCardPrice, CardList = rtnCardList, CouponPay = cart.UseCouponPrice, CouponID = couponID, ExpressPrice = cart.ExpressMoney, SalePrice = cart.SalePrice });
+        }
+
+
+
+        public JsonResult SubmitProcess(int address, string remark)
+        {
+            var user = GetUserInfo();
+            int code = 1;
+            string rtnMsg = null;
+
+            WCF.OrderSystem.Contract.DataContract.Order_ConsigneeAddressDC GetAddress = null;
+            WCF.OrderSystem.Contract.DataContract.Order_ConsigneeAddressDC SendAddress = null;
+
+            var rtnAddress = App_Code.Proxy.UserProxycs.User_ConsigneeAddress_SELECT_Entity(address);
+            if (rtnAddress.Success)
+            {
+                GetAddress = new WCF.OrderSystem.Contract.DataContract.Order_ConsigneeAddressDC();
+                GetAddress.Consignee = rtnAddress.OBJ.Consignee;
+                GetAddress.Mpno = rtnAddress.OBJ.MPNo;
+                GetAddress.Address = rtnAddress.OBJ.DistrictName + rtnAddress.OBJ.Address;
+                GetAddress.CityName = rtnAddress.OBJ.CityName;
+                GetAddress.ProvinceName = rtnAddress.OBJ.ProvinceName;
+                GetAddress.DistrictID = rtnAddress.OBJ.DistrictID;
+
+                SendAddress = new WCF.OrderSystem.Contract.DataContract.Order_ConsigneeAddressDC();
+                SendAddress.Consignee = rtnAddress.OBJ.Consignee;
+                SendAddress.Mpno = rtnAddress.OBJ.MPNo;
+                SendAddress.Address = rtnAddress.OBJ.DistrictName + rtnAddress.OBJ.Address;
+                SendAddress.CityName = rtnAddress.OBJ.CityName;
+                SendAddress.ProvinceName = rtnAddress.OBJ.ProvinceName;
+                SendAddress.DistrictID = rtnAddress.OBJ.DistrictID;
+            }
+            else
+            {
+                code = rtnAddress.Code;
+                rtnMsg = rtnAddress.Message;
+            }
+
+            List<int> productList = new List<int>();
+            foreach (var p in user.Cart.ProductList)
+            {
+                for (int i = 0; i < p.Count; i++)
+                    productList.Add(p.ProductInfo.ID);
+            }
+
+            decimal expressFee = 8m;
+            decimal realTotalPrice = user.Cart.PayPrice;
+            IDictionary<string, decimal> activeList = null;
+            IList<int> couponList = null;
+
+            //优惠券
+            if (user.Cart.UseCoupon.Count > 0)
+            {
+                couponList = new List<int>();
+                foreach (KeyValuePair<int, decimal> coupon in user.Cart.UseCoupon)
+                {
+                    couponList.Add(coupon.Key);
+                    realTotalPrice -= coupon.Value;
+                }
+            }
+
+            ////创始会员
+            //if (user.User.Level != (int)WCF.UserSystem.Contract.Enumerate.UserLevel.CharterMembers)
+            //{
+            //    if (realTotalPrice < 25)
+            //    {
+            //        expressFee = 0m;
+            //        realTotalPrice += 8;
+            //    }
+            //}
+            //else
+            //{
+            //    activeList = new Dictionary<string, decimal>();
+
+            //    decimal charterSaleMoney = Math.Round(realTotalPrice * 0.2m, 1, MidpointRounding.AwayFromZero);
+            //    activeList.Add("创始会员8折优惠", charterSaleMoney);
+            //    realTotalPrice -= charterSaleMoney;
+            //}
+
+            //懒人卡
+            if (user.Cart.UseCard != null)
+            {
+                foreach (KeyValuePair<int, decimal> item in user.Cart.UseCard)
+                {
+                    realTotalPrice -= item.Value;
+                }
+            }
+
+            //余额
+            realTotalPrice -= user.Cart.UseBalance;
+
+            string url = "";
+            var rtn = App_Code.Proxy.OrderProxy.Order_Create_Common(user.User.ID, AppConfig.SiteID, productList, user.Cart.ExpressMoney, 0m, user.Cart.UseBalance, user.Cart.UseCard, GetAddress, SendAddress, realTotalPrice, activeList, couponList);
+            if (rtn.Success)
+            {
+                if ((rtn.OBJ.TotalAmount - rtn.OBJ.PayAmount) > 0)
+                    url = Url.Action("Payment", new { OrderNum = rtn.OBJ.OrderNumber });
+                else
+                    url = Url.Action("PaymentOk", new { OrderNum = rtn.OBJ.OrderNumber });
+                Session["Order_" + rtn.OBJ.OrderNumber] = rtn.OBJ;
+                user.Cart.Clear();
+                UpdateUserInfo();
+            }
+            else
+            {
+                code = rtn.Code;
+                rtnMsg = rtn.Message;
+            }
+
+            return Json(new { Code = code, Msg = rtnMsg, TagUrl = url });
+        }
+
+        [Authorize]
+        public ActionResult Payment(string OrderNum)
+        {
+            ViewBag.OrderNum = OrderNum;
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult PaymentOk(string OrderNum)
+        {
+            ViewBag.OrderNum = OrderNum;
+            return View();
+        }
+
+        public ActionResult Alipay(string OrderNum, int payType = 1)
+        {
+            var OrderItem = App_Code.Proxy.OrderProxy.Select_OrderEntity(OrderNum, true, false, false, false, false, false).OBJ;
+
+            decimal payMoney = OrderItem.TotalAmount - OrderItem.PayAmount;
+            if (OrderItem.PayStatus == 0 && payMoney > 0)
+            {
+                string body = "";
+                var pList = OrderItem.ProductList.GroupBy(p => p.ProductID);
+                foreach (var product in pList)
+                {
+                    var pDC = product.First();
+                    body += pDC.Name + " 数量：" + product.Count() + " 价格：" + pDC.Price * product.Count() + " ";
+                }
+
+                //把请求参数打包成数组
+                SortedDictionary<string, string> sParaTemp = new SortedDictionary<string, string>();
+                sParaTemp.Add("partner", AppConfig.Alipay_Partner);
+                sParaTemp.Add("_input_charset", Config.Input_charset.ToLower());
+                sParaTemp.Add("service", "create_direct_pay_by_user");
+                sParaTemp.Add("out_trade_no", OrderItem.OrderNumber);
+                sParaTemp.Add("subject", OrderItem.Title);//
+                sParaTemp.Add("payment_type", "1");
+                sParaTemp.Add("seller_email", AppConfig.Alipay_Seller_Email);
+                sParaTemp.Add("total_fee", payMoney.ToString());
+                sParaTemp.Add("body", body);
+                //sParaTemp.Add("it_b_pay", "1h");
+                sParaTemp.Add("notify_url", AppConfig.Alipay_Notify_URL);
+                sParaTemp.Add("return_url", AppConfig.Alipay_Return_URL);
+
+                string param = LazyAtHome.Library.Pay.Common.Alipay.Submit.BuildRequestParaToString(sParaTemp, System.Text.Encoding.UTF8);
+                string alipayUrl = LazyAtHome.Library.Pay.Common.Alipay.Submit.GATEWAY_PC + param;
+                return Redirect(alipayUrl);
+            }
+            else
+            {
+                ViewBag.OrderNum = OrderNum;
+                return View("PaymentOk");
+            }
+        }
+
+        [ValidateInput(false)]
+
+        public ActionResult AlipayNotify()
+        {
+            App_Code.UtilityFunc.Add("------------------------------------\r\nCall AlipayNotify");
+            SortedDictionary<string, string> sPara = GetRequestPost("post");
+            var RequestColl = Request.Form;
+
+            if (sPara.Count > 0)//判断是否有带返回参数
+            {
+                Notify aliNotify = new Notify();
+                bool verifyResult = aliNotify.Verify(sPara, RequestColl["notify_id"], RequestColl["sign"]);
+                string trade_status = RequestColl["trade_status"];
+
+                App_Code.UtilityFunc.Add("verifyResult:" + verifyResult);
+                App_Code.UtilityFunc.Add("trade_status:" + trade_status);
+
+                //if (verifyResult)//验证成功
+                //{
+                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    //请在这里加上商户的业务逻辑程序代码
+
+
+                    //——请根据您的业务逻辑来编写程序（以下代码仅作参考）——
+                    //获取支付宝的通知返回参数，可参考技术文档中服务器异步通知参数列表
+
+                    //商户订单号
+                    string out_trade_no = RequestColl["out_trade_no"];
+                    //支付宝交易号
+                    string trade_no = RequestColl["trade_no"];
+
+                    decimal alipayMoney = decimal.Parse(RequestColl["total_fee"]);
+                    DateTime alipayPayTime = DateTime.Parse(RequestColl["gmt_payment"]);
+
+
+                    if (trade_status == "TRADE_FINISHED" || trade_status == "TRADE_SUCCESS")
+                    {
+                        var rtn = App_Code.Proxy.OrderProxy.Update_OrderPay(out_trade_no, alipayMoney, WCF.OrderSystem.Contract.Enumerate.PayMoneyType.AliPay, WCF.OrderSystem.Contract.Enumerate.PayMoneyChannel.Web, alipayPayTime, trade_no);
+                        if (!rtn.Success)
+                        {
+                            if (rtn.Code != -70)
+                                App_Code.UtilityFunc.Add("处理订单失败：" + out_trade_no + " Error:" + rtn.Message);
+                        }
+                    }
+                    else
+                    {
+                        App_Code.UtilityFunc.Add("处理订单失败：" + out_trade_no + " Error:" + trade_status);
+                    }
+
+                    return Content("success");  //请不要修改或删除
+                //}
+                //else//验证失败
+                //{
+                //    return Content("fail");
+                //}
+            }
+            else
+            {
+                return Content("无通知参数");
+            }
+        }
+
+        [ValidateInput(false)]
+
+        public ActionResult AlipayReturn()
+        {
+            App_Code.UtilityFunc.Add("------------------------------------\r\nCall AlipayReturn");
+            SortedDictionary<string, string> sPara = GetRequestPost("get");
+
+            var RequestColl = Request.QueryString;
+
+            if (sPara.Count > 0)//判断是否有带返回参数
+            {
+                Notify aliNotify = new Notify();
+                bool verifyResult = aliNotify.Verify(sPara, RequestColl["notify_id"], RequestColl["sign"]);
+                string trade_status = RequestColl["trade_status"];
+
+                App_Code.UtilityFunc.Add("verifyResult:" + verifyResult);
+                App_Code.UtilityFunc.Add("trade_status:" + RequestColl["trade_status"]);
+
+                //if (verifyResult)//验证成功
+                //{
+                    //商户订单号
+                    string out_trade_no = RequestColl["out_trade_no"];
+                    //支付宝交易号
+                    string trade_no = RequestColl["trade_no"];
+                    //支付金额
+                    decimal alipayMoney = decimal.Parse(RequestColl["total_fee"]);
+                    //支付时间
+                    DateTime alipayPayTime = DateTime.Now;
+
+                    if (trade_status == "TRADE_FINISHED" || trade_status == "TRADE_SUCCESS")
+                    {
+                        var rtn = App_Code.Proxy.OrderProxy.Update_OrderPay(out_trade_no, alipayMoney, WCF.OrderSystem.Contract.Enumerate.PayMoneyType.AliPay, WCF.OrderSystem.Contract.Enumerate.PayMoneyChannel.Web, alipayPayTime, trade_no);
+                        if (!rtn.Success)
+                        {
+                            if (rtn.Code != -70)
+                                App_Code.UtilityFunc.Add("处理订单失败：" + out_trade_no + " Error:" + rtn.Message);
+                        }
+                    }
+                    else
+                    {
+                        App_Code.UtilityFunc.Add("处理订单失败：" + out_trade_no + " Error:" + trade_status);
+                    }
+                    App_Code.UtilityFunc.Add("PaymentOk");
+                    ViewBag.OrderNum = out_trade_no;
+                    return View("PaymentOk");
+                //}
+                //else//验证失败
+                //{
+                //    return Content("fail");
+                //}
+            }
+            else
+            {
+                return Content("无通知参数");
+            }
+        }
+
+        /// <summary>
+        /// 获取支付宝POST过来通知消息，并以“参数名=参数值”的形式组成数组
+        /// </summary>
+        /// <returns>request回来的信息组成的数组</returns>
+        public SortedDictionary<string, string> GetRequestPost(string type)
+        {
+            int i = 0;
+            SortedDictionary<string, string> sArray = new SortedDictionary<string, string>();
+            NameValueCollection coll;
+            if (type == "post")
+                coll = Request.Form;
+            else
+                coll = Request.QueryString;
+
+            String[] requestItem = coll.AllKeys;
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+            for (i = 0; i < requestItem.Length; i++)
+            {
+                sb.Append(requestItem[i] + ":" + coll[requestItem[i]] + "; ");
+                sArray.Add(requestItem[i], coll[requestItem[i]]);
+            }
+
+            App_Code.UtilityFunc.Add("支付宝返回参数：" + sb.ToString());
+
+            return sArray;
+        }
+
+        [Authorize]
+        public ActionResult ReOrder(string orderNum)
+        {
+            var user = GetUserInfo();
+            WCF.OrderSystem.Contract.DataContract.Order_OrderDC orderItem = null;
+            var rtn = App_Code.Proxy.OrderProxy.Select_OrderEntity(orderNum, true, true, true, true, true, true);
+            if (rtn.Success)
+            {
+                user.Cart.Clear();
+                orderItem = rtn.OBJ;
+                IList<Models.CartProductItemModel> xList = new List<Models.CartProductItemModel>();
+                if (orderItem.ProductList != null)
+                {
+                    var plist = orderItem.ProductList.GroupBy(p => p.ProductID);
+                    foreach (var product in plist)
+                    {
+                        Models.CartProductItemModel pi = new Models.CartProductItemModel();
+                        var pDC = product.First();
+                        var productRtn = WCF.Wash.Contract.ClientProxy.web_ProductClient.Cache_web_Wash_Product_SELECT_Entity(pDC.ProductID);
+                        pi.ProductInfo = productRtn.OBJ;
+                        pi.Count = product.Count();
+                        xList.Add(pi);
+                    }
+                }
+                user.Cart.ProductList = xList;
+                user.Cart.TotalProductInfo();
+            }            
+            return Redirect("OrderConfirm");
+        }
+    }
+}

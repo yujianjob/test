@@ -1,0 +1,27 @@
+﻿<!--内容-->
+<div id="content">
+     <div class="mediaShowTitle"><p><a href="/Home/LaundryTips">小常识列表</a><span>&gt;</span>洗衣小常识</p></div>
+     <div class="mediaShow">
+     	  <div class="mediaShowBt">
+          	   <h2>呢绒大衣的熨烫技巧</h2>
+               <p><b>2014.05.12</b>浏览次数：<span>90</span></p>
+               <dl>
+                  <dt>分享到：</dt>
+                  <dd><a href="#"><img src="~/Content/images/fenxiang_01.gif" /></a></dd>
+                  <dd><a href="#"><img src="~/Content/images/fenxiang_02.gif" /></a></dd>
+                  <dd><a href="#"><img src="~/Content/images/fenxiang_03.gif" /></a></dd>
+               </dl>
+          </div>
+          <div class="mediaShowContent laundrytips">
+          	   <p>1、熨烫前先进行简单的除尘法，先将呢绒大衣平铺在桌上，把厚毛巾放至40℃的温水中浸透拧干，放在呢绒大衣上，然后用手或硬物进行弹性拍打，使呢绒大衣的灰尘跑到热毛巾中，再洗净毛巾，顺着呢绒面料的方向擦拭，反复几次后即可开始熨烫。</p>
+			   <img src="~/Content/images/tips8-pic1.jpg" />
+			   <p></p>
+			   <p>2、首先取一块温的白棉布，用低温熨烫大衣里子，先从后身开始烫至前身，再烫左右前身及袋布。穿过的大衣，烫时里料不可喷水，防止出现水渍，然后开搞熨斗温度，盖上湿布按以下几步来熨烫呢绒大衣的正面，先左右前襟贴边→两个衣袖→左右上背→右左上胸→左前身→后身→右前身。烫领子时反面要烫得干、领底不要露出领面，立绒、长毛绒的领子烫后要用毛刷将绒毛刷立起来。男式翻领领口必须烫实女式翻领应烫成活型。</p>
+			    <img src="~/Content/images/tips8-pic2.jpg" align="center"/>
+			   <p></p>
+			   <p>温馨提醒：在衣袖的熨烫过程中，可以将小枕头塞入肩袖中，左手托起小枕头，盖上一层湿布熨烫肩袖，使肩头和袖笼达到平挺圆滑，但要注意的是男式衣袖的前侧圆滑，后侧扁型，女式衣袖则烫成鼓圆型。最后熨烫呢面不平挺之处，用衣架挂在通风处吹干即可。</p>
+			   <p></p>
+          </div>
+         <!-- <div class="pages"><a href="#">上一篇</a><a href="#">下一篇</a></div>-->
+     </div>
+</div>

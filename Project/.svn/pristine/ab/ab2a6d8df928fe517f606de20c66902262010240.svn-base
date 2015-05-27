@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Enabled>true</Enabled>
+  <ServerUrl>AutoUpdaterList.xml</ServerUrl>
+  <Version>1.0.0.0</Version>
+  <UpdateFileList>
+    <LocalFile Name="LazyAtHome.Winform.FactoryPortal.exe" LastTime="20140916000000" size="1000" />
+    <LocalFile Name="LazyAtHome.Winform.FactoryPortal.exe.config" LastTime="20140916000000" size="1000" />
+    <LocalFile Name="LazyAtHome.Core.dll" LastTime="20140916000000" size="1000" />
+    <LocalFile Name="Data\Express_V2.fr3" LastTime="20140916000000" size="1000" />
+  </UpdateFileList>
+</Config>

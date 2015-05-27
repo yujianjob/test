@@ -1,0 +1,104 @@
+﻿@model LazyAtHome.WCF.OrderSystem.Contract.DataContract.Order_OrderDC
+
+<!--报错信息-->
+@Html.Raw(ViewBag.Script)
+
+<!--搜索条-->
+<div class="pageHeader">
+    <form id="searchForm" onsubmit="return navTabSearch(this);" action="@Url.Action("GetStoreOrder")" method="post">
+        <div class="searchBar">
+            <table class="searchContent">
+                <tr>
+                    <td>
+                        包裹号：
+                        <input type="text" name="ordernumber" value="@Model.OrderNumber" readonly="readonly">
+                    </td>
+                </tr>
+            </table>
+
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">刷新</button></div></div></li>
+
+                    @*<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>*@
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="pageContent">
+
+
+    <div class="panelBar">
+        <ul class="toolBar">
+
+            @if (Model.ID == 0)
+            {
+                //说明所有订单 都已经打包 显示 添加包裹 按钮
+                <li><a class="add" href="@Url.Action("AddOrder")" target="navTab" rel="createorder" title="收衣篮"><span>添加包裹</span></a></li>
+                <li class="line">line</li>
+            }
+            else
+            {
+                if (Model.OrderStatus == 1)
+                {
+                     //说明还有未打包的订单 显示 收衣 按钮
+                    <li><a class="add" href="@Url.Action("AddProduct")?oid=@Model.ID" target="navTab" rel="productselect" title="衣物选取"><span>收衣</span></a></li>
+                    <li><a class="delete" href="@Url.Action("DeleteProduct")?oid=@Model.ID&pid={pid}" target="ajaxTodo" title="确定要删除吗？删除后将不能恢复！"><span>删除</span></a></li>
+                    <li class="line">line</li>
+                    <li><a class="edit" id="package" href="@Url.Action("ExpressNumDialog")?oid=@Model.ID" target="dialog" rel="expressnum" title="请输入物流单号"><span>打包</span></a></li>
+                    <li class="line">line</li>
+                }          
+
+            }
+
+            @*<li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targettype="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>*@
+        </ul>
+    </div>
+
+    <!--功能按键-->
+
+
+    <!--列表页-->
+    <table class="table" width="100%" layouth="138">
+        <thead>
+            <tr>
+                <th width="50" align="center"></th>
+                <th width="100" align="center">运价编号</th>
+                <th width="150" align="center">运价名称</th>
+                <th width="100" align="center">销售价</th>
+                <th width="150" align="center">名称</th>
+                <th width="120" align="center">手机号</th>
+                <th width="120" align="center">归属人</th>
+                <th width="120" align="center">收衣时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (@Model.ProductList != null)
+            {
+                int no = 1;
+                foreach (var item in @Model.ProductList)
+                {
+                    <tr target="pid" rel="@item.ID">
+                        <td>@(no++)</td>
+                        <td>@item.ProductID</td>
+                        <td>@item.Name</td>
+                        <td>@item.Price</td>
+                        <td>@item.Name</td>
+                        <td>@item.UserMPNo</td>
+                        <td>@item.UserName</td>
+                        <td>@UIHelper.FormatDate(item.Obj_Cdate)</td>
+                        
+                    </tr>
+                }
+
+            }
+        </tbody>
+    </table>
+
+
+</div>
+
+

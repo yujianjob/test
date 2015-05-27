@@ -1,0 +1,33 @@
+﻿@{
+    Layout = null;
+}
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>放假通知</title>
+    <style>
+        .pink {
+            color: #ff586c;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body style="background:white">
+    <section>
+        
+        <div class="activityBox" style="text-align: center;">
+            <h2 style="font-size:25px; font-family:'微软雅黑'; font-weight:normal;padding:0">维护升级通知</h2>
+            <p style="font-size:14px; line-height:25px;color:#333;padding:0 20px;font-family:'微软雅黑';">你所在的站点维护升级中，近期将开通，敬请期待。</p>
+
+           
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyAtHome.Service.WorkQueue.Contract", "LazyAtHome.Service.WorkQueue.Contract\LazyAtHome.Service.WorkQueue.Contract.csproj", "{C4BAA33A-5DED-49D4-B4F1-2ED56FB599D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyAtHome.Service.WorkQueue.Plugin", "LazyAtHome.Service.WorkQueue.Plugin\LazyAtHome.Service.WorkQueue.Plugin.csproj", "{1191A024-3D46-4912-ACA3-685FFBA1B4C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyAtHome.Service.WorkQueue.Service", "LazyAtHome.Service.WorkQueue.Service\LazyAtHome.Service.WorkQueue.Service.csproj", "{E7AAF7EC-6699-4F57-9AD2-20F106FAE0C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyAtHome.Service.WorkQueue.Test", "LazyAtHome.Service.WorkQueue.Test\LazyAtHome.Service.WorkQueue.Test.csproj", "{C7A458D6-E380-4370-8822-D9D0AD7AA089}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C4BAA33A-5DED-49D4-B4F1-2ED56FB599D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4BAA33A-5DED-49D4-B4F1-2ED56FB599D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4BAA33A-5DED-49D4-B4F1-2ED56FB599D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4BAA33A-5DED-49D4-B4F1-2ED56FB599D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1191A024-3D46-4912-ACA3-685FFBA1B4C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1191A024-3D46-4912-ACA3-685FFBA1B4C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1191A024-3D46-4912-ACA3-685FFBA1B4C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1191A024-3D46-4912-ACA3-685FFBA1B4C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7AAF7EC-6699-4F57-9AD2-20F106FAE0C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7AAF7EC-6699-4F57-9AD2-20F106FAE0C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7AAF7EC-6699-4F57-9AD2-20F106FAE0C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7AAF7EC-6699-4F57-9AD2-20F106FAE0C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7A458D6-E380-4370-8822-D9D0AD7AA089}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7A458D6-E380-4370-8822-D9D0AD7AA089}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7A458D6-E380-4370-8822-D9D0AD7AA089}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7A458D6-E380-4370-8822-D9D0AD7AA089}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+EndGlobal

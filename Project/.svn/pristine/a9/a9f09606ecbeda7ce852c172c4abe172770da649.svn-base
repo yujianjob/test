@@ -1,0 +1,7 @@
+﻿<div id="top">
+    <div class="top_l"><a href="@Url.Action("Index", "Wash")"><img src="~/images/lan1.jpg" /></a></div>
+    <div class="top_c"><img src="~/images/lan2.jpg" /></div>
+    <div class="top_r"><a href="@Url.Action("Index", "ShoppingCart")"><img src="~/images/lan3.jpg" /></a></div>
+    <div class="top_rr"><a href="@Url.Action("MemberCenter", "PersonalCenter")"><img src="~/images/lan3a.jpg" /></a></div>
+    <div class="clear"></div>
+</div>

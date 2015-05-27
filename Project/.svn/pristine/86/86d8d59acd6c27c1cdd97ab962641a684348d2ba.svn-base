@@ -1,0 +1,150 @@
+﻿@model LazyAtHome.WCF.Wash.Contract.DataContract.weixin.wx_Wash_CategoryDC
+@{
+    ViewBag.Title = "产品详情";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="xiangqing">
+    <div class="xiangqing_t" style="padding:0">
+        <div class="xiangqing_t_l" style="padding:10px!important"><img src="@Model.PictureS" style="width:100%;height:auto;margin:0;display:block" /></div>
+        <div class="xiangqing_t_r">
+            <p>干洗类目：<span>@Model.Name</span></p>
+            <p id="limaprice">原价：<del id="showmaprice">111</del></p>
+            <p>服务价格：￥<span id="price" style="color:red;">@Model.SalesPrice</span></p>
+            <p>促销信息：<label id="showSale" style="color:red"></label></p>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="xiangqing_c">
+        <p>服务详情</p>
+        <div class="leixing">
+            <div class="leixing_l">类型：</div>
+            <div class="leixing_r">
+                <ul>
+                    @foreach (var item in Model.ProductList)
+                    {
+                        <li pid="@item.ID" price="@item.SalesPrice" maprice="@item.MarketPrice">@item.Name</li>
+                    }
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="leixing">
+            <div class="leixing_l">数量：</div>
+            <div class="leixing_r" style=" padding-top:10px;">
+                <input type="button" class="jian" value="-" onclick="ChangeProductCount(2)" />
+                <input id="pCount" name="pCount" type="button" value="1" class="shuzi" />
+                <input type="button" class="jia" value="+" onclick="ChangeProductCount(1)" />
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="leixing">
+            <div class="leixing_l" style="color:#f08b43; line-height:35px;">已选择：</div>
+            <div id="pSelect" class="leixing_r yixuan" style="padding-top:10px;">无</div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="xiangqing_b">
+        <div class="xiangqing_b_l"><img onclick="formSubmit(1)" src="../images/lan24.jpg" /></div>
+        <div class="xiangqing_b_r"><img onclick="formSubmit(2)" src="../images/lan25.jpg" /></div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="footer foot" style="padding-top:0;"><img src="../images/lan8.jpg" /></div>
+<form action="/ShoppingCart" method="post" id="formpost">
+    <input id="spid" name="spid" type="hidden" value="" />
+    <input id="pidcount" name="pidcount" type="hidden" value="1" />
+    <input id="submitType" name="submitType" type="hidden" value="1" />
+</form>
+@section scripts
+{
+    @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript">
+        var listcount = "@Model.ProductList.Count";
+
+        function ChangeProductCount(type) {
+            var currCount = parseInt(pCount.value);
+            switch (type) {
+                case 1:
+                    currCount += 1;
+                    if (currCount > 20)
+                        currCount = 20;
+                    break;
+                case 2:
+                    currCount -= 1;
+                    if (currCount <= 0)
+                        currCount = 1;
+                    break;
+            }
+            pCount.value = currCount;
+            pidcount.value = currCount;
+        }
+
+        $(function () {
+            $("#limaprice").hide();
+            $("[price]").click(function () {
+                var price = $(this).attr("price");
+                $("#price").text(price);
+                var maprice = $(this).attr("maprice");
+                var sale = maprice - price;
+                if (sale != 0) {
+                    var strSale = (1 - sale / maprice) * 100;
+                    $("#showmaprice").text(maprice);
+                    $("#limaprice").show();
+                    $("#showSale").html("活动" + Math.round(strSale) / 10 + "折优惠");
+                }
+                else {
+                    $("#showSale").html("");
+                    $("#limaprice").hide();
+                }
+
+                $("#price").text($(this).attr("price"));
+                $("#pSelect").text($(this).text());
+                $("#spid").val($(this).attr("pid"));
+
+                $("#iconselect").remove();
+                $("#xifu_this").removeClass("xifu_this");
+                $(this).addClass("xifu_this");
+                $(this).append("<p id=\"iconselect\"><img src=\"../images/icon3.png\" /></p>");
+            })
+
+            if (listcount == "1") {
+                $("[price]").click();
+            }
+        })
+
+        function formSubmit(type) {
+            if ($("#spid").val() == "") {
+                alert("请选择服装类型！");
+                return false;
+            }
+            if (type == 2) {
+                submitType.value = 2;
+            }
+            $("#formpost").submit();
+        }
+
+        function getObject(objectId) {
+            if (document.getElementById && document.getElementById(objectId)) {
+                return document.getElementById(objectId);
+            } else if (document.all && document.all(objectId)) {
+                return document.all(objectId);
+            } else if (document.layers && document.layers[objectId]) {
+                return document.layers[objectId];
+            } else {
+                return false;
+            }
+        }
+
+        function showHide(e, objname) {
+            var obj = getObject(objname);
+            if (obj.style.display == "none") {
+                obj.style.display = "block";
+                e.className = "minus";
+            } else {
+                obj.style.display = "none";
+                e.className = "plus";
+            }
+        }
+    </script>
+}

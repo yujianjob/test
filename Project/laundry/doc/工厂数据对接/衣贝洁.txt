@@ -1,0 +1,42 @@
+3.5訂單資料上傳 函數原型：
+int OrderUpLoad (string OrderNo , string PassWord) 
+返回類型： int
+參   數 ： OrderNo(XML 參閱如下描述) , 
+PassWord 返 回 值： 1：儲存成功； 0：儲存失敗
+函數功能：訂單資料上傳至後臺主機
+描   述 ： XML 描述如下
+<NewDataSet>
+	<Table1>
+		<order_no>9999999999</order_no>
+		<order_date>yyyy-MM-dd</order_date>
+		<order_time>HH:MM</order_time>
+		<order_mtel>999999999999</order_mtel>
+		<order_card>9999999999999999</order_card>
+		<order_item>999</order_item>
+		<order_prices>999.99</order_prices>
+		<order_qty>99</order_qty>
+		<order_source>99</order_source>
+	</Table1>
+</NewDataSet>
+備   註 ： order_source = ‘1’ 表線上下單
+
+
+<order_no>9999999999</order_no>懒到家订单号
+<order_date>yyyy-MM-dd</order_date>当前年月日
+<order_time>HH:MM</order_time>
+<order_mtel>999999999999</order_mtel>
+<order_card>9999999999999999</order_card>
+<order_item>999</order_item>
+<order_prices>999.99</order_prices>
+<order_qty>99</order_qty>
+<order_source>99</order_source>
+
+order_no:懒到家系统订单号？？
+order_date:当前年月日
+order_time:当前时分
+order_mtel:手机号，是否可以13个0，待确认？？
+order_card:卡号？？
+order_item:？?
+order_prices:订单价格？
+order_qty:数量，衣物数量?
+order_source:1:线上下单，99:接口下单？

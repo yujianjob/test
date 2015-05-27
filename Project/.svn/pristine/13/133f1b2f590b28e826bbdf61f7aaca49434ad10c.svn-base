@@ -1,0 +1,133 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace LazyAtHome.Web.WeiXin4.Controllers
+{
+    public class AddressController : BaseController
+    {
+        public ActionResult AddressManage()
+        {
+            var user = GetUserInfo();
+            if (user.User == null || !CheckLoginCook())
+            {
+                HttpContext.Cache[AppConfig.Cache_CallbackUrl + _UserOpenID] = Request.Url.ToString();
+                return RedirectToAction("MobileBindingShow", "Member");
+            }
+
+            IList<WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC> xList = null;
+            var rtn = App_Code.Proxy.UserProxycs.Select_UserAddress(user.User.UserInfo.ID);
+            if (rtn.Success)
+            {
+                xList = rtn.OBJ;
+            }
+            if (xList == null)
+                xList = new List<WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC>();
+
+            return View(xList);
+        }
+
+
+
+        public ActionResult AddressModify(int? id)
+        {
+            WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC item = null;
+            if (id.HasValue)
+            {
+                var rtn = App_Code.Proxy.UserProxycs.User_ConsigneeAddress_SELECT_Entity(id.Value);
+                if (rtn.Success)
+                    item = rtn.OBJ;
+            }
+            else
+            {
+                var user = GetUserInfo();
+                item = new WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC();
+                item.ID = 0;
+                item.DistrictID = 310113;
+                item.Address = string.Empty;
+                item.MPNo = user.User.UserInfo.MPNo;
+                item.Consignee = user.User.UserDetail.RealName;
+            }
+
+            if (Request.UrlReferrer != null)
+                HttpContext.Cache[AppConfig.Cache_CallbackUrl + _UserOpenID] = Request.UrlReferrer.ToString();
+
+            return View(item);
+        }
+
+        public JsonResult AddressDel(int id)
+        {
+            int code = 0;
+            string rtnMsg = "";
+            var rtn = App_Code.Proxy.UserProxycs.User_ConsigneeAddress_DELETE(id);
+            if (rtn.Success)
+            {
+                code = 1;
+                UpdateUserInfo();
+            }
+            else
+            {
+                code = rtn.Code;
+                rtnMsg = rtn.Message;
+            }
+
+            return Json(new { Code = code, Msg = rtnMsg });
+        }
+
+        public JsonResult User_AddressUpdate(int id, string consignee, int districtID, string address, string mpno, short isdefault)
+        {
+            int code = 0;
+            string rtnMsg = "";
+
+            var user = GetUserInfo();
+            WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC item = new WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC();
+            item.ID = id;
+            item.UserID = user.User.UserInfo.ID;
+            item.Consignee = consignee;
+            item.DistrictID = districtID;
+            item.Address = address;
+            item.MPNo = mpno;
+            item.IsDefault = isdefault;
+
+            if (item.ID == 0)
+            {
+                var rtn = App_Code.Proxy.UserProxycs.User_ConsigneeAddress_ADD(item);
+                if (rtn.Success)
+                {
+                    code = 1;
+                    rtnMsg = rtn.OBJ.ToString();
+                    UpdateUserInfo();
+                }
+                else
+                {
+                    code = rtn.Code;
+                    rtnMsg = rtn.Message;
+                }
+            }
+            else
+            {
+                var rtn = App_Code.Proxy.UserProxycs.User_ConsigneeAddress_UPDATE(item);
+                if (rtn.Success)
+                {
+                    code = 1;
+                    rtnMsg = rtn.OBJ.ToString();
+                    UpdateUserInfo();
+                }
+                else
+                {
+                    code = rtn.Code;
+                    rtnMsg = rtn.Message;
+                }
+
+            }
+
+            string callbackUrl = "";
+            if (code == 1 && HttpContext.Cache[AppConfig.Cache_CallbackUrl + _UserOpenID] != null)
+                callbackUrl = HttpContext.Cache[AppConfig.Cache_CallbackUrl + _UserOpenID].ToString();
+
+            return Json(new { Code = code, Msg = rtnMsg, CallBack = callbackUrl });
+        }
+	}
+}

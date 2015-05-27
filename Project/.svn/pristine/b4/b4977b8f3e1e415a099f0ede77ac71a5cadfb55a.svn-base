@@ -1,0 +1,21 @@
+﻿@model String
+@{
+    //ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<div class="error">
+    <div class="img-box"><img src="~/Content/images/error-img.gif" />
+        <p>@Model</p>
+    </div>
+    
+    <div class="error-bg">
+        <div class="btns">
+            <a href="/"><img src="~/Content/images/home-btn.jpg" class="home" /></a>
+            @*<a href="#"><img src="~/Content/images/goback-btn.jpg" class="goback" /></a>*@            
+        </div>
+    </div>
+</div>

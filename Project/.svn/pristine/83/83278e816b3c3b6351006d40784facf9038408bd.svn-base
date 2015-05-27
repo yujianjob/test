@@ -1,0 +1,253 @@
+﻿@{
+    //ViewBag.Title = "账户信息";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--内容-->
+<div id="content">
+    @{Html.RenderPartial("_MemberLeftNav");}
+    <div class="my_content right">
+        <div class="my_contentTitle">账户信息</div>
+        <div class="my_index">
+            <ul>
+                <li><span>登录名：</span>@ViewBag.LoginName</li>
+                <li><span>会员类型：</span>普通用户</li>
+                <li><span><b>*</b>昵称：</span><input id="txtNickName" name="txtNickName" type="text" class="srk" size="25" maxlength="25" value="@ViewBag.NickName" /><b id="msgNickName" style="margin-left:10px"></b></li>
+                <li>
+                    <span>性别：</span><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="18"><input name="rbSex" type="radio" value="1" /></td>
+                            <td width="35">男</td>
+                            <td width="18"><input name="rbSex" type="radio" value="0" /></td>
+                            <td width="35">女</td>
+                            <td width="18"><input name="rbSex" type="radio" value="2" /></td>
+                            <td>保密</td>
+                        </tr>
+                    </table>
+                </li>
+                <li>
+                    <span><b>*</b>手机号码：</span><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="163"><input id="txtMPNo" name="txtMPNo" type="text" class="srk" size="20" maxlength="11" value="@ViewBag.MPNo" /></td>
+                            <td width="75" align="center"><font><input name="btnSmsCode" id="btnSmsCode" type="button" value="获取验证码" style="width: 90px; background: #71b582; color: white;" onclick="VerifyMobile()" /></font></td>
+                            <td><b id="msgMPNo" style="padding-left:5px"></b></td>
+                        </tr>
+                    </table>
+                </li>
+                <li id="liVCode">
+                    <span><b>*</b>短信验证码：</span><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="100"><input id="txtVCode" name="txtVCode" type="text" class="srk" size="10" value="" maxlength="6" /></td>
+                            <td><p id="msgVCode"></p></td>
+                        </tr>
+                    </table>
+                </li>
+                <li>
+                    <span>邮箱：</span><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="176"><input id="txtEmail" name="txtEmail" type="text" value="@ViewBag.Email" class="srk" size="20" maxlength="30" /></td>
+                            <td><b id="msgEmail"></b></td>
+                        </tr>
+                    </table>
+                </li>
+                <li><span>真实姓名：</span><input id="txtRealName" name="txtRealName" type="text" class="srk" value="@ViewBag.RealName" size="20" maxlength="25" /><b id="msgRealName" style="margin-left:10px"></b></li>
+                <li><span>身份证号码：</span><input id="txtIDCard" name="txtIDCard" type="text" class="srk" value="@ViewBag.IDCard" maxlength="18" size="20" /><b id="msgIDCard" style="margin-left:10px"></b></li>
+                <li>
+                    <span>所在地：</span>
+                    <select name="jumpMenu">
+                        <option selected="selected" value="上海市">上海市</option>
+                    </select>
+                    <select name="jumpMenu">
+                        <option selected="selected" value="上海市">上海市</option>
+                    </select>
+                    <select id="txtDistrictID" name="txtDistrictID">
+                        <option selected="selected" value="310101">黄浦区</option>
+                        <option value="310104">徐汇区</option>
+                        <option value="310105">长宁区</option>
+                        <option value="310106">静安区</option>
+                        <option value="310107">普陀区</option>
+                        <option value="310108">闸北区</option>
+                        <option value="310109">虹口区</option>
+                        <option value="310110">杨浦区</option>
+                        <option value="310112">闵行区</option>
+                        <option value="310113">宝山区</option>
+                        <option value="310114">嘉定区</option>
+                        <option value="310115">浦东新区</option>
+                        <option value="310116">金山区</option>
+                        <option value="310117">松江区</option>
+                        <option value="310118">青浦区</option>
+                        <option value="310120">奉贤区</option>
+                        <option value="310230">崇明县</option>
+                    </select>
+                </li>
+                <li><span>地址：</span><input id="txtAddress" name="txtAddress" type="text" class="srk" size="50" maxlength="100" value="@ViewBag.Address" /><b id="msgAddress" style="margin-left:10px"></b></li>
+                <li id="msgLi"><b id="msg">111</b></li>
+                <li><input name="" type="button" class="baocun" value="立即保存" onclick="formSubmit()" /><input name="" type="button" class="quxiao" value="取消" /></li>
+            </ul>
+        </div>
+        <div class="my_indexTitle">特权介绍</div>
+        <div class="my_indexBox"><img src="~/Content/Images/pic_16.jpg" width="795" /></div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script language="javascript" type="text/javascript">
+        var OldMPNo = "@ViewBag.MPNo";
+        var sex = "@ViewBag.Sex";
+        var disID = "@ViewBag.DistrictID";
+        var checkSmsCode = false;
+        var timer = null;
+        $(function () {
+            //左侧导航
+            $('.my_navList dt').click(function () {
+                $(this).parent().find('dd').slideToggle(200);
+                $(this).toggleClass("my_navList_Top");
+            })
+            $("#msgLi").hide();
+            $("#liVCode").hide();
+            if (sex == "")
+                sex = 2;
+            $("input[type=radio][value=" + sex + "]").attr("checked", 'checked');
+            if (disID != "0")
+                txtDistrictID.value = disID;
+        })
+
+        function formSubmit() {
+            $("#msgNickName").html("");
+            $("#msgRealName").html("");
+            $("#msgIDCard").html("");
+            $("#msgAddress").html("");
+            $("#msgMPNo").html("");
+            $("#msgEmail").html("");
+            $("#msgLi").hide();
+
+            if (txtNickName.value.trim().length < 3) {
+                $("#msgNickName").html("昵称必须大于3个字符");
+                txtNickName.focus();
+                return false;
+            }
+
+            if (!txtNickName.value.trim().match("^[\u4E00-\u9FA5A-Za-z0-9 _]+$")) {
+                $("#msgNickName").html("昵称格式错误，请重新输入");
+                txtNickName.focus();
+                return false;
+            }
+
+            if (CheckMobile(txtMPNo, msgMPNo).code == 0) {
+                txtMPNo.focus();
+                return false;
+            }
+
+            if (OldMPNo != txtMPNo.value.trim() && !checkSmsCode) {
+                $("#msgMPNo").html("请验证手机号！");
+                return false;
+            }
+
+            if (txtEmail.value.trim() != "") {
+                if (CheckEmail(txtEmail, msgEmail).code == 0) {
+                    txtEmail.focus();
+                    return false;
+                }
+            }            
+
+            if (txtRealName.value.trim() != "" && !txtRealName.value.trim().match("^[\u4E00-\u9FA5A-Za-z0-9 ]+$")) {
+                $("#msgRealName").html("真实姓名输入有误，请重新输入");
+                txtRealName.focus();
+                return false;
+            }            
+
+            var idCard = txtIDCard.value.trim().toUpperCase();
+            if (idCard != "") {
+                if (!idCard.match("^[1-9][0-9]{7}((0[0-9])|(1[0-2]))(([0|1|2][0-9])|3[0-1])[0-9]{3}$") && !idCard.match("^[1-9][0-9]{5}[1-9][0-9]{3}((0[0-9])|(1[0-2]))(([0|1|2][0-9])|3[0-1])[0-9]{4}$")) {
+                    $("#msgIDCard").html("身份证号码输入有误，请重新输入");
+                    txtIDCard.focus();
+                    return false;
+                }
+            }
+
+            if (txtAddress.value.trim() != "" && !txtAddress.value.trim().match("^[\u4E00-\u9FA5A-Za-z0-9_]+$")) {
+                $("#msgAddress").html("地址输入有误，请重新输入");
+                txtAddress.focus();
+                return false;
+            }
+
+            var postData = { "txtNickName": txtNickName.value, "rbSex": $('input:radio[name="rbSex"]:checked').val(), "txtMPNo": txtMPNo.value, "txtEmail": txtEmail.value, "txtRealName": txtRealName.value, "txtIDCard": txtIDCard.value, "txtDistrictID": txtDistrictID.value, "txtAddress": txtAddress.value, "txtVCode": txtVCode.value };
+
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("User_UpdateInfo", "Member")",
+                data: postData,
+                dataType: "json",
+                success: function (resultJson) {
+                    if (resultJson.Code == 1) {
+                        $("#msgLi").show();
+                        $("#msgLi").html("用户信息更新成功！");
+                    }
+                    else {
+                        $("#msgLi").show();
+                        $("#msgLi").html(resultJson.Msg);
+                    }
+                },
+                error: function (msg) {
+                    alert(msg.responseText.toString());
+                }
+            });
+        }
+
+        function VerifyMobile() {
+            if (timer != null)
+                return false;
+            if (CheckMobile(txtMPNo, msgMPNo).code == 0) {
+                txtMPNo.focus();
+                return false;
+            }
+            $("#msgMPNo").html("");
+
+            if (OldMPNo == txtMPNo.value.trim())
+                return false;
+
+            var postData = { "mpno": txtMPNo.value.trim() };
+
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("VerifyMobile", "Member")",
+                data: postData,
+                dataType: "json",
+                success: function (resultJson) {
+                    if (resultJson.Code == 1) {
+                        $("#msgVCode").html("验证码已经发送成功");
+                        $("#liVCode").show();
+                        checkSmsCode = true;
+                        daojishi();
+                    }
+                    else {
+                        $("#msgMPNo").html(resultJson.Msg);
+                    }
+                },
+                error: function (msg) {
+                    alert(msg.toString());
+                }
+            });
+        }
+
+        function daojishi() {
+            var i = 60;
+            if (!timer) {
+                $("#btnSmsCode").css({ "background": "#ccc", "color": "black" }).attr("value", i);
+                timer = setInterval(function () {
+                    i--;
+                    $("#btnSmsCode").attr("value", i);
+                    if (i == -1) {
+                        clearInterval(timer);
+                        timer = null;
+                        $("#btnSmsCode").css({ "background": "#71b582", "color": "white" }).attr("value", "获取验证码");
+                    }
+                }, 1000);
+            }
+        }
+    </script>
+}

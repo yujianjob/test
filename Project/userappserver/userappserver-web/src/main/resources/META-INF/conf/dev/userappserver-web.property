@@ -1,0 +1,53 @@
+#----datasource-------------------------------
+datasource.driverClassName=com.mysql.jdbc.Driver
+datasource.url=jdbc:mysql://127.0.0.1:3306/lazyhomedb?characterEncoding=UTF-8&useServerPrepStmts=true
+datasource.username=root
+datasource.password=
+#datasource.url=jdbc:mysql://192.168.1.118:3306/lazyhomedb?characterEncoding=UTF-8&useServerPrepStmts=true
+#datasource.username=liuxi
+#datasource.password=1234
+#Data Source=192.168.1.200;Initial Catalog=LazyMasterDB;Persist Security Info=True;User ID=sa;Password=support007@velo.com.cn
+datasource.initialSize=1
+datasource.minIdle=1
+datasource.maxActive=10
+datasource.maxWait=10000
+datasource.timeBetweenEvictionRunsMillis=30000
+datasource.minEvictableIdleTimeMillis=300000
+datasource.validationQuery=select 1
+datasource.testWhileIdle=true
+datasource.testOnBorrow=false
+datasource.testOnReturn=false
+datasource.poolPreparedStatements=false
+datasource.maxPoolPreparedStatementPerConnectionSize=20
+datasource.filters=stat
+
+#----hibernate-------------------------------
+hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
+hibernate.showSql=false
+hibernate.useOuterJoin=true
+hibernate.jdbc.useGetGeneratedKeys=false
+hibernate.maxFetchDepth=1
+hibernate.cache.providerClass=org.hibernate.cache.HashtableCacheProvider
+swarmcache.lru.size=10000
+swarmcache.multicast.ip=127.0.0.1
+hibernate.jdbc.fetch_size=100
+hibernate.jdbc.batch_size=50
+
+#----sms--------------------------------------
+smsYiMeiService.isSend=0
+smsYiMeiService.sn=9SDK-EMY-0999-JDZTN
+smsYiMeiService.pwd=154301
+smsYiMeiService.key=5EEA7B06
+smsYiMeiService.enterpriseName=上海懒到佳信息技术有限公司
+smsYiMeiService.contactMan=陈英辉
+smsYiMeiService.telephoneNo=86-21-6601 6229
+smsYiMeiService.mpNo=18601717193
+smsYiMeiService.email=admin@landaojia.com
+smsYiMeiService.fax=86-21-6601 6230
+smsYiMeiService.address=上海市宝山区泰和路2038号D楼203室
+smsYiMeiService.zipCode=201901
+
+
+
+
+

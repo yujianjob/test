@@ -1,0 +1,132 @@
+﻿@{
+    ViewBag.Title = "抢红包";
+}
+
+<section>
+    <div class="page">
+        <div id="page01" class="page01">
+            <div class="page_head">
+                <div class="user_new">
+                    <img alt="" src="/img/user_new.png" class="new_img">
+                    <hr class="clearfix">
+                </div>
+            </div>
+            <div class="page_prize">
+                <div class="prize_box">
+                    <div class="box_cover">
+                        <img alt="" src="/img/prize_cover.png" class="cover_img">
+                        <hr class="clearfix">
+                    </div>
+                </div>
+            </div>
+            <div class="page_form">
+                <div class="form01">
+                    <h3 class="form_title">
+                        <img alt="" src="/img/form_title01.png" class="title_img">
+                    </h3>
+                    <div class="form_content">
+                        <input name="txtMPNo" id="txtMPNo" type="tel" placeholder="请输入您的手机号" class="phone_num" value="@ViewBag.UserPhone">
+                        <button class="btn_open" onclick="formSubmit()">打开红包</button>
+                    </div>
+                </div>
+            </div>
+            <div class="page_tip">
+                <div class="tip01">
+                    <h4 class="tip_title">红包是什么？</h4>
+                    <ul class="tip_list">
+                        <li class="tip_text"><span class="bullet">1、</span>红包可用于在线支付抵扣，可叠加使用。</li>
+                        <li class="tip_text"><span class="bullet">2、</span>红包不找零、不兑现。</li>
+                        <li class="tip_text"><span class="bullet">3、</span>红包从领取当天起“寿命”是7天，过期作废不能使用。</li>
+                    </ul>
+                </div>
+                <div class="tip02">
+                    <h4 class="tip_title">如何获得红包？</h4>
+                    <ul class="tip_list">
+                        <li class="tip_text"><span class="bullet">1、</span>秘诀一【系统发放】：拼人品的时刻到了，每7天就可以领取一次系统发放红包金额随机。</li>
+                        <li class="tip_text"><span class="bullet">2、</span>秘诀二【每周分享】：每周领完系统红包后，慷慨分享给好友，发完后自己也可以火速去抢。</li>
+                        <li class="tip_text"><span class="bullet">3、</span>秘诀三【评价分享】：每次订单完成后良心评价，然后慷慨分享，发完后自己也可以火速去抢呦。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts
+{
+    <script type="text/javascript" src="/Scripts/hui.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery-2.1.3.js"></script>
+
+    <script type="text/javascript">
+
+        var MarketID;
+        var Registed = "@ViewBag.Registed";
+        $(function () {
+        });
+
+        function formSubmit() {
+
+            var rtn = CheckMobile(txtMPNo);
+            if (rtn.code == 0) {
+                showPopDiv(rtn.msg);
+                return false
+            }
+
+            process();
+
+            var Data = { "mpno": txtMPNo.value.trim(), "isRegisted": Registed };
+            $.ajax({
+                type: "post",
+                url: "/Member/GetMarket",
+                data: Data,
+                dataType: "json",
+                success: function (resultJson) {
+                    if (resultJson.Code == 1) {
+                        var postData = { "mpno": txtMPNo.value.trim(), "type": "1", "MarketID": resultJson.Msg, "CouponID": "" };
+                        $.ajax({
+                            type: "post",
+                            url: "/Member/CheckMPNo",
+                            data: postData,
+                            dataType: "json",
+                            success: ProcessUserReg,
+                            error: function (msg) {
+                                showPopDiv("系统异常，请稍微再试。");
+                            }
+                        });
+                    }
+                    else if (resultJson.Code == 2) {
+                        window.location.href = resultJson.Msg;
+                    }
+                    else { showPopDiv("系统异常，请稍微再试。"); }
+                },
+                error: function (msg) {
+                    showPopDiv("系统异常，请稍微再试。");
+                }
+            });
+
+
+        }
+
+        function ProcessUserReg(resultJson) {
+            removeProcess();
+            if (resultJson != null) {
+                if (resultJson.Code == 1) {
+                    window.location.href = resultJson.Msg;
+                }
+                else if (resultJson.Code == 2) {
+                    if (confirm("你的手机还没有在懒到家微信公众号绑定,是否前去绑定?")) {
+                        window.location.href = "/Member/MobileBindingShow";
+                    }
+                    else {
+                        window.location.href = resultJson.Msg;
+                    }
+                }
+                else {
+                    showPopDiv(resultJson.Msg);
+                }
+            }
+        }
+
+    </script>
+}
+

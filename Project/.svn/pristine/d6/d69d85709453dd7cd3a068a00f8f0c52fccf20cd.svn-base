@@ -1,0 +1,227 @@
+﻿@model LazyAtHome.Web.WebManage.Models.Order.MergerOrderModel
+
+<div class="pageContent">
+
+    <form method="post" action="@Url.Action("MergerOrder", new { primaryoid = Model.PrimaryOrder.ID, slaveoid = Model.SlaveOrder.ID})" id="frmMergerOrder" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+        <div>
+            <div class="panel" defh="215">
+                <h1>主订单信息</h1>
+                <div>
+                    <div style="float:left; display:block; overflow:auto; width:240px; border:solid 1px #CCC; line-height:21px; background:#fff">
+
+                        <div class="unit">
+                            <p>
+                                <label>主订单号：</label>
+                                @Html.TextBoxFor(model => model.PrimaryOrder.OrderNumber, new { @readonly = "readonly" })
+                            </p>
+                            <p>
+                                <label>用户手机：</label>
+                                @Html.TextBoxFor(model => model.PrimaryOrder.MPNo, new { @readonly = "readonly" })
+                            </p>
+                        </div>
+                        <div class="unit">
+                            <p>
+                                <label>订单分类：</label>
+                                @Html.DropDownListFor(model => model.PrimaryOrder.OrderClass, new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text = "个人普通", Value = "1" },
+                            new SelectListItem { Text = "一键下单", Value = "2" },
+                            new SelectListItem { Text = "合作门店", Value = "3" }},
+                                     "Value", "Text", Model.PrimaryOrder.OrderClass), new { style = "width:80px;" })
+                            </p>
+                            <p>
+                                <label>订单类型：</label>
+                                @Html.DropDownListFor(model => model.PrimaryOrder.OrderType, new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text = "正常", Value = "1" },
+                            new SelectListItem { Text = "分单", Value = "2" },
+                            new SelectListItem { Text = "反洗", Value = "3" },
+                            new SelectListItem { Text = "退单", Value = "6" }},
+                                     "Value", "Text", Model.PrimaryOrder.OrderType), new { style = "width:80px;" })
+                            </p>
+                        </div>
+                        <div class="unit">
+                            <p>
+                                <label>订单状态：</label>
+                                @Html.DropDownListFor(model => model.PrimaryOrder.OrderStatus, new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text = "创建订单", Value = "1" },
+                            new SelectListItem { Text = "完成订单", Value = "2" },
+                            new SelectListItem { Text = "已退单", Value = "6" },
+                            new SelectListItem { Text = "已拆单", Value = "7" },
+                            new SelectListItem { Text = "用户撤销", Value = "16" },
+                            new SelectListItem { Text = "系统撤销", Value = "32" }},
+                                     "Value", "Text", Model.PrimaryOrder.OrderStatus), new { style = "width:80px;" })
+                            </p>
+                            <p>
+                                <label>下单渠道：</label>
+                                @Html.DropDownListFor(model => model.PrimaryOrder.Channel, new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text = "网站", Value = "1" },
+                            new SelectListItem { Text = "微信", Value = "4" }},
+                                     "Value", "Text", Model.PrimaryOrder.Channel), new { style = "width:80px;" })
+                            </p>
+                        </div>
+                        <div class="unit">
+                            <p>
+                                <label>订单金额：</label>
+                                @Html.TextBoxFor(model => model.PrimaryOrder.TotalAmount, new { @class = "number", alt = "请输入数字", style = "width:70px;", @readonly = "readonly" })
+
+                            </p>
+                            <p>
+                                <label>已付金额：</label>
+                                @Html.TextBoxFor(model => model.PrimaryOrder.PayAmount, new { @class = "number", alt = "请输入数字", style = "width:70px;", @readonly = "readonly" })
+
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div style="margin-left:246px;">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th width="10" align="center"></th>
+                                    <th width="120" align="center">产品名称</th>
+                                    <th width="100" align="center">属性</th>
+                                    <th width="100" align="center">单价</th>
+                                    <th width="100" align="center">工厂编号</th>
+                                    <th width="100" align="center">状态</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (@Model.PrimaryOrder.ProductList != null)
+                            {
+                                int no = 1;
+                                foreach (var item in @Model.PrimaryOrder.ProductList)
+                                {
+                            <tr target="pid" rel="@item.ID">
+                                <td>@(no++)</td>
+                                <td>@item.Name</td>
+                                <td>@item.Attribute</td>
+                                <td>@item.Price</td>
+                                <td>@item.Code</td>
+                                <td>@UIHelper.FormatReturnStatus(item.ReturnStatus)</td>
+                            </tr>
+                                }
+
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel" defh="215">
+                <h1>副订单信息</h1>
+                <div>
+                    <div style="float:left; display:block; overflow:auto; width:240px; border:solid 1px #CCC; line-height:21px; background:#fff">
+                        <div class="unit">
+                            <p>
+                                <label>副订单号：</label>
+                                @Html.TextBoxFor(model => model.SlaveOrder.OrderNumber, new { @readonly = "readonly" })
+                            </p>
+                            <p>
+                                <label>用户手机：</label>
+                                @Html.TextBoxFor(model => model.SlaveOrder.MPNo, new { @readonly = "readonly" })
+                            </p>
+                        </div>
+                        <div class="unit">
+                            <p>
+                                <label>订单分类：</label>
+                                @Html.DropDownListFor(model => model.SlaveOrder.OrderClass, new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text = "个人普通", Value = "1" },
+                            new SelectListItem { Text = "一键下单", Value = "2" },
+                            new SelectListItem { Text = "合作门店", Value = "3" }},
+                                              "Value", "Text", Model.SlaveOrder.OrderClass), new { style = "width:80px;" })
+                            </p>
+                            <p>
+                                <label>订单类型：</label>
+                                @Html.DropDownListFor(model => model.SlaveOrder.OrderType, new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text = "正常", Value = "1" },
+                            new SelectListItem { Text = "分单", Value = "2" },
+                            new SelectListItem { Text = "反洗", Value = "3" },
+                            new SelectListItem { Text = "退单", Value = "6" }},
+                                              "Value", "Text", Model.SlaveOrder.OrderType), new { style = "width:80px;" })
+                            </p>
+                        </div>
+                        <div class="unit">
+                            <p>
+                                <label>订单状态：</label>
+                                @Html.DropDownListFor(model => model.SlaveOrder.OrderStatus, new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text = "创建订单", Value = "1" },
+                            new SelectListItem { Text = "完成订单", Value = "2" },
+                            new SelectListItem { Text = "已退单", Value = "6" },
+                            new SelectListItem { Text = "已拆单", Value = "7" },
+                            new SelectListItem { Text = "用户撤销", Value = "16" },
+                            new SelectListItem { Text = "系统撤销", Value = "32" }},
+                                              "Value", "Text", Model.SlaveOrder.OrderStatus), new { style = "width:80px;" })
+                            </p>
+                            <p>
+                                <label>下单渠道：</label>
+                                @Html.DropDownListFor(model => model.SlaveOrder.Channel, new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text = "网站", Value = "1" },
+                            new SelectListItem { Text = "微信", Value = "4" }},
+                                              "Value", "Text", Model.SlaveOrder.Channel), new { style = "width:80px;" })
+                            </p>
+                        </div>
+                        <div class="unit">
+                            <p>
+                                <label>订单金额：</label>
+                                @Html.TextBoxFor(model => model.PrimaryOrder.TotalAmount, new { @class = "number", alt = "请输入数字", style = "width:70px;", @readonly = "readonly" })
+
+                            </p>
+                            <p>
+                                <label>已付金额：</label>
+                                @Html.TextBoxFor(model => model.PrimaryOrder.PayAmount, new { @class = "number", alt = "请输入数字", style = "width:70px;", @readonly = "readonly" })
+
+                            </p>
+                        </div>
+                    </div>
+
+                    <div style="margin-left:246px;">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th width="10" align="center"></th>
+                                    <th width="120" align="center">产品名称</th>
+                                    <th width="100" align="center">属性</th>
+                                    <th width="100" align="center">单价</th>
+                                    <th width="100" align="center">工厂编号</th>
+                                    <th width="100" align="center">状态</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (@Model.SlaveOrder.ProductList != null)
+                            {
+                                int no = 1;
+                                foreach (var item in @Model.SlaveOrder.ProductList)
+                                {
+                            <tr target="pid" rel="@item.ID">
+                                <td>@(no++)</td>
+                                <td>@item.Name</td>
+                                <td>@item.Attribute</td>
+                                <td>@item.Price</td>
+                                <td>@item.Code</td>
+                                <td>@UIHelper.FormatReturnStatus(item.ReturnStatus)</td>
+                            </tr>
+                                }
+
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formBar">
+            <ul>
+                <!--<li><a class="buttonActive" href="javascript:;"><span>保存</span></a></li>-->
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit" id="btnSave">合并</button></div></div></li>
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </form>
+
+</div>

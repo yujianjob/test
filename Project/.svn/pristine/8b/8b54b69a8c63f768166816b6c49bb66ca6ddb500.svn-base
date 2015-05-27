@@ -1,0 +1,15 @@
+﻿@model Senparc.Weixin.MP.AdvancedAPIs.OAuthAccessTokenResult
+@{
+    ViewBag.Title = "OAuth_Response";
+    Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
+}
+
+<p><label>access_token:</label> @Model.access_token</p>
+<p><label>expires_in:</label> @Model.expires_in</p>
+<p><label>openid:</label> @Model.openid</p>
+<p><label>refresh_token:</label> @Model.refresh_token</p>
+<p><label>scope:</label> @Model.scope</p>
+<p><label>Tag:</label> @ViewBag.Tag</p>
+<p><label>State:</label> @ViewBag.State</p>
+
+

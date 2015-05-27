@@ -1,0 +1,59 @@
+﻿@model LazyAtHome.WCF.OrderSystem.Contract.DataContract.Order_OrderDC
+@{
+    ViewBag.Title = "订单详情";
+}
+@{decimal totalMoney = 0;}
+<div class="page-content inset myorder">
+    <div class="row" style="padding-top:40px">
+        <div class="col-md-7 col-md-offset-1">
+            <a class="pull-right btn btn-sm btn-danger" href="/Member/HistoryOrder" style="margin-bottom:20px;">返回</a>
+            <div style="clear:both"></div>
+            <div class="order-detail">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="receive-ifo">
+                            <h2>收货人信息</h2>
+                            <p>
+                                收货人：@Model.GetAddress.Consignee<br>
+                                地址：@Model.GetAddress.Address<br>
+                                手机号码：@Model.GetAddress.Mpno<br>
+                                电子邮件：@Model.GetAddress.Email
+                            </p>
+                        </div>
+                        <div class="payMethod"><h2>支付方式</h2>货到付款</div>
+                        <div class="proinfo">
+                            <h2>产品信息</h2>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>名称</th>
+                                        <th>单价</th>
+                                        <th>数量</th>
+                                        <th>小计(元)</th>
+                                    </tr>
+                                </thead>
+                                @foreach (LazyAtHome.Web.WeiXin2.Models.ProductItemModel pItem in ViewBag.ProductList)
+                                {
+                                    <tr><td>@pItem.ProductInfo.Name</td><td>￥@pItem.ProductInfo.Price</td><td>@(pItem.Count)件</td><td>￥@(pItem.ProductInfo.Price * pItem.Count)</td></tr>
+                                    totalMoney += pItem.ProductInfo.Price * pItem.Count;
+                                }
+                            </table>
+                        </div>
+                        <p style="text-align:right;padding-right:20px;border-top:1px dashed #ccc;padding-top:20px">
+                            合计：￥@totalMoney<br />
+                            @foreach (var amount in Model.AmountList)
+                            {
+                                @(amount.Content + "：￥" + @amount.Money)<br />
+                            }
+                            @foreach (var payment in Model.PaymentList)
+                            {
+                                @(UIHelper.ConvertPayMoneyType(payment.PayMoneyType) + "：￥-" + payment.PayMoney)<br />
+                            }
+                            <b>应付金额：<span class="total-price">￥@(Model.TotalAmount - Model.PayAmount)</span></b>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

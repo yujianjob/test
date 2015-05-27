@@ -1,0 +1,22 @@
+﻿@*通用 时间转换 FormatType 1:yyyy-MM-dd 2:yyyy-MM-dd HH:mm 3:yyyy-MM-dd HH:mm:ss*@
+@helper FormatDate(DateTime? date, int FormatType = 2)
+{
+    string DateString = string.Empty;
+    if (date != null)
+    {
+        if (FormatType == 1)
+        {
+            DateString = String.Format("{0:yyyy-MM-dd}", date);
+        }
+        else if (FormatType == 2)
+        {
+            DateString = String.Format("{0:yyyy-MM-dd HH:mm}", date);
+        }
+        else if (FormatType == 3)
+        {
+            DateString = String.Format("{0:yyyy-MM-dd HH:mm:ss}", date);
+        }
+    }
+    @(string.Format(DateString));
+}
+

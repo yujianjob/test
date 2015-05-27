@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="2ff53db3-ed23-4ef7-8048-fb311ff4e147" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://192.168.1.201:8100/LazyAtHome/WashOrderService" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="WashOrderService.xsd" MetadataType="Schema" ID="6760495c-5058-4947-b1b4-8b921aa90253" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/WashOrderService?xsd=xsd1" />
+    <MetadataFile FileName="WashOrderService1.xsd" MetadataType="Schema" ID="fcca2d93-374e-478d-9f9f-6f0116f5be4e" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/WashOrderService?xsd=xsd8" />
+    <MetadataFile FileName="WashOrderService.disco" MetadataType="Disco" ID="c45ffe5a-6050-4732-85ca-baf896b73332" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/WashOrderService?disco" />
+    <MetadataFile FileName="WashOrderService2.xsd" MetadataType="Schema" ID="afa5c6d9-e35e-4bd2-a4ef-0d3ba93c7e2b" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/WashOrderService?xsd=xsd4" />
+    <MetadataFile FileName="WashOrderService3.xsd" MetadataType="Schema" ID="0b0a220d-f07d-4309-8ec7-d95b45407b67" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/WashOrderService?xsd=xsd5" />
+    <MetadataFile FileName="WashOrderService4.xsd" MetadataType="Schema" ID="251510f7-4f4f-46a6-a1be-5d3800f65ecd" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/WashOrderService?xsd=xsd6" />
+    <MetadataFile FileName="WashOrderService5.xsd" MetadataType="Schema" ID="4d6bfc23-9dcd-43ac-9e66-123f0d424fb0" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/WashOrderService?xsd=xsd7" />
+    <MetadataFile FileName="WashOrderService6.xsd" MetadataType="Schema" ID="55d6de70-f77d-4118-9b64-08c3af04ceac" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/WashOrderService?xsd=xsd0" />
+    <MetadataFile FileName="WashOrderPortal.wsdl" MetadataType="Wsdl" ID="545d6f93-a578-4e51-afdd-54529235614e" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/WashOrderService?wsdl" />
+    <MetadataFile FileName="WashOrderService7.xsd" MetadataType="Schema" ID="6ca8724d-b7e5-4d22-8902-f406dbff4b0f" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/WashOrderService?xsd=xsd2" />
+    <MetadataFile FileName="WashOrderService8.xsd" MetadataType="Schema" ID="07f5aa5e-eb01-4b58-a231-fa07cfb48955" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/WashOrderService?xsd=xsd3" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

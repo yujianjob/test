@@ -1,0 +1,141 @@
+﻿@model LazyAtHome.WCF.Common.Contract.DataContract.Base.Survey_MainDC
+@{
+    ViewBag.Title = "问卷调查";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--内容-->
+<!--活动主体内容 start-->
+<div id="activity-main">
+    <span class="title" style="border-bottom:1px solid #ccc; padding-bottom:5px">问卷调查</span>
+    <div class="wjdc">
+        <h2>@Model.Title</h2>
+        <p>@Model.Content</p>
+        <form action="" method="post">
+            @foreach (var quest in Model.QuestionList)
+            {
+                <div class="pro-unit">
+                    <div class="stem" id="q@(quest.ID)">@quest.Seq、@quest.Title</div>
+                    <ul>
+                        @foreach (var answer in quest.OptionsList)
+                        {
+                            <li>
+                                @switch (quest.Type)
+                                {
+                                    case 1:
+                                        //单选
+                                        <label><input id="radio@(quest.ID)" name="radio@(quest.ID)" type="radio" onclick="AnswerChanage(@quest.ID, @answer.Seq, 'radio')" /> @answer.Title</label>
+                                        break;
+                                    case 2:
+                                        //多选
+                                        <label><input id="cb@(quest.ID)" name="cb@(quest.ID)" seq="@answer.Seq" optype="@answer.Type" type="checkbox" onclick="AnswerChanage(@quest.ID, @answer.Seq, 'checkbox')" /> @answer.Title</label>
+                                        break;
+                                    case 3:
+                                        //文本框
+                                        <textarea id="txtarea@(quest.ID)" name="txtarea@(quest.ID)" qid="@quest.ID" aid="@answer.Seq" maxlength="200"></textarea>
+                                        break;
+                                }
+
+                                @if (quest.Type != 3 && answer.Type == 1)
+                                {
+                                    <input type="text" id="txt@(quest.ID)" name="txt@(quest.ID)" onchange="AnswerChanage(@quest.ID, @answer.Seq, 'checkbox')" max="200" />
+                                }
+                            </li>
+                        }
+                    </ul>
+                    @if (quest.Type != 3)
+                    {
+                        <input type="hidden" value="" id="quest@(quest.ID)" name="quest@(quest.ID)" qid="@quest.ID" />
+                    }
+                </div>
+            }
+            <input type="button" onclick=" return formsubmit();" value="提交" />
+        </form>
+    </div>
+</div>
+<!--活动主体内容 end-->
+@section scripts
+{
+    <script type="text/javascript">
+        function AnswerChanage(qid, aid, itype) {
+            var questObj = $("#quest" + qid);
+            switch (itype) {
+                case "radio":
+                    questObj.val(qid + "_" + aid + "_0");
+                    break;
+                case "checkbox":
+                    questObj.val("");
+                    var str = 0;
+                    var otype = "0";
+                    $("[name='cb" + qid + "']:checked").each(function () {
+                        str += parseInt($(this).attr("seq"));
+                        if ($(this).attr("optype") != "0")
+                            otype = $(this).attr("optype");
+                    });
+                    if (str != 0) {
+                        str += "_" + otype;
+                        if (otype != "0")
+                            str += "_" + $("#txt" + qid).val();
+                        questObj.val(qid + "_" + str);
+                    }
+                    break;
+            }
+        }
+
+        function formsubmit() {
+            var data = new Object();
+            var check = 1;
+            data.SurID = 1;
+            data.AnswerList = new Array();
+            var aIndex = 0;
+
+            //判断所有选择类问题是否都已经选择
+            $("input:hidden").each(function () {
+                data.AnswerList[aIndex] = $(this).val();
+                if (data.AnswerList[aIndex] == "") {
+                    check = 0;
+                    alert("请填写完整的调查问卷");
+                    var _targetTop = $("#q" + $(this).attr("qid"));
+                    $("html,body").animate({ scrollTop: _targetTop.offset().top }, 500);
+                    return false;
+                }
+                aIndex++;
+            });
+            if (check == 0)
+                return false;
+            //判断所有textarea
+            $("textarea").each(function () {
+                if ($(this).val().trim() != "") {
+                    var str = $(this).attr("qid") + "_" + $(this).attr("aid") + "_1_" + $(this).val().trim();
+                    data.AnswerList[aIndex] = str;
+                    aIndex++;
+                }
+            });
+
+            if (check == 1)
+                $.ajax({
+                    type: "post",
+                    url: "@Url.Action("SurveySubmit")",
+                    data: data,
+                    dataType: "json",
+                    traditional: true,
+                    success: function (resultJson) {
+                        if (resultJson.Code == 1) {
+                            //window.location.href = resultJson.TagUrl;
+                            alert("感谢您参与本次调查，我们会根据您的反馈，及时改进我们的服务质量。再次感谢您对懒到家的支持，祝您生活幸福！");
+                            window.close();
+                        }
+                        else
+                            alert(resultJson.Msg);
+                    },
+                    error: function (msg) {
+                        alert(msg.toString());
+                    }
+                });
+        }
+
+    </script>
+}

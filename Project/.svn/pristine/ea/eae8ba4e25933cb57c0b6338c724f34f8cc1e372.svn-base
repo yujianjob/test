@@ -1,0 +1,76 @@
+﻿@model LazyAtHome.Web.WeiXin.Models.ViewModel.VerifyViewModel
+@{
+    ViewBag.Title = "手机验证";
+    Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
+}
+
+<script src="../Scripts/jquery-2.1.0.min.js"></script>
+<script src="../Scripts/jquery.validate.min.js"></script>
+<script src="../Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    function formsubmit(type) {
+
+        if ($("#MPNo").val() == "") {
+            $("#msgbox").html("<font color='red'>手机号码不能为空！</font>");
+            $("#MPNo").focus();
+            return false;
+        }
+
+        if (!$("#MPNo").val().match(/^0?(13[0-9]|15[012356789]|18[0-9]|14[57])[0-9]{8}$/)) {
+            $("#msgbox").html("<font color='red'>手机号码格式不正确！请重新输入！</font>");
+            $("#MPNo").focus();
+            return false;
+        }
+
+        if (type == 1) {
+            var strdata = "{\"mpno\": \"" + $("#mpno").val() + "\"}";
+            var postData = JSON.parse(strdata);
+
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("VerifyMobile", "PersonalCenter")",
+                data: postData,
+                dataType: "json",
+                success: ProcessData,
+                error: function (msg) {
+                    $("#msgbox").val("Error.." + msg.toString());
+                }
+            });
+        }
+        else {
+            $("#vForm").submit();
+        }
+    }
+
+    function ProcessData(resultJson) {
+        if (resultJson != null) {
+            var rtn = JSON.stringify(resultJson);
+            $("#msgbox").html(rtn.Code);
+        }
+        //var strData = JSON.stringify(data);
+        //$("#resultbox").val(strData);
+    }
+</script>
+
+<div style="text-align:center">
+    <li style="font-size: 15px;line-height: 118px;">为方便我们及时联系到你，请验证手机</li>
+    <li id="msgbox"></li>
+    <div class="verification">
+        @using (Html.BeginForm("MobileBinding", "PersonalCenter", FormMethod.Post, new { id = "vForm" }))
+        {
+            @Html.AntiForgeryToken()
+            <li class="KRI">
+                @*<input name="mpno" style="height: 85%;width: 108%;" id="mpno" placeholder="请输入手机号">*@
+                @Html.EditorFor(model => model.MPNo, new { style = "height: 85%;width: 108%;" })
+
+            </li>
+            <li class="ten"><img src="../Content/img/6.jpg" onclick="formsubmit(1)"></li>
+            <li class="KRI">
+                @Html.EditorFor(model => model.VerifyCode, new { style = "height: 93%;width: 174%;" })
+                @Html.ValidationMessageFor(model => model.VerifyCode)
+            </li>
+            <li><img src="../Content/img/sjyz.jpg" onclick="formsubmit(2)" /></li>
+        }
+    </div>
+</div>

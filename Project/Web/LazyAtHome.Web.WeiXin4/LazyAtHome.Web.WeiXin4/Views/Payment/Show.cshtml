@@ -1,0 +1,234 @@
+﻿@{
+    ViewBag.Title = "订单支付";
+}
+
+<section>
+    <div class="orderPay">
+        <p>
+            订单编号：<b>@ViewBag.OrderNum</b><br>
+            下单时间：@ViewBag.CreateTime<br>
+            总金额：@ViewBag.TotalMoney<br>
+            应付金额：<font class="red"><b>@ViewBag.PayMoney</b></font><br>
+            账户余额：@ViewBag.UserMoney
+        </p>
+        @if (ViewBag.oneMoney > 0 || ViewBag.coupon > 0)
+        {
+            <div class="payMethod">
+                <table cellpadding="0" cellspacing="0" border="0" class="payTable">
+                    <tbody>
+
+                        @if (ViewBag.coupon > 0)
+                        {
+                            <tr>
+                                <td width="30%" style="border-bottom:0">
+                                    <input type="radio" name="payCouponType" id="payCouponType" value="1" onclick="ChangeCouponType(2);" />本次订单您最多可使用红包金额<label>@ViewBag.couponSum</label> 元
+                                </td>
+                            </tr>
+                        }
+                        @if (ViewBag.oneMoney > 0)
+                        {
+                            <tr>
+                                <td width="30%" style="border-bottom:0">
+                                    <input type="radio" name="payCouponType" id="payCouponType" value="2" onclick="ChangeCouponType(1);" />你有一张1元洗衣券,有效期至<label>@ViewBag.expDate</label>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        }
+        <div class="payMethod">
+            <legend>选择支付方式：</legend>
+            <table cellpadding="0" cellspacing="0" border="0" class="payTable">
+                <tbody>
+                    <tr>
+                        <td width="30%" style="border-bottom:0">
+                            <input type="radio" name="payType" id="payType1" value="2" onclick="ChangePayType(1);" />微信支付
+                        </td>
+                        <td width="30%" style="border-bottom:0">
+                            <input type="radio" name="payType" id="payType2" value="3" onclick="ChangePayType(2);" />余额支付
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button class="btn" type="button" onclick="formSubmit();">确认<span id="showPayType"></span>支付￥<span id="showmoney">@ViewBag.PayMoney</span></button>
+    </div>
+</section>
+
+@section scripts
+{
+    <script type="text/javascript">
+        var payMoney = " @ViewBag.PayMoney";
+        var userMoney = "@ViewBag.UserMoney";
+        var orderNum = "@ViewBag.OrderNum";
+        var ProductList = "@ViewBag.ProductList";
+        var oneMoney = "@ViewBag.oneMoney";
+        var couponSum = "@ViewBag.couponSum";
+        var userID = " @ViewBag.userID";
+        var CouponNo = " @ViewBag.CouponNo";
+        var MPNo = "@ViewBag.MPNo";
+        var tmpPayMoney = 0;
+        var couponType = 0;
+        var pType = 1;
+        var CouponMoney = 0;
+        var actionUrl = "/Payment/jsWXPayment";
+        $(function () {
+            if (userMoney == "0.00")
+                $('#payType2').disabled = true;
+            CalcMoney();
+        });
+
+        function CalcMoney() {
+            tmpPayMoney = payMoney;
+            if (couponType == 0) {
+            }
+            else if (couponType == 1)//一元洗
+            {
+                if (ProductList > 1) {
+                    tmpPayMoney = payMoney - 8.9;
+                }
+                else {
+                    tmpPayMoney = 1;
+                }
+            }
+            else {//红包
+                tmpPayMoney = payMoney - couponSum;
+            }
+            $("#showmoney").html(tmpPayMoney.toFixed(2));
+            $(".btn").disabled = false;
+            if (pType == 2) {
+                if (userMoney < tmpPayMoney || tmpPayMoney < 0) {
+                    showPopDiv('您的余额不足!');
+                    $(".btn").disabled = true;
+                }
+            }
+            else {
+                if (tmpPayMoney < 0) {
+                    $(".btn").disabled = true;
+                }
+            }
+
+        }
+        function ChangeCouponType(t) {
+            couponType = t;
+            CalcMoney();
+            if (t == 1) {
+                CouponMoney = 1;
+            }
+            else {
+                CouponMoney = couponSum;
+            }
+        }
+
+        function ChangePayType(t) {
+            pType = t;
+            if (pType == 1) {
+                $("#showPayType").html("微信");
+                actionUrl = "/Payment/jsWXPayment";
+            }
+            else {
+                $("#showPayType").html("余额");
+                actionUrl = "/Payment/jsCashPay";
+            }
+            CalcMoney();
+        }
+
+        function formSubmit() {
+            process();
+
+            var postData = { MPNo: MPNo, UserID: userID, OrderNum: orderNum,CouponType:couponType, PayMoney: payMoney, CouponMoney: CouponMoney, ShowMoney: $("#showmoney").html(), CouponNo: CouponNo };
+            $.ajax({
+                type: "post",
+                url: actionUrl,
+                data: postData,
+                dataType: "json",
+                success: ProcessPay,
+                error: function (msg) {
+                    removeProcess();
+                    showPopDiv(msg.toString(), false);
+                }
+            });
+        }
+
+        function ProcessPay(resultJson) {
+            removeProcess();
+            if (resultJson != null) {
+                if (pType == 1)
+                    wxPayProcess(resultJson);
+                else {
+                    if (resultJson.Code == 0) {
+                        showPopDiv(resultJson.Msg);
+                    }
+                    else {
+                        showPopDiv(resultJson.Msg, true, 2000, "/Cart/OrderDetail?orderNum=" + orderNum);
+                    }
+                }
+            }
+        }
+
+        function wxPayProcess(resultJson) {
+            if (resultJson.Code == 1) {
+                WeixinJSBridge.invoke('getBrandWCPayRequest', {
+                    "appId": resultJson.appid, //公众号名称，由商户传入
+                    "timeStamp": resultJson.timeStamp, //时间戳
+                    "nonceStr": resultJson.nonceStr, //随机串
+                    "package": resultJson.prepay_id,//扩展包
+                    "signType": "MD5", //微信签名方式
+                    "paySign": resultJson.paySign //微信签名
+                }, function (res) {
+
+                    if (res.err_msg == "get_brand_wcpay_request:ok") {
+                        var postData = { UserID: userID, OrderNum: orderNum, CouponType: couponType, PayMoney: payMoney, CouponMoney: CouponMoney, ShowMoney: $("#showmoney").html(), CouponNo: CouponNo };
+                        $.ajax({
+                            type: "post",
+                            url: "/Payment/PayResult",
+                            data: postData,
+                            dataType: "json",
+                            success: function (result) {
+                                if (result.Code == 1) {
+                                    showPopDiv(resultJson.Msg, true, 2000, "/Cart/OrderDetail?orderNum=" + orderNum);
+                                }
+                                else {
+                                    unLockCoupon();
+                                    showPopDiv(result.Msg);
+                                }
+                            },
+                            error: function (msg) {
+                                unLockCoupon();
+                                showPopDiv(msg.toString(), false);
+                            }
+                        });
+
+                    }else if (res.err_msg == "get_brand_wcpay_request:cancel") {
+                        unLockCoupon();
+                        showPopDiv("支付被取消！");
+                    }
+                    else {
+                        unLockCoupon();
+                        showPopDiv("微信支付失败！" + res.err_msg);
+                    }
+                });
+            }
+            else {
+                unLockCoupon();
+                showPopDiv(resultJson.Msg);
+            }
+        }
+
+        function unLockCoupon() {
+            $.ajax({
+                type: "post",
+                url: "/Payment/unLockCoupon",
+                data: { MPNo: MPNo, OrderNum: orderNum },
+                dataType: "json",
+                success: function (result) {
+                },
+                error: function (msg) {
+                    showPopDiv(msg.toString(), false);
+                }
+            });
+        }
+    </script>
+}

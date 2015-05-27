@@ -1,0 +1,39 @@
+﻿@model LazyAtHome.Web.WeiXin4.Models.EntityModel.OrderInfoList
+@{
+    ViewBag.Title = "我的订单";
+}
+
+<section>
+    <div class="orderList">
+        @foreach (LazyAtHome.Web.WeiXin4.Models.EntityModel.OrderInfo oItem in Model.dataList)
+        {
+            <div class="orderUnit" onclick="location.href = '/Cart/OrderDetail?orderNum=@oItem.orderNumber'">
+                <p>
+                    联系人:<span class="name">@oItem.userName</span><br>
+                    手机号：@oItem.mpNo<br>
+                    订单状态：
+                    @if (oItem.orderStep == "40" || oItem.orderStep == "60")
+                    {
+                        <span class="status">@oItem.orderStatusDesc</span><br>
+                    }
+                    else
+                    {<span class="status">@oItem.orderStepDesc</span><br>
+                    }
+
+                    下单时间：<span class="tm">@oItem.orderTime</span>
+                </p>
+            </div>
+        }
+        @if (Convert.ToInt32(Model.pageCount) > 1)
+        {
+            for (int i = 1; i <= Convert.ToInt32(Model.pageCount); i++)
+            {
+                <div class="orderUnit" onclick="location.href = '/Cart/MyOrders?pageIndex=@i'">
+                    <p>
+                        i
+                    </p>
+                </div>
+            }
+        }
+    </div>
+</section>     

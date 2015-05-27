@@ -1,0 +1,95 @@
+﻿@model IList<LazyAtHome.Web.WashSite.Models.Wash.OrderViewModel>
+@{
+    //ViewBag.Title = "取消订单记录";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--内容-->
+<div id="content">
+    @{Html.RenderPartial("_MemberLeftNav");}
+    <div class="my_content right">
+        <div class="my_contentTitle">客户服务</div>
+        <div class="height_50"></div>
+        <div class="my_bangding">
+            <div class="my_bangdingTitle">
+                <ul>
+                    <li class="li"><a href="/Member/fxthh">反洗/退换货</a><span></span><b></b></li>
+                    <li class="this li">取消订单记录<span></span><b></b></li>
+                    <li class="li"><a href="/Member/Complaint">我的投诉</a><span></span><b></b></li>
+                    <div class="clear"></div>
+                </ul>
+            </div>
+            <div class="my_dingdanBox" style="display:block">
+                <div class="my_dingdanTitle">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="150" style="padding-left:10px;">订单编号</td>
+                            <td width="200">订单商品</td>
+                            <td width="80" align="center">取消时间</td>
+                            <td width="100" align="center">订单状态</td>
+                            <td align="center">操作</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="my_dingdanList">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        @foreach (var orderView in Model)
+                        {
+                            <tr>
+                                <td width="150" style="padding-left:10px">@orderView.OrderNum</td>
+                                <td width="200" style="align-content:center">
+                                    @foreach (var item in orderView.ProductList)
+                                    {
+                                        <a href="#" style="float:left"><img src="@item.ProductInfo.PictureM" width="68" height="68" title="@item.ProductInfo.WebName" class="my_dingdanListImg" /></a>
+                                    }
+                                </td>
+                                <td width="80" align="center">@orderView.CreateTime.ToString("yyyy-MM-dd")</td>
+                                <td width="100" align="center">@UIHelper.ConvertOrderStatus(orderView.OrderStatus)</td>
+                                <td class="caozuo">
+                                    <p><a href="#">查看</a></p>                                    
+                                    <p><a href="#"><img src="~/Content/images/dingdanGoumai.gif" /></a></p>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+                <div class="my_dingdanPage"><a href="#">上一页</a><span><a href="#" class="this">1</a></span><a href="#">下一页</a></div>
+            </div>
+        </div>
+        @{Html.RenderAction("MoreWash", "Wash");}
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/Scripts/gundong.js")
+
+    <script language="javascript" type="text/javascript">
+        $(function () {
+            //左侧导航
+            $('.my_navList dt').click(function () {
+                $(this).parent().find('dd').slideToggle(200);
+                $(this).toggleClass("my_navList_Top");
+            })
+            //滚动
+            var BOX = $('.cartLuxuryList ul');
+            var HHUM = $('.cartLuxuryList li');
+            var LEFT = $('.cartLuxuryZuo');
+            var RIGHT = $('.cartLuxuryYou');
+            var WIDTH = 184;//单个宽度
+            var PLAY = 5000;//自动播放的时间
+            var SPEED = 500;//切换速度
+            var AOUT = true;//是否自动播放
+            IMG(BOX, LEFT, RIGHT, WIDTH, HHUM, PLAY, SPEED, AOUT);
+
+            $('.cartLuxuryList li').hover(function () {
+                $(this).find('.cartLuxuryListImg').addClass('this');
+            }, function () {
+                $(this).find('.cartLuxuryListImg').removeClass('this');
+            })
+        })
+    </script>
+}

@@ -1,0 +1,5 @@
+2015-03-25 00:00:00Internal_CheckAddress:上海市上海市宝山区懒到家 无法连接到 net.tcp://localhost:8005/LazyAtHome/ExpressPortal。连接尝试持续了 00:00:02.1651238 时间跨度。TCP 错误代码 10061: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:8005。
+2015-03-25 00:00:00Internal_CheckAddress:上海市上海市宝山区懒到家 无法连接到 net.tcp://localhost:8005/LazyAtHome/ExpressPortal。连接尝试持续了 00:00:02.0630354 时间跨度。TCP 错误代码 10061: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:8005。
+2015-03-25 00:00:00Internal_CheckAddress:上海市上海市宝山区懒到家 无法连接到 net.tcp://localhost:8005/LazyAtHome/ExpressPortal。连接尝试持续了 00:00:02.0871193 时间跨度。TCP 错误代码 10061: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:8005。
+2015-03-25 00:00:00Internal_CheckAddress:上海市上海市宝山区懒到家 无法连接到 net.tcp://localhost:8005/LazyAtHome/ExpressPortal。连接尝试持续了 00:00:02.0611179 时间跨度。TCP 错误代码 10061: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:8005。
+2015-03-25 00:00:00Internal_CheckAddress:上海市上海市宝山区懒到家 无法连接到 net.tcp://localhost:8005/LazyAtHome/ExpressPortal。连接尝试持续了 00:00:02.0661182 时间跨度。TCP 错误代码 10061: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:8005。

@@ -1,0 +1,87 @@
+﻿@{
+    //ViewBag.Title = "会员招募";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--内容-->
+<!--活动主体内容 start-->
+<div id="activity-main">
+    <span class="title">活动中心</span>
+    <div class="hyzm-banner"></div>
+    <div class="hyzm-lev1" style="height:350px">
+        <div class="txt">
+            <p style="padding-left:40px">2014年7月8号，懒到家登陆魔都，正式上线。值此上线之际，我们全城招募百大创始会员。成功获得创始会员资格，将尊享五大特权。</p>
+            <p style="padding-left:40px;">招募时间：2014年7月8日~2014年7月15日<br />活动时间：2014年7月16日~2014年8月15日。</p>
+        </div>
+        <img src="/Content/Images/chairpic.png" style="width:346px; height:500px;position:absolute; right:50px; top:-340px" />
+        <img src="/Content/Images/hyzm-pic.jpg" style="width:352px; height:83px;position:absolute; right:100px; bottom:0" />
+    </div>
+    <div style="width:970px; margin:0 auto;border-bottom:1px solid #ddd; height:50px; line-height:50px; clear:both;font-size:25px;">会员特权</div>
+    <div class="hyzm-lev2">
+        <img src="/Content/Images/hyzm-pic1.jpg" style="width:176px; height:186px; margin-top:20px" />
+        <div class="txt">
+            <p>
+                <b>专享100元活动体验金</b><br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;成功注册申请懒到家账户，即可获得100元活动体验金，直接打入客户的账户余额中。活动期间客户可使用体验金直接购买懒到家线上所有的洗涤服务。
+            </p>
+        </div>
+    </div>
+    <div class="hyzm-lev1" style="margin:10px auto 50px auto; padding-bottom:35px; overflow:hidden;border-bottom:1px solid #ddd">
+        <div class="txt" style="margin-top:70px;">
+            <p style="text-indent:0;padding-left:40px;">
+                <b>懒到家全场服务终身免运费</b><br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正式获得懒到家创始会员资格，可终身享受懒到家全场免运费的尊贵特权。
+            </p>
+        </div>
+        <img src="/Content/Images/hyzm-pic2.jpg" style="width:169px; height:200px" />
+    </div>
+    <div class="hyzm-lev2" style="margin:-30px auto 0 auto">
+        <img src="/Content/Images/hyzm-pic3.jpg" style="width:199px; height:187px;" />
+        <div class="txt">
+            <p>
+                <b>终身特惠--折后8折永久享</b><br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;折后8折，即在懒到家后期所有优惠活动的基础上可以再次享受8这优惠，绝无仅有，仅此一次。
+            </p>
+        </div>
+    </div>
+    <div class="hyzm-lev1" style="margin:10px auto 50px auto; padding-bottom:35px; overflow:hidden;border-bottom:1px solid #ddd">
+        <div class="txt" style="margin-top:70px;">
+            <p style="text-indent:0;padding-left:40px;">
+                <b>懒到家新增服务免费体验权</b><br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;懒到家后期还将新增多项到家服务项目，作为创始会员，还将特别享有所有新增服务的免费体验权。
+            </p>
+        </div>
+        <img src="/Content/Images/hyzm-pic4.jpg" style="width:187px; height:206px" />
+    </div>
+    <div class="hyzm-lev2" style="margin:-30px auto 0 auto">
+        <img src="/Content/Images/hyzm-pic5.jpg" style="width:194px; height:177px;" />
+        <div class="txt">
+            <p>
+                <b>定期国内游，国际游机会</b><br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;针对能够为我们的服务提出宝贵建议的创始会员，我们还将特别馈赠他们国内、国际旅游的机会。
+            </p>
+        </div>
+    </div>
+    <div class="dothing" style="position:relative;">
+        <h2>活动说明</h2>
+        <a href="/Activities/Survey" target="_blank"><img src="/Content/Images/dcwj-icn.jpg" style="width:114px; height:110px; position:absolute; right:150px; bottom:60px" /></a>
+        <div class="txt">
+            <p>1、100元活动体验金，8月15日前有效，过期作废；</p>
+            <p>2、订单完成，客户体验整个服务流程后，填写完售后服务调查问卷，方可获得创始会员资格，享有以下特权：</p>
+            <p style="padding-left:40px;">
+                ◆ 懒到家全场服务终身免运费<br />
+                ◆ 终身特惠--折后8折永久享<br />
+                ◆ 懒到家新增服务免费体验权<br />
+                ◆ 定期国内游，国际游机会
+            </p>
+        </div>
+    </div>
+    <div style="width:100%; background:#daf3e0; text-align:center; padding:50px 0; margin:20px 0;font-size:25px; line-height:40px;">
+        坐享洁净生活，乐享品质人生！<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;——懒到家，为您私人定制！
+    </div>
+</div>
+<!--活动主体内容 end-->

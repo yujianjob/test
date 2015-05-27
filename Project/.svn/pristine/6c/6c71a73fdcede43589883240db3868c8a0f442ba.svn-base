@@ -1,0 +1,48 @@
+﻿@model IList<LazyAtHome.WCF.UserSystem.Contract.DataContract.User_Message_PrivateDC>
+@{
+    ViewBag.Title = "通知";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="yuyue">
+    <div class="yuyue" style="padding-bottom:30px;">
+        @if (Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <div class="tongzhi">
+                    <h4>@item.Title</h4>
+                    <p>@item.Message</p>
+                    <h3><span>时间:@item.Obj_Cdate.ToString()</span><label><a href="@Url.Action("NoticeDel", new { id = item.ID })"><img src="~/images/icon4.png" /></a></label><div class="clear"></div></h3>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="tongzhi">
+                <h4>感谢您使用懒到家微信服务</h4>
+                <p>尊敬的用户您好！感谢您使用懒到家微信服务。在使用过程中如您遇到问题，请联系我们的客服(4008-762-799)</p>
+                <h3><span>时间:2014-05-01</span><label><a href="#"><img src="~/images/icon4.png" /></a></label><div class="clear"></div></h3>
+            </div>
+        }
+
+    </div>
+</div>
+<div class="footer foot"><img src="~/images/lan8.jpg" /></div>
+@section scripts
+{
+    <script type="text/javascript">
+        if (typeof WeixinJSBridge == "undefined") {
+            if (document.addEventListener) {
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+            } else if (document.attachEvent) {
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+            }
+        } else {
+            onBridgeReady();
+        }
+        function onBridgeReady() {
+            WeixinJSBridge.call('hideOptionMenu');
+        }
+    </script>
+}

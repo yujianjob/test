@@ -1,0 +1,18 @@
+﻿@model IList<LazyAtHome.WCF.Wash.Contract.DataContract.web.web_Wash_ProductDC>
+<div class="cartLuxury">
+    <div class="cartLuxuryTitle">您可能还需要以下服务</div>
+    <div class="cartLuxuryList" style="width:880px;">
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li>
+                    <a href="/Wash/Show/@item.CategoryID?subid=@item.ID" class="cartLuxuryListImg"><img src="@item.PictureM" width="137" height="137" /></a>
+                    <p>@item.Name<span>￥<b>@item.SalesPrice.ToString("0")</b>.00</span></p>
+                    <div class="cart"><a href="/Cart/CartAdd?spid=@item.ID&pcount=1&submitType=1"></a></div>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="cartLuxuryZuo"></div>
+    <div class="cartLuxuryYou"></div>
+</div>

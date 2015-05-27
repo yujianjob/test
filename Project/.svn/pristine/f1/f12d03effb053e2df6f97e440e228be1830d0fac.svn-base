@@ -1,0 +1,143 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using LazyAtHome.Core.Web.Extension;
+
+namespace LazyAtHome.Web.Wash2.Controllers
+{
+    public class BaseController : Controller
+    {
+        public string _UserOpenID = "";//"testUserOpenID_3";
+        //protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        //{
+        //}
+
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            string invitecode = Request.QueryString["invitecode"];
+            if (!string.IsNullOrWhiteSpace(invitecode))
+                Session["invitecode"] = invitecode;
+            
+            //base.OnActionExecuting(filterContext);
+        }
+
+        protected override void OnResultExecuting(ResultExecutingContext filterContext)
+        {
+            var rtn = WCF.Common.Contract.ClientProxy.BaseClient.Cache_web_Base_WebAttribute_SELECT_Entity(Request.Path);
+            if (rtn.Success)
+            {
+                ViewBag.Title = rtn.OBJ.Title;
+                ViewBag.Keywords = rtn.OBJ.Keywords;
+                ViewBag.Description = rtn.OBJ.Description;
+            }
+            else
+                ViewBag.Title = "懒到家";
+        }
+
+        public string GetCooking(string name)
+        {
+            string rtn = null;
+            HttpCookie cook = Request.Cookies.Get(name);
+            if (cook != null)
+                rtn = cook.Value;
+            return rtn;
+        }
+
+        [ChildActionOnly]
+        public Models.UserModel GetUserInfo()
+        {
+            Models.UserModel user = (Models.UserModel)Session["UserInfo"];
+            if (user == null)
+            {
+                user = new Models.UserModel();
+                user.Cart = new Models.CartModel();
+                Session["UserInfo"] = user;
+
+                if (User.Identity.IsAuthenticated)
+                {
+                    HttpCookie cook = Request.Cookies.Get("Lazyweb2Info");
+                    if (cook != null)
+                    {
+                        UpdateUserInfo(cook.Value);
+                    }
+                }
+            }
+
+            return user;
+        }
+
+        public void UpdateUserInfo(string userid = null)
+        {
+            var user = GetUserInfo();
+
+            if (userid == null)
+                userid = user.User.ID.ToString();
+
+            var rtn = App_Code.Proxy.UserProxycs.Select_UserInfo(Guid.Parse(userid));
+            if (rtn.Success)
+                user.User = rtn.OBJ;
+
+            var rtnDetail = App_Code.Proxy.UserProxycs.Select_UserDetail(Guid.Parse(userid));
+            if (rtnDetail.Success)
+                user.UserDetail = rtnDetail.OBJ;
+        }
+
+        public IList<Models.OrderViewModel> ConvertOrderList(IList<WCF.OrderSystem.Contract.DataContract.Order_OrderDC> list)
+        {
+            IList<Models.OrderViewModel> xList = new List<Models.OrderViewModel>();
+            if (list != null)
+                foreach (var orderItem in list)
+                {
+                    Models.OrderViewModel orderView = new Models.OrderViewModel();
+                    orderView.ID = orderItem.ID;
+                    orderView.OrderNum = orderItem.OrderNumber;
+                    orderView.CreateTime = orderItem.Obj_Cdate.Value;
+                    orderView.OrderStatus = orderItem.OrderStatus;
+                    orderView.OrderType = orderItem.OrderType;
+                    orderView.PayStatus = orderItem.PayStatus;
+                    orderView.OrderClass = orderItem.OrderClass;
+                    orderView.ProductList = new List<Models.ProductItemModel>();
+
+                    //********* add by yfyang 20140928 历史订单中显示订单金额错误修正**********
+                    orderView.TotalPrice = orderItem.TotalAmount;
+                    //*************************************************************************
+
+                    var plist = orderItem.ProductList.GroupBy(p => p.ProductID);
+                    foreach (var product in plist)
+                    {
+                        Models.ProductItemModel pi = new Models.ProductItemModel();
+                        var pDC = product.First();
+                        pi.ProductInfo = pDC;
+                        pi.Count = product.Count();
+                        orderView.ProductList.Add(pi);
+
+                        //********* add by yfyang 20140928 历史订单中显示订单金额错误修正**********
+                        //注释以下错误的代码逻辑
+                        //orderView.TotalPrice += pi.ProductInfo.Price * pi.Count;
+                        //*************************************************************************
+                    }
+                    xList.Add(orderView);
+                }
+
+            return xList;
+        }
+
+
+
+
+        /// <summary>
+        /// 生成验证码图像对象
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetValidateCode()
+        {
+            ValidateCode vCode = new ValidateCode();
+            string code = vCode.CreateValidateCode(5);
+            Session[AppConfig.Cache_ValidateCode] = code;
+            byte[] bytes = vCode.CreateValidateGraphic(code);
+            return File(bytes, @"image/jpeg");
+        }
+	}
+}

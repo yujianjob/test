@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D3F7E1FA-0414-4CEF-ACA1-4EF9B8C95E46}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LazyAtHome.API.Mobile</RootNamespace>
+    <AssemblyName>LazyAtHome.API.Mobile</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LazyAtHome.Core">
+      <HintPath>D:\CommonDLL\LazyAtHome.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="LazyAtHome.Library.Pay">
+      <HintPath>D:\CommonDLL\LazyAtHome.Library.Pay.dll</HintPath>
+    </Reference>
+    <Reference Include="LazyAtHome.WCF.Common.Contract">
+      <HintPath>D:\CommonDLL\LazyAtHome.WCF.Common.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="LazyAtHome.WCF.OrderSystem.Contract">
+      <HintPath>D:\CommonDLL\LazyAtHome.WCF.OrderSystem.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="LazyAtHome.WCF.UserSystem.Contract">
+      <HintPath>D:\CommonDLL\LazyAtHome.WCF.UserSystem.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="LazyAtHome.WCF.Wash.Contract">
+      <HintPath>D:\CommonDLL\LazyAtHome.WCF.Wash.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationServer.Caching.Client, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\CommonDLL\Microsoft.ApplicationServer.Caching.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationServer.Caching.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\CommonDLL\Microsoft.ApplicationServer.Caching.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\download\android\" />
+    <Folder Include="Content\Scripts\" />
+    <Folder Include="Views\Base\" />
+    <Folder Include="Views\Notify\" />
+    <Folder Include="Views\Order\" />
+    <Folder Include="Views\Product\" />
+    <Folder Include="Views\User\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Code\Proxy\UserProxy.cs" />
+    <Compile Include="App_Code\Proxy\CommonProxy.cs" />
+    <Compile Include="App_Code\Proxy\OrderProxy.cs" />
+    <Compile Include="App_Code\Proxy\WashProxy.cs" />
+    <Compile Include="App_Code\PublicFun.cs" />
+    <Compile Include="App_Start\APPConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\NotifyController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\JsonResultModels\AddsListResult.cs" />
+    <Compile Include="Models\JsonResultModels\BaseResult.cs" />
+    <Compile Include="Models\JsonResultModels\CardListResult.cs" />
+    <Compile Include="Models\JsonResultModels\CouponListResult.cs" />
+    <Compile Include="Models\JsonResultModels\DefaultAddsResult.cs" />
+    <Compile Include="Models\JsonResultModels\DistrictListResult.cs" />
+    <Compile Include="Models\JsonResultModels\LoginResult.cs" />
+    <Compile Include="Models\JsonResultModels\MobileExistResult.cs" />
+    <Compile Include="Models\JsonResultModels\MoblieCodeCheckResult.cs" />
+    <Compile Include="Models\JsonResultModels\OrderCreateCalcResult.cs" />
+    <Compile Include="Models\JsonResultModels\OrderCreateResult.cs" />
+    <Compile Include="Models\JsonResultModels\OrderGetResult.cs" />
+    <Compile Include="Models\JsonResultModels\OrderListResult.cs" />
+    <Compile Include="Models\JsonResultModels\OrderPayResult.cs" />
+    <Compile Include="Models\JsonResultModels\SendCheckCodeResult.cs" />
+    <Compile Include="Models\JsonResultModels\ServiceFeeResult.cs" />
+    <Compile Include="Models\JsonResultModels\ServiceListResult.cs" />
+    <Compile Include="Models\JsonResultModels\UserNameCheckResult.cs" />
+    <Compile Include="Models\JsonResultModels\VersionResult.cs" />
+    <Compile Include="Models\LocalModels\DistrictModel.cs" />
+    <Compile Include="Models\LocalModels\OrderAmountModel.cs" />
+    <Compile Include="Models\LocalModels\OrderExpressModel.cs" />
+    <Compile Include="Models\LocalModels\OrderModel.cs" />
+    <Compile Include="Models\LocalModels\UserAddsModel.cs" />
+    <Compile Include="Models\LocalModels\UserCardLogModel.cs" />
+    <Compile Include="Models\LocalModels\UserCardModel.cs" />
+    <Compile Include="Models\LocalModels\UserCouponModel.cs" />
+    <Compile Include="Models\LocalModels\UserModel.cs" />
+    <Compile Include="Models\LocalModels\WashClassModel.cs" />
+    <Compile Include="Models\LocalModels\WashProductModel.cs" />
+    <Compile Include="Models\LocalModels\WashServiceFee.cs" />
+    <Compile Include="Models\LocalModels\WashServiceModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Activity.html" />
+    <Content Include="Content\Css\base.css" />
+    <Content Include="Content\Images\act-xdbtn.jpg" />
+    <Content Include="Content\Images\act-yybtn.jpg" />
+    <Content Include="Content\Images\activity_banner.jpg" />
+    <Content Include="Content\Images\ewm-pic.jpg" />
+    <Content Include="Content\Images\ewm-pic.png" />
+    <Content Include="Content\Images\hd01.png" />
+    <Content Include="Content\Images\hd02-banner.jpg" />
+    <Content Include="Content\Images\hd02.png" />
+    <Content Include="Content\Images\hd04-banner.jpg" />
+    <Content Include="Content\Images\startpage.jpg" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Service.html" />
+    <Content Include="Web.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+    <None Include="Properties\PublishProfiles\LazyAtHome.API.Mobile.pubxml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>36522</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:36269/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

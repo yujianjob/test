@@ -1,0 +1,82 @@
+package com.example.echo;
+import org.apache.cordova.api.CallbackContext;
+import org.apache.cordova.api.CordovaPlugin;
+import org.apache.cordova.api.PluginResult;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.view.Menu; 
+import android.view.MenuItem;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.example.kuaidi.MainActivity;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.Uri;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+
+public class EchoTest extends CordovaPlugin {
+    @Override
+    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+        if (action.equals("echo")) {   //action=echo 
+        	String str = "";
+            String url = args.getString(0);  //  
+            String versioncode = args.getString(1);
+             
+            int code= MainActivity.vcode;
+            str=str+url+versioncode+"这是原生代码777777";
+            this.echo(str, callbackContext);
+            return true;
+        }else{
+        	 	callbackContext.error("这不是一个echo操作");
+        	 	return false;
+        }
+        
+    }
+    /*获得版本号*/
+    public int getVerCode(Context context){
+        int verCode = -1;
+        try {
+         String packName = context.getPackageName();
+            verCode = context.getPackageManager().getPackageInfo(packName, 0).versionCode;
+        } catch (NameNotFoundException e) {
+            // TODO Auto-generated catch block
+            Log.e("版本号获取异常", e.getMessage());
+        }
+        return verCode;
+    }
+    
+    private void echo(String message, CallbackContext callbackContext) {
+        if (message != null && message.length() > 0) {
+            callbackContext.success(message);
+        } else {
+            callbackContext.error("Expected one non-empty string argument.");
+        }
+    }
+}

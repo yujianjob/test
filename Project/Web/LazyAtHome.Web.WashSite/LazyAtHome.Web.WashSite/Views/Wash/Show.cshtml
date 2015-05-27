@@ -1,0 +1,194 @@
+﻿@model LazyAtHome.WCF.Wash.Contract.DataContract.web.web_Wash_CategoryDC
+@{
+    //ViewBag.Title = "产品详情";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home", new { index = "wash" });}
+
+<!--内容-->
+<div id="content">
+    <div id="title">
+        <span><a href="/Wash">洗涤服务&gt;</a><a href="/Wash#F@(Model.ClassID)">@Model.ClassName&gt;</a>@Model.Name</span>
+        <div class="titleCart">
+            <img src="~/Content/Images/titleCart.gif" />
+            <dl>
+                <dt id="cartPrice">@(ViewBag.Cart.TotalPrice)元</dt>
+                <dd id="cartCount"><b>|</b>@(ViewBag.Cart.TotalCount)件商品</dd>
+                <ul class="titleCartList">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr class="titleCartListTitle">
+                            <td width="40">商品</td>
+                            <td width="50">数量</td>
+                            <td width="53">价格</td>
+                            <td>删除</td>
+                        </tr>
+                        @foreach (LazyAtHome.Web.WashSite.Models.User.CartProductItem item in @ViewBag.Cart.ProductList)
+                        {
+                            <tr>
+                                <td><img src="@item.ProductInfo.PictureM" title="@item.ProductInfo.Name" width="30" height="30" class="pic" /></td>
+                                <td style="background-color:white">
+                                    @item.Count
+                                </td>
+                                <td><b>@(item.ProductInfo.SalesPrice * item.Count)</b></td>
+                                <td><img src="~/Content/images/Xs.gif" class="delete" onclick="CartDelete(@item.ProductInfo.ID, this, $('#cartPrice'), $('#cartCount'))" /></td>
+                            </tr>
+                        }
+                        <tr>
+                            <td colspan="4"><input name="" type="button" value="去结算" class="submit" onclick="window.location.href='/Cart/Submit'" /></td>
+                        </tr>
+                    </table>
+                </ul>
+
+            </dl>
+        </div>
+    </div>
+    <div class="luxuryShow">
+        <div class="luxuryShowPic left">
+            <div class="pic"><img src="@Model.PictureL" /></div>
+            <div class="drycleaning-icn icon">干洗</div>
+            <div class="flavoring-icn icon">加香</div>
+            <div class="repair-icn icon">修理</div>
+            <div class="deposit-icn icon">寄存</div>
+        </div>
+        <div class="luxuryShowAbout right">
+            <h2>@Model.Name</h2>
+            <ul class="jg">
+                <li id="limaprice">原价：<del id="showmaprice"></del></li>
+                <li>服务价格：<span>￥<b id="showprice" style="font-size:25px">@Model.SalesPriceInterval</b></span></li>
+                <li>促销信息：<font id="showSale"></font></li>
+            </ul>
+            <ul class="xx">
+                <li>
+                    <font>款式：</font>
+                    @foreach (var p in Model.ProductList)
+                    {
+                        <span pid="@p.ID" price="@p.SalesPrice" maprice="@p.MarketPrice">@p.Name</span>
+                    }
+                <li>
+                    <font>数量：</font>
+                    <dl class="shuliang">
+                        <dt class="jian">-</dt>
+                        <dd><input type="text" value="1" id="shuzhi" readonly="readonly" /></dd>
+                        <dt class="jia">+</dt>
+                    </dl>
+                </li>
+            </ul>
+            <p id="pSelect" class="font">尚未选择任何产品</p>
+            <dl class="an">
+                @using (Html.BeginForm("CartAdd", "Cart", FormMethod.Post, new { id = "formpost" }))
+                {
+                    <input id="spid" name="spid" type="hidden" value="" />
+                    <input id="pcount" name="pcount" type="hidden" value="1" />
+                    <input id="submitType" name="submitType" type="hidden" />
+
+                    <dt><input name="" type="button" onclick="return checkSubmit(1);" /></dt>
+                    <dd><input name="" type="button" onclick="return checkSubmit(2)" /></dd>
+                }
+            </dl>
+        </div>
+    </div>
+
+    <div class="contentTitle">详情描述</div>
+    <div class="contentBox">
+        @{Html.RenderPartial("~/Views/Wash/ProductDetail/" + Model.ID + ".cshtml");}
+    </div>
+    <div class="contentTitle" style="clear:both">送衣流程</div>
+    <div class="contentBox"><img src="~/Content/Images/pic_10.jpg" width="996" height="160" /></div>
+
+</div>
+
+@section scripts
+{
+    <script language="javascript" type="text/javascript">
+
+        $(function () {
+            $("#limaprice").hide();
+            //右侧选择
+            $('.luxuryShowAbout .xx span').click(function () {
+                $(this).parent().find('span').removeClass('this');
+                $(this).addClass('this');
+                var price = $(this).attr("price");
+                $("#showprice").text(price);
+                var maprice = $(this).attr("maprice");
+                var sale = maprice - price;
+                if (sale != 0) {
+                    var strSale = (1 - sale / maprice) * 100;
+                    $("#showmaprice").text(maprice);
+                    $("#limaprice").show();
+                    $("#showSale").html("活动" + Math.round(strSale) / 10 + "折优惠");
+                }
+                else {
+                    $("#showSale").html("");
+                    $("#limaprice").hide();
+                }
+                $("#pSelect").text("已选择“" + $(this).text() + "”");
+                $("#spid").val($(this).attr("pid"));
+            })
+            //右侧数量
+            $('.shuliang .jian').click(function () {
+                var lis = parseInt($('#shuzhi').attr('value')) - 1;
+                if (lis <= 1) {
+                    var lis = 1;
+                }
+                $('#shuzhi').attr('value', lis)
+                pcount.value = lis;
+            })
+            $('.shuliang .jia').click(function () {
+                var lis = parseInt($('#shuzhi').attr('value')) + 1;
+                $('#shuzhi').attr('value', lis)
+                pcount.value = lis;
+            })
+            //购物车下拉
+            $('.titleCart dl').hover(function () {
+                $(this).find('ul').show();
+            }, function () {
+                $(this).find('ul').hide();
+            })
+            //产品大图鼠标悬停效果
+            var textArr = [
+                "",
+                "衣物的加香不仅能够舒缓情绪、减轻压力，也是一种礼貌的表现，甚至能够拉近人与人的距离，二期上线懒到家也会推出衣服加香服务，敬请期待。",
+                "不断的换洗以及日常生活中的摩擦，衣物的缝缝补补、修钉是尤为普遍的，为此懒到家二期将提供各类衣物缝补、皮包护理服务，敬请期待。",
+                "外出旅游、出差在外，洗好的衣物无处寄存怎么办？别担心懒到家即将提供短期寄存服务，满足你的不时之需。寄存服务将于近期上线，敬请期待。"
+            ];
+            $(".luxuryShowPic .icon").each(function (i) {
+                $(this).mouseover(function () {
+                    var str = "<div class='pdetail-tips'>";
+                    str += "<span class='tips-arrow'></span>";
+                    str += "<p>" + textArr[i] + "</p>";
+                    str += "</div>";
+                    if (textArr[i]) {
+                        $(this).append(str);
+                    }
+                    if (i == 0) {
+                        $(this).addClass("o-active");
+                    } else {
+                        $(this).addClass("g-active");
+                    }
+                }).mouseout(function () {
+                    $(".pdetail-tips").remove();
+                    if (i == 0) {
+                        $(this).removeClass("o-active");
+                    } else {
+                        $(this).removeClass("g-active");
+                    }
+                });
+            });
+
+            $("[pid='@ViewBag.SID']").click();
+
+        })
+
+
+        function checkSubmit(type) {
+            if ($("#spid").val() == "") {
+                alert("请选择服装款式！");
+                return false;
+            }
+            $("#submitType").val(type);
+            $("#formpost").submit();
+        }
+    </script>
+}

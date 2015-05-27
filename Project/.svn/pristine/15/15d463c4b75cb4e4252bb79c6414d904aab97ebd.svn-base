@@ -1,0 +1,34 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\shoutao1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、尽量不要让皮革用品跟阳光接触或接近任何发热器，否则皮革会变得越来越干燥，而且皮革的弹性及柔软度亦会慢慢消失。</p> 
+				<p>2、汁液马上用清洁的抹布或海绵将汁液揩干，如有需要的话，可以用抹布沾上清洁的暖水抹去汁液，再让皮革自然风干。</p>
+				<p>3、黄油或油脂用干净的抹布擦去表面的油脂，让剩下的油渍慢慢地渗入皮革内，千万不要用水去揩抹油渍。</p> 
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>给她，加倍呵护，由心掌控；<br />给他，悉心照料，知寒体暖； <br />用心有你，洁净有我--懒到家！</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\shoutao2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>一般来说，日常清洁保养用温和肥皂溶液已足够(用抹布沾湿再揩抹便成，千万不要将皮革泡浸在水中清洗)。市面上找到的皮革清洁剂效果也很好，而且含有润滑剂，可以保持皮革本身的柔软性。顽强的污垢可能要用温和的清洁剂对付，或者需要专业的清洁处理。</p> 
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

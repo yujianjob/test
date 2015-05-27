@@ -1,0 +1,228 @@
+﻿@model LazyAtHome.Web.WebManage.Models.Express.ExpNodeModel
+
+@{
+    <script src="@Url.Content("~/Scripts/Express/expnodeedit.js")" type="text/javascript"></script>
+}
+<!--报错信息-->
+@Html.Raw(ViewBag.Script)
+
+<div class="pageContent">
+    <form method="post" action="@Url.Action("SaveExpNode", "Express")" id="frmSaveExpNode" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
+        <div class="pageFormContent" layouth="56">
+            <div class="panel">
+                <h1>基本信息</h1>
+                <div>
+                    @Html.HiddenFor(model => model.ExpNodeInfo.ID)
+                    @Html.HiddenFor(model => model.ExpNodeInfo.StorageID)
+                    <div class="unit">
+                        <p>
+                            <label>站点名称：</label>
+                            @Html.TextBoxFor(model => model.ExpNodeInfo.Name, new { @maxlength = 50, @class = "required" })
+                        </p>
+                        <p>
+                            <label>站点编号：</label>
+                            @Html.TextBoxFor(model => model.ExpNodeInfo.No, new { @maxlength = 50, @class = "required", size="8"})
+                            <span class="info">字母(区分大小写)数字下划线汉字</span>
+                        </p>
+                    </div>
+
+
+                    <div class="unit">
+                        <p>
+                            <label>行政区划：</label>
+                            <input id="txtExpNodeDivisionUrl" type="hidden" value="@Url.Action("DivisionsGet", "Common")" />
+                            @{Html.RenderAction("Divisions", "Common", new { id = Model.ExpNodeInfo == null || Model.ExpNodeInfo.DistrictID == null ? 0 : Model.ExpNodeInfo.DistrictID, bindName = "BDVIdL", DivisionsL1Name = "ExpNodeddlDivisionL1", DivisionsL2Name = "ExpNodeddlDivisionL2", DivisionsL3Name = "ExpNodeddlDivisionL3" });}
+                        </p>
+                        <p style="width: 720px;">
+                            <label>站点地址：</label>
+                            @Html.TextBoxFor(model => model.ExpNodeInfo.Address, new { size = "40", @class = "required" })
+                        </p>
+                    </div>
+
+
+                    <div class="unit">
+                        <p>
+                            <label>经度：</label>
+                            @Html.TextBoxFor(model => model.ExpNodeInfo.Longitude)
+                        </p>
+                        <p>
+                            <label>纬度：</label>
+                            @Html.TextBoxFor(model => model.ExpNodeInfo.Latitude)
+                        </p>
+                    </div>
+
+                    <div class="unit">
+                        <p>
+                            <label>辐射范围(米)：</label>
+                            @Html.TextBoxFor(model => model.ExpNodeInfo.Radius)
+                        </p>
+                        <p>
+                            <label>站点类型：</label>
+                            @Html.DropDownListFor(model => model.ExpNodeInfo.Type, new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text="站点", Value = "1" },
+                            new SelectListItem { Text="干线", Value = "2" },
+                            new SelectListItem { Text="工厂", Value = "3" }},
+                                     "Value", "Text", Model.ExpNodeInfo.Type))
+                        </p>
+                    </div>
+
+                    <div class="unit">
+                        <p>
+                            <label>启用状态：</label>
+                            @Html.RadioButtonFor(model => model.ExpNodeInfo.Enable, 1, new { @checked = "checked" })启用
+                            @Html.RadioButtonFor(model => model.ExpNodeInfo.Enable, 0)停用
+                        </p>
+
+                        <p>
+                            <label>预警类型：</label>
+                            @Html.RadioButtonFor(model => model.ExpNodeInfo.AlarmType, 1, new { @checked = "checked" })全预警
+                            @Html.RadioButtonFor(model => model.ExpNodeInfo.AlarmType, 0)不预警
+                        </p>
+                    </div>
+
+
+
+
+                    <div>
+                        @Html.Hidden("hdAreaSelectByNodeUrl", @Url.Action("AreaView", "Express"))
+                        <dl class="nowrap">
+                            <dt>所属区域：</dt>
+                            <dd>
+                                <input id="ExpNodeInfo_AreaID" name="ExpNodeInfo.AreaID" value="@Model.ExpNodeInfo.AreaID" type="hidden" />
+                                <input id="ExpNodeInfo_AreaName" name="ExpNodeInfo.AreaName" type="text" lookupgroup="ExpNodeInfo" value="@Model.ExpNodeInfo.AreaName" readonly="readonly" class="required"/>
+                                <a id="areaidSelectByNode" class="btnLook" href="" lookupgroup="ExpNodeInfo">选择所属区域</a>
+                                <span class="info">选择所属区域</span>
+                            </dd>
+                        </dl>
+                    </div>
+
+
+
+
+
+
+                    <div>
+                        @Html.Hidden("hdNodeSelectByNodeUrl", @Url.Action("NodeView", "Express"))
+                        <dl class="nowrap">
+                            <dt>所属上级站点：</dt>
+                            <dd>
+                                <input id="ExpNodeInfo_ParentID" name="ExpNodeInfo.ParentID" value="@Model.ExpNodeInfo.ParentID" type="hidden" />
+                                <input id="ExpNodeInfo_ParentName" name="ExpNodeInfo.ParentName" type="text" lookupgroup="ExpNodeInfo" value="@Model.ExpNodeInfo.ParentName" readonly="readonly" />
+                                <a id="nodeidSelectByNode" class="btnLook" href="" lookupgroup="ExpNodeInfo">选择上级站点</a>
+                                <span class="info">选择上级站点</span>
+                            </dd>
+                        </dl>
+                    </div>
+
+
+                    <div>
+                        @Html.Hidden("hdOPIDSelectByNodeUrl", @Url.Action("OperatorView", "Express"))
+                        <dl class="nowrap">
+                            <dt>站长：</dt>
+                            <dd>
+                                <input id="ExpNodeInfo_ManagerID" name="ExpNodeInfo.ManagerID" value="@Model.ExpNodeInfo.ManagerID" type="hidden" />
+                                @*<input id="ExpNodeInfo_LinkManID" name="ExpNodeInfo.LinkManID" value="@Model.ExpNodeInfo.LinkManID" type="hidden" />*@
+                                <input id="ExpNodeInfo_ManagerName" name="ExpNodeInfo.ManagerName" type="text" lookupgroup="ExpNodeInfo" value="@Model.ExpNodeInfo.ManagerName" readonly="readonly" class="required" />
+                                <a id="opidSelectByNode" class="btnLook" href="" lookupgroup="ExpNodeInfo">选择站长</a>
+                                <span class="info">选择站长</span>
+                            </dd>
+                        </dl>
+                    </div>
+
+                    <div>
+                        @Html.Hidden("hdCreateIDSelectByNodeUrl", @Url.Action("OperatorView", "Express"))
+                        <dl class="nowrap">
+                            <dt>站点开发者：</dt>
+                            <dd>
+                                <input id="ExpNodeInfo_CreateOperatorID" name="ExpNodeInfo.CreateOperatorID" value="@Model.ExpNodeInfo.CreateOperatorID" type="hidden" />
+                                @*<input id="ExpNodeInfo_LinkManID" name="ExpNodeInfo.LinkManID" value="@Model.ExpNodeInfo.LinkManID" type="hidden" />*@
+                                <input id="ExpNodeInfo_CreateOperatorName" name="ExpNodeInfo.CreateOperatorName" type="text" lookupgroup="ExpNodeInfo" value="@Model.ExpNodeInfo.CreateOperatorName" readonly="readonly" class="required" />
+                                <a id="createidSelectByNode" class="btnLook" href="" lookupgroup="ExpNodeInfo">选择站点开发者</a>
+                                <span class="info">选择站点开发者</span>
+                            </dd>
+                        </dl>
+                    </div>
+
+                    <div>
+                        @Html.Hidden("hdCaptainIDSelectByNodeUrl", @Url.Action("OperatorView", "Express"))
+                        <dl class="nowrap">
+                            <dt>保安队长：</dt>
+                            <dd>
+                                <input id="ExpNodeInfo_CaptainID" name="ExpNodeInfo.CaptainID" value="@Model.ExpNodeInfo.CaptainID" type="hidden" />
+                                <input id="ExpNodeInfo_CaptainName" name="ExpNodeInfo.CaptainName" type="text" lookupgroup="ExpNodeInfo" value="@Model.ExpNodeInfo.CaptainName" readonly="readonly" />
+                                <a id="captainidSelectByNode" class="btnLook" href="" lookupgroup="ExpNodeInfo">选择保安队长</a>
+                                <span class="info">选择保安队长</span>
+                            </dd>
+                        </dl>
+                    </div>
+
+                    <div>
+                        <dl class="nowrap">
+                            <dt>关键字：</dt>
+                            <dd>
+                                @Html.TextAreaFor(model => model.ExpNodeInfo.Keyword, new { cols = "70", rows = "3", @class = "textarea" })
+                            </dd>
+                        </dl>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="panel">
+                <h1>人员信息</h1>
+                <div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="20" align="center"></th>
+                                <th width="120" align="center">账户名</th>
+                                <th width="60" align="center">类型</th>
+                                <th width="100" align="center">职位</th>
+                                <th width="80" align="center">用户名</th>
+                                <th width="100" align="center">所属站点</th>
+                                <th width="100" align="center">手机号</th>
+                                <th width="150" align="center">邮箱</th>
+                                <th width="80" align="center">状态</th>
+                                <th width="120" align="center">注册时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (@Model.ExpOperatorList != null)
+                            {
+                                int no = 1;
+                                foreach (var item in @Model.ExpOperatorList)
+                                {
+                                    <tr target="mid" rel="@item.ID">
+                                        <td>@(no++)</td>
+                                        <td>@item.LoginName</td>
+                                        <td>@UIHelper.FormatOperatorType(item.Type)</td>
+                                        <td>@item.RoleName</td>
+                                        <td>@item.Name</td>
+                                        <td>@item.NodeName</td>
+                                        <td>@item.MpNo</td>
+                                        <td>@item.EMail</td>
+                                        <td>@UIHelper.FormatEnable(item.Enable)</td>
+                                        <td>@UIHelper.FormatDate(item.Obj_Cdate)</td>
+                                    </tr>
+                                }
+
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="formBar">
+            <ul>
+                <!--<li><a class="buttonActive" href="javascript:;"><span>保存</span></a></li>-->
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit" id="btnSave">保存</button></div></div></li>
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>
+

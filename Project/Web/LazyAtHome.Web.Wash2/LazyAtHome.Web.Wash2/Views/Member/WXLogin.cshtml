@@ -1,0 +1,262 @@
+﻿
+@{
+    //ViewBag.Title = "WXLogin";
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="Shortcut icon" href="/img/landaojia.ico" type="image/x-icon" />
+    <link href="/Content/bootstrap.css" rel="stylesheet">
+    <link href="/Content/ldj.css" media="screen" rel="stylesheet">
+    <script src="/Scripts/jquery-2.1.1.js"></script>
+    <script src="/Scripts/bootstrap.js"></script>
+    <script src="/Scripts/landaojia.js"></script>
+
+</head>
+<body>
+
+    <div id="page-content-wrapper reg-page">
+        <img class="blue-bg" src="/img/bg-large.jpg">
+        <div class="page-content">
+            <div class="row reg-row">
+                <div class="col-md-12 full-width" style="padding:0">
+                    <img class="centered-logo" src="/img/home-logo.png">
+                    <div class="fade-in centered-box" style="background:none;">
+                        <form method="post" action="">
+                            <header>
+                                <a class="btn-prev" href="/Member/Login">‹</a>
+                                <h2>微信用户网站登录</h2>
+                            </header>
+                            <section class="reg-content" style="padding-top:0px">
+                                <p>微信用户设置密码后可通过手机号直接登录网站</p>
+
+                                <div class="input-group">
+                                    <input id="txtMPNo" type="text" placeholder="手机号" maxlength="11">
+                                    <p id="msgMPNo" class="help-block"></p>
+                                </div>
+                                <div class="MPNo">
+                                    <div class="input-group">
+                                        <div style="width:320px;display:block;margin:0 auto">
+
+                                            <input id="txtValiCode" name="txtValiCode" type="text" placeholder="图像验证码" class="radius-left b-half verifyCode">
+                                            <button type="button" class="radius-right s-half imgVertify"><img id="imgValiCode" src="@Url.Action("GetValidateCode", "Base") " alt=" " width=" 76" height="24" /></button>
+                                            <input type="hidden" value="@Url.Action("GetValidateCode", "Base")" id="ValidateCodeUrl" />
+                                            <p id="msgValiCode" class="help-block"></p>
+
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <div style="width:320px;display:block;margin:0 auto">
+                                            <input id="txtVCode" name="txtVCode" type="text" maxlength="6" placeholder="短信验证码" class="radius-left b-half verifyCode">
+                                            <button id="btnSmsCode" name="btnSmsCode" type="button" class="radius-right s-half msgVertify" onclick="VerifyMobile();">获取验证码</button>
+                                            <p id="msgCode" class="help-block"></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                @*<div class="input-group MPNo">
+                                    <div style="width:320px;display:block;margin:0 auto">
+                                        <input id="txtMPNo" type="text" placeholder="手机号" class="radius-left b-half" maxlength="11">
+                                        <button id="btnSmsCode" name="btnSmsCode" class="radius-right s-half" type="button" onclick="VerifyMobile()">获取验证码</button>
+                                        <div style="clear:both"></div>
+                                        <p id="msgMPNo" class="help-block"></p>
+                                        <p id="msgVCode" class="help-block"></p>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <input id="txtVCode" type="text" placeholder="验证码" value="" maxlength="6">
+                                    <p id="msgVCode2" class="help-block"></p>
+                                </div>*@
+                                <div class="input-group">
+                                    <input id="txtPass" name="txtPass" type="password" placeholder="新密码" value="">
+                                    <p id="msgPass" class="help-block"></p>
+                                </div>
+                                <div class="input-group">
+                                    <input id="txtPassConfim" name="txtPassConfim" type="password" placeholder="确认新密码" value="">
+                                    <p id="msgPassConfirm" class="help-block"></p>
+                                </div>
+
+
+                                <p id="msgInfo" class="help-block" style="text-align:left"></p>
+                                <button type="button" class="btn btn-danger btn-lg save-btn" style="margin-left:0">登录</button>
+                            </section>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script type="text/javascript">
+        var checkSmsCode = false;
+        var timer = null;
+
+
+        function Check() {
+
+            if (CheckMobile($("#txtMPNo"), $("#msgMPNo")).code == 0) {
+                //if (CheckMobile(txtMPNo, msgMPNo).code == 0) {
+                $("#txtMPNo").focus();
+                //txtMPNo.focus();
+                return false;
+            }
+
+            if (!checkSmsCode) {
+                $("#msgMPNo").html("请验证手机号！");
+                return false;
+            }
+            else {
+                if (!$("#txtVCode").val().match("^[0-9]{6}$")) {
+                    //if (!txtVCode.value.match("^[0-9]{6}$")) {
+                    $("#msgCode").html("短信验证码为6位数字");
+                    //txtVCode.focus();
+                    $("#txtVCode").focus();
+                    return false;
+                }
+            }
+
+            
+            if (!$("#txtPass").val().match("^.{6,20}$")) {
+                //if (!txtPass.value.match("^.{6,20}$")) {
+                $("#msgPass").html("请输入6-20位大小写英文字母，符号或数字");
+                //txtPass.focus();
+                $("#txtPass").focus();
+                return false;
+            }
+
+            if ($("#txtPass").val().trim() != $("#txtPassConfim").val().trim()) {
+                //if (txtPass.value.trim() != txtPassConfim.value.trim()) {
+                $("#msgPassConfirm").html("两次输入的密码不一致");
+                //txtPassConfim.focus();
+                $("#txtPassConfim").focus();
+                return false;
+            }
+
+            return true;
+        }
+
+        $(function () {
+            $(".save-btn").click(function () {
+                if (Check()) {
+                    var postData = { "txtMPNo": $("#txtMPNo").val(), "txtPass": $("#txtPass").val(), "txtVCode": $("#txtVCode").val() };
+                    //var postData = { "txtMPNo": txtMPNo.value, "txtPass": txtPass.value, "txtVCode": txtVCode.value };
+                    $.ajax({
+                        type: "post",
+                        url: "@Url.Action("User_FindPassword", "Member")",
+                        data: postData,
+                    dataType: "json",
+                    success: function (resultJson) {
+                        if (resultJson.Code == 1) {
+                            showPopDiv("网站密码设置成功！", true, 2000, "/Wash");
+                        }
+                        else {
+                            showPopDiv(resultJson.Msg);
+                        }
+                    },
+                    error: function (msg) {
+                        alert(msg.responseText.toString());
+                    }
+                });
+            }
+            });
+        });
+
+        function VerifyMobile() {
+            if (timer != null)
+                return;
+            
+            if (CheckMobile($("#txtMPNo"), $("#msgMPNo")).code == 0) {
+                //if (CheckMobile(txtMPNo, msgMPNo).code == 0) {
+                //txtMPNo.focus();
+                $("#txtMPNo").focus();
+                return false;
+            }
+            $("#msgMPNo").html("");
+            $("#msgValiCode").html("");
+            $("#msgCode").html("");
+            //if (OldMPNo == txtMPNo.value.trim())
+            //    return false;
+
+            if ($("#txtValiCode").val() == "") {
+                //if (txtValiCode.value == "") {
+                $("#msgValiCode").html("请输入右边的图像验证码");
+                return;
+            }
+
+            var postData = { "mpno": $("#txtMPNo").val().trim(), "valicode": $("#txtValiCode").val(), "check": 1 };
+            //var postData = { "mpno": txtMPNo.value.trim(), "valicode": txtValiCode.value, "check": 1 };
+
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("VerifyMobile", "Member")",
+                data: postData,
+            dataType: "json",
+            success: function (resultJson) {
+                if (resultJson.Code == 1) {
+                    //$("#msgVCode").html("验证码已经发送成功");
+                    $("#msgCode").html("短信验证码已发送");
+                    checkSmsCode = true;
+                    daojishi();
+
+                    //图像验证码刷新
+                    $("#imgValiCode").click();
+                    $("#txtValiCode").val("");
+                }
+                else {
+                    if (resultJson.Code == 5) {
+                        //图像验证码错误
+                        $("#msgCode").html(resultJson.Msg);
+                    }
+                    else {
+                        $("#msgMPNo").html(resultJson.Msg);
+                    }
+                    //$("#msgMPNo").html(resultJson.Msg);
+                }
+            },
+            error: function (msg) {
+                alert(msg.toString());
+            }
+        });
+        }
+
+        function daojishi() {
+            var i = 60;
+            if (!timer) {
+                $("#btnSmsCode").text(i);
+                timer = setInterval(function () {
+                    i--;
+                    $("#btnSmsCode").text(i);
+                    $("#btnSmsCode").css("cursor", "default");
+                    if (i == -1) {
+                        $("#btnSmsCode").css("cursor", "pointer");
+                        clearInterval(timer);
+                        timer = null;
+                        $("#btnSmsCode").text("获取验证码");
+                    }
+                }, 1000);
+            }
+        }
+
+        $("#imgValiCode").bind("click", function () {
+            this.src = $("#ValidateCodeUrl").val() + "?time=" + (new Date()).getTime();
+        });
+
+    </script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,153 @@
+﻿@model LazyAtHome.Web.WeiXin.Models.UserInfo
+@{
+    ViewBag.Title = "我的懒人卡";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="bangding">
+    <div class="bangding_t">
+        <ul>
+            <li class="xz" id="tui1" onclick="setTab('tui',1,2,'xz','noxz')"><a href="#">绑定新卡</a></li>
+            <li class="noxz" id="tui2" onclick="setTab('tui',2,2,'xz','noxz')"><a href="#">我的卡包</a></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+
+    <div class="bangding_b xinka" id="con_tui_1" style="display:block;">
+        @using (Html.BeginForm("CardBind", "PersonalCenter", FormMethod.Post, new { id = "bindForm" }))
+        {
+            @Html.AntiForgeryToken()
+            <p style="padding-bottom:5px;">请输入卡密码：</p>
+            <h4><input id="CardPass" name="CardPass" type="text" class="input1" value="@ViewBag.CardPass" maxlength="19" onblur="cardFormat()" /></h4>
+            <p style="padding-top:20px; padding-bottom:5px;">请输入右侧验证码：</p>
+            <h4><input id="VCode" name="VCode" type="text" class="input2" maxlength="5" /><span><img src="@Url.Action("GetValidateCode", "Base")" width="209" height="150" onclick="VCodeRefresh(this)" /></span></h4>
+            <p class="sure"><a href="#"><img src="~/images/lan11.jpg" onclick="formSubmit()" /></a></p>
+        }
+    </div>
+    <div class="bangding_b kabao" id="con_tui_2">
+        <div class="nav_menu">
+            @if (Model.User.CardList != null && Model.User.CardList.Count > 0)
+            {
+                foreach (var cardItem in Model.User.CardList)
+                {
+                    <dl>
+                        <dt>
+                            <label><img src="~/images/lan14.jpg" /></label>
+                            <a href="javascript:void(0);" class="minus" onclick="showHide(this,'items0');"><span></span>卡号：@cardItem.Number &nbsp;￥：@cardItem.Balance</a>
+                        </dt>
+                        <dd id="items0">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                @if (cardItem.CardLogList == null || cardItem.CardLogList.Count == 0)
+                                {
+                                    <tr>
+                                        <td style="padding-left:10px">无消费记录</td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    foreach (var logItem in cardItem.CardLogList)
+                                    {
+                                        <tr>
+                                            <td style="padding-left:10px">@logItem.Obj_Cdate.Value.ToString("yyyy.MM.dd")</td>
+                                            <td>@logItem.Obj_Cdate.Value.ToString("HH:mm")</td>
+                                            <td>@UIHelper.CaseCardType(logItem.Type)</td>
+                                            <td>@logItem.Money</td>
+                                        </tr>
+                                    }
+                                }
+                            </table>
+
+                        </dd>
+                    </dl>
+                }
+            }
+            else
+            {
+                <div class="tipspic">
+                    <img src="~/images/card-tips-pic.jpg" />
+                </div>
+                <div class="join">
+                    <a href="javascript:void(0)" onclick="setTab('tui',1,2,'xz','noxz')"><img src="~/images/join-btn.jpg" /></a>
+                </div>
+            }
+
+        </div>
+
+
+    </div>
+</div>
+<div class="footer foot"><img src="~/images/lan8.jpg" /></div>
+@section scripts
+{
+    @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript">
+        function cardFormat() {
+            CardPass.value = CardPass.value.replace(/\s/g, '').replace(/(\w{4})(?=\w)/g, "$1-").toUpperCase();
+        }
+
+        $(function () {
+
+            //var logFunc = function () { this.value = this.value.replace(/\s/g, '').replace(/(\w{4})(?=\w)/g, "$1-").toUpperCase(); };
+            //$("#CardPass").keyup(logFunc).bind("text", logFunc);
+
+            var msg = "@ViewBag.Msg";
+
+            if (msg.substring(0, 1) == "1") {
+                setTab('tui', 2, 2, 'xz', 'noxz')
+            }
+            if (msg != "")
+                alert(msg.substring(2, msg.length));
+        });
+
+        function formSubmit() {
+            if (CardPass.value.length != 19) {
+                alert("卡密码不完整");
+                CardPass.focus();
+                return false;
+            }
+
+            if (VCode.value.length != 5) {
+                alert("验证码输入错误");
+                VCode.focus();
+                return false;
+            }
+
+            $("#bindForm").submit();
+        }
+
+        function setTab(name, num, total, selected, noselect) {
+            for (i = 1; i <= total; i++) {
+                var menuN = document.getElementById(name + i);
+                var textN = document.getElementById("con_" + name + "_" + i);
+                menuN.className = i == num ? selected : noselect;
+                textN.style.display = i == num ? "block" : "none";
+            }
+        }
+
+        function getObject(objectId) {
+            if (document.getElementById && document.getElementById(objectId)) {
+                return document.getElementById(objectId);
+            } else if (document.all && document.all(objectId)) {
+                return document.all(objectId);
+            } else if (document.layers && document.layers[objectId]) {
+                return document.layers[objectId];
+            } else {
+                return false;
+            }
+        }
+
+        function showHide(e, objname) {
+            var obj = getObject(objname);
+            if (obj.style.display == "none") {
+                obj.style.display = "block";
+                e.className = "minus";
+            } else {
+                obj.style.display = "none";
+                e.className = "plus";
+            }
+        }
+        function VCodeRefresh(obj) {
+            obj.src = "@Url.Action("GetValidateCode", "Base")?" + Math.random();
+        }
+    </script>
+}

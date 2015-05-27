@@ -1,0 +1,34 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\maojin1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、不要把潮湿的毛巾放置太久，会滋生霉菌和细菌。</p>
+				<p>2、不能频繁使用面料柔软剂，否则会影响毛巾的吸水性。</p>
+				<p>3、洗过的毛巾要完全展开垂直晾干使其快速干燥 </p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>懒到家通过专业的洗涤、消毒、烫平、整理、质检，可以还给毛巾第二次生命，既环保健康，又节省资源，洗好的毛巾洁净如新。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\maojin2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>毛巾作为最常用的洁具，必须经常清洗消毒。否则会出现异味、变滑等现象。日常采用的蒸煮消毒不能做到完全消毒，而且还会导致毛巾变硬分叉。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

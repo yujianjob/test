@@ -1,0 +1,36 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\houbeixiangdian1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、在清洗后备箱垫时，汽车后备箱的毛绒非常关键，一定要记着不能用水，正确的方法是采用多功能泡沫，也可以用刷子将污垢刷干净；</p>
+				<p>2、而对于那些皮塑做衬的部分，则可以采用真皮座椅的清洗方法进行清洗，在清洗的过程中，要注意把行李箱边沿，水槽等部分的污垢清洗干净.</p>
+				<p>3、这些结束后还要做一次异味处理。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>设备过硬：国际领先的干洗设备，国际检测认证，真正健康环保的洗涤用品。<br />
+				健康洗衣：100%杀菌消毒，100%专业洗涤，100%让您满意。<br />
+				超值服务：缓解您舟车劳顿之苦、49小时快速洗衣服务。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\houbeixiangdian2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p> 汽车后备箱是汽车最大的空间了，这也是一辆汽车的“大宝藏”，也有可能是“垃圾箱”，是车主存放东西的地方，所以汽车后备箱非常容易弄脏，所以汽车后备箱垫的清洗往往是最大的问题。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

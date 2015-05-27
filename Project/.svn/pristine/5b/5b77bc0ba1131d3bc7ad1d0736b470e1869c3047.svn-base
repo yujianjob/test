@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<parent>
+	<groupId>com.landaojia.washclothes.userappserver</groupId>
+	<artifactId>userappserver</artifactId>
+	<version>1.0.1</version>
+</parent>
+
+<modelVersion>4.0.0</modelVersion>
+<groupId>com.landaojia.washclothes.userappserver</groupId>
+<artifactId>userappserver-service</artifactId>
+<packaging>jar</packaging>
+<version>1.0.1</version>
+<name>${project.artifactId} v${project.version}</name>
+
+<build>
+	<finalName>${project.artifactId}</finalName>
+</build>
+
+<dependencies>
+	<dependency>
+		<groupId>com.landaojia.washclothes.userappserver</groupId>
+		<artifactId>userappserver-dao</artifactId>
+		<version>${project.version}</version>
+	</dependency>
+	
+    <dependency>
+        <groupId>cglib</groupId>
+        <artifactId>cglib</artifactId>
+    </dependency>
+</dependencies>
+</project>

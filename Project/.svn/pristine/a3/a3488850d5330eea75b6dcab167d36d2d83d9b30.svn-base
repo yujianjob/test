@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "充值";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="congzhi">
+    <div class="congzhi">
+        <div class="congzhi_t">
+            <p>第三方</p>
+            <h4>
+                <select name="">
+                    <option selected="selected">支付宝</option>
+                </select>
+                <span><a href="#"><img src="../images/lan26.jpg" /></a></span>
+                <div class="clear"></div>
+            </h4>
+        </div>
+        <div class="congzhi_c">
+            <p>懒人卡充值</p>
+            <h4><input name="" type="text" value="请输入密码" onfocus="if(value=='请输入密码'){value=''}" onblur="if (value ==''){value='请输入密码'}" /></h4>
+            <h3><input type="text" class="input2" /><span><img src="../images/lan10.jpg" /></span></h3>
+            <h2>金额：<span>￥230.00</span></h2>
+            <h5><a href="#"><img src="../images/lan27.jpg" /></a></h5>
+        </div>
+    </div>
+</div>
+<div class="footer foot"><img src="~/images/lan8.jpg" /></div>

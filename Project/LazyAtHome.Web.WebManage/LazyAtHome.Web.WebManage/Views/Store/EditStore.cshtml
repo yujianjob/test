@@ -1,0 +1,110 @@
+﻿@model LazyAtHome.Web.WebManage.Models.Store.StoreModel
+
+<!--报错信息-->
+@Html.Raw(ViewBag.Script)
+
+<div class="pageContent">
+    <form method="post" action="@Url.Action("SaveStore", "Store")" id="frmSaveStore" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
+        <div class="pageFormContent" layouth="56">
+            <fieldset>
+                <legend>基本信息</legend>
+                @Html.HiddenFor(model => model.StoreInfo.ID)
+                <p>
+                    <label>门店名称：</label>
+                    @Html.TextBoxFor(model => model.StoreInfo.Name, new { @maxlength = 100, @class = "required" })
+                </p>
+                <p>
+                    <label>门店编号：</label>
+                    @Html.TextBoxFor(model => model.StoreInfo.Code, new { @maxlength = 10, @readonly="true" })
+                </p>
+                <p>
+                    <label>门店地址：</label>
+                    @Html.TextBoxFor(model => model.StoreInfo.Address, new { @maxlength = 100, @class = "required", size = "40" })
+                </p>
+                <p>
+                    <label>门店电话：</label>
+                    @Html.TextBoxFor(model => model.StoreInfo.Phone, new { @maxlength = 50 })
+                </p>
+                <p>
+                    <label>联系人：</label>
+                    @Html.TextBoxFor(model => model.StoreInfo.LinkMan, new { @maxlength = 50, @class = "required" })
+                </p>
+                <p>
+                    <label>联系人电话：</label>
+                    @Html.TextBoxFor(model => model.StoreInfo.MPNo, new { @maxlength = 20, @class = "required" })
+                </p>
+                <p>
+                    <label>省市区：</label>
+                    @{Html.RenderAction("Divisions", "Common", new { id = Model.StoreInfo == null || Model.StoreInfo.DistrictID == null ? 0 : Model.StoreInfo.DistrictID, bindName = "BDVIdL" });}
+                </p>
+                <p>
+                    <label>所属站点：</label>
+                    @Html.DropDownListFor(model => model.StoreInfo.Site, (SelectList)ViewData["Site"])
+                </p>
+                <p>
+                    <label>电子邮件：</label>
+                    @Html.TextBoxFor(model => model.StoreInfo.Email, new { @maxlength = 50, @class = "required email", alt = "请输入电子邮件", size = "40" })
+                </p>
+                <p>
+                    <label>邮政编码：</label>
+                    @Html.TextBoxFor(model => model.StoreInfo.ZipCode, new { @maxlength = 10, @class = "digits" })
+                </p>
+
+            </fieldset>
+
+            @if (Model.StoreOperatorList != null)
+            {
+                <fieldset>
+                    <legend>账号</legend>
+                    <!--列表页-->
+                    <table class="table" width="100%">
+                        <thead>
+                            <tr>
+                                <th width="10" align="center"></th>
+                                <th width="120" align="center">账户名</th>
+                                <th width="80" align="center">用户名</th>
+                                <th width="100" align="center">手机号</th>
+                                <th width="150" align="center">状态</th>
+                                <th width="100" align="center">创建时间</th>
+                                <th width="100" align="center">级别</th>
+                                @*<th style="width: 260px;">操作</th>*@
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                foreach (var item in @Model.StoreOperatorList)
+                {
+                    <tr target="oid" rel="@item.ID">
+                        <td></td>
+                        <td>@item.LoginName</td>
+                        <td>@item.Name</td>
+                        <td>@item.MPNo</td>
+                        <td>@UIHelper.FormatEnable(item.Enable)</td>
+                        <td>@UIHelper.FormatDate(item.Obj_Cdate)</td>
+                        <td>@UIHelper.FormatIsAdmin(item.IsAdmin)</td>
+                    </tr>
+                }
+
+                            }
+                        </tbody>
+                    </table>
+
+                </fieldset>
+            }
+
+
+        </div>
+
+        <div class="formBar">
+            <ul>
+                <!--<li><a class="buttonActive" href="javascript:;"><span>保存</span></a></li>-->
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit" id="btnSave">保存</button></div></div></li>
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </form>
+
+</div>

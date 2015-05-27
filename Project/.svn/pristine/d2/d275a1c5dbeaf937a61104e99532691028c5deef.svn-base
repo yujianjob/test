@@ -1,0 +1,63 @@
+﻿@*@model LazyAtHome.Web.WebManage.Models.Product.ProductAttributeList*@
+@model IList<LazyAtHome.Web.WebManage.Models.Product.ProductAttribute>
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <h3><label>@item.ParentAttribute.Name</label></h3>
+        <br>
+        if (item.SubAttributeList != null)
+        {
+            <table class="table">
+                @foreach (var sitem in item.SubAttributeList)
+                {
+                    <tr>
+                        <td><input type="hidden" name="@("txtfullitem" + @sitem.SubWashProductAttribute.AttributeID)" value="@(item.ParentAttribute.Name + "-" + sitem.SubWashProductAttribute.AttributeName)" /> </td>
+                        <td><input type="hidden" name="@("txtsubitem" + @sitem.SubWashProductAttribute.AttributeID)" value="@sitem.SubWashProductAttribute.AttributeName" /> </td>
+                        <td><input type="hidden" name="@("paid" + @sitem.SubWashProductAttribute.AttributeID)" value="@item.ParentAttribute.ID" /> </td>
+                        <td width="50"><input type="checkbox" name="@("itemcheck")" id="@sitem.SubWashProductAttribute.AttributeID" value="@sitem.SubWashProductAttribute.AttributeID" checked="@sitem.isSelected" />@sitem.SubWashProductAttribute.AttributeName</td>
+                        <td width="50">加价：</td>
+                        <td width="100"><input type="text" name="@("price" + sitem.SubWashProductAttribute.AttributeID)" value="@sitem.SubWashProductAttribute.Price" class="number" alt="请输入数字" /></td>
+                        <td width="100"><input type="checkbox" name="@("ckselect" + sitem.SubWashProductAttribute.AttributeID)" checked="@Convert.ToBoolean(sitem.SubWashProductAttribute.Selected)" />前端必选</td>
+                        <td width="100"><input type="checkbox" name="@("ckdefault" + sitem.SubWashProductAttribute.AttributeID)" checked="@Convert.ToBoolean(sitem.SubWashProductAttribute.Default)" />前端默认选中</td>
+                        <td width="80" align="right">浮动名称：</td>
+                        <td width="100"><input type="text" name="@("txtsubname" + sitem.SubWashProductAttribute.AttributeID)" value="@sitem.SubWashProductAttribute.Name" /></td>
+                        <td width="50" align="right">描述：</td>
+                        <td width="100"><input type="text" name="@("content" + sitem.SubWashProductAttribute.AttributeID)" value="@sitem.SubWashProductAttribute.Content" /></td>
+                    </tr>
+
+                }
+            </table>
+        }
+
+
+    }
+}
+
+ @*@if (Model != null && Model.ProductAttributeListSelect != null)
+{
+    foreach (var item in Model.ProductAttributeListSelect)
+    {
+        <h3><label>@item.ParentAttribute.Name</label></h3>
+        <br>
+        if (item.SubAttributeList != null)
+        {
+            <table class="table">
+            @foreach (var sitem in item.SubAttributeList)
+            {
+                <tr>
+                    <td width="50"><input type="checkbox" name="@("itemcheck" + sitem.SubWashProductAttribute.AttributeID)" id="@sitem.SubWashProductAttribute.AttributeID" checked="@sitem.isSelected" />@sitem.SubWashProductAttribute.AttributeName</td>
+                    <td width="50">加价：</td>
+                    <td width="100"><input type="text" name="price" value="@sitem.SubWashProductAttribute.Price" class="number" alt="请输入数字" /></td>
+                    <td width="100"><input type="checkbox" name="ckselect" checked="@Convert.ToBoolean(sitem.SubWashProductAttribute.Selected)" />前端必选</td>
+                    <td width="100"><input type="checkbox" name="ckdefault" checked="@Convert.ToBoolean(sitem.SubWashProductAttribute.Selected)" />前端默认选中</td>
+                </tr>
+
+            }
+            </table>
+        }
+
+
+    }
+}*@

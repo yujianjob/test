@@ -1,0 +1,27 @@
+﻿<!--内容-->
+<div id="content">
+     <div class="mediaShowTitle"><p><a href="/Home/LaundryTips">小常识列表</a><span>&gt;</span>洗衣小常识</p></div>
+     <div class="mediaShow">
+     	  <div class="mediaShowBt">
+          	   <h2>毛衣缩水怎么办？</h2>
+               <p><b>2014.05.12</b>浏览次数：<span>90</span></p>
+               <dl>
+                  <dt>分享到：</dt>
+                  <dd><a href="#"><img src="~/Content/images/fenxiang_01.gif" /></a></dd>
+                  <dd><a href="#"><img src="~/Content/images/fenxiang_02.gif" /></a></dd>
+                  <dd><a href="#"><img src="~/Content/images/fenxiang_03.gif" /></a></dd>
+               </dl>
+          </div>
+          <div class="mediaShowContent laundrytips">
+          	   <p>1、手洗：如手洗缩水，可在脸盆中注入温水，滴入少量家庭装的阿摩尼亚水，然后将毛衣浸入，留在毛线上的皂成份就会溶化，然后用两手同时轻轻拉长缩小的部分，最后冲水晾干即可。</p>
+			   <p></p>
+          	   <p>温馨提醒：在毛衣半干之时，因先用手拉开，整出原形；再用熨斗烫一烫，就可恢复原来的尺寸。</p>
+			   <img src="~/Content/images/tips3-pic1.jpg" align="center"/>
+			   <p></p>
+			   <p>2、机洗：只需用温水泡一下, 再用熨斗烫一下, 以后放到洗衣机里的时候, 洗衣粉多放一点可避免毛衣缩水情况。</p> 
+			   <p></p>
+			   <p>温馨提醒：要想毛衣在洗后不缩水变小，洗后甩干，一般都缩水变小，而带水晒毛衣，又会拉长变大，洗后不缩水的方法是，将甩干的毛衣放在毛巾被上，拉平抻好，放着别动，一两天后再挂起晒干，毛衣不会缩水了，洗后不伸长的方法是将甩干的毛衣放在网兜里，放前最好整整形，然后叠好后放进去，让其自然干，毛衣就不会伸长变细了。</p> 
+          </div>
+         <!-- <div class="pages"><a href="#">上一篇</a><a href="#">下一篇</a></div>-->
+     </div>
+</div>

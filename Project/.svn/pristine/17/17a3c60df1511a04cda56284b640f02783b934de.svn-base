@@ -1,0 +1,38 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\shuidai1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、将睡袋浸泡在温水里，水温请勿高过摄氏30度。</p>
+				<p>2、选用羽毛专用清洗剂，如无，尽量使用肥皂。</p>
+				<p>3、请轻轻搓揉拍打，不要扭转、拧转。</p>
+				<p>4、洗净后，用清水彻底冲洗、漂洗干净，直至无肥皂泡沫为止。</p>
+				<p>5、冲净后，稍将水分压出（挤压而不是拧转），并将睡袋平躺放置通风良好处做"阴干"处理。</p>
+				<p>6、阴干过程里，请按时间段翻动睡袋，避免羽毛或各类合成纤维揪结影响睡袋膨松度。</p>
+				<p>7、处理过后的睡袋，可再放回睡袋储存袋或置衣间内以便收藏。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>快节奏的都市生活让我们与大自然越来越远，找个时间去露营吧，放松一下身心，与大自然来个亲密接触。露营必须睡个好觉，温暖洁净的睡袋是必不可少的。懒到家，让温暖的同时，多一份洁净卫生。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\shuidai2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>户外运动中睡袋经常会比较脏，有更多的清洗次数。清洗方法如下：手洗或专业机洗。手洗用专用的羽绒洗涤剂浸泡，漂洗干净即可，不要过分揉搓，不要拧绞。如果想机洗，请交给专业的洗涤公司。清洗后风干或晾干，确认干燥后轻轻拍打，待其自然膨胀后存入睡袋存储袋。 </p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

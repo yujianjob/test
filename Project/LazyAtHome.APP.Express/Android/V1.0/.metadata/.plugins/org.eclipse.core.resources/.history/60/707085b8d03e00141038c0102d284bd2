@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/ldj.css" media="screen" rel="stylesheet">
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/judgePlatform.js"></script>
+<script src="cordova.js"></script>
+<script>
+	if(browser.versions.android || browser.versions.iPhone || browser.versions.iPad || browser.versions.ios){
+	document.write("<script type='text/javascript' src='js/iscroll.js'><\/script><script type='text/javascript' src='js/iscrollobj.js'><\/script>");
+	}
+</script>
+<!--[if lt IE 9]>
+    <script src="js/html5.js"></script>
+    <script src="js/respond.min.js"></script>
+<![endif]-->
+<script src="js/landaojia.js"></script>
+</head>
+<body>
+<div class="wrapper"> 
+  <!--缃戠珯渚ц竟瀵艰埅 start-->
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-brand"> <img src="img/logo.png"> </li>
+      <li> <a class="active" href="娲楁钉鏈嶅姟.html"> <span class="icon-white-xdfw"></span> <span class="nav-title">娲楁钉鏈嶅姟</span> </a> </li>
+      <li> <a href="濂緢鍝佹姢鐞�.html"> <span class="icon-white-hl"></span> <span class="nav-title">濂緢鍝佹姢鐞�</span> </a> </li>
+      <li> <a href="鎳掍汉绁炲櫒.html"> <span class="icon-white-lrsq"></span> <span class="nav-title">鎳掍汉绁炲櫒</span> </a> </li>
+      <li> <a href="缂ょ悍娲诲姩.html"> <span class="icon-white-bfhd"></span> <span class="nav-title">缂ょ悍娲诲姩</span> </a> </li>
+      <li> <a href="鎴戠殑璁㈠崟.html"> <span class="icon-white-myorder"></span> <span class="nav-title">鎴戠殑璁㈠崟</span> </a> </li>
+      <li> <a href="鍘嗗彶璁㈠崟.html"> <span class="icon-white-history"></span> <span class="nav-title">鍘嗗彶璁㈠崟</span> </a> </li>
+      <li> <a href="甯姪涓庡弽棣�.html"> <span class="icon-white-history"></span> <span class="nav-title">甯姪涓庡弽棣�</span> </a> </li>
+      <li> <a href="鍏充簬鎳掑埌瀹�.html"> <span class="icon-white-about"></span> <span class="nav-title">鍏充簬鎳掑埌瀹�</span> </a> </li>
+    </ul>
+  </div>
+  <!--缃戠珯渚ц竟瀵艰埅 end-->
+  <div id="page-content-wrapper">
+   <!--涓讳綋鍐呭澶撮儴 start-->
+  	<div class="navbar" role="navigation" id="navbar-header">
+    	<div class="container-fluid">
+       		<div class="row">
+            	<div class="col-sm-9 col-md-1">
+                    <a id="navbar-logo" data-toggle="offcanvas" class="brand-toggle" onClick="showHideSiderbar();">
+                        <img src="img/navbar-logo.png">
+                    </a>
+                    <h2 class="navbar-brand visible-xs visible-sm" style="float:left;">娲楁钉鏈嶅姟</h2>
+                    <div class="visible-xs pull-right small-login-reg"><a class="btn btn-danger">鐧诲綍</a> <a class="btn btn-danger">娉ㄥ唽</a></div>
+                    <button type="button" class="visible-xs navbar-toggle collapsed icon-collapsed pull-right" data-toggle="collapse" data-target="#navbar-collapse-1" style="display:-none"> 
+                        <img src="img/dropdown-cog.png">
+                    </button>
+                </div>
+                <div class="col-sm-7 col-md-7 hidden-sm hidden-xs">
+                	<h2 class="navbar-brand" style="float:left;padding:10px 0 0 0">娲楁钉鏈嶅姟</h2>
+                    <div style="margin-left:150px;">
+                           <form method="post" action="" class="tsearch">
+                                <input type="text" placeholder="鎼滅储娓呮礂鏈嶅姟">
+                                <button class="icon-search"><img src="img/icon-search.png"></button>
+                            </form>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-md-4 hidden-xs">
+                	<span class="login-reg pull-right" style="display:-none">
+                    	<a class="btn btn-info">鐧诲綍</a> <a class="btn btn-info">娉ㄥ唽</a>
+                   	</span>
+                    <ul class="nav navbar-nav navbar-right">
+                         <li class="dropdown" style="display:none"> 
+                        	 <a class="dropdown-toggle memberCentre" data-toggle="dropdown"> 
+                                <span class="name">浼氬憳鍚�</span> 
+                                <span class="icon-member"></span> 
+                             </a>
+                              <ul class="dropdown-menu" id="member-info">
+                                <li><a href="鐢ㄦ埛涓績.html">鐢ㄦ埛涓績</a></li>
+                                <li class="divider"></li>
+                                <li><a href="鍦板潃绠＄悊.html">鍦板潃绠＄悊</a></li>
+                                <li><a href="鎴戠殑鎳掍汉鍗�.html">鎴戠殑鎳掍汉鍗�</a></li>
+                                <li><a href="鎴戠殑浼樻儬鍔�.html">鎴戠殑浼樻儬鍔�</a></li>
+                                <li class="divider"></li>
+                                <li><a href="绀惧尯涓績.html">绀惧尯涓績</a></li>
+                                <li class="divider"></li>
+                                <li><a>閫�鍑�</a></li>
+                              </ul>
+                         </li>
+                    	<li class="hidden-sm navbar-question"> <a href="#">鎴戜滑鐨勬湇鍔℃祦绋�?</a> </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="visible-xs">
+              <div class="collapse navbar-collapse" id="navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-c">
+                  <li><a href="鐢ㄦ埛涓績.html">鐢ㄦ埛涓績</a></li>
+                  <li class="divider"></li>
+                  <li><a href="鍦板潃绠＄悊.html">鍦板潃绠＄悊</a></li>
+                  <li><a href="鎴戠殑鎳掍汉鍗�.html">鎴戠殑鎳掍汉鍗�</a></li>
+                  <li><a href="鎴戠殑浼樻儬鍔�.html">鎴戠殑浼樻儬鍔�</a></li>
+                  <li class="divider"></li>
+                  <li><a href="绀惧尯涓績.html">绀惧尯涓績</a></li>
+                  <li class="divider"></li>
+                  <li><a>閫�鍑�</a></li>
+                </ul>
+              </div>
+         </div>
+        <div class="visible-xs visible-sm s-search-bar">
+          <div>
+            <input type="text">
+            <button class="icon-search"><img src="img/icon-search.png"></button>
+          </div>
+        </div>
+    </div>
+   <!--涓讳綋鍐呭澶撮儴 end-->
+  	<div class="page-content inset washing-service">
+        <div class="row">
+            <div class="col-md-7 col-md-offset-1">
+            	<!--缂╁皬鍚庣殑璐墿杞iv-->
+            	 <div class="relative-div visible-xs visible-sm">
+                     <button class="visible-xs visible-sm btn btn-sm pull-right viewshopcart" onClick="shopcartCollpase(this);">鏌ョ湅璐墿杞�</button>
+                     <div class="shopcart-collapse" style="display:none">
+                        <div class="shopcartList-collapse" style="padding:10px;">
+                           <div class="tit"> 
+                               <span class="pull-left">璐墿杞�</span> 
+                               <span class="pull-right"><a href="#">娓呴櫎</a></span> 
+                           </div>
+                          <div class="biaot">
+                            <div class="bt pull-left">鏈嶅姟浜у搧</div>
+                            <div class="p-num pull-right">鏁伴噺</div>
+                          </div>
+                          <div class="gwlist">
+                            <div class="unit">
+                              <div class="lfbt">瑗胯鐨川</div>
+                              <div class="setnum">
+                                <button>+</button>
+                                <input type="text">
+                                <button>-</button>
+                              </div>
+                            </div>
+                            <div class="unit">
+                              <div class="lfbt">瑗胯鐨川</div>
+                              <div class="setnum">
+                                <button>+</button>
+                                <input type="text">
+                                <button>-</button>
+                              </div>
+                            </div>
+                          </div>
+                          <span class="total-price">鎬昏 <b>锟�120.00</b></span>
+                          <a class="btn btn-block btn-sm js-btn">鍘荤粨绠�</a>
+               			 </div>       	
+                     </div>
+                 </div>
+                 <!--缂╁皬鍚庣殑璐墿杞iv-->
+                 
+                 <h2><img src="img/icon-currency.png">鏈嶅姟璐�</h2>
+                  <table class="table servicefee-tabs">
+                  <tbody>
+                    <tr>
+                      <td class="servicefee-bt">鍚屽煄蹇��</td>
+                      <td class="price"><font color="#d9534f">锟�18.00(鍏嶆礂3浠�)</font></td>
+                       <td class="servicefee-bt">缁欢蹇��</td>
+                       <td class="price">锟�6鍏�/浠�</td>
+                    </tr>
+                    <tr>
+                        <td class="servicefee-bt">24灏忔椂鍔犳��</td>
+                        <td class="price">锟�100.00</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="panel-group" id="accordion1">
+                            <div class="panel panel-default">
+                              <div class="panel-heading" data-parent="#accordion1" data-toggle="collapse" data-target="#activityRule">
+                                <h4 class="panel-title"> 
+                                <span class="cloth-bt">娲诲姩瑙勫垯</span>
+                                <a data-toggle="collapse">鈭�</a> 
+                                 </h4>
+                              </div>
+                              <div id="activityRule" class="panel-collapse collapse in">
+                                <div class="panel-body" style="overflow:hidden">
+                                 <p style="line-height:25px;">1銆佹椿鍔ㄦ椂闂�:<strong>2014骞�9鏈�15鏃�-2014骞�12鏈�31鏃�</strong><br>
+2銆佹椿鍔ㄦ湡闂达紝鍦ㄦ噿鍒板涓嬪崟鐢ㄦ埛<strong>鍙渶鏀粯18鍏�</strong>鍚屽煄蹇�掕垂锛屽嵆鍙皧浜�<strong>3浠朵互鍐呰。鐗╁厤娲楃壒鏉�</strong>锛屽悓鍗�3浠朵互涓婃瘡浠跺鏀�6鍏冨揩閫掕垂锛堟湰娲诲姩閫傜敤浜庤瀹氬唴鐨勫厤璐规礂閫傜敤浜у搧锛岀毊璐ㄣ�佷笣璐ㄨ。鐗╀笉鍙備笌鏈椿鍔級銆�<br>
+3銆佹甯镐骇鍝佷笅鍗曟垨鑰呭惈姝ｅ父浜у搧鐨勮鍗曪紝<strong>鍏嶆敹18鍏冨揩閫掕垂鐢�</strong>锛岃嫢姝よ鍗曞惈鏈夊厤璐规礂浜у搧锛屽垯鎸夌収姣忎欢6鍏冩敹鍙栬垂鐢ㄣ��<br>
+4銆佹湰娲诲姩鐨勬渶缁堣В閲婂強鍙樻洿鏉冪敱鎳掑埌瀹舵墍鏈夈��<br> 
+5銆�<a href="娲诲姩璇︽儏椤�.html#tt" target="_blank" style="text-decoration:underline">鍏嶈垂娲楅�傜敤浜у搧</a>
+</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          
+                          
+                <div class="tagSwitch">
+                      <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="javascript:void(0);">涓婅</a></li>
+                        <li><a href="javascript:void(0);">閰嶉グ</a></li>
+                        <li><a href="javascript:void(0);">瀹跺眳</a></li>
+                        <li><a href="javascript:void(0);">杞﹂グ</a></li>
+                        <li><a href="javascript:void(0);">涓嬭</a></li>
+                        <li><a href="javascript:void(0);">闉嬬被</a></li>
+                        <li><a href="javascript:void(0);">绠卞寘</a></li>
+                        <li><a href="javascript:void(0);">鍏朵粬</a></li>
+                      </ul>
+                      <div class="tab-content xdfw-box">
+                        <div class="tab-pane active" id="sz">
+                          <div class="panel-group" id="accordion">
+                            <div class="panel panel-default">
+                              <div class="panel-heading" data-parent="#accordion" data-toggle="collapse" data-target="#collapseOne" onClick="showXdfw(this);">
+                                <h4 class="panel-title"> 
+                                <span class="cloth-bt">瑗胯</span>
+                                <a data-toggle="collapse">鈭�</a> 
+                                 </h4>
+                              </div>
+                              <div id="collapseOne" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                  <table class="table cloth-list">
+                                    <tbody>
+                                      <tr>
+                                        <td>鐨川瑗挎湇</td>
+                                        <td align="left"><strike>锟�120.00</strike> <font style="color:#e95259">锟�0.00</font></td>
+                                        <td><button class="btn btn-default">+</button></td>
+                                      </tr>
+                                      <tr>
+                                        <td>鐨川瑗挎湇</td>
+                                        <td align="left">锟�120.00</td>
+                                         <td><button class="btn btn-default">+</button></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="panel panel-default">
+                              <div class="panel-heading" data-parent="#accordion" data-toggle="collapse" data-target="#collapseTwo" onClick="showXdfw(this);">
+                                <h4 class="panel-title"> <span class="cloth-bt">缇界粧鏈�</span> 
+                                <a data-toggle="collapse">鈭�</a> </h4>
+                              </div>
+                              <div id="collapseTwo" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                  <table class="table cloth-list">
+                                    <tbody>
+                                      <tr>
+                                        <td>鐨川瑗挎湇</td>
+                                        <td>锟�120.00</td>
+                                        <td><button class="btn btn-default">+</button></td>
+                                      </tr>
+                                      <tr>
+                                        <td>鐨川瑗挎湇</td>
+                                        <td>锟�120.00</td>
+                                        <td><button class="btn btn-default">+</button></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="panel panel-default">
+                              <div class="panel-heading" data-parent="#accordion" data-toggle="collapse" data-target="#collapseThree" onClick="showXdfw(this);">
+                                <h4 class="panel-title"> <span class="cloth-bt">澶瑰厠1</span> 
+                                <a data-toggle="collapse">鈭�</a> </h4>
+                              </div>
+                              <div id="collapseThree" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                  <table class="table cloth-list">
+                                    <tbody>
+                                      <tr>
+                                        <td>鐨川瑗挎湇22</td>
+                                        <td>锟�120.00</td>
+                                        <td><button class="btn btn-default">+</button></td>
+                                      </tr>
+                                      <tr>
+                                        <td>鐨川瑗挎湇</td>
+                                        <td>锟�120.00</td>
+                                        <td><button class="btn btn-default">+</button></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+            <div class="col-md-4 hidden-xs hidden-sm">
+                <div class="shopcartList">
+               		<a class="btn btn-block btn-sm js-btn" href="璁㈠崟纭.html" style="margin-bottom:20px" id="yjxd-btn">涓�閿笅鍗�</a>
+                    <!--绌鸿喘鐗╄溅 start-->
+                    <div class="estimator" style="display:none">
+                        <h2>鎮ㄧ殑璐墿杞﹁繕绌虹潃鍛�!</h2>
+                        <img src="img/empty-shopcar.png">
+                        <!--<button type="button" class="btn btn-sm btn-danger btn-block add-shopcart"></button>-->
+                         <a class="btn btn-block btn-sm js-btn" style="margin-top:20px" href="璁㈠崟纭.html">涓�閿笅鍗�</a>
+                    </div><!--绌鸿喘鐗╄溅 end-->
+                    <div class="full-shopcart" style="display:-none">
+                       <div class="tit"> 
+                           <span class="pull-left">璐墿杞�</span> 
+                           <span class="pull-right"><a href="#">娓呴櫎</a></span> 
+                       </div>
+                      <div class="biaot">
+                        <div class="bt pull-left">鏈嶅姟浜у搧</div>
+                        <div class="p-num pull-right">鏁伴噺</div>
+                      </div>
+                      <div class="gwlist">
+                        <div class="unit">
+                          <div class="lfbt">瑗胯鐨川</div>
+                          <div class="setnum">
+                            <button>+</button>
+                            <input type="text">
+                            <button>-</button>
+                          </div>
+                        </div>
+                        <div class="unit">
+                          <div class="lfbt">瑗胯鐨川</div>
+                          <div class="setnum">
+                            <button>+</button>
+                            <input type="text">
+                            <button>-</button>
+                          </div>
+                        </div>
+                      </div>
+                     <!-- <span class="total-price">鎬昏 <b>锟�120.00</b></span>-->
+                      <a class="btn btn-block btn-sm js-btn" style="margin:10px 0 0 0" href="璁㈠崟纭.html">鍘荤粨绠�</a>
+                  </div>
+                </div>              
+         </div>
+        </div>    
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

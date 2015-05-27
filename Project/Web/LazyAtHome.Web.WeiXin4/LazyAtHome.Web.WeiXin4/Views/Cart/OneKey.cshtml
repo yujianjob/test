@@ -1,0 +1,259 @@
+﻿@{
+    ViewBag.Title = "一键下单";
+}
+<!--引导-->
+<div class="mask"></div>
+<img src="/img/guide.png" id="guide" style="position:absolute; z-index:1000;width:70%;height:auto;left:40px;top:40px;">
+<!--引导end-->
+
+<section>
+    <div class="sider">
+        <div id="navWrapper">
+            <div>
+                <div class="memberName"><span><img src="/img/ren.jpg" style="margin-bottom:-5px"> @ViewBag.UserMPNo</span></div>
+                <ul>
+                    <li><a href="/Cart/MyOrders" class="Order">我的订单</a></li>
+                    <li><a href="/Member/MyWallet" class="Wallet"><span>我的钱包</span>  <span>余额,券</span></a></li>
+                    <li><a href="/Address/AddressManage" class="Address">地址管理</a></li>
+                    <li><a href="/Cart/ProductList" class="WashioService">洗涤服务</a></li>
+                    <li><a href="/Home/Activites" class="Activities">缤纷活动</a></li>
+                    <li><a href="/Home/DownAPP" class="downloadApp">下载客户端</a></li>
+                </ul>
+            </div>
+        </div>
+        <span class="loginOut"><a href="/Member/Logout">退出登录</a></span>
+    </div>
+    <div class="banner">
+        <img src="/img/banner.gif">
+        <span onclick="toggleSiderNav();"></span>
+    </div>
+    <div class="washio">
+        <div class="washioBox">
+            <div class="dw">
+                @if (ViewBag.AddressList != null && ViewBag.AddressList.Count > 0)
+                {
+                    <div class="select">
+                        <select id="selAddress">
+                            @foreach (LazyAtHome.Web.WeiXin4.Models.EntityModel.AdressInfo item in ViewBag.AddressList)
+                            {
+                                if (item.defaultFlag)
+                                {
+                                    <option value="@item.id" selected="selected">@("[" + item.consigneeName + "] " + item.address)</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.id">@("[" + item.consigneeName + "] " + item.address)</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+                }
+                else
+                {
+                    <div>
+                        <label><input type="text" name="txtUserName" id="txtUserName" placeholder="用户名"></label>
+                        <div class="clear" style="padding-top:15px">
+                            <textarea id="txtAddress" name="txtAddress" placeholder="取送地址"></textarea>
+                            <button type="button" class="dwBtn" onclick="GetLocation();">定位</button>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="useCoupon"></div>
+            <div style="clear:both"></div>
+            <div class="selDate">
+                <div class="select">
+                    <select id="timeDay" name="timeDay" onchange="TimeSelect();">
+                        @{
+                            var currDate = DateTime.Now;
+                            <option value="">预约</option>
+                            <option value="@currDate.ToString("yyyy-M-d")">@currDate.ToString("yyyy-M-d")</option>
+                            for (var i = 0; i < 7; i++)
+                            {
+                                currDate = currDate.AddDays(1);
+                                <option value="@currDate.ToString("yyyy-M-d")">@currDate.ToString("yyyy-M-d")</option>
+                            }
+                        }
+                    </select>
+
+                </div>
+                <div class="select">
+                    <select id="timeHour" name="timeHour"></select>
+                </div>
+                <div class="select">
+                    <select id="timeMin" name="timeMin">
+                        <option>00</option>
+                        <option>30</option>
+                    </select>
+                </div>
+            </div>
+            <div style="clear:both"></div>
+            <textarea id="txtRemark" name="txtRemark" placeholder="备注"></textarea>
+        </div>
+        <div class="orderBtn">
+            <button class="btn" type="button" style="" onclick="formsubmit();">确认下单</button>
+        </div>
+    </div>
+</section>
+
+@section scripts
+{
+    <script type="text/javascript" src="/Scripts/confirm.js?v=4"></script>
+    <script type="text/javascript" src="/Scripts/iscroll.js"></script>
+    <script language="javascript" type="text/javascript">
+        var userMoney = "@ViewBag.UserMoney";
+        var userMPNo = "@ViewBag.UserMPNo";
+        var userBind = "@ViewBag.IsLogin";
+        var scrollNav;
+        document.addEventListener('DOMContentLoaded', loaded, false);
+
+        $(function () {
+            TimeSelect();
+            if ($("#txtUserName").length > 0)
+                GetLocation();
+            if (userMoney == "0.00")
+                cbBlance.checked = false;
+
+            setTimeout(function () {
+                $(".mask,#guide").remove();
+            }, 2000);
+
+            //一元洗提示框
+            jConfirm("瞅瞅去", "1元洗衣啦即日起新用户首单首件1元洗，第2件起9.9元/件，不受运费限制哦");
+
+        });
+
+        function TimeSelect() {
+            var mydate = new Date();
+            var currToday = mydate.getFullYear() + "-" + (mydate.getMonth() + 1) + "-" + mydate.getDate();
+            var startHour = 0;
+            var str = "";
+            if (timeDay.selectedIndex == 0) {
+                $("#timeHour").html("<option value='0'>0</option>");
+                timeHour.disabled = true;
+                timeMin.disabled = true;
+            }
+            else {
+                timeHour.disabled = false;
+                timeMin.disabled = false;
+                if (timeDay.value == currToday) {
+                    startHour = mydate.getHours() + 1;
+                }
+                for (var i = startHour; i < 24; i++) {
+                    str += "<option value='" + i + "'>" + i + "时</option>";
+                }
+                $("#timeHour").html(str);
+
+                if (startHour < 10)
+                    timeHour.value = 10;
+            }
+        }
+
+        function loaded() {
+            scrollNav = new iScroll('navWrapper', { "vScrollbar": false, scrollbarClass: '', checkDOMChanges: true });
+        }
+
+        function preventD(e) { e.preventDefault(); }
+
+        function toggleSiderNav() {
+            if (userBind != "1") {
+                window.location.href = "/Member/MobileBindingShow";
+                return;
+            }
+            $(".sider").animate({ left: 0 }, 300, function () {
+                $("body").prepend("<span class='close1' onclick='closeSider();'>×</span>");
+            });
+            $("body").prepend("<div class='processmask'></div>");
+            document.addEventListener('touchmove', preventD, false);
+        }
+
+        function closeSider() {
+            $(".close1").remove();
+            $(".processmask").remove();
+            $(".sider").animate({ left: '-80%' }, 300, function () {
+            });
+            document.removeEventListener('touchmove', preventD, false);
+        }
+
+
+        function formsubmit() {
+            if (userBind != "1") {
+                window.location.href = "/Member/MobileBindingShow";
+                return;
+            }
+            TranData();
+        }
+
+        function TranData() {
+            var etime = "";
+            if (timeDay.selectedIndex != 0)
+                etime = timeDay.value + " " + timeHour.value + ":" + timeMin.value + ":00";
+
+            if ($("#txtUserName").length > 0) {
+                if (!txtUserName.value.trim().match("^[\u4E00-\u9FA5A-Za-z0-9 ]+$")) {
+                    showPopDiv("收件人姓名格式不正确");
+                    return false;
+                }
+
+                if (!txtAddress.value.trim().match("^[\u4E00-\u9FA5A-Za-z0-9_ -]+$")) {
+                    showPopDiv("地址格式不正确");
+                    return false;
+                }
+                process();
+
+                var postData = { username: txtUserName.value.trim(), mpno: userMPNo, address: txtAddress.value.trim(), exceptTime: etime, remark: txtRemark.value.trim() };
+                $.ajax({
+                    type: "post",
+                    url: "/Cart/OneKeyFirstSubmit",
+                    data: postData,
+                    dataType: "json",
+                    success: function (resultJson) {
+                        removeProcess();
+                        if (resultJson != null) {
+                            if (resultJson.Code == 1) {
+                                showPopDiv("订单已经提交", true, null, "/Cart/MyOrders");
+                            }
+                            else
+                                showPopDiv(resultJson.Msg, false, 5000);
+                        }
+                    },
+                    error: function (msg) {
+                        removeProcess();
+                        alert(msg.toString());
+                    }
+                });
+            }
+            else {
+                if (selAddress.value == "") {
+                    showPopDiv("请选择或新增取件地址");
+                    return false;
+                }
+                process();
+
+                var postData = { AddressID: selAddress.value, exceptTime: etime, remark: txtRemark.value.trim() };
+                $.ajax({
+                    type: "post",
+                    url: "/Cart/OneKeySubmit",
+                    data: postData,
+                    dataType: "json",
+                    success: function (resultJson) {
+                        removeProcess();
+                        if (resultJson != null) {
+                            if (resultJson.Code == 1) {
+                                showPopDiv("订单已经提交", true, null, "/Cart/MyOrders");
+                            }
+                            else
+                                showPopDiv(resultJson.Msg, false, 5000);
+                        }
+                    },
+                    error: function (msg) {
+                        removeProcess();
+                        alert(msg.toString());
+                    }
+                });
+            }
+        }
+    </script>
+}

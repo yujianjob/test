@@ -1,0 +1,33 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\lingdai1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、使用后立即轻轻解开领结，避免用力地拉扯，以免纤维断裂造成永久性皱折。 </p> 
+				<p>2、同一条领带戴完一次后，请隔几天后戴，并先将领带放置于潮湿的地方或喷少许水，使其皱折处恢复原状后，再收至干燥处平放或吊立。 </p> 
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>懒到家，让领带洗涤后焕然一新。平整和洁净让懂得生活品质的您尽情彰显男性魅力。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\lingdai2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>  作为西服的固定搭配，领带平整和洁净也是彰显男性魅力的重要方面。领带打结处容易褶皱不易还原平整，这个时候注重除污的同时还要注重烫平，这样有助于延长领带的寿命。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

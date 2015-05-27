@@ -1,0 +1,155 @@
+﻿@model LazyAtHome.Web.WebManage.Models.Product.ProductModel
+@{
+    <script src="@Url.Content("~/Scripts/Product/productedit.js")" type="text/javascript"></script>
+}
+
+<!--报错信息-->
+@Html.Raw(ViewBag.Script)
+
+<div class="pageContent">
+    <form method="post" enctype="multipart/form-data" action="@Url.Action("SaveProduct", "Product")" id="frmSaveProduct" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
+        <div class="pageFormContent" layouth="56">
+            <fieldset>
+                <legend>基本信息</legend>
+                @Html.HiddenFor(model => model.ProductInfo.ID)
+                <p>
+                    <label>产品类别：</label>
+                    @if (Model.ProductInfo.ID == 0)
+                    {
+                        { Html.RenderAction("CategoryCombox", "Common", new { pid = Model == null ? -1 : Model.ProductInfo.ParentClassID, id = Model == null ? -1 : Model.ProductInfo.ClassID, sid = Model == null ? -1 : Model.ProductInfo.CategoryID, enable = true, bindName = "BDVIdL" }); }
+                    }
+                    else
+                    {
+                        { Html.RenderAction("CategoryCombox", "Common", new { pid = Model == null ? -1 : Model.ProductInfo.ParentClassID, id = Model == null ? -1 : Model.ProductInfo.ClassID, sid = Model == null ? -1 : Model.ProductInfo.CategoryID, enable = false, bindName = "BDVIdL" }); }
+                    }
+                </p>
+                <p>
+                    <label>运价编号：</label>
+                    @Html.TextBoxFor(model => model.ProductInfo.Code, new { @maxlength = 20, @class = "required" })
+                </p>
+                <p>
+                    <label>运价名称：</label>
+                    @Html.TextBoxFor(model => model.ProductInfo.Name, new { @maxlength = 50, @class = "required" })
+                </p>
+                <p>
+                    <label>Web名称：</label>
+                    @Html.TextBoxFor(model => model.ProductInfo.WebName, new { @maxlength = 50, @class = "required" })
+                </p>
+                <p>
+                    <label>市场指导价：</label>
+                    @Html.TextBoxFor(model => model.ProductInfo.MarketPrice, new { @class = "number", alt = "请输入数字" })
+                </p>
+                <p>
+                    <label>销售价：</label>
+                    @Html.TextBoxFor(model => model.ProductInfo.SalesPrice, new { @class = "number", alt = "请输入数字" })
+                </p>
+                <p>
+                    <label>搜索关键字：</label>
+                    @Html.TextBoxFor(model => model.ProductInfo.Keyword, new { @maxlength = 100, alt = "请以空格分隔" })
+                </p>
+                <p>
+                    <label>类型：</label>
+                    @Html.DropDownListFor(model => model.ProductInfo.Type, new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text = "普通", Value = "1" },
+                            new SelectListItem { Text = "活动", Value = "2" }},
+                                     "Value", "Text", Model.ProductInfo.Type), new { @class = "combox" })
+                </p>
+                <p>
+                    <label>发布站点：</label>
+                    @Html.DropDownListFor(model => model.ProductInfo.Site, (SelectList)ViewData["Site"], new { @class = "combox" })
+                </p>
+                <p>
+                    <label>状态：</label>
+                    @Html.RadioButtonFor(model => model.ProductInfo.CommitStatus, 0, new { @checked = "checked" })未上线
+                    @Html.RadioButtonFor(model => model.ProductInfo.CommitStatus, 1)已上线
+                    @Html.RadioButtonFor(model => model.ProductInfo.CommitStatus, 2)已下线
+                </p>
+
+
+                <p>
+                    <label>分组：</label>
+                    @Html.DropDownListFor(model => model.ProductInfo.Group, (SelectList)ViewData["ProductGroup"], new {@class="combox" })
+
+                </p>
+                <p>
+                    <label>置顶顺序：</label>
+                    @*@Html.DropDownListFor(model => model.ProductInfo.RecSort, new SelectList(Enumerable.Range(1, 10), Model.ProductInfo.RecSort))*@
+                    @Html.DropDownListFor(model => model.ProductInfo.RecSort, new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text = "第1位", Value = "1" },
+                            new SelectListItem { Text = "第2位", Value = "2" },
+                            new SelectListItem { Text = "第3位", Value = "3" },
+                            new SelectListItem { Text = "第4位", Value = "4" },
+                            new SelectListItem { Text = "第5位", Value = "5" },
+                            new SelectListItem { Text = "第6位", Value = "6" },
+                            new SelectListItem { Text = "第7位", Value = "7" },
+                            new SelectListItem { Text = "第8位", Value = "8" },
+                            new SelectListItem { Text = "第9位", Value = "9" },
+                            new SelectListItem { Text = "第10位", Value = "10" },
+                            new SelectListItem { Text = "非置顶", Value = "0" }},
+                                    "Value", "Text", Model.ProductInfo.RecSort), new { @class = "combox" })
+                </p>
+
+                <p>
+                    @*<label>描述：</label>
+                    <label>
+                        @Html.TextAreaFor(model => model.ProductInfo.Content, new { @maxlength = 100, cols = "82", rows = "3", @class = "textarea" })
+                    </label>*@
+                    <dl class="nowrap">
+                        <dt>描述：</dt>
+                        <dd>
+                            @Html.TextAreaFor(model => model.ProductInfo.Content, new { @maxlength = 100, cols = "82", rows = "3", @class = "textarea" })
+                        </dd>
+                    </dl>
+                </p> 
+
+            </fieldset>
+
+            @*<fieldset>
+                <legend>参数配置</legend>
+                <div id="htmlResult">
+                    @{Html.RenderAction("CategorySelect", new { categoryid = Model.ProductInfo.CategoryID, productid = Model.ProductInfo.ID });}
+                </div>
+                @Html.HiddenFor(model => model.strAttributeIDSelected, new { id = "ChoseItem" })
+                @Html.Hidden("hdcategoryselectUrl", @Url.Action("CategorySelect"))
+            </fieldset>*@
+            @*<fieldset>
+                <legend>图片</legend>
+                    <input id="testFileInput" type="file" name="productimagel"
+                            uploaderoption="{
+                            swf:'../scripts/uploadify/scripts/uploadify.swf',
+                            uploader:'@Url.Action("UploadImage", "Product")',
+                            formData:{PHPSESSID:'xxx', ajax:1},
+                            buttonText:'大图上传',
+                            fileSizeLimit:'200KB',
+                            fileTypeDesc:'*.jpg;*.jpeg;*.gif;*.png;',
+                            fileTypeExts:'*.jpg;*.jpeg;*.gif;*.png;',
+                            auto:true,
+                            multi:true,
+                            onUploadSuccess:uploadifySuccessMy
+                            }" />
+                    
+                @Html.HiddenFor(model => model.FileNameProductImgL, new { id = "hdproductimagel" })
+
+                @if (!string.IsNullOrEmpty(Model.FileNameProductImgL))
+                {
+                    <img alt="@Model.FileNameProductImgL" src="@Model.PathProductImgL" />
+                }
+                
+
+            </fieldset>*@
+
+
+            
+        </div>
+
+        <div class="formBar">
+            <ul>
+                <!--<li><a class="buttonActive" href="javascript:;"><span>保存</span></a></li>-->
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit" id="btnSave">保存</button></div></div></li>
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>

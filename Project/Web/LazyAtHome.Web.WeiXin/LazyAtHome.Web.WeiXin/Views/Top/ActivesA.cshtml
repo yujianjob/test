@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "绑定送惊喜";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--图片banner start-->
+<div class="hd-banner"><a href="#"><img src="~/images/hd1-banner.jpg" /></a></div>
+<!--图片banner end-->
+<!--活动文字 start-->
+<div class="hd-introduce">
+    <p>即日起至6月13日，尚未在懒到家官网注册的小伙伴只要关注懒到家微信号并绑定手机号码，即可获得懒到家20元体验金，手机号码绑定成功后直接打入到您的账户余额。（已在官网注册客户不享受此次活动。）</p>
+    <p>同时，我们还会从活动当天绑定成功的客户当中抽取3名每日幸运星，将获得面值100元的懒人卡一张。</p>
+    <p>最后，活动截止日6月13日当天，我们会从活动期间所有成功绑定手机的客户中抽取一位超级幸运星，将获得面值1000元的懒人卡一张。还等什么，赶快关注绑定手机号吧！</p>
+</div>
+<!--活动文字 end-->
+<!--尾部 start-->
+<div class="footer foot"><img src="~/images/lan8.jpg" /></div>
+<!--尾部 end-->
+@section scripts
+{
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/Scripts/iscroll.js")
+    <script type="text/javascript">
+        var t = null;
+        $(function () {
+            var now = 0;
+            var clientw = $(window).width();
+            var clienth = $(window).height();
+            var len = $("#thelist li").size();
+            setBanner(clientw, len);
+
+        });
+        function move(now, len, clientw) {
+            if (now == len) { now = 0 }
+            $("#scroller ul").animate({
+                'marginLeft': -clientw * now + 'px'
+            }, 500);
+            $("#indicator li").removeClass("active");
+            $("#indicator li").eq(now).addClass("active");
+        }
+        function setBanner(clientw, len) {
+            $("#wrapper").css("width", clientw);
+            $("#scroller").css("width", clientw * len);
+            $("#scroller ul li").css("width", clientw);
+        }
+        var myScroll;
+        function loaded() {
+            myScroll = new iScroll('wrapper', {
+                snap: true,
+                momentum: false,
+                hScrollbar: false,
+                onScrollEnd: function () {
+                    document.querySelector('#indicator > li.active').className = '';
+                    document.querySelector('#indicator > li:nth-child(' + (this.currPageX + 1) + ')').className = 'active';
+                }
+            });
+        }
+        document.addEventListener('DOMContentLoaded', loaded, false);
+    </script>
+}

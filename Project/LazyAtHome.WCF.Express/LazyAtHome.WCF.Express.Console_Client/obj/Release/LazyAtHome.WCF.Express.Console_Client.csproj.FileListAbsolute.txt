@@ -1,0 +1,6 @@
+E:\workspace\Project\LazyAtHome.WCF.Express\LazyAtHome.WCF.Express.Console_Client\bin\Release\LazyAtHome.WCF.Express.Console_Client.exe.config
+E:\workspace\Project\LazyAtHome.WCF.Express\LazyAtHome.WCF.Express.Console_Client\bin\Release\LazyAtHome.WCF.Express.Console_Client.exe
+E:\workspace\Project\LazyAtHome.WCF.Express\LazyAtHome.WCF.Express.Console_Client\bin\Release\LazyAtHome.WCF.Express.Console_Client.pdb
+E:\workspace\Project\LazyAtHome.WCF.Express\LazyAtHome.WCF.Express.Console_Client\obj\Release\LazyAtHome.WCF.Express.Console_Client.exe
+E:\workspace\Project\LazyAtHome.WCF.Express\LazyAtHome.WCF.Express.Console_Client\obj\Release\LazyAtHome.WCF.Express.Console_Client.pdb
+E:\workspace\Project\LazyAtHome.WCF.Express\LazyAtHome.WCF.Express.Console_Client\obj\Release\LazyAtHome.WCF.Express.Console_Client.csprojResolveAssemblyReference.cache

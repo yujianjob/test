@@ -1,0 +1,922 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace LazyAtHome.Web.Wash2.Controllers
+{
+    public class MemberController : BaseController
+    {
+        [Authorize]
+        public ActionResult Index()
+        {
+            //***************** add by yfyang 2014-10-09 ******************
+            //修订客服后台退单后，用户中心页面没有及时显示返还余额
+            UpdateUserInfo();
+            //*************************************************************
+
+            var user = GetUserInfo();
+            if (user.UserDetail == null)
+            {
+                var rtn = App_Code.Proxy.UserProxycs.Select_UserDetail(user.User.ID);
+                if (rtn.Success)
+                    user.UserDetail = rtn.OBJ;
+            }
+
+            ViewBag.LoginName = user.User.LoginName;
+            ViewBag.NickName = user.UserDetail.NickName;
+            ViewBag.MPNo = user.User.MPNo;
+            ViewBag.Email = user.User.Email;
+            ViewBag.Money = user.User.Money;
+
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult ModifyPassword()
+        {
+            return View();
+        }
+
+
+        [Authorize]
+        public ActionResult MyOrders(string oid)
+        {
+            IList<WCF.OrderSystem.Contract.DataContract.Order_OrderDC> xList = null;
+            var user = GetUserInfo();
+            var rtn = App_Code.Proxy.OrderProxy.Order_SELECT_List(user.User.ID, WCF.OrderSystem.Contract.Enumerate.OrderStatus.UnFinish, null, null, 1, 10);
+            if (rtn.Success)
+                xList = rtn.OBJ.ReturnList;
+            if (xList == null)
+                xList = new List<WCF.OrderSystem.Contract.DataContract.Order_OrderDC>();
+
+            if (xList.Count == 0)
+            {
+                return View();
+            }
+
+            ViewBag.OrderList = xList;
+            WCF.OrderSystem.Contract.DataContract.Order_OrderDC ShowOrder = null;
+
+            if (string.IsNullOrWhiteSpace(oid))
+                oid = xList[0].OrderNumber;
+
+
+            var orderRtn = App_Code.Proxy.OrderProxy.Select_OrderEntity(oid, true, true, true, true, true, false);
+            if (orderRtn.Success)
+                ShowOrder = orderRtn.OBJ;
+            else
+            {
+                if (xList[0].OrderNumber != oid)
+                {
+                    orderRtn = App_Code.Proxy.OrderProxy.Select_OrderEntity(oid, true, true, true, true, true, false);
+                    if (orderRtn.Success)
+                        ShowOrder = orderRtn.OBJ;
+                    else
+                    { }
+                }
+            }
+
+            IList<Models.ProductItemModel> piList = new List<Models.ProductItemModel>();
+            if (ShowOrder.ProductList != null)
+            {
+                var plist = ShowOrder.ProductList.GroupBy(p => p.ProductID);
+                foreach (var product in plist)
+                {
+                    Models.ProductItemModel pi = new Models.ProductItemModel();
+                    var pDC = product.First();
+                    pi.ProductInfo = pDC;
+                    pi.Count = product.Count();
+                    piList.Add(pi);
+                }
+            }
+            ViewBag.ProductList = piList;
+
+            if (ShowOrder.ExpectTime != null)
+            {
+                ViewBag.GetTime = ShowOrder.ExpectTime.Value;
+                ViewBag.SendTime = ShowOrder.ExpectTime.Value.AddHours(48);
+            }
+            else
+            {
+                DateTime initTime = ShowOrder.Obj_Cdate.Value;
+                if (ShowOrder.AllFinishTime != null)
+                    initTime = ShowOrder.AllFinishTime.Value;
+
+                int day = initTime.Day;
+                int hour = initTime.Hour;
+                int minute = 0;
+                if (initTime.Minute < 30)
+                    minute = 30;
+                else
+                {
+                    hour += 1;
+                }
+
+                if (hour < 10)
+                {
+                    hour = 10;
+                    minute = 0;
+                }
+                else if (hour > 19)
+                {
+                    hour = 10;
+                    minute = 0;
+                    day++;
+                }
+                else
+                    hour++;
+
+                DateTime sDateTime = new DateTime(initTime.Year, initTime.Month, day, hour, minute, 0);
+                DateTime eDateTime = sDateTime.AddHours(48);
+
+                ViewBag.GetTime = sDateTime;
+                ViewBag.SendTime = eDateTime;
+            }
+
+            return View(ShowOrder);
+        }
+
+
+        public ActionResult OrderWap(string o, int k)
+        {
+            WCF.OrderSystem.Contract.DataContract.Order_OrderDC orderItem = null;
+            var rtn = App_Code.Proxy.OrderProxy.Select_OrderEntity(o, true, true, false, false, true, false);
+
+            if (rtn.Success)
+            {
+                if (rtn.OBJ != null && rtn.OBJ.ID == k)
+                {
+                    orderItem = rtn.OBJ;
+
+                    IList<Models.ProductItemModel> xList = new List<Models.ProductItemModel>();
+                    if (orderItem.ProductList != null)
+                    {
+                        var plist = orderItem.ProductList.GroupBy(p => p.ProductID);
+                        foreach (var product in plist)
+                        {
+                            Models.ProductItemModel pi = new Models.ProductItemModel();
+                            var pDC = product.First();
+                            pi.ProductInfo = pDC;
+                            pi.Count = product.Count();
+                            xList.Add(pi);
+                        }
+                    }
+                    ViewBag.ProductList = xList;
+                }
+            }
+            //else
+            //    return RedirectToAction("MyOrders");
+
+            return View(orderItem);
+        }
+
+        [Authorize]
+        public ActionResult OrderDetail(string orderNum)
+        {
+            WCF.OrderSystem.Contract.DataContract.Order_OrderDC orderItem = null;
+            var rtn = App_Code.Proxy.OrderProxy.Select_OrderEntity(orderNum, true, true, true, true, true, true);
+            if (rtn.Success)
+            {
+                orderItem = rtn.OBJ;
+
+                IList<Models.ProductItemModel> xList = new List<Models.ProductItemModel>();
+                if (orderItem.ProductList != null)
+                {
+                    var plist = orderItem.ProductList.GroupBy(p => p.ProductID);
+                    foreach (var product in plist)
+                    {
+                        Models.ProductItemModel pi = new Models.ProductItemModel();
+                        var pDC = product.First();
+                        pi.ProductInfo = pDC;
+                        pi.Count = product.Count();
+                        xList.Add(pi);
+                    }
+                }
+                ViewBag.ProductList = xList;
+            }
+            else
+                return RedirectToAction("MyOrders");
+
+            return View(orderItem);
+        }
+
+        [Authorize]
+        public ActionResult AddressManage()
+        {
+            var user = GetUserInfo();
+            IList<WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC> xList = null;
+            var rtn = App_Code.Proxy.UserProxycs.Select_UserAddress(user.User.ID);
+            if (rtn.Success)
+            {
+                xList = rtn.OBJ;
+            }
+            if (xList == null)
+                xList = new List<WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC>();
+            return View(xList);
+        }
+
+        [Authorize]
+        public ActionResult AddressModify(int? id)
+        {
+            WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC item = null;
+            if (id.HasValue)
+            {
+                var rtn = App_Code.Proxy.UserProxycs.User_ConsigneeAddress_SELECT_Entity(id.Value);
+                if (rtn.Success)
+                    item = rtn.OBJ;
+            }
+            else
+                item = new WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC();
+
+            Session["AddressCallBack"] = Request.UrlReferrer.ToString();
+
+            return View(item);
+        }
+
+        
+        public JsonResult AddressDel(int id)
+        {
+            int code = 0;
+            string rtnMsg = "";
+            var rtn = App_Code.Proxy.UserProxycs.User_ConsigneeAddress_DELETE(id);
+            if (rtn.Success)
+                code = 1;
+            else
+            {
+                code = rtn.Code;
+                rtnMsg = rtn.Message;
+            }
+
+            return Json(new { Code = code, Msg = rtnMsg });
+        }
+
+        public JsonResult User_AddressUpdate(int id, string consignee, int districtID, string address, string mpno, short isdefault)
+        {
+            int code = 0;
+            string rtnMsg = "";
+
+            var user = GetUserInfo();
+            WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC item = new WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC();
+            item.ID = id;
+            item.UserID = user.User.ID;
+            item.Consignee = consignee;
+            item.DistrictID = districtID;
+            item.Address = address;
+            item.MPNo = mpno;
+            item.IsDefault = isdefault;
+
+            if (item.ID == 0)
+            {
+                var rtn = App_Code.Proxy.UserProxycs.User_ConsigneeAddress_ADD(item);
+                if (rtn.Success)
+                {
+                    code = 1;
+                    rtnMsg = rtn.OBJ.ToString();
+                }
+                else
+                {
+                    code = rtn.Code;
+                    rtnMsg = rtn.Message;
+                }
+            }
+            else
+            {
+                var rtn = App_Code.Proxy.UserProxycs.User_ConsigneeAddress_UPDATE(item);
+                if (rtn.Success)
+                {
+                    code = 1;
+                    rtnMsg = rtn.OBJ.ToString();
+                }
+                else
+                {
+                    code = rtn.Code;
+                    rtnMsg = rtn.Message;
+                }
+
+            }
+
+            string callbackUrl="";
+            if (code == 1 && Session["AddressCallBack"] != null)
+                callbackUrl = Session["AddressCallBack"].ToString();
+
+            return Json(new { Code = code, Msg = rtnMsg, CallBack = callbackUrl });
+        }
+
+        [Authorize]
+        public ActionResult MobileModify()
+        {
+            var user = GetUserInfo();
+            ViewBag.MPNo = user.User.MPNo;
+
+            return View();
+        }
+
+
+
+        [Authorize]
+        public ActionResult MyLazyCards()
+        {
+            IList<LazyAtHome.WCF.UserSystem.Contract.DataContract.User_CardDC> xList = null;
+            var user = GetUserInfo();
+            var rtnCardList = App_Code.Proxy.UserProxycs.Select_UserCardList(user.User.ID);
+            if (rtnCardList.Success)
+                xList = rtnCardList.OBJ;
+
+            if (xList == null)
+                xList = new List<LazyAtHome.WCF.UserSystem.Contract.DataContract.User_CardDC>();
+
+            return View(xList);
+        }
+        /// <summary>
+        /// 我的优惠劵
+        /// </summary>
+        /// <returns></returns>
+        [Authorize]
+        public ActionResult MyCoupons(int? cs)
+        {
+            WCF.UserSystem.Contract.Enumerate.CouponStatus couponStatus = WCF.UserSystem.Contract.Enumerate.CouponStatus.Normal;
+            if (cs.HasValue)
+            {
+                if (cs == 2)
+                    couponStatus = WCF.UserSystem.Contract.Enumerate.CouponStatus.Used;
+                else if (cs == -1)
+                    couponStatus = WCF.UserSystem.Contract.Enumerate.CouponStatus.Expired;
+            }
+
+            ViewBag.Status = (int)couponStatus;
+            IList<WCF.UserSystem.Contract.DataContract.User_CouponDC> xlist = null;
+            var user = GetUserInfo();
+            var rtnCouponList = App_Code.Proxy.UserProxycs.User_Coupon_SELECT_List(user.User.ID, null, null, couponStatus, null, null, 1, 20);
+            if (rtnCouponList.Success)
+                xlist = rtnCouponList.OBJ.ReturnList;
+            if (xlist == null)
+                xlist = new List<WCF.UserSystem.Contract.DataContract.User_CouponDC>();
+            return View(xlist);
+        }
+
+        public ActionResult LazyCardBinding()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult HistoryOrder()
+        {
+            IList<Models.OrderViewModel> xList = null;
+
+            var user = GetUserInfo();
+            var rtn = App_Code.Proxy.OrderProxy.Order_SELECT_List(user.User.ID, WCF.OrderSystem.Contract.Enumerate.OrderStatus.Finish, null, null, 1, 10);
+            if (rtn.Success)
+                xList = ConvertOrderList(rtn.OBJ.ReturnList);
+
+            if (xList == null)
+                xList = new List<Models.OrderViewModel>();
+            return View(xList);
+        }
+
+        [Authorize]
+        public ActionResult CommunityCenter()
+        {
+            var user = GetUserInfo();
+            ViewBag.Code = user.User.RecommendedCode;
+            return View();
+        }
+
+        public ActionResult Reg()
+        {
+            return View();
+        }
+
+        public ActionResult UserAgreement()
+        {
+            return View();
+        }
+
+        public ActionResult Login(string ReturnUrl)
+        {
+            if (string.IsNullOrWhiteSpace(ReturnUrl))
+            {
+                if (Request.UrlReferrer != null)
+                {
+                    ReturnUrl = Request.UrlReferrer.AbsolutePath;
+                }
+                
+            }
+
+            if (ReturnUrl == "/" || ReturnUrl == "/Member/Reg" || ReturnUrl == "/Member/WXLogin" || ReturnUrl == null || ReturnUrl == "/Member/FindPassword")
+                ReturnUrl = "/Wash";
+            ViewBag.ReturnUrl = ReturnUrl;
+
+            return View();
+        }
+
+        /// <summary>
+        /// 微信用户首次登录
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult WXLogin()
+        {
+            //ViewBag.SourceType = 1;//表示 微信用户首次登录 
+            return View("WXLogin");
+        }
+
+        /// <summary>
+        /// 密码找回
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult FindPassword()
+        {
+            //ViewBag.SourceType = 2;//表示 普通密码找回 
+            return View("FindPassword");
+        }
+
+        public JsonResult User_Login(string user, string pass, WCF.UserSystem.Contract.Enumerate.LoginType type, string vcode)
+        {
+            int code = 0;
+            string rtnMsg = "";
+
+            var rtn = App_Code.Proxy.UserProxycs.User_Login(user, type, pass, Request.ServerVariables["REMOTE_ADDR"]);
+            if (rtn == null)
+                rtnMsg = "服务异常，请稍后再试";
+            else
+            {
+                if (rtn.Success)
+                {
+                    System.Web.Security.FormsAuthentication.SetAuthCookie(user, false);
+                    Models.UserModel userinfo = (Models.UserModel)Session["UserInfo"];
+                    if (userinfo == null)
+                    {
+                        userinfo = new Models.UserModel();
+                        userinfo.Cart = new Models.CartModel();
+
+                        Session["UserInfo"] = userinfo;
+                    }
+                    userinfo.User = rtn.OBJ;
+
+                    userinfo.Cart.UserLevel = userinfo.User.Level;
+
+                    code = 1;
+                    HttpCookie cook = new HttpCookie("Lazyweb2Info");
+                    cook.Value = userinfo.User.ID.ToString();
+                    Response.Cookies.Add(cook);
+                }
+                else
+                {
+                    code = rtn.Code;
+                    //rtnMsg = rtn.Message;
+
+                    //********* add by yfyang 20140928 报错修正**********
+                    //登录时用户名不存在时改为：用户名或密码错误
+                    if (code == -1)
+                        rtnMsg = "用户名或密码错误";
+                    else
+                        rtnMsg = rtn.Message;
+                }
+            }
+
+            return Json(new { Code = code, Msg = rtnMsg });
+        }
+
+        public ActionResult User_LogOut()
+        {
+            System.Web.Security.FormsAuthentication.SignOut();
+            Session.Clear();
+
+            return Redirect("/Wash");
+        }
+
+        public JsonResult VerifyMobile(string mpno, string valicode, short check = 0)
+        {
+            int code = 1;
+            string rtnMsg = null;
+            bool send = true;
+
+            if (string.IsNullOrEmpty(mpno))
+            {
+                code = 4;
+                rtnMsg = "请输入手机号";
+
+                return Json(new { Code = code, Msg = rtnMsg });
+            }
+
+            if (string.IsNullOrEmpty(valicode))
+            {
+                code = 5;
+                rtnMsg = "图像验证码错误，请重新输入";
+
+                return Json(new { Code = code, Msg = rtnMsg });
+            }
+
+            //check验证码
+            string sCode = null;
+            sCode = Session[AppConfig.Cache_ValidateCode] as string;
+
+
+            if (valicode != sCode)
+            {
+                code = 5;
+                rtnMsg = "图像验证码错误，请重新输入";
+
+                return Json(new { Code = code, Msg = rtnMsg });
+            }
+
+
+
+            if (check == 1)
+            {
+                //检查手机号是否存在 不存在不能找回密码
+                var rtn = App_Code.Proxy.UserProxycs.User_Exist_Check(mpno, WCF.UserSystem.Contract.Enumerate.LoginType.MPNo);
+                //if (!rtn.Success)
+                //{
+                //    send = false;
+                //    code = 0;
+                //    rtnMsg = "手机号已经存在";
+                //}
+                if (rtn.Success)
+                {
+                    send = false;
+                    code = 0;
+                    rtnMsg = "手机号不存在";
+                }
+            }
+            else if (check == 2)
+            {
+                //检查手机号是否存在 存在不能绑定
+                var rtn = App_Code.Proxy.UserProxycs.User_Exist_Check(mpno, WCF.UserSystem.Contract.Enumerate.LoginType.MPNo);
+                if (!rtn.Success)
+                {
+                    send = false;
+                    code = 0;
+                    rtnMsg = "手机号已被使用";
+                }
+            }
+            if (send)
+            {
+                Random rnd = new Random();
+                string strCode = rnd.Next(0, 999999).ToString().PadLeft(6, '0');
+                Session[AppConfig.Cache_SmsCode + mpno] = strCode;
+                WCF.Common.Contract.ClientProxy.SmsClient.Base_SmsSend_Create(mpno, "尊敬的用户您好，为了保证您的安全，本次操作您的验证码为" + strCode + "，请您在5分钟之内完成验证。", null, WCF.Common.Contract.Enumerate.Sms_Priority.Fastest, WCF.Common.Contract.Enumerate.Sms_Type.Verify, WCF.Common.Contract.Enumerate.Sms_Channel.YM, WCF.Common.Contract.Enumerate.Sms_Source.Web, check.ToString() + "_" + valicode);
+
+            }
+
+            return Json(new { Code = code, Msg = rtnMsg });
+        }
+
+        public JsonResult User_UpdateInfo(string txtLoginName, string txtNickName, string txtMPNo, string txtEmail, string txtVCode)
+        {
+
+            int code = 0;
+            string rtnMsg = "";
+
+            var user = GetUserInfo();
+
+            if (user.User == null)
+            {
+                code = -99;
+                rtnMsg = "请重新登录！";
+            }
+
+            //改绑手机功能移到专门页面 update by yfyang 20141031
+            //if (user.User.MPNo != txtMPNo)
+            //{
+            //    string sCode = Session[AppConfig.Cache_SmsCode + txtMPNo] as string;
+            //    if (txtVCode != sCode)
+            //    {
+            //        code = 5;
+            //        rtnMsg = "验证码错误，请重新输入";
+            //    }
+            //}
+
+            if (code == 0)
+            {
+                var rtn = App_Code.Proxy.UserProxycs.Update_Userinfo(user.User.ID, txtLoginName, txtNickName, txtMPNo, txtEmail);
+                if (rtn == null)
+                    rtnMsg = "用户信息更新失败，服务器异常";
+                else
+                {
+                    if (rtn.Success)
+                    {
+                        code = 1;
+                        UpdateUserInfo();
+                    }
+                    else
+                    {
+                        code = rtn.Code;
+                        rtnMsg = rtn.Message;
+                    }
+                }
+            }
+
+            return Json(new { Code = code, Msg = rtnMsg });
+        }
+
+        /// <summary>
+        /// 改绑手机
+        /// </summary>
+        /// <param name="txtMPNo"></param>
+        /// <param name="txtVCode"></param>
+        /// <returns></returns>
+        public JsonResult User_UpdateMobile(string txtMPNo, string txtVCode)
+        {
+
+            int code = 0;
+            string rtnMsg = "";
+
+            var user = GetUserInfo();
+
+            if (user.User == null)
+            {
+                code = -99;
+                rtnMsg = "请重新登录！";
+                return Json(new { Code = code, Msg = rtnMsg });
+            }
+
+            //校验 验证码
+            string sCode = Session[AppConfig.Cache_SmsCode + txtMPNo] as string;
+            if (txtVCode != sCode)
+            {
+                code = 5;
+                rtnMsg = "验证码错误，请重新输入";
+            }
+            if (code == 0)
+            {
+                //进行手机改绑
+                var rtn = App_Code.Proxy.UserProxycs.Update_UserModifyMobile(user.User.ID, txtMPNo);
+                if (rtn == null)
+                    rtnMsg = "手机绑定失败，服务器异常";
+                else
+                {
+                    if (rtn.Success)
+                    {
+                        code = 1;
+                        //UpdateUserInfo();
+                        System.Web.Security.FormsAuthentication.SetAuthCookie(txtMPNo, false);
+                    }
+                    else
+                    {
+                        code = rtn.Code;
+                        rtnMsg = rtn.Message;
+                    }
+                }
+
+            }
+
+            return Json(new { Code = code, Msg = rtnMsg });
+        }
+
+        public JsonResult User_UpdatePassword(string txtOldPass, string txtPass)
+        {
+            int code = 0;
+            string rtnMsg = "";
+
+            var user = GetUserInfo();
+
+            if (user.User == null)
+            {
+                code = -99;
+                rtnMsg = "请重新登录！";
+            }
+
+            if (code == 0)
+            {
+                //进行密码修改
+                var rtn = App_Code.Proxy.UserProxycs.Update_UserModifyPass(user.User.ID, txtOldPass, txtPass);
+                if (rtn == null)
+                    rtnMsg = "密码修改失败，服务器异常";
+                else
+                {
+                    if (rtn.Success)
+                    {
+                        if (rtn.OBJ)
+                        {
+                            code = 1;
+                        }
+                        else
+                        {
+                            code = -100;
+                            rtnMsg = "原密码错误！";
+                        }
+
+                    }
+                    else
+                    {
+                        code = rtn.Code;
+                        rtnMsg = rtn.Message;
+                    }
+                }
+            }
+
+            return Json(new { Code = code, Msg = rtnMsg });
+        }
+
+        /// <summary>
+        /// 找回密码
+        /// </summary>
+        /// <param name="txtMPNo"></param>
+        /// <param name="txtPass"></param>
+        /// <param name="txtVCode"></param>
+        /// <returns></returns>
+        public JsonResult User_FindPassword(string txtMPNo, string txtPass, string txtVCode)
+        {
+            int code = 0;
+            string rtnMsg = "";
+
+            //校验 验证码
+            string sCode = Session[AppConfig.Cache_SmsCode + txtMPNo] as string;
+            if (txtVCode != sCode)
+            {
+                code = 5;
+                rtnMsg = "验证码错误，请重新输入";
+            }
+
+            if (code == 0)
+            {
+                //进行密码找回
+                var rtn = App_Code.Proxy.UserProxycs.Update_UserModifyPass(txtMPNo, txtPass);
+                if (rtn == null)
+                    rtnMsg = "密码找回失败，服务器异常";
+                else
+                {
+                    if (rtn.Success)
+                    {
+                        code = 1;
+
+                        return User_Login(txtMPNo, txtPass, WCF.UserSystem.Contract.Enumerate.LoginType.MPNo, null);
+                    }
+                    else
+                    {
+                        code = rtn.Code;
+                        rtnMsg = rtn.Message;
+                    }
+                }
+
+            }
+
+            return Json(new { Code = code, Msg = rtnMsg });
+        }
+
+
+        /// <summary>
+        /// 绑卡 update by yfyang 2014-10-10
+        /// 增加 cardType
+        /// </summary>
+        /// <param name="cardPass"></param>
+        /// <param name="cardType">1：懒人卡  2：充值卡</param>
+        /// <returns></returns>
+        public JsonResult User_BindCard(string cardPass, int cardType)
+        {
+            int code = 0;
+            string rtnMsg = null;
+
+            var user = GetUserInfo();
+
+            WCF.UserSystem.Contract.Enumerate.UserCardType cType;
+
+
+            if (cardType == 1)
+                cType = WCF.UserSystem.Contract.Enumerate.UserCardType.LazyCard;
+            else if (cardType == 2)
+                cType = WCF.UserSystem.Contract.Enumerate.UserCardType.RechargeCard;
+            else
+                return Json(new { Code = -100, Msg = "参数不合法！" });
+
+            var rtn = App_Code.Proxy.UserProxycs.Add_UserBindCard(user.User.ID, cType, cardPass.ToUpper());
+            if (rtn.Success && rtn.OBJ != null)
+            {
+                code = 1;
+                if (cardType == 1)
+                {
+                    rtnMsg = rtn.OBJ.Money + "元懒人卡绑定成功！";
+                }
+                else if (cardType == 2)
+                {
+                    rtnMsg = rtn.OBJ.Money + "元充值成功！";
+                }
+            }
+            else
+            {
+                code = rtn.Code;
+                rtnMsg = rtn.Message;
+            }
+            return Json(new { Code = code, Msg = rtnMsg });
+        }
+
+        public JsonResult User_BindCoupon(string couponPass)
+        {
+            int code = 0;
+            string rtnMsg = null;
+           
+            int userCouponID = 0;
+            string couponName = string.Empty;
+            string couponUseEndDate = string.Empty;
+
+            var user = GetUserInfo();
+
+            var rtn = App_Code.Proxy.UserProxycs.User_Coupon_Bind(user.User.ID, couponPass.ToUpper());
+            if (rtn.Success)
+            {
+                code = 1;
+
+                userCouponID = rtn.OBJ.ID;
+                couponName = rtn.OBJ.Name;
+                couponUseEndDate = rtn.OBJ.UseEndDate.ToString("yyyy-MM-dd");
+            }
+            else
+            {
+                code = rtn.Code;
+                rtnMsg = rtn.Message;
+            }
+
+            return Json(new { Code = code, Msg = rtnMsg, CouponID = userCouponID, CouponName = couponName, CouponDate = couponUseEndDate });
+        }
+
+        public JsonResult User_Exist_Check(string user, WCF.UserSystem.Contract.Enumerate.LoginType type)
+        {
+            int code = 0;
+            string rtnMsg = "";
+            var rtn = App_Code.Proxy.UserProxycs.User_Exist_Check(user, type);
+            if (rtn == null)
+                rtnMsg = "用户名检查失败";
+            else
+            {
+                if (rtn.Success && rtn.OBJ)
+                {
+                    code = 1;
+                    rtnMsg = "用户名可用";
+                }
+                else
+                {
+                    code = rtn.Code;
+                    rtnMsg = rtn.Message;
+                }
+            }
+
+            return Json(new { Code = code, Msg = rtnMsg });
+        }
+
+        public JsonResult User_Reg(string user, string pass, WCF.UserSystem.Contract.Enumerate.LoginType type, string vcode, string icode)
+        {
+            int code = 0;
+            string rtnMsg = "";
+            string sCode = null;
+            if (type == WCF.UserSystem.Contract.Enumerate.LoginType.MPNo)
+                sCode = Session[AppConfig.Cache_SmsCode + user] as string;
+            else
+                sCode = "";
+
+            if (vcode != sCode)
+            {
+                code = 5;
+                rtnMsg = "验证码错误，请重新输入";
+            }
+            else
+            {
+                //邀请码
+                string invitecode = null;
+                if (!string.IsNullOrEmpty(icode))
+                {
+                    //保安邀请码
+                    invitecode = icode;
+                }
+                else
+                {
+                    if (Session["invitecode"] != null)
+                        invitecode = Session["invitecode"].ToString();
+                }
+                
+
+                var rtn = App_Code.Proxy.UserProxycs.User_Reg(user, type, pass, invitecode, Request.UserHostAddress, AppConfig.SiteID);
+                if (rtn == null)
+                    rtnMsg = "用户注册失败，服务器异常";
+                else
+                {
+                    if (rtn.Success)
+                    {
+                        System.Web.Security.FormsAuthentication.SetAuthCookie(user, false);
+
+                        Models.UserModel userinfo = (Models.UserModel)Session["UserInfo"];
+                        if (userinfo == null)
+                        {
+                            userinfo = new Models.UserModel();
+                            userinfo.Cart = new Models.CartModel();
+                            Session["UserInfo"] = userinfo;
+                        }
+                        userinfo.User = rtn.OBJ;
+                        code = 1;
+                    }
+                    else
+                    {
+                        code = rtn.Code;
+                        rtnMsg = rtn.Message;
+                    }
+                }
+            }
+
+            return Json(new { Code = code, Msg = rtnMsg });
+        }
+
+
+    }
+}

@@ -1,0 +1,34 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images/pixie1.jpg" /></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、若皮鞋弄湿，应以干布擦干鞋面的水份，比较严重者，可在鞋腔内放入易吸水的纸，让皮鞋自然风干。</p> 
+				<p>2、皮鞋表面保养最好用无色的高级鞋乳，最好不用光亮剂类保养，否则会造成假性涂层脱落。</p> 
+				<p>3、若皮鞋因受潮湿或脚汗过多等其它原因，出现表面泛白、冒盐霜等现象，可用轻质柔软布片蘸上醋轻擦，再涂擦同色鞋膏晾干。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>穿着时尚、光亮的皮鞋会增强人的信心，提高个人身份，衬托出大方气质。<br />当然，洁净一定是前提，专业皮鞋清洁，交给懒到家！</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\pixie2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>皮鞋现已成为出席重要场合、上班工作、走亲访友等的必须品。新鞋会光亮一段时间，但穿久了皮鞋会慢慢失去光泽，变的很难看。因此经常保养就变的尤为重要，可以确保皮鞋时常靓丽如新，还能增加鞋的寿命。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

@@ -1,0 +1,32 @@
+﻿@model IList<LazyAtHome.WCF.Wash.Contract.DataContract.web.web_Wash_ClassDC>
+<div class="homeZuoNav">
+    <dl>
+        <dt><img src="~/Content/Images/homeZuoNavTitle.gif" /></dt>
+        @{
+            var masterList = Model.Where(p => p.ParentID == 0);
+
+            foreach (var item in masterList)
+            {
+                var subList = Model.Where(p => p.ParentID == item.ID);
+                <dd>
+
+                    @if (subList.Count() == 1)
+                    {
+                        <span><a href="/Wash#F@(subList.First().ID)">@item.Name</a></span>
+
+                    }
+                    else
+                    {
+                        <span><a href="javascript:">@item.Name</a></span>
+                        <ul>
+                            @foreach (var sub in subList)
+                            {
+                                <li><a href="/Wash#F@(sub.ID)">@sub.Name</a></li>
+                            }
+                        </ul>
+                    }
+                </dd>
+            }
+        }
+    </dl>
+</div>

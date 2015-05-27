@@ -1,0 +1,34 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\zhentao1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、枕套要经常清洗，清洗频率为半个月一次，初次使用前，可先用清水洗涤一次，可将表面的浆质及印染浮色洗掉，使用起来会比较柔软，将来清洗时也不容易褪色。</p>
+                <p>2、洗涤时不要使用漂白剂，不要使用高温热水，用温水和冷水。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>穿上战靴，调整又一座山峰。</p>
+                <p>城市的生活，无形的压力，懒到家给您高质量的睡眠，让您从此爱上懒到家！</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\zhentao2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>睡觉时我们不经意流出的口水、分泌的汗液等都会渗透到枕套上面，滋生细菌，引发过敏与疾病，所以我们要经常清洗枕套。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

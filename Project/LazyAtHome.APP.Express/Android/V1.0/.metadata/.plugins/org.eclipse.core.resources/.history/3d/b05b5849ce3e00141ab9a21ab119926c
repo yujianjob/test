@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/ldj.css" media="screen" rel="stylesheet">
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/judgePlatform.js"></script>
+<script>
+	if(browser.versions.android || browser.versions.iPhone || browser.versions.iPad || browser.versions.ios){
+	document.write("<script type='text/javascript' src='js/iscroll.js'><\/script><script type='text/javascript' src='js/iscrollobj.js'><\/script>");
+	}
+</script>
+<!--[if lt IE 9]>
+    <script src="js/html5.js"></script>
+    <script src="js/respond.min.js"></script>
+<![endif]-->
+<script src="js/landaojia.js"></script>
+</head>
+<body >
+<div class="wrapper">
+  <!--网站侧边导航 start-->
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-brand"> <img src="img/logo.png"> </li>
+      <li> <a class="active" href="洗涤服务.html"> <span class="icon-white-xdfw"></span> <span class="nav-title">洗涤服务</span> </a> </li>
+      <li> <a href="奢侈品护理.html"> <span class="icon-white-hl"></span> <span class="nav-title">奢侈品护理</span> </a> </li>
+      <li> <a href="懒人神器.html"> <span class="icon-white-lrsq"></span> <span class="nav-title">懒人神器</span> </a> </li>
+      <li> <a href="缤纷活动.html"> <span class="icon-white-bfhd"></span> <span class="nav-title">缤纷活动</span> </a> </li>
+      <li> <a href="我的订单.html"> <span class="icon-white-myorder"></span> <span class="nav-title">我的订单</span> </a> </li>
+      <li> <a href="历史订单.html"> <span class="icon-white-history"></span> <span class="nav-title">历史订单</span> </a> </li>
+      <li> <a href="帮助与反馈.html"> <span class="icon-white-history"></span> <span class="nav-title">帮助与反馈</span> </a> </li>
+      <li> <a href="关于懒到家.html"> <span class="icon-white-about"></span> <span class="nav-title">关于懒到家</span> </a> </li>
+    </ul>
+  </div>
+  <!--网站侧边导航 end-->
+  <div id="page-content-wrapper"> 
+   <!--主体内容头部 start-->
+  	<div class="navbar" role="navigation">
+    	<div class="container-fluid">
+       		<div class="row">
+            	<div class="col-sm-9 col-md-1">
+                    <a id="navbar-logo" data-toggle="offcanvas" class="brand-toggle" onClick="showHideSiderbar();">
+                        <img src="img/navbar-logo.png">
+                    </a>
+                    <h2 class="navbar-brand visible-xs visible-sm" style="float:left;">缤纷活动</h2>
+                    <button type="button" class="visible-xs navbar-toggle collapsed icon-collapsed pull-right" data-toggle="collapse" data-target="#navbar-collapse-1"> 
+                        <img src="img/dropdown-cog-blue.png"> 
+                    </button>
+                </div>
+                <div class="col-sm-7 col-md-7 hidden-sm hidden-xs">
+                	<h2 class="navbar-brand" style="float:left;padding:10px 0 0 0">缤纷活动</h2>
+                    <div style="margin-left:150px;">
+                           <form method="post" action="" class="tsearch">
+                                <input type="text" placeholder="搜索清洗服务">
+                                <button class="icon-search"><img src="img/icon-search.png"></button>
+                            </form>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-md-4 hidden-xs">
+                    <ul class="nav navbar-nav navbar-right">
+                         <li class="dropdown"> 
+                        	 <a class="dropdown-toggle memberCentre" data-toggle="dropdown"> 
+                                <span class="name">会员名</span> 
+                                <span class="icon-member"></span> 
+                             </a>
+                              <ul class="dropdown-menu" id="member-info">
+                                <li><a href="用户中心.html">用户中心</a></li>
+                                <li class="divider"></li>
+                                <li><a href="地址管理.html">地址管理</a></li>
+                                <li><a href="我的懒人卡.html">我的懒人卡</a></li>
+                                <li><a href="我的优惠劵.html">我的优惠劵</a></li>
+                                <li class="divider"></li>
+                                <li><a href="社区中心.html">社区中心</a></li>
+                                <li class="divider"></li>
+                                <li><a>退出</a></li>
+                              </ul>
+                         </li>
+                    	<li class="hidden-sm navbar-question"> <a href="#">我们的服务流程?</a> </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="visible-xs">
+              <div class="collapse navbar-collapse" id="navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-c">
+                  <li><a href="用户中心.html">用户中心</a></li>
+                  <li class="divider"></li>
+                  <li><a href="地址管理.html">地址管理</a></li>
+                  <li><a href="我的懒人卡.html">我的懒人卡</a></li>
+                  <li><a href="我的优惠劵.html">我的优惠劵</a></li>
+                  <li class="divider"></li>
+                  <li><a href="社区中心.html">社区中心</a></li>
+                  <li class="divider"></li>
+                  <li><a>退出</a></li>
+                </ul>
+              </div>
+         </div>
+        <div class="visible-xs visible-sm s-search-bar">
+          <div>
+            <input type="text">
+            <button class="icon-search"><img src="img/icon-search.png"></button>
+          </div>
+        </div>
+    </div>
+   <!--主体内容头部 end-->
+   <div class="page-content inset service-fee">
+				<div class="row">
+                	 <div class="col-md-7 col-md-offset-1">
+                        <div class="activity-list">
+                            <div class="row" style="margin-left:0px;margin-right:0px">
+                                	 <div class="col-sm-6 col-xs-12" >
+                                         <div class="thumbnail">
+                                            <a href="活动详情页.html" class="imglink">
+                                                <img src="img/qidai-pic.jpg">
+                                                <div class="simagemask">
+                                                    <p>活动标题</p>
+                                                </div>
+                                            </a>
+                                            <div class="caption">
+                                               <h3><a href="/">立即进入>></a></h3>
+                                            </div>
+                                        </div>
+                                     </div>
+                                      <div class="col-sm-6 col-xs-12" >
+                                           <div class="thumbnail">
+                                            <a href="活动详情页.html" class="imglink">
+                                                <img src="img/qidai-pic.jpg">
+                                                <div class="simagemask">
+                                                    <p>活动标题</p>
+                                                </div>
+                                            </a>
+                                            <div class="caption">
+                                               <h3><a href="/">立即进入>></a></h3>
+                                            </div>
+                                        </div>
+                                      </div>
+                            </div>
+                            <div class="row" style="margin-left:0px;margin-right:0px">
+                                	 <div class="col-sm-6 col-xs-12" >
+                                         <div class="thumbnail">
+                                            <a href="活动详情页.html" class="imglink">
+                                                <img src="img/qidai-pic.jpg">
+                                                <div class="simagemask">
+                                                    <p>活动标题</p>
+                                                </div>
+                                            </a>
+                                            <div class="caption">
+                                               <h3><a href="/">立即进入>></a></h3>
+                                            </div>
+                                        </div>
+                                     </div>
+                                      <div class="col-sm-6 col-xs-12" >
+                                           <div class="thumbnail">
+                                            <a href="活动详情页.html" class="imglink">
+                                                <img src="img/qidai-pic.jpg">
+                                                <div class="simagemask">
+                                                    <p>活动标题</p>
+                                                </div>
+                                            </a>
+                                            <div class="caption">
+                                               <h3><a href="/">立即进入>></a></h3>
+                                            </div>
+                                        </div>
+                                      </div>
+                            </div>                      
+                        </div>
+                    </div>
+                </div>
+		</div>
+    </div>
+</div>
+</body>
+</html>

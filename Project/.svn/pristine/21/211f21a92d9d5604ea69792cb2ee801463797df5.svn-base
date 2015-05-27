@@ -1,0 +1,26 @@
+﻿<!--内容-->
+<div id="content">
+     <div class="mediaShowTitle"><p><a href="/Home/LaundryTips">小常识列表</a><span>&gt;</span>洗衣小常识</p></div>
+     <div class="mediaShow">
+     	  <div class="mediaShowBt">
+          	   <h2>皮衣破损的处理方法？</h2>
+               <p><b>2014.05.12</b>浏览次数：<span>90</span></p>
+               <dl>
+                  <dt>分享到：</dt>
+                  <dd><a href="#"><img src="~/Content/images/fenxiang_01.gif" /></a></dd>
+                  <dd><a href="#"><img src="~/Content/images/fenxiang_02.gif" /></a></dd>
+                  <dd><a href="#"><img src="~/Content/images/fenxiang_03.gif" /></a></dd>
+               </dl>
+          </div>
+          <div class="mediaShowContent laundrytips">
+          	   <p>皮衣擦伤表面：皮衣表面涂层被磨伤，但是皮革未破损，因此在处理上只需将破处擦干净，然后直接用皮革涂饰浆楷涂，使破损处达到原来的颜色和外表即可。</p>
+			   <img src="~/Content/images/tips10-pic1.jpg" />
+			   <p></p>
+			   <p>皮衣划伤表面：皮衣表面被尖锐物划破，但也处于皮革未破损，因此也只要将破处擦干净，然后用皮革胶粘剂划去的皮块粘好，等到粘胶干后待，皮衣痕迹明显的地方，可用砂纸磨平，在涂以皮革涂饰浆，直到达到和原来颜色和外表差不多即可。</p>
+			   <p></p>
+			   <p>皮衣破洞：皮衣破洞了，可以先找来大于破洞并与皮衣颜色一致的皮块，然后将破洞修剪整齐，用砂纸将破洞边缘的反面小心打磨出慢坡，磨好后，只要将破洞边缘反面及皮块芷面皮茎粘好，然后再将皮块在破洞里面粘好，最后将上面残胶擦即可。</p>
+			   <p></p>
+          </div>
+         <!-- <div class="pages"><a href="#">上一篇</a><a href="#">下一篇</a></div>-->
+     </div>
+</div>

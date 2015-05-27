@@ -1,0 +1,430 @@
+﻿@{
+    ViewBag.Title = "免费干洗体验";
+}
+
+<section>
+    <header>首单免费洗</header>
+    <div class="headerTips">首单可洗：2件A类 或 1件B类</div>
+    <div class="xdfw" style="margin-top:80px">
+        <ul class="tabSwitch">
+            <li class="active" style="width:50%"><span>A类(免洗2件)</span></li>
+            <li style="width:50%"><span>B类(免洗1件)</span></li>
+        </ul>
+        <!--A类 start-->
+        <div class="list">
+            <div class="unit">
+                <span class="bt">西装</span>
+                <span class="price"><s>￥25.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="1" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">衬衫</span>
+                <span class="price"><s>￥20.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="3" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">马甲</span>
+                <span class="price"><s>￥16.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="9" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">运动衣</span>
+                <span class="price"><s>￥20.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="23" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">牛仔衣</span>
+                <span class="price"><s>￥25.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="24" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">中山装</span>
+                <span class="price"><s>￥36.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="25" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">唐装</span>
+                <span class="price"><s>￥50.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="26" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">睡衣</span>
+                <span class="price"><s>￥20.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="32" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">浴袍</span>
+                <span class="price"><s>￥25.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="33" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">保暖内衣</span>
+                <span class="price"><s>￥18.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="34" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">针织衫</span>
+                <span class="price"><s>￥20.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="36" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">羊毛衫</span>
+                <span class="price"><s>￥25.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="37" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">雪纺衫</span>
+                <span class="price"><s>￥18.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="38" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">吊带衫</span>
+                <span class="price"><s>￥15.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="39" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">背心</span>
+                <span class="price"><s>￥15.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="41" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">T恤</span>
+                <span class="price"><s>￥15.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="42" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">胸罩</span>
+                <span class="price"><s>￥20.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="69" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">西裤</span>
+                <span class="price"><s>￥18.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="43" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">休闲裤</span>
+                <span class="price"><s>￥18.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="44" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">运动裤</span>
+                <span class="price"><s>￥18.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="45" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">羽绒裤</span>
+                <span class="price"><s>￥30.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="46" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">冲锋裤</span>
+                <span class="price"><s>￥18.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="47" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">牛仔裤</span>
+                <span class="price"><s>￥18.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="48" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">保暖裤</span>
+                <span class="price"><s>￥18.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="49" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">唐装裤</span>
+                <span class="price"><s>￥30.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="50" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">打底裤</span>
+                <span class="price"><s>￥18.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="51" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">裙裤</span>
+                <span class="price"><s>￥20.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="54" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">睡裤</span>
+                <span class="price"><s>￥18.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="55" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">裙子</span>
+                <span class="price"><s>￥20.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="56" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">连衣裙</span>
+                <span class="price"><s>￥30.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="58" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">吊带裙</span>
+                <span class="price"><s>￥25.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="59" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">内裤</span>
+                <span class="price"><s>￥15.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="70" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">棉袜</span>
+                <span class="price"><s>￥15.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="71" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">丝袜</span>
+                <span class="price"><s>￥20.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="72" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">短裤</span>
+                <span class="price"><s>￥16.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="52" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">中裤</span>
+                <span class="price"><s>￥16.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="53" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">帽子</span>
+                <span class="price"><s>￥20.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="60" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">围巾</span>
+                <span class="price"><s>￥18.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="61" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">披肩</span>
+                <span class="price"><s>￥15.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="62" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">领带</span>
+                <span class="price"><s>￥15.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="63" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">丝巾</span>
+                <span class="price"><s>￥15.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="64" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">普通毛领</span>
+                <span class="price"><s>￥25.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="65" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">手套</span>
+                <span class="price"><s>￥15.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="67" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">羽绒服</span>
+                <span class="price"><s>￥48.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="5" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">棉衣</span>
+                <span class="price"><s>￥40.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="12" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">风衣</span>
+                <span class="price"><s>￥36.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="14" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">大衣</span>
+                <span class="price"><s>￥48.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="16" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">冲锋衣</span>
+                <span class="price"><s>￥36.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="22" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">夹克</span>
+                <span class="price"><s>￥25.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="27" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">毛衣外套</span>
+                <span class="price"><s>￥30.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="35" ptype="1">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">防辐射服</span>
+                <span class="price"><s>￥30.00</s> <font class="green">￥9.90</font></span>
+                <span class="add" onclick="addToCart(this);" pid="40" ptype="1">+</span>
+            </div>
+        </div>
+        <!--A类 end-->
+        <!--B类 start-->
+        <div class="list" style="display:none">
+            <div class="unit">
+                <span class="bt">运动鞋</span>
+                <span class="price"><s>￥25.00</s> <font class="green">￥20.00</font></span>
+                <span class="add" onclick="addToCart(this);" pid="112" ptype="2" price="20">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">休闲鞋</span>
+                <span class="price"><s></s> <font class="green">￥25.00</font></span>
+                <span class="add" onclick="addToCart(this);" pid="113" ptype="2" price="25">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">帆布鞋</span>
+                <span class="price"><s>￥25.00</s> <font class="green">￥20.00</font></span>
+                <span class="add" onclick="addToCart(this);" pid="142" ptype="2" price="20">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">登山鞋</span>
+                <span class="price"><s></s> <font class="green">￥30.00</font></span>
+                <span class="add" onclick="addToCart(this);" pid="117" ptype="2" price="30">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">雪地靴</span>
+                <span class="price"><s></s> <font class="green">￥30.00</font></span>
+                <span class="add" onclick="addToCart(this);" pid="114" ptype="2" price="30">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">双肩包</span>
+                <span class="price"><s></s> <font class="green">￥65.00</font></span>
+                <span class="add" onclick="addToCart(this);" pid="121" ptype="2" price="65">+</span>
+            </div>
+            <div class="unit">
+                <span class="bt">单肩包</span>
+                <span class="price"><s></s> <font class="green">￥65.00</font></span>
+                <span class="add" onclick="addToCart(this);" pid="123" ptype="2" price="65">+</span>
+            </div>
+        </div>
+        <!--B类 End-->
+    </div>
+
+
+    <footer>
+        <span class="shopcart" onclick="viewShopcartDetail(event);">
+            <img src="/img/shopcartIcn.png"> <span id="tc">(0)</span>
+        </span>
+        <span class="jiesuan"><a href="/Activites/FirstFreeConfirm">去结算</a></span>
+    </footer>
+
+    <!--弹出购物车列表 start-->
+    <div class="shopcartList" style="z-index:900">
+        <div class="shopcartbox">
+            <div class="tit" style="display:-none">
+                <span class="lf">洗衣篮</span>
+                <span class="rt"><a href="#">清除</a></span>
+            </div>
+            <div class="biaot" style="display:-none">
+                <div class="bt lf">服务产品</div>
+                <div class="p-num rt">数量</div>
+            </div>
+
+            <div class="gwlist" id="gwlistWraper" ontouchmove="_docPrevent(event);" ontouchend="_docRemovePrevent(event);">
+                <div class="gwlist-cont">
+                </div>
+            </div>
+            <div class="tfoot">
+                <span class="total-price">总计 <font class="red"><b>￥120.00</b></font></span>
+            </div>
+        </div>
+    </div>
+    <!--弹出购物车列表 end-->
+
+    <!--弹出购物车列表 start-->
+    <div class="shopcartList">
+        <div class="shopcartbox">
+            <div class="tit" style="display:-none">
+                <span class="lf">洗衣篮</span>
+                <span class="rt"><a href="#" onclick="ClearCart();">清除</a></span>
+            </div>
+            <div class="biaot" style="display:-none">
+                <div class="bt lf">服务产品</div>
+                <div class="p-num rt">数量</div>
+            </div>
+
+            <div class="gwlist" id="gwlistWraper" ontouchmove="_docPrevent(event);" ontouchend="_docRemovePrevent(event);">
+                <div class="gwlist-cont">
+                </div>
+            </div>
+            <div class="tfoot">
+                <span class="total-price">总计 <font class="red"><b>￥120.00</b></font></span>
+            </div>
+        </div>
+    </div>
+    <!--弹出购物车列表 end-->
+</section>
+
+
+@section scripts
+{
+    <script type="text/javascript">
+        var clickSource = 0;
+        $(function () {
+            $(".tabSwitch li").each(function (i) {
+                $(this).click(function () {
+                    $(".tabSwitch li").removeClass("active");
+                    $(this).addClass("active");
+                    $(".list").hide();
+                    $(".list").eq(i).show();
+                });
+            });
+            $("#menuIcon").remove();
+            AddToCartProcess(0, true, 0, null);
+        });
+
+        function addToCart(obj, event) {
+            var pid = $(obj).attr("pid");
+            var ptype = $(obj).attr("ptype");
+            clickSource = 1;
+            AddToCartProcess(pid, true, ptype, event);
+        }
+
+        function OpearCart(pid, opear, ptype, event) {
+            clickSource = 2;
+            AddToCartProcess(pid, opear, ptype, event);
+        }
+
+        function AddToCartProcess(pid, opear, ptype, e) {
+            if (e != null)
+                e.preventDefault();
+            if (opear == null)
+                opear = true;
+
+            var postData = { pid: pid, opearAdd: opear, type: ptype };
+            $.ajax({
+                type: "post",
+                url: "/Cart/jsRHAddToCart",
+                data: postData,
+                dataType: "json",
+                success: function (resultJson) {
+                    if (resultJson != null) {
+                        if (resultJson.Code == 1) {
+                            $(".gwlist-cont").html(resultJson.Content);
+                            totalCount = resultJson.TotalCount;
+                            $("#tc").html("(" + totalCount + ")");
+                            $(".total-price").html("总计 <font class='red'><b>￥" + resultJson.TotalPrice.toFixed(2) + "</b></font>");
+                            if (clickSource == 1)
+                                showPopDiv("已加入洗衣篮");
+                        }
+                        else
+                            showPopDiv(resultJson.Msg);
+                    }
+                },
+                error: function (msg) {
+                    showPopDiv("服务器异常，请稍微再试！");
+                }
+            });
+        }
+    </script>
+}

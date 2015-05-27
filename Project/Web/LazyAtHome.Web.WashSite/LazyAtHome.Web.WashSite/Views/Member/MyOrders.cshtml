@@ -1,0 +1,119 @@
+﻿@model IList<LazyAtHome.Web.WashSite.Models.Wash.OrderViewModel>
+@{
+    //ViewBag.Title = "我的订单";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--内容-->
+<div id="content">
+    @{Html.RenderPartial("_MemberLeftNav");}
+    <div class="my_content right">
+        <div class="my_contentTitle">订单查询</div>
+        <div class="height_50"></div>
+        <div class="my_bangding">
+            <div class="my_bangdingTitle">
+                <ul>
+                    <li class="@UIHelper.ShowThis(ViewBag.OrderType==1) li"><a href="@Url.Action("MyOrders", new { ot = 1 })">我的订单</a><span></span><b></b></li>
+                    <li class="@UIHelper.ShowThis(ViewBag.OrderType == 2) li"><a href="@Url.Action("MyOrders", new { ot = 2 })">待付款订单</a><span></span><b></b></li>
+                    <li class="@UIHelper.ShowThis(ViewBag.OrderType == 3) li"><a href="@Url.Action("MyOrders", new { ot = 3 })">待收货订单</a><span></span><b></b></li>
+                    <div class="clear"></div>
+                </ul>
+            </div>
+            <div class="my_dingdanBox" style="display:block;">
+
+                @foreach (var orderView in Model)
+                {
+                    <div class="order-t">
+                        <div class="order-num-status">
+                            <span class="num">订单号：<font class="green">@orderView.OrderNum</font></span>
+                            <span class="status">订单状态：<font class="yellow">@UIHelper.ConvertPayStatus(orderView.OrderStatus, orderView.PayStatus)</font></span>
+                            <span class="zhifu">
+                                @if (orderView.PayStatus == 0 && orderView.OrderStatus == 1 && orderView.TotalPrice > 0 && orderView.OrderClass != 2 && orderView.OrderClass != 3)
+                                {
+                                    <a href="@Url.Action("Alipay", "Cart", new { OrderNum = orderView.OrderNum })" target="_blank"><img src="~/Content/images/fukuan-btn.gif" /></a>
+                                }
+                            </span>
+                        </div>
+                        <div class="order-detail">
+                            @if (orderView.OrderClass == 1 || orderView.OrderClass == 2)
+                            {
+                                <a href="@Url.Action("OrderDetail", "Member", new { orderNum = orderView.OrderNum })" target="_blank">查看详情>></a>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="my_dingdanTitle">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td width="50">&nbsp;</td>
+                                <td width="350"></td>
+                                <td width="100" align="center">单价</td>
+                                <td width="100" align="center">数量</td>
+                                <td width="100" align="center">小计</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="my_dingdanList">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            @foreach (var item in orderView.ProductList)
+                            {
+                                <tr>
+                                    <td width="50">&nbsp;</td>
+                                    <td width="100"><a href="/Wash/Show/@item.ProductInfo.CategoryID" target="_blank"><img src="@item.ProductInfo.PictureS" width="68" height="68" class="my_dingdanListImg" /></a></td>
+                                    <td width="250"><a href="/Wash/Show/@item.ProductInfo.CategoryID" target="_blank"><h2>@item.ProductInfo.CategoryName</h2>@item.ProductInfo.WebName</a></td>
+                                    <td width="100" align="center"><b>￥@item.ProductInfo.Price</b></td>
+                                    <td width="100" align="center">@item.Count</td>
+                                    <td width="100" align="center"><b>￥@(item.ProductInfo.Price * item.Count)</b></td>
+                                    <td class="caozuo">
+                                        @if (orderView.OrderClass == 5 && orderView.PayStatus == 1)
+                                        {
+                                            <p><a href="javascript:void(0);" onclick="showKey('1234567891234567');">查看密钥</a><br /><a href="#">立即绑定</a></p>
+                                        }
+                                        <p>@*<a href="#"><img src="~/Content/Images/dingdanGoumai.gif" /></a>*@</p>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                }
+                <div class="my_dingdanPage"><a href="#">上一页</a><span><a href="#" class="this">1</a></span><a href="#">下一页</a></div>
+            </div>
+        </div>
+        @{Html.RenderAction("MoreWash", "Wash");}
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/Scripts/gundong.js")
+
+    <script language="javascript" type="text/javascript">
+        $(function () {
+            //左侧导航
+            $('.my_navList dt').click(function () {
+                $(this).parent().find('dd').slideToggle(200);
+                $(this).toggleClass("my_navList_Top");
+            })
+            //滚动
+            var BOX = $('.cartLuxuryList ul');
+            var HHUM = $('.cartLuxuryList li');
+            var LEFT = $('.cartLuxuryZuo');
+            var RIGHT = $('.cartLuxuryYou');
+            var WIDTH = 184;//单个宽度
+            var PLAY = 5000;//自动播放的时间
+            var SPEED = 500;//切换速度
+            var AOUT = true;//是否自动播放
+            IMG(BOX, LEFT, RIGHT, WIDTH, HHUM, PLAY, SPEED, AOUT);
+
+            $('.cartLuxuryList li').hover(function () {
+                $(this).find('.cartLuxuryListImg').addClass('this');
+            }, function () {
+                $(this).find('.cartLuxuryListImg').removeClass('this');
+            })
+        })
+    </script>
+}

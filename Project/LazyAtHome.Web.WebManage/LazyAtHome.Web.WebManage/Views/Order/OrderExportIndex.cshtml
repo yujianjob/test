@@ -1,0 +1,87 @@
+﻿@{
+    <script src="@Url.Content("~/Scripts/Order/orderexport.js")" type="text/javascript"></script>
+}
+<!--搜索条-->
+<div class="pageFormContent">
+    <div class="panel">
+        <h1>详单导出</h1>
+        <div class="searchBar">
+            
+            <table class="searchContent">
+                <tr>
+                    <td>下单日期：</td>
+                    <td>           
+                        <input type="text" id="OrderDetailExportSearchInfo_CreateStartDate" name="OrderDetailExportSearchInfo.CreateStartDate" class="date" datefmt="yyyy-MM-dd" />
+                    </td>
+
+                    <td>
+                        <input type="text" id="OrderDetailExportSearchInfo_CreateEndDate" name="OrderDetailExportSearchInfo.CreateStartDate" class="date" datefmt="yyyy-MM-dd" />
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>完成日期：</td>
+                    <td>
+                        <input type="text" id="OrderDetailExportSearchInfo_FinishStartDate" name="OrderDetailExportSearchInfo.FinishStartDate" class="date" datefmt="yyyy-MM-dd" />
+                    </td>
+
+                    <td>
+                        <input type="text" id="OrderDetailExportSearchInfo_FinishEndDate" name="OrderDetailExportSearchInfo.FinishStartDate" class="date" datefmt="yyyy-MM-dd" />
+                    </td>
+
+                </tr>
+            </table>
+            @Html.Hidden("hdExportOrderDetailUrl", @Url.Action("ExportOrderDetail"))
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button id="OrderDetailExport" type="button">导出</button></div></div></li>
+                    @*<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>*@
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="panel">
+        <h1>佣金导出</h1>
+        <div>
+            <table class="searchContent">
+                <tr>
+                    <td>账单日期：</td>
+                    <td>
+                        <input type="text" id="CommissionBillExportSearchInfo_PeriodDate" name="CommissionBillExportSearchInfo.PeriodDate" class="date" datefmt="yyyy-MM-dd" />
+                    </td>
+                </tr>
+            </table>
+            @Html.Hidden("hdExportCommissionBillUrl", @Url.Action("ExportCommissionBill","Express"))
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button id="CommissionBillExport" type="button">导出</button></div></div></li>
+                    @*<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>*@
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="panel">
+        <h1>应收货款导出</h1>
+        <div>
+            <table class="searchContent">
+                <tr>
+                    <td>账单日期：</td>
+                    <td>
+                        <input type="text" id="PaymentBillExportSearchInfo_PeriodDate" name="PaymentBillExportSearchInfo.PeriodDate" class="date" datefmt="yyyy-MM-dd" />
+                    </td>
+                </tr>
+            </table>
+            @Html.Hidden("hdExportPaymentBillUrl", @Url.Action("ExportPaymentBill", "Express"))
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button id="PaymentBillExport" type="button">导出</button></div></div></li>
+                    @*<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>*@
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

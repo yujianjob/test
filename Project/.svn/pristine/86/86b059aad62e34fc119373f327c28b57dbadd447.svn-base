@@ -1,0 +1,25 @@
+﻿<!--内容-->
+<div id="content">
+     <div class="mediaShowTitle"><p><a href="/Home/LaundryTips">小常识列表</a><span>&gt;</span>洗衣小常识</p></div>
+     <div class="mediaShow">
+     	  <div class="mediaShowBt">
+          	   <h2>丝绸衣物的洗涤方法？</h2>
+               <p><b>2014.05.12</b>浏览次数：<span>90</span></p>
+               <dl>
+                  <dt>分享到：</dt>
+                  <dd><a href="#"><img src="~/Content/images/fenxiang_01.gif" /></a></dd>
+                  <dd><a href="#"><img src="~/Content/images/fenxiang_02.gif" /></a></dd>
+                  <dd><a href="#"><img src="~/Content/images/fenxiang_03.gif" /></a></dd>
+               </dl>
+          </div>
+          <div class="mediaShowContent laundrytips">
+          	   <p>丝绸衣物洗涤最好采用软水，温度控制在35~45摄氏度最为适宜，最好选用专业的洗涤剂进行洗涤，中性洗涤剂对丝绸衣物有很好的养护作用，洗涤时应先将洗衣粉或皂片用热水溶化，待冷却后将衣服浸入，浸泡时间大概20 分钟左右，然后进行轻轻揉搓，悬挂于阴凉通风处晒干，晒至八成干时，用白布覆盖丝绸面，用熨斗烫平即可。</p>
+			   <img src="~/Content/images/tips9-pic1.jpg" />
+			   <p></p>
+			   <p>温馨提醒，丝绸衣物熨烫温度不宜过高，勿用蒸气以及喷水，容易造成水渍，影响美观。</p>
+			   <img src="~/Content/images/tips9-pic2.jpg" align="center"/>
+			   <p></p>
+          </div>
+         <!-- <div class="pages"><a href="#">上一篇</a><a href="#">下一篇</a></div>-->
+     </div>
+</div>

@@ -1,0 +1,70 @@
+﻿@model LazyAtHome.Web.WeiXin.Models.UserInfo
+@{
+    ViewBag.Title = "一键下单";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="yuyue">
+    <div class="yuyue">
+        <div class="yuyue_c">
+            <p>地址信息：</p>
+            <div class="yuyue_c_detail">
+                <div class="yuyue_c_detail_l"><img src="../images/lan20.jpg" /></div>
+                @if (Model.GetAddress != null)
+                {
+                    <div class="yuyue_c_detail_r">
+                        <h4>@Model.GetAddress.Consignee（@Model.GetAddress.MPNo）</h4>
+                        <h4>@Model.GetAddress.DistrictName</h4>
+                        <h4 style="border-bottom:1px solid #ebebeb;">@Model.GetAddress.Address<span><a href="@Url.Action("ModifyAddress", "PersonalCenter", new { aid = Model.GetAddress.ID, flag="get" })"><img src="~/images/lan22.jpg" /></a></span></h4>
+                    </div>
+                }
+                else
+                {
+                    <div class="yuyue_c_detail_r">
+                        <h4>&nbsp;</h4>
+                        <h4><a href="@Url.Action("ModifyAddress", "PersonalCenter", new { flag = "get" })">点击添加收件地址</a></h4>
+                        <h4 style="border-bottom:1px solid #ebebeb;">&nbsp;</h4>
+                    </div>
+                }
+                <div class="clear"></div>
+            </div>
+            <div class="yuyue_c_detail">
+                <div class="yuyue_c_detail_l"><img src="../images/lan21.jpg" /></div>
+                @if (Model.SendAddress != null)
+                {
+                    <div class="yuyue_c_detail_r">
+                        <h4>@Model.SendAddress.Consignee（@Model.SendAddress.MPNo）</h4>
+                        <h4>@Model.SendAddress.DistrictName</h4>
+                        <h4 style="border-bottom:1px solid #ebebeb;">@Model.SendAddress.Address<span><a href="@Url.Action("ModifyAddress", "PersonalCenter", new { aid = Model.SendAddress.ID, flag = "send" })"><img src="~/images/lan22.jpg" /></a></span></h4>
+                    </div>
+                }
+                else
+                {
+                    <div class="yuyue_c_detail_r">
+                        <h4>&nbsp;</h4>
+                        <h4><a href="@Url.Action("ModifyAddress", "PersonalCenter", new { flag = "send" })">点击添加送件地址</a></h4>
+                        <h4 style="border-bottom:1px solid #ebebeb;">&nbsp;</h4>
+                    </div>
+                }
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="yuyue_b">
+            <span>预约下单</span>是指用户填写地址确认一下单后，我们即收到用户的下单，并安排2个小时内上门取件服务，如用户是首次提交订单，我们会在2小时内通过电话确认后，上门取件。
+        </div>
+        <div class="querenyuyue"><a href="@Url.Action("OneKeySubmit")"><img src="~/images/lan58.jpg" /></a></div>
+    </div>
+</div>
+<div class="footer foot"><img src="~/images/lan8.jpg" /></div>
+@section scripts
+{
+    @Scripts.Render("~/bundles/jquery")
+
+    <script type="text/javascript">
+        $(function () {
+            var msg = "@ViewBag.Msg";
+            if (msg != "") {
+                alert(msg);
+            }
+        })
+    </script>
+}

@@ -1,0 +1,35 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\jiake1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、呢料夹克衫持续穿着时间过长，容易发生弹性疲劳，不恢复原状，而导致变形走样。不能长时间持续穿用，当穿一段时间后就应当让它"休息"一下。 </p>
+				<p>2、呢料夹克衫容易出现褪色的现象，清洗时可以在温水中掺加少许的盐，能减轻褪色。 </p>
+				<p>3、呢料夹克衫在收藏时，要清洗干净、晾干去潮后存放。</p>
+				<p>4、牛仔夹克衫在洗前浸放在有水的盆内，然后放入二勺白醋，浸泡约半小时，这样夹克衫的掉色就不会那么严重了。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>懒到家让您的夹克衫从视觉上清爽大方，并随意间尽显清爽洁净、优雅魅力的气度，不经意间散发您对品质的追求。懒到家以更专业的态度，给您最细腻的穿衣体验。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\jiake2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p> 夹克衫在空气中容易摩擦生电吸附空气中的尘污，所以夹克衫的日常清洗显得尤为重要。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

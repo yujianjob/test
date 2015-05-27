@@ -1,0 +1,312 @@
+﻿@{
+    //ViewBag.Title = "注册";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--内容-->
+<div id="reg">
+    <div class="reg">
+        <div class="regBiaodan left">
+            <div class="regBiaodanTitle">
+                <ul>
+                    <li><span>用户注册</span></li>
+                </ul>
+            </div>
+            <div class="regBox">
+                <ul class="regBiaodanSrk">
+                    <li>
+                        <span>账户名：</span>
+                        <input name="reg_account" type="text" value="手机号/邮箱地址" id="reg_account" onchange="CheckAccount();" />
+                        <span id="msg_account" class="reg_tips"></span>
+                    </li>
+                    <li>
+                        <span>设置密码：</span>
+                        <input name="reg_pass" type="password" value="" id="reg_pass" />
+                        <span id="msg_pass" class="reg_tips"></span>
+                    </li>
+                    <li>
+                        <span>确认密码：</span>
+                        <input name="reg_passconfirm" type="password" value="" id="reg_passconfirm" />
+                        <span id="msg_passconfirm" class="reg_tips"></span>
+                    </li>
+                    <li id="ShowSmsCode">
+                        <span>短信验证码：</span>
+                        <input name="sms_code" type="text" value="请输入验证码" id="sms_code" style="width:100px" />
+                        <span class="changeVerifycode" style="margin-left:-78px"><input name="btnSmsCode" id="btnSmsCode" type="button" value="获取验证码" style="width: 110px; background: #71b582; color: white;" onclick="VerifyMobile()" /></span>
+                        <span id="msg_smscode" class="reg_tips"></span>
+                    </li>
+                    <li id="ShowVcode">
+                        <span>验证码：</span>
+                        <input name="img_code" type="text" value="请输入验证码" id="img_code" style="width:100px" />
+                        <span class="verifycode_img"><img id="vCodeImg" src="/Base/GetValidateCode" onclick="VCodeRefresh()" /></span>
+                        <span id="msg_imgcode" class="reg_tips"></span>
+                    </li>
+                </ul>
+                <p id="Msg" style="padding-left:108px; color:red"></p>
+                <div class="xieyi">
+                    <div class="agreement-cont">
+                        <span class="this"><input name="" type="checkbox" value="" checked="checked" /></span>
+                        我已阅读并同意<a href="agr.html" target="_blank">《懒到家服务协议》</a>
+                    </div>
+                </div>
+                <p class="anniu"><input name="" type="submit" value="" onclick="return formSubmit()" /></p>
+            </div>
+        </div>
+        <div class="regLogin right">
+            <p>其他账户登录</p>
+            <a href="#"><img src="~/Content/Images/sina-icn.gif" width="35" height="35" /></a>
+            <a href="#"><img src="~/Content/Images/qq-icn.gif" width="35" height="35" /></a>
+            <a href="#" style="margin-top:-20px;"><img src="~/Content/Images/renren-icn.gif" width="35" height="35" /></a>
+            <a href="#" style="margin-top:-20px;"><img src="~/Content/Images/wx-icn.gif" width="35" height="35" /></a>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script language="javascript" type="text/jscript">
+        var currType = 1;
+        var checkUserState = -1;
+        var code = "";
+        var timer = null;
+        $(function () {
+            //帐号焦点
+            $('#reg_account').focus(function () {
+                if (reg_account.value.trim() == '手机号/邮箱地址') {
+                    reg_account.value = "";
+                }
+            }).blur(function () {
+                if (reg_account.value.trim() == "")
+                    reg_account.value = "手机号/邮箱地址";
+            });
+            //验证码焦点
+            $('#sms_code').focus(function () {
+                if (sms_code.value.trim() == '请输入验证码') {
+                    sms_code.value = "";
+                }
+            }).blur(function () {
+                if (sms_code.value.trim() == "")
+                    sms_code.value = "请输入验证码";
+            });
+            //验证码焦点
+            $('#img_code').focus(function () {
+                if (img_code.value.trim() == '请输入验证码') {
+                    img_code.value = "";
+                }
+            }).blur(function () {
+                if (img_code.value.trim() == "")
+                    img_code.value = "请输入验证码";
+            });
+
+            $("#msg_account").hide();
+            $("#ShowVcode").hide();
+            HideMsg();
+        });
+
+        function formSubmit() {
+            HideMsg();
+            if (checkUserState != 1) {
+                CheckAccount();
+                return false;
+            }
+
+            if (!CheckPass())
+                return false;
+
+            var postData = { "user": reg_account.value.trim(), "pass": reg_pass.value.trim(), "type": currType, "vcode": code };
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("User_Reg")",
+                data: postData,
+                dataType: "json",
+                success: ProcessUserReg,
+                error: function (msg) {
+                    $("#Msg").html("系统异常，请稍微再试。");
+                }
+            });
+        }
+
+        function HideMsg() {
+            $("#msg_pass").hide();
+            $("#msg_passconfirm").hide();
+            $("#msg_smscode").hide();
+            $("#msg_imgcode").hide();
+            $("#Msg").hide();
+        }
+
+        function ProcessUserReg(resultJson) {
+            if (resultJson != null) {
+                if (resultJson.Code == 1) {
+                    window.location.href = "/";
+                }
+                else {
+                    $("#Msg").html(resultJson.Msg);
+                    $("#Msg").show();
+                    if (resultJson.Code == 5) {
+                        if (currType == 2) {
+                            sms_code.value = "";
+                        }
+                        else {
+                            img_code.value = "";
+                            VCodeRefresh();
+                        }
+                    }
+                }
+            }
+        }
+
+        function VerifyMobile() {
+            if (timer != null)
+                return;
+            if (!CheckAccount())
+                return;
+
+            var postData = { "mpno": reg_account.value.trim() };
+
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("VerifyMobile", "Member")",
+                data: postData,
+                dataType: "json",
+                success: function (resultJson) {
+                    if (resultJson.Code == 1) {
+                        $("#msg_smscode").html("短信已发送");
+                        daojishi();
+                        //btnSmsCode.disabled = true;
+                    }
+                    else {
+                        $("#msg_smscode").html(resultJson.Msg);
+                    }
+                },
+                error: function (msg) {
+                    $("#msg_smscode").html(msg);
+                }
+            });
+        }
+
+        function CheckAccount() {
+            HideMsg();
+            if (reg_account.value.trim() == "" || reg_account.value.trim() == "手机号/邮箱地址") {
+                $("#msg_account").html("请输入手机号或邮箱地址");
+                $("#msg_account").show();
+                reg_account.focus();
+                return false;
+            }
+
+            if (reg_account.value.indexOf("@@") != -1) {
+                var checkEmailRtn = CheckEmail(reg_account, $("#msg_account"));
+                if (checkEmailRtn.code == 1)
+                    currType = 3;
+                else {
+                    $("#msg_account").show();
+                    return false;
+                }
+            }
+            else {
+                var checkMobileRtn = CheckMobile(reg_account, $("#msg_account"));
+                if (checkMobileRtn.code == 1)
+                    currType = 2;
+                else {
+                    $("#msg_account").show();
+                    return false;
+                }
+            }
+
+            var postData = { "user": reg_account.value.trim(), "type": currType };
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("User_Exist_Check")",
+                data: postData,
+                dataType: "json",
+                success: ProcessUserExist,
+                error: function (msg) {
+                    $("#loginNameMsg").html("系统异常，请稍微再试。");
+                }
+            });
+            return true;
+        }
+
+        function ProcessUserExist(resultJson) {
+            if (resultJson != null) {
+                if (resultJson.Code == 1) {
+                    checkUserState = 1;
+                    $("#msg_account").css("color", "green");
+                    if (currType == 2) {
+                        $("#ShowSmsCode").show();
+                        $("#ShowVcode").hide();
+                    }
+                    else {
+                        $("#ShowSmsCode").hide();
+                        $("#ShowVcode").show();
+                    }
+                }
+                else {
+                    checkUserState = 0;
+                    $("#msg_account").css("color", "red");
+                }
+                $("#msg_account").html(resultJson.Msg);
+                $("#msg_account").show();
+            }
+        }
+
+        function CheckPass() {
+            if (!reg_pass.value.match("^.{6,20}$")) {
+                $("#msg_pass").html("请输入6-20位大小写英文字母，符号或数字");
+                $("#msg_pass").show();
+                reg_pass.focus();
+                return false;
+            }
+
+            if (reg_pass.value.trim() != reg_passconfirm.value.trim()) {
+                $("#msg_passconfirm").html("两次输入的密码不一致");
+                $("#msg_passconfirm").show();
+                reg_passconfirm.focus();
+                return false;
+            }
+
+            if (currType == 2) {
+                if (!sms_code.value.trim().match("^[0-9]{6}$")) {
+                    $("#msg_smscode").html("验证码为6位数字");
+                    $("#msg_smscode").show();
+                    sms_code.focus();
+                    return false;
+                }
+                code = sms_code.value.trim();
+            }
+            else if (currType == 3) {
+                if (!img_code.value.trim().match("^[0-9]{5}$")) {
+                    $("#msg_imgcode").html("验证码为5位数字");
+                    $("#msg_imgcode").show();
+                    img_code.focus();
+                    return false;
+                }
+                code = img_code.value.trim();
+            }
+            else
+                return false;
+            return true;
+        }
+
+        function VCodeRefresh(obj) {
+            $("#vCodeImg").attr("src", "/Base/GetValidateCode?" + Math.random());
+        }
+
+        function daojishi() {
+            var i = 60;
+            if (!timer) {
+                $("#btnSmsCode").css({ "background": "#ccc", "color": "black" }).attr("value", i);
+                timer = setInterval(function () {
+                    i--;
+                    $("#btnSmsCode").attr("value", i);
+                    if (i == -1) {
+                        clearInterval(timer);
+                        timer = null;
+                        $("#btnSmsCode").css({ "background": "#71b582", "color": "white" }).attr("value", "获取验证码");
+                    }
+                }, 1000);
+            }
+        }
+    </script>
+}
+

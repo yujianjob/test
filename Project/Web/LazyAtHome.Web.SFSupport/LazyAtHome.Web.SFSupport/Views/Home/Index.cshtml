@@ -1,0 +1,210 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>懒到家顺丰合作管理系统</title>
+
+    <script src="~/Scripts/Jquery/jquery-1.7.2.js" type="text/javascript"></script>
+    <script src="~/Scripts/Jquery/jquery.cookie.js" type="text/javascript"></script>
+    <script src="~/Scripts/Jquery/jquery.validate.js" type="text/javascript"></script>
+    <script src="~/Scripts/Jquery/jquery.bgiframe.js" type="text/javascript"></script>
+
+    <script src="~/Scripts/Dwz/dwz.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/Dwz/dwz.regional.zh.js" type="text/javascript"></script>
+
+    <link href="~/Content/themes/default/style.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/Content/themes/css/core.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/scripts/uploadify/css/uploadify.css" rel="stylesheet" type="text/css" media="screen" />
+
+    <script src="~/scripts/uploadify/scripts/jquery.uploadify.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            DWZ.init("../dwz.frag.xml", {
+                //loginUrl: "login_dialog.html", loginTitle: "登录",	// 弹出登录对话框
+                loginUrl: "@Url.Action("Login","Home")",	// 跳到登录页面
+                statusCode: { ok: 200, error: 300, timeout: 301 }, //【可选】
+                pageInfo: { pageNum: "pageNum", numPerPage: "numPerPage", orderField: "orderField", orderDirection: "orderDirection" }, //【可选】
+                keys: { statusCode: "statusCode", message: "message" }, //【可选】
+                debug: false,	// 调试模式 【true|false】
+                callback: function () {
+                    initEnv();
+                    $("#themeList").theme({ themeBase: "../Content/themes" }); // themeBase 相对于index页面的主题base路径
+                }
+            });
+        });
+
+    </script>
+</head>
+<body scroll="no">
+    <div id="layout">
+        <div id="header">
+            <div class="headerNav">
+                <a class="logo" href="http://www.landaojia.com" target="_blank">标志</a>
+                <!--<ul class="nav">
+                    <li id="switchEnvBox">
+                        <a href="javascript:">（<span>北京</span>）切换城市</a>
+                        <ul>
+                            <li><a href="sidebar_1.html">北京</a></li>
+                            <li><a href="sidebar_2.html">上海</a></li>
+                            <li><a href="sidebar_2.html">南京</a></li>
+                            <li><a href="sidebar_2.html">深圳</a></li>
+                            <li><a href="sidebar_2.html">广州</a></li>
+                            <li><a href="sidebar_2.html">天津</a></li>
+                            <li><a href="sidebar_2.html">杭州</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="https://me.alipay.com/dwzteam" target="_blank">捐赠</a></li>
+                    <li><a href="changepwd.html" target="dialog" width="600">设置</a></li>
+                    <li><a href="http://www.cnblogs.com/dwzjs" target="_blank">博客</a></li>
+                    <li><a href="http://weibo.com/dwzui" target="_blank">微博</a></li>
+                    <li><a href="login.html">退出</a></li>
+                </ul>
+                <ul class="themeList" id="themeList">
+                    <li theme="default"><div class="selected">蓝色</div></li>
+                    <li theme="green"><div>绿色</div></li>
+                    <li theme="red"><div>红色</div></li>
+                    <li theme="purple"><div>紫色</div></li>
+                    <li theme="silver"><div>银色</div></li>
+                    <li theme="azure"><div>天蓝</div></li>
+                </ul>-->
+            </div>
+            <!-- navMenu -->
+
+        </div>
+        <div id="leftside">
+            <div id="sidebar_s">
+                <div class="collapse">
+                    <div class="toggleCollapse"><div></div></div>
+                </div>
+            </div>
+            <div id="sidebar">
+                <div class="toggleCollapse"><h2>主菜单</h2><div>收缩</div></div>
+
+                <div class="accordion" fillspace="sidebar">
+                    <!--系统管理-->
+                    <div class="accordionHeader">
+                        <h2><span>Folder</span>系统管理</h2>
+                    </div>
+                    <div class="accordionContent">
+                        <ul class="tree treeFolder">
+                            <li>
+                                <a>管理员管理</a>
+                                <ul>
+                                    <li><a href="@Url.Action("EditPassword", "Manager")" target="dialog" rel="editpassword" title="修改密码">修改密码</a></li>
+                                </ul>
+                            </li>
+                            
+
+                        </ul>
+                    </div>
+
+
+                    <!--订单管理-->
+                    <div class="accordionHeader">
+                        <h2><span>Folder</span>订单管理</h2>
+                    </div>
+                    <div class="accordionContent">
+                        <ul class="tree treeFolder">
+                            <li>
+                                <a>订单管理</a>
+                                <ul>
+                                    <li><a href="@Url.Action("Index","Order")" target="navTab" rel="orderlist" title="待处理订单">待处理订单</a></li>
+                                    <li><a href="@Url.Action("HisOrderIndex","Order")" target="navTab" rel="hisorderlist" title="历史订单">历史订单</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+
+
+
+                    <!--网站管理-->
+                    <div class="accordionHeader">
+                        <h2><span>Folder</span>用户推广</h2>
+                    </div>
+                    <div class="accordionContent">
+                        <ul class="tree treeFolder">
+                            <li>
+                                <a>用户推广</a>
+                                <ul>
+
+                                    @{
+                                        //获取登录信息
+                                        LazyAtHome.WCF.Common.Contract.DataContract.PR.OperatorDC oitem = LazyAtHome.Web.SFSupport.CodeSource.SiteSession.OperatorInfo;
+
+                                        if (string.IsNullOrEmpty(oitem.LoginName))
+                                        {
+                                            <li><a href="@Url.Action("AccountIndex", "RegisterSourceConfig")" target="navTab" rel="accountlist" fresh="false" title="推广结算">推广结算</a></li>
+                                        }
+                                        else
+                                        { 
+                                            <li><a href="@Url.Action("AccountIndex", "RegisterSourceConfig")?InternalKey=@oitem.LoginName" target="navTab" rel="accountlist" fresh="false" title="推广结算">推广结算</a></li>
+                                        }
+                                    }
+
+                                    
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div id="container">
+            <div id="navTab" class="tabsPage">
+                <div class="tabsPageHeader">
+                    <div class="tabsPageHeaderContent">
+                        <!-- 显示左右控制时添加 class="tabsPageHeaderMargin" -->
+                        <ul class="navTab-tab">
+                            <li tabid="main" class="main"><a href="javascript:;"><span><span class="home_icon">我的主页</span></span></a></li>
+                        </ul>
+                    </div>
+                    <div class="tabsLeft">left</div><!-- 禁用只需要添加一个样式 class="tabsLeft tabsLeftDisabled" -->
+                    <div class="tabsRight">right</div><!-- 禁用只需要添加一个样式 class="tabsRight tabsRightDisabled" -->
+                    <div class="tabsMore">more</div>
+                </div>
+                <ul class="tabsMoreList">
+                    <li><a href="javascript:;">我的主页</a></li>
+                </ul>
+                <div class="navTab-panel tabsPageContent layoutBox">
+                    <div class="page unitBox">
+                        @*<div class="accountInfo">
+                            <div class="alertInfo">
+                                <p><a href="\Help\LazyAtHomeWebManageOperation.docx" target="_blank" style="line-height:19px"><span>后台系统使用手册</span></a></p>
+                                <p><a href="" target="_blank" style="line-height:19px"></a></p>
+                            </div>
+                            <div class="right">
+                                <p style="color:red">懒到家官方微博 <a href="http://weibo.com/" target="_blank">http://weibo.com/</a></p>
+                            </div>
+                            <p><span></span></p>
+                            <p>懒到家官方微博:<a href="http://weibo.com/" target="_blank">http://weibo.com/</a></p>
+                        </div>
+                        <div class="pageFormContent" layouth="80" style="margin-right:230px">
+
+                            <h2>我们每天都在进步:</h2>
+                            <div class="unit"></div>
+                            <div class="unit"></div>
+                            <div class="unit"></div>
+                            <div class="unit"></div>
+                            <div class="divider"></div>
+                            <h2>常见问题及解决:</h2>
+<pre style="margin:5px;line-height:1.4em">
+</pre>
+                            <div class="divider"></div>
+
+<pre style="margin:5px;line-height:1.4em;">
+</pre>
+                        </div>*@
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">Copyright &copy; 2014 <a href="~/landaojia.html" target="dialog">懒到家</a> 沪ICP备14017089号</div>
+</body>
+</html>

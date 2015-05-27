@@ -1,0 +1,36 @@
+﻿<div class="pageContent">
+    <form method="post" enctype="multipart/form-data" action="@Url.Action("ResetPassword")" id="frmEditPassword" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+        <div class="pageFormContent nowrap" layouth="56">
+            <dl>
+                <dt>原密码：</dt>
+                <dd>
+                    <input id="currpassword" type="password" name="currpassword" class="required alphanumeric" minlength="6" maxlength="20" alt="字母、数字、下划线 6-20位" />
+                </dd>
+            </dl>
+            <dl>
+                <dt>新密码：</dt>
+                <dd>
+                    <input id="w_validation_pwd" type="password" name="newpassword" class="required alphanumeric" minlength="6" maxlength="20" alt="字母、数字、下划线 6-20位" />
+                </dd>
+            </dl>
+            <dl>
+                <dt>确认新密码：</dt>
+                <dd>
+                    <input type="password" name="repassword" class="required" equalto="#w_validation_pwd" />
+                </dd>
+            </dl>
+
+
+        </div>
+
+        <div class="formBar">
+            <ul>
+                <!--<li><a class="buttonActive" href="javascript:;"><span>保存</span></a></li>-->
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit" id="btnSave">保存</button></div></div></li>
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,150 @@
+﻿@model LazyAtHome.WCF.OrderSystem.Contract.DataContract.Order_OrderDC
+@{
+    //ViewBag.Title = "订单详情";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--内容-->
+<div id="content">
+    <div class="orderDetail">
+        <div class="my_contentTitle">订单详情</div>
+        <div class="height_50"></div>
+        <!--订单状态 start-->
+        <div class="order-status">
+            <p class="order-num"><span>订单号：@Model.OrderNumber</span><span>状态：<em>@UIHelper.ConvertOrderStatus(Model.OrderStatus)</em></span></p>
+            <p></p>
+        </div>
+        <!--订单状态 end-->
+        <!--订单跟踪 付款信息标签切换 start -->
+        <div class="order-trace">
+            <ul class="tab"><li class="active"><span>订单跟踪</span></li></ul>
+            <div class="content">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ordertrace-tabs">
+                    <thead>
+                        <tr>
+                            <th width="20%">处理时间</th>
+                            <th width="40%">处理信息</th>
+                            <th>操作人</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var setp in Model.StepList)
+                        {
+                            <tr>
+                                <td>@setp.Obj_Cdate.Value.ToString("yyyy-MM-dd HH:mm")</td>
+                                <td>@setp.Content</td>
+                                <td>System</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--订单跟踪 付款信息标签切换 end -->
+        <!--订单信息 start-->
+        <div class="orderinfo">
+            <div class="tit">订单信息</div>
+            <div class="content">
+                <p>
+                    <b>收货人信息</b><br />
+                    收货人：@Model.GetAddress.Consignee<br />
+                    地址：@Model.GetAddress.Address<br />
+                    手机号码：@Model.GetAddress.Mpno<br />
+                    电子邮件：@Model.GetAddress.Email
+                </p>
+            </div>
+        </div>
+        <!--订单信息 end-->
+        <!--商品清单 start-->
+        <div class="goods-list">
+            <div class="goods-thead">
+                <div class="cell goods-No">商品编号</div>
+                <div class="cell goods-name-pic"></div>
+                <div class="cell goods-price">单价(元)</div>
+                <div class="cell goods-num">数量</div>
+                <div class="cell goods-totalprice">小计(元)</div>
+                <div class="cell operation">操作</div>
+            </div>
+            @if (ViewBag.ProductList != null)
+            {
+                foreach (LazyAtHome.Web.WashSite.Models.Wash.ProductItem pItem in ViewBag.ProductList)
+                {
+                    <div class="goods-tbody">
+                        <div class="unit">
+                            <div class="cell goods-No">@pItem.ProductInfo.ProductID</div>
+                            <div class="cell goods-name-pic">
+                                <div class="goods-img">
+                                    <a href="@Url.Action("Show", "Wash", new { id = pItem.ProductInfo.CategoryID, subid = pItem.ProductInfo.ID })" target="_blank"><img src="@pItem.ProductInfo.PictureS" width="68" height="68" class="my_dingdanListImg" /></a>
+                                </div>
+                                <div class="goods-name">
+                                    <a href="@Url.Action("Show", "Wash", new { id = pItem.ProductInfo.CategoryID, subid = pItem.ProductInfo.ID })" target="_blank"><h2>@pItem.ProductInfo.CategoryName</h2>@pItem.ProductInfo.Name</a>
+                                </div>
+                            </div>
+                            <div class="cell goods-price">@pItem.ProductInfo.Price</div>
+                            <div class="cell goods-num">@pItem.Count</div>
+                            <div class="cell goods-totalprice">@(pItem.ProductInfo.Price * pItem.Count)</div>
+                            <div class="cell operation"><a href="@Url.Action("Show", "Wash", new { id = pItem.ProductInfo.CategoryID, subid = pItem.ProductInfo.ID })" target="_blank">查看</a></div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <!--商品清单 end-->
+        <div class="price-box">
+            <span class="price-item">
+                总商品金额：￥@Model.TotalAmount<br />
+                @foreach (var amount in Model.AmountList)
+                {
+                    <p>@amount.Content：￥@amount.Money</p>
+                }
+                @foreach (var payment in Model.PaymentList)
+                {
+                    <p>@UIHelper.ConvertPayMoneyType(payment.PayMoneyType)：￥-@payment.PayMoney</p>
+                }
+            </span>
+            <div class="totelPrice">应付总额:<span>￥@(Model.TotalAmount-Model.PayAmount)</span></div>
+        </div>
+        <div class="clear"></div>
+        @{Html.RenderAction("MoreWash", "Wash");}
+    </div>
+</div>
+@section scripts
+{
+    @Scripts.Render("~/Scripts/gundong.js")
+    <script language="javascript" type="text/javascript">
+        $(function () {
+            //左侧导航
+            $('.my_navList dt').click(function () {
+                $(this).parent().find('dd').slideToggle(200);
+                $(this).toggleClass("my_navList_Top");
+            })
+            var BOX = $('.cartLuxuryList ul');
+            var HHUM = $('.cartLuxuryList li');
+            var LEFT = $('.cartLuxuryZuo');
+            var RIGHT = $('.cartLuxuryYou');
+            var WIDTH = 184;//单个宽度
+            var PLAY = 5000;//自动播放的时间
+            var SPEED = 500;//切换速度
+            var AOUT = true;//是否自动播放
+            IMG(BOX, LEFT, RIGHT, WIDTH, HHUM, PLAY, SPEED, AOUT);
+
+            $('.cartLuxuryList li').hover(function () {
+                $(this).find('.cartLuxuryListImg').addClass('this');
+            }, function () {
+                $(this).find('.cartLuxuryListImg').removeClass('this');
+            })
+
+        })
+        $(".order-trace ul.tab li").each(function (i) {
+            $(this).click(function () {
+                $(".order-trace ul.tab li").removeClass("active");
+                $(this).addClass("active");
+                $(".order-trace .content").hide();
+                $(".order-trace .content").eq(i).show();
+            });
+        });
+    </script>
+}

@@ -1,0 +1,238 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0020)http://author:dsine/ -->
+<html>
+<head>
+	<title>SelectXx1下拉框控件演示页面</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script src="./SelectXx1.min.js" type="text/javascript"></script>
+</head>
+
+<style>
+body{margin:0px;font-size:12px;font-family:宋体;}
+.tb0{border:0px solid #EEF0F0;background-color:#E0E0E8;}
+.tb0 td{height:24px;background-color:#FFF;padding:2px;}
+.tb0 td.lbl1{background-color:#EEFFEE;text-align:right;}
+.tb0 td.lbl2{background-color:#EEEEFF;text-align:right;}
+.tb0 td.lbl3{background-color:#EFFEEE;text-align:right;}
+.tb0 td.lbl99{background-color:#FFEEEE;text-align:right;}
+.mrgT5{margin-top:5px;}
+.selectXx1Txt{height:16px;width:120px;border:1px solid #BBB;font-family:宋体;letter-spacing:-1px;};
+</style>
+
+<script>
+
+var SELECT_OPTS1 = [{'k':'X001','v':'信仰之名'}, {'k':'X002','v':'兄弟一条命'}, {'k':'X003','v':'幸运符号'},{'k':'X004','v':'平凡之路'}, {'k':'X005','v':'小苹果'}, {'k':'X006','v':'小鸡小鸡'}];
+var SELECT_OPTS3 = (function(){
+	var opts = [];
+	for( var i = 0;i < 100; i ++ ){
+		opts[opts.length] = ['YY'+i, '值YY' + i];
+	}
+	return opts;
+})();
+var SELECT_OPTS99 = [{'k':'X1','v':'值X1'},{'k':'X2','v':'值X2'},{'k':'X2','v':'值X3'}];
+
+function $( id ){
+	return document.getElementById( id );
+}
+
+/**
+ * 打印调试信息
+ */
+function debug( str ){
+	var msg = $('msg');
+	msg.innerHTML = msg.innerHTML + '<br/>' + str;
+	msg.scrollTop = msg.scrollHeight;
+}
+
+/**
+ * 返回一个对象的所有属性和值的组合字符串
+ */
+function allOf( o ){
+	var ay = [];
+	for( var i in o ){
+		ay[ay.length] = i + ':' + o[i];
+	}
+	return ay.join( ',' );
+}
+
+/**
+ * 显示一个selectXx1的信息
+ */
+function showSelectInfo( id ){
+	var o = $( id );
+	var value = o.value;
+	var values = o.values;
+	var texts = o.texts;
+	debug( '【'+ id +'】=>' + 'value:' + value + ', values:' + ( values==null? 'null' : values.join( ',' ) ) + ', texts:' + ( texts==null? 'null' : texts.join( ',' ) ) );
+}
+
+/**
+ * 生成子选项(用于多级联动)
+ */
+function makeSubOptions( k, v ){
+	var ary = [];
+	for( var i = 1; i <= 10; i ++  ){
+		ary[ary.length] = { 'k' : k + '_' + i, 'v' : v + '_' + i };
+	}
+	return ary;
+}
+
+/**
+ * 4级联动。过程为：先清除下面所有级的值；当选择某项时，设置下一级的选项
+ */
+function chooseslt991( p1 ){
+	SelectXx1.clean( $('slt992') );
+	SelectXx1.clean( $('slt993') );
+	SelectXx1.clean( $('slt994') );
+	
+	var opts2 = makeSubOptions( p1.value, p1.text );
+	SelectXx1.reset( $('slt992'), opts2, '101', { 'onchoose' : function( p2 ){
+		SelectXx1.clean( $('slt993') );
+		SelectXx1.clean( $('slt994') );
+		
+		var opts3 = makeSubOptions( p2.value, p2.text );
+		SelectXx1.reset( $('slt993'), opts3, '101', { 'onchoose' : function( p3 ){
+			SelectXx1.clean( $('slt994') );
+			
+			var opts4 = makeSubOptions( p3.value, p3.text );
+			SelectXx1.reset( $('slt994'), opts4, '102', { 'onchoose' : function( p4 ){
+				//----打印出当前选项的所有信息--------
+				var params = p4;
+				var html = 'srcElm:' + params.srcElm.tagName + ', panel:' + params.panel.tagName + ', checked:' + params.checked + ', value:' + params.value + ", text:" + params.text + '<br/>';
+				html = html + 'srcElm.value:' + params.srcElm.value + '<br/>';
+				html = html + 'srcElm.values:' + params.srcElm.values.join( '；' ) + '<br/>';
+				html = html + 'srcElm.texts:' + params.srcElm.texts.join( '；' ) + '<br/>';
+				html = html + 'checkedCkbMap:' + params.panel.checkedCkbMap + '<br/>';
+				html = html + 'checkboxes:' + params.panel.checkboxes.length + '<br/>';
+				debug( html );
+			} } );
+		} } );
+	} } );
+}
+</script>
+<body >
+<table class="tb0" cellspacing="1" cellpadding="0" >
+	<tr>
+		<td class="lbl1" width="450">101:单选；有第一项；选项:文本；回填:文本；不可筛选</td>
+		<td width="250">
+			<input type="text" id="slt101" class="selectXx1Txt" value="" onclick="SelectXx1.activate(event, SELECT_OPTS1, '101' );" readonly/>
+			<input type="button" value="显示" onclick="showSelectInfo( 'slt101' );">
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl1">102:单选；无第一项；选项:文本；回填:文本；可筛选</td>
+		<td>
+			<input type="text" id="slt102" class="selectXx1Txt" value="" onclick="SelectXx1.activate(event, SELECT_OPTS1, '102' );" />
+			<input type="button" value="显示" onclick="showSelectInfo( 'slt102' );">
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="lbl1">103:单选；有第一项；选项:值-文本；回填:值-文本；不可筛选</td>
+		<td>
+			<input type="text" id="slt103" class="selectXx1Txt" value="" onclick="SelectXx1.activate(event, SELECT_OPTS1, '103');" readonly/>
+			<input type="button" value="显示" onclick="showSelectInfo( 'slt103' );">
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl1">104:单选；无第一项；选项:值-文本；回填:值-文本；可筛选</td>
+		<td>
+			<input type="text" id="slt104" class="selectXx1Txt" value="" onclick="SelectXx1.activate(event, SELECT_OPTS1, '104');" />
+			<input type="button" value="显示" onclick="showSelectInfo( 'slt104' );">
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl1">105:单选；有第一项；选项:文本；回填:值-文本；不可筛选</td>
+		<td>
+			<input type="text" id="slt105" class="selectXx1Txt" value="" onclick="SelectXx1.activate(event, SELECT_OPTS1, '105');" readonly/>
+			<input type="button" value="显示" onclick="showSelectInfo( 'slt105' );">
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="lbl2">201:多选；有第一项；选项:文本；回填:文本；不可输入匹配</td>
+		<td>
+			<input type="text" id="slt201" class="selectXx1Txt" value="" onclick="SelectXx1.activate(event, SELECT_OPTS1, '201');" readonly/>
+			<input type="button" value="显示" onclick="showSelectInfo( 'slt201' );">
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl2">202:多选；有第一项；选项:文本；回填:文本；输入(文本)匹配</td>
+		<td>
+			<input type="text" id="slt202" class="selectXx1Txt" value="" onclick="SelectXx1.activate(event, SELECT_OPTS1, '202');"  />
+			<input type="button" value="显示" onclick="showSelectInfo( 'slt202' );">
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="lbl2">203:多选；有第一项；选项:值-文本；回填:值；输入(值)匹配</td>
+		<td>
+			<input type="text" id="slt203" class="selectXx1Txt" value="" onclick="SelectXx1.activate(event, SELECT_OPTS1, '203');"  />
+			<input type="button" value="显示" onclick="showSelectInfo( 'slt203' );">
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl2">204:多选；无第一项；选项:文本；回填:文本；不可输入匹配</td>
+		<td>
+			<input type="text" id="slt204" class="selectXx1Txt" value="" onclick="SelectXx1.activate(event, SELECT_OPTS1, '204');" readonly/>
+			<input type="button" value="显示" onclick="showSelectInfo( 'slt204' );">
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl2">205:多选；无第一项；选项:值-文本；回填:值；不可输入匹配</td>
+		<td>
+			<input type="text" id="slt205" class="selectXx1Txt" value="" onclick="SelectXx1.activate(event, SELECT_OPTS1, '205');" readonly/>
+			<input type="button" value="显示" onclick="showSelectInfo( 'slt205' );">
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl2">206:多选；无第一项；选项:值-文本；回填:值-文本；不可输入匹配</td>
+		<td>
+			<input type="text" id="slt206" class="selectXx1Txt" value="" onclick="SelectXx1.activate(event, SELECT_OPTS1, '206');" readonly/>
+			<input type="button" value="显示" onclick="showSelectInfo( 'slt206' );">
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="lbl3">301:很多选项；默认高度</td>
+		<td>
+			<input type="text" id="slt301" class="selectXx1Txt" value="" onclick="SelectXx1.activate(event, SELECT_OPTS3, '102');"/>
+			<input type="button" value="显示" onclick="showSelectInfo( 'slt206' );">
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="lbl3">302:很多选项；指定高度为150；可筛选</td>
+		<td>
+			<input type="text" id="slt302" class="selectXx1Txt" value="" onclick="SelectXx1.activate(event, SELECT_OPTS3, '102', {'heightMax' : 150});"/>
+			<input type="button" value="显示" onclick="showSelectInfo( 'slt302' );">
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="lbl3">303:很多选项；指定高度为200；不可筛选</td>
+		<td>
+			<input type="text" id="slt303" class="selectXx1Txt" value="" onclick="SelectXx1.activate(event, SELECT_OPTS3, '102', {'heightMax' : 200});" readonly/>
+			<input type="button" value="显示" onclick="showSelectInfo( 'slt303' );">
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="lbl99">多级联动</td>
+		<td>
+			<input type="text" id="slt991" class="selectXx1Txt" value="" onclick="SelectXx1.activate(event, SELECT_OPTS99, '102', { 'onchoose' : chooseslt991 });"/>
+			<input type="button" value="显示" onclick="showSelectInfo( 'slt991' );"><br/>
+			<input type="text" id="slt992" class="selectXx1Txt" value="" />
+			<input type="button" value="显示" onclick="showSelectInfo( 'slt992' );"><br/>
+			<input type="text" id="slt993" class="selectXx1Txt" value="" />
+			<input type="button" value="显示" onclick="showSelectInfo( 'slt993' );"><br/>
+			<input type="text" id="slt994" class="selectXx1Txt" value="" readonly/>
+			<input type="button" value="显示" onclick="showSelectInfo( 'slt994' );">
+		</td>
+	</tr>
+</table>
+
+<div id="msg" class="mrgT5" style="border-top:1px solid #EEE;margin-top:3px;padding-top:3px;width:99%;height:200px;overflow:auto;border:1px solid #EEE;"></div>
+<input type="button" value="清空消息" class="mrgT5" onclick="$('msg').innerHTML='';">
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/ldj.css" media="screen" rel="stylesheet">
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/judgePlatform.js"></script>
+<script>
+	if(browser.versions.android || browser.versions.iPhone || browser.versions.iPad || browser.versions.ios){
+	document.write("<script type='text/javascript' src='js/iscroll.js'><\/script><script type='text/javascript' src='js/iscrollobj.js'><\/script>");
+	}
+</script>
+<!--[if lt IE 9]>
+    <script src="js/html5.js"></script>
+    <script src="js/respond.min.js"></script>
+<![endif]-->
+<script src="js/landaojia.js"></script>
+</head>
+<body>
+<div class="wrapper"> 
+  <!--网站侧边导航 start-->
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-brand"> <img src="img/logo.png"> </li>
+      <li> <a class="active" href="洗涤服务.html"> <span class="icon-white-xdfw"></span> <span class="nav-title">洗涤服务</span> </a> </li>
+      <li> <a href="奢侈品护理.html"> <span class="icon-white-hl"></span> <span class="nav-title">奢侈品护理</span> </a> </li>
+      <li> <a href="懒人神器.html"> <span class="icon-white-lrsq"></span> <span class="nav-title">懒人神器</span> </a> </li>
+      <li> <a href="缤纷活动.html"> <span class="icon-white-bfhd"></span> <span class="nav-title">缤纷活动</span> </a> </li>
+      <li> <a href="我的订单.html"> <span class="icon-white-myorder"></span> <span class="nav-title">我的订单</span> </a> </li>
+      <li> <a href="历史订单.html"> <span class="icon-white-history"></span> <span class="nav-title">历史订单</span> </a> </li>
+      <li> <a href="帮助与反馈.html"> <span class="icon-white-history"></span> <span class="nav-title">帮助与反馈</span> </a> </li>
+      <li> <a href="关于懒到家.html"> <span class="icon-white-about"></span> <span class="nav-title">关于懒到家</span> </a> </li>
+    </ul>
+  </div>
+  <!--网站侧边导航 end-->
+  <div id="page-content-wrapper">
+   <!--主体内容头部 start-->
+  	<div class="navbar" role="navigation" id="navbar-header">
+    	<div class="container-fluid">
+       		<div class="row">
+            	<div class="col-sm-9 col-md-1">
+                    <a id="navbar-logo" data-toggle="offcanvas" class="brand-toggle" onClick="showHideSiderbar();">
+                        <img src="img/navbar-logo.png">
+                    </a>
+                    <h2 class="navbar-brand visible-xs visible-sm" style="float:left;">洗涤服务</h2>
+                    <div class="visible-xs pull-right small-login-reg"><a class="btn btn-danger">登录</a> <a class="btn btn-danger">注册</a></div>
+                    <button type="button" class="visible-xs navbar-toggle collapsed icon-collapsed pull-right" data-toggle="collapse" data-target="#navbar-collapse-1" style="display:-none"> 
+                        <img src="img/dropdown-cog.png">
+                    </button>
+                </div>
+                <div class="col-sm-7 col-md-7 hidden-sm hidden-xs">
+                	<h2 class="navbar-brand" style="float:left;padding:10px 0 0 0">洗涤服务</h2>
+                    <div style="margin-left:150px;">
+                           <form method="post" action="" class="tsearch">
+                                <input type="text" placeholder="搜索清洗服务">
+                                <button class="icon-search"><img src="img/icon-search.png"></button>
+                            </form>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-md-4 hidden-xs">
+                	<span class="login-reg pull-right" style="display:-none">
+                    	<a class="btn btn-info">登录</a> <a class="btn btn-info">注册</a>
+                   	</span>
+                    <ul class="nav navbar-nav navbar-right">
+                         <li class="dropdown" style="display:none"> 
+                        	 <a class="dropdown-toggle memberCentre" data-toggle="dropdown"> 
+                                <span class="name">会员名</span> 
+                                <span class="icon-member"></span> 
+                             </a>
+                              <ul class="dropdown-menu" id="member-info">
+                                <li><a href="用户中心.html">用户中心</a></li>
+                                <li class="divider"></li>
+                                <li><a href="地址管理.html">地址管理</a></li>
+                                <li><a href="我的懒人卡.html">我的懒人卡</a></li>
+                                <li><a href="我的优惠劵.html">我的优惠劵</a></li>
+                                <li class="divider"></li>
+                                <li><a href="社区中心.html">社区中心</a></li>
+                                <li class="divider"></li>
+                                <li><a>退出</a></li>
+                              </ul>
+                         </li>
+                    	<li class="hidden-sm navbar-question"> <a href="#">我们的服务流程?</a> </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="visible-xs">
+              <div class="collapse navbar-collapse" id="navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-c">
+                  <li><a href="用户中心.html">用户中心</a></li>
+                  <li class="divider"></li>
+                  <li><a href="地址管理.html">地址管理</a></li>
+                  <li><a href="我的懒人卡.html">我的懒人卡</a></li>
+                  <li><a href="我的优惠劵.html">我的优惠劵</a></li>
+                  <li class="divider"></li>
+                  <li><a href="社区中心.html">社区中心</a></li>
+                  <li class="divider"></li>
+                  <li><a>退出</a></li>
+                </ul>
+              </div>
+         </div>
+        <div class="visible-xs visible-sm s-search-bar">
+          <div>
+            <input type="text">
+            <button class="icon-search"><img src="img/icon-search.png"></button>
+          </div>
+        </div>
+    </div>
+   <!--主体内容头部 end-->
+  	<div class="page-content inset washing-service">
+        <div class="row">
+            <div class="col-md-7 col-md-offset-1">
+            	<!--缩小后的购物车div-->
+            	 <div class="relative-div visible-xs visible-sm">
+                     <button class="visible-xs visible-sm btn btn-sm pull-right viewshopcart" onClick="shopcartCollpase(this);">查看购物车</button>
+                     <div class="shopcart-collapse" style="display:none">
+                        <div class="shopcartList-collapse" style="padding:10px;">
+                           <div class="tit"> 
+                               <span class="pull-left">购物车</span> 
+                               <span class="pull-right"><a href="#">清除</a></span> 
+                           </div>
+                          <div class="biaot">
+                            <div class="bt pull-left">服务产品</div>
+                            <div class="p-num pull-right">数量</div>
+                          </div>
+                          <div class="gwlist">
+                            <div class="unit">
+                              <div class="lfbt">西装皮质</div>
+                              <div class="setnum">
+                                <button>+</button>
+                                <input type="text">
+                                <button>-</button>
+                              </div>
+                            </div>
+                            <div class="unit">
+                              <div class="lfbt">西装皮质</div>
+                              <div class="setnum">
+                                <button>+</button>
+                                <input type="text">
+                                <button>-</button>
+                              </div>
+                            </div>
+                          </div>
+                          <span class="total-price">总计 <b>￥120.00</b></span>
+                          <a class="btn btn-block btn-sm js-btn">去结算</a>
+               			 </div>       	
+                     </div>
+                 </div>
+                 <!--缩小后的购物车div-->
+                 
+                 <h2><img src="img/icon-currency.png">服务费</h2>
+                  <table class="table servicefee-tabs">
+                  <tbody>
+                    <tr>
+                      <td class="servicefee-bt">同城快递</td>
+                      <td class="price"><font color="#d9534f">￥18.00(免洗3件)</font></td>
+                       <td class="servicefee-bt">续件快递</td>
+                       <td class="price">￥6元/件</td>
+                    </tr>
+                    <tr>
+                        <td class="servicefee-bt">24小时加急</td>
+                        <td class="price">￥100.00</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="panel-group" id="accordion1">
+                            <div class="panel panel-default">
+                              <div class="panel-heading" data-parent="#accordion1" data-toggle="collapse" data-target="#activityRule">
+                                <h4 class="panel-title"> 
+                                <span class="cloth-bt">活动规则</span>
+                                <a data-toggle="collapse">∧</a> 
+                                 </h4>
+                              </div>
+                              <div id="activityRule" class="panel-collapse collapse in">
+                                <div class="panel-body" style="overflow:hidden">
+                                 <p style="line-height:25px;">1、活动时间:<strong>2014年9月15日-2014年12月31日</strong><br>
+2、活动期间，在懒到家下单用户<strong>只需支付18元</strong>同城快递费，即可尊享<strong>3件以内衣物免洗特权</strong>，同单3件以上每件增收6元快递费（本活动适用于规定内的免费洗适用产品，皮质、丝质衣物不参与本活动）。<br>
+3、正常产品下单或者含正常产品的订单，<strong>免收18元快递费用</strong>，若此订单含有免费洗产品，则按照每件6元收取费用。<br>
+4、本活动的最终解释及变更权由懒到家所有。<br> 
+5、<a href="活动详情页.html#tt" target="_blank" style="text-decoration:underline">免费洗适用产品</a>
+</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          
+                          
+                <div class="tagSwitch">
+                      <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="javascript:void(0);">上装</a></li>
+                        <li><a href="javascript:void(0);">配饰</a></li>
+                        <li><a href="javascript:void(0);">家居</a></li>
+                        <li><a href="javascript:void(0);">车饰</a></li>
+                        <li><a href="javascript:void(0);">下装</a></li>
+                        <li><a href="javascript:void(0);">鞋类</a></li>
+                        <li><a href="javascript:void(0);">箱包</a></li>
+                        <li><a href="javascript:void(0);">其他</a></li>
+                      </ul>
+                      <div class="tab-content xdfw-box">
+                        <div class="tab-pane active" id="sz">
+                          <div class="panel-group" id="accordion">
+                            <div class="panel panel-default">
+                              <div class="panel-heading" data-parent="#accordion" data-toggle="collapse" data-target="#collapseOne" onClick="showXdfw(this);">
+                                <h4 class="panel-title"> 
+                                <span class="cloth-bt">西装</span>
+                                <a data-toggle="collapse">∧</a> 
+                                 </h4>
+                              </div>
+                              <div id="collapseOne" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                  <table class="table cloth-list">
+                                    <tbody>
+                                      <tr>
+                                        <td>皮质西服</td>
+                                        <td align="left"><strike>￥120.00</strike> <font style="color:#e95259">￥0.00</font></td>
+                                        <td><button class="btn btn-default">+</button></td>
+                                      </tr>
+                                      <tr>
+                                        <td>皮质西服</td>
+                                        <td align="left">￥120.00</td>
+                                         <td><button class="btn btn-default">+</button></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="panel panel-default">
+                              <div class="panel-heading" data-parent="#accordion" data-toggle="collapse" data-target="#collapseTwo" onClick="showXdfw(this);">
+                                <h4 class="panel-title"> <span class="cloth-bt">羽绒服</span> 
+                                <a data-toggle="collapse">∨</a> </h4>
+                              </div>
+                              <div id="collapseTwo" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                  <table class="table cloth-list">
+                                    <tbody>
+                                      <tr>
+                                        <td>皮质西服</td>
+                                        <td>￥120.00</td>
+                                        <td><button class="btn btn-default">+</button></td>
+                                      </tr>
+                                      <tr>
+                                        <td>皮质西服</td>
+                                        <td>￥120.00</td>
+                                        <td><button class="btn btn-default">+</button></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="panel panel-default">
+                              <div class="panel-heading" data-parent="#accordion" data-toggle="collapse" data-target="#collapseThree" onClick="showXdfw(this);">
+                                <h4 class="panel-title"> <span class="cloth-bt">夹克1</span> 
+                                <a data-toggle="collapse">∨</a> </h4>
+                              </div>
+                              <div id="collapseThree" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                  <table class="table cloth-list">
+                                    <tbody>
+                                      <tr>
+                                        <td>皮质西服22</td>
+                                        <td>￥120.00</td>
+                                        <td><button class="btn btn-default">+</button></td>
+                                      </tr>
+                                      <tr>
+                                        <td>皮质西服</td>
+                                        <td>￥120.00</td>
+                                        <td><button class="btn btn-default">+</button></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+            <div class="col-md-4 hidden-xs hidden-sm">
+                <div class="shopcartList">
+               		<a class="btn btn-block btn-sm js-btn" href="订单确认.html" style="margin-bottom:20px" id="yjxd-btn">一键下单</a>
+                    <!--空购物车 start-->
+                    <div class="estimator" style="display:none">
+                        <h2>您的购物车还空着呢!</h2>
+                        <img src="img/empty-shopcar.png">
+                        <!--<button type="button" class="btn btn-sm btn-danger btn-block add-shopcart"></button>-->
+                         <a class="btn btn-block btn-sm js-btn" style="margin-top:20px" href="订单确认.html">一键下单</a>
+                    </div><!--空购物车 end-->
+                    <div class="full-shopcart" style="display:-none">
+                       <div class="tit"> 
+                           <span class="pull-left">购物车</span> 
+                           <span class="pull-right"><a href="#">清除</a></span> 
+                       </div>
+                      <div class="biaot">
+                        <div class="bt pull-left">服务产品</div>
+                        <div class="p-num pull-right">数量</div>
+                      </div>
+                      <div class="gwlist">
+                        <div class="unit">
+                          <div class="lfbt">西装皮质</div>
+                          <div class="setnum">
+                            <button>+</button>
+                            <input type="text">
+                            <button>-</button>
+                          </div>
+                        </div>
+                        <div class="unit">
+                          <div class="lfbt">西装皮质</div>
+                          <div class="setnum">
+                            <button>+</button>
+                            <input type="text">
+                            <button>-</button>
+                          </div>
+                        </div>
+                      </div>
+                     <!-- <span class="total-price">总计 <b>￥120.00</b></span>-->
+                      <a class="btn btn-block btn-sm js-btn" style="margin:10px 0 0 0" href="订单确认.html">去结算</a>
+                  </div>
+                </div>              
+         </div>
+        </div>    
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

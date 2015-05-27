@@ -1,0 +1,238 @@
+﻿@model LazyAtHome.Web.WebManage.Models.Order.OrderListModel
+
+@{
+    <script src="@Url.Content("~/Scripts/Order/orderindex.js")" type="text/javascript"></script>
+}
+
+<form id="pagerForm" method="post" action="@Url.Action("SearchTodayOrder")">
+    <input type="hidden" name="status" value="@Model.SearchInfo.status">
+    <input type="hidden" name="keywords" value="@Model.SearchInfo.keywords" />
+    <input type="hidden" name="pageNum" value="@Model.SearchInfo.pageNum" />
+    <input type="hidden" name="numPerPage" value="@Model.SearchInfo.numPerPage" />
+    <input type="hidden" name="orderField" value="@Model.SearchInfo.orderField" />
+</form>
+
+<!--报错信息-->
+@Html.Raw(ViewBag.Script)
+
+<!--搜索条-->
+<div class="pageHeader">
+    <form id="searchForm" onsubmit="return navTabSearch(this);" action="@Url.Action("SearchTodayOrder")" method="post" rel="pagerForm">
+        <div class="searchBar">
+            <table class="searchContent">
+                <tr>
+                    <td>
+                        订单编号：
+                        <input type="text" name="ordernumber" value="@Model.SearchInfo.OrderNumber" maxlength="15">
+                    </td>
+                    <td>
+                        订单分类：
+                        @Html.DropDownList("OrderClass", new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text = "全部", Value = "-1"},
+                            new SelectListItem { Text = "个人普通", Value = "1" },
+                            new SelectListItem { Text = "一键下单", Value = "2" },
+                            new SelectListItem { Text = "合作门店", Value = "3" }},
+                            "Value", "Text", Model.SearchInfo.OrderClass), new { style = "width:60px;" })
+                    </td>
+                    <td>
+                        订单类型：
+                        @Html.DropDownList("OrderType", new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text = "全部", Value = "-1"},
+                            new SelectListItem { Text = "正常", Value = "1" },
+                            new SelectListItem { Text = "分单", Value = "2" },
+                            new SelectListItem { Text = "反洗", Value = "3" },
+                            new SelectListItem { Text = "退单", Value = "6" }},
+                            "Value", "Text", Model.SearchInfo.OrderType), new { style = "width:60px;" })
+                    </td>
+                    <td>
+                        订单状态：
+                        @Html.DropDownList("OrderStatus", new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text="全部", Value="-1"},
+                            new SelectListItem { Text = "待处理订单", Value = "-100" },
+                            new SelectListItem { Text = "客服自定义", Value = "-99" },
+                            new SelectListItem { Text = "未审核订单", Value = "0" },
+                            new SelectListItem { Text = "创建订单", Value = "1" },
+                            new SelectListItem { Text = "完成订单", Value = "2" },
+                            new SelectListItem { Text = "已退单", Value = "6" },
+                            new SelectListItem { Text = "已拆单", Value = "7" },
+                            new SelectListItem { Text = "用户撤销", Value = "16" },
+                            new SelectListItem { Text = "系统撤销", Value = "32" }},
+                            "Value", "Text", Model.SearchInfo.OrderStatus == null ? -1 : (int)Model.SearchInfo.OrderStatus), new { style = "width:100px;" })
+                    </td>
+                    <td>
+                        金额：
+                        <input type="text" name="totalamountmin" value="@Model.SearchInfo.TotalAmountMin" maxlength="10" class="digits" alt="" style="width:40px;">
+                        -
+                        <input type="text" name="totalamountmax" value="@Model.SearchInfo.TotalAmountMax" maxlength="10" class="digits" alt="" style="width:40px;">
+                    </td>
+                </tr>
+            </table>
+            <table class="searchContent">
+                <tr>
+                    <td>
+                        手机号码：
+                        <input type="text" name="mpno" value="@Model.SearchInfo.MPNo" maxlength="11" class="digits" alt="请输入数字">
+                    </td>
+                    <td>
+                        下单渠道：
+                        @Html.DropDownList("Channel", new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text="全部", Value="-1"},
+                            new SelectListItem { Text = "网站", Value = "1" },
+                            new SelectListItem { Text = "APP", Value = "2" },
+                            new SelectListItem { Text = "微信", Value = "4" }},
+                            "Value", "Text", Model.SearchInfo.Channel), new { style = "width:60px;" })
+                    </td>
+                    <td>
+                        订单进程：
+                        @Html.DropDownList("Step", new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text = "全部", Value = "-1" },
+                            new SelectListItem { Text = "下单", Value = "1" },
+                            new SelectListItem { Text = "取件中", Value = "2" },
+                            new SelectListItem { Text = "送洗中", Value = "3" },
+                            new SelectListItem { Text = "洗涤中", Value = "4" },
+                            new SelectListItem { Text = "出库中", Value = "5" },
+                            new SelectListItem { Text = "送件中", Value = "6" },
+                            new SelectListItem { Text = "完成", Value = "7" }},
+                                     "Value", "Text", Model.SearchInfo.Step), new { style = "width:60px;" })
+                    </td>
+                    <td>
+                        搜索排序：
+                        @Html.DropDownList("SortType", new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text = "按下单时间", Value = "0" },
+                            new SelectListItem { Text = "按取件时间", Value = "2" }},
+                            "Value", "Text", Model.SearchInfo.SortType), new { style = "width:100px;" })
+                    </td>
+                    <td>
+                        客户：
+                        <input type="text" name="consignee" value="@Model.SearchInfo.Consignee" style="width:96px;">
+                    </td>
+                    <td>
+                        物流类型：
+                        @Html.DropDownList("GetExpressType", new SelectList(new List<SelectListItem> {
+                                new SelectListItem { Text = "全部", Value = "-1" },
+                                new SelectListItem { Text = "自主", Value = "0" },
+                                new SelectListItem { Text = "赛奥递", Value = "1" }},
+                                "Value", "Text", Model.SearchInfo.GetExpressType), new { style = "width:80px;" })
+                    </td>
+
+                    @*<td>
+                    所属站点：
+                    @Html.DropDownList("Site", (SelectList)(ViewData["Site"]), new { style = "width:80px;" })
+                </td>*@
+
+
+                </tr>
+            </table>
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+                    @*<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>*@
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+
+@Html.Hidden("hdExportUrl", @Url.Action("ExportOrder"))
+
+<div class="pageContent">
+    <!--功能按键-->
+    <div class="panelBar">
+        <ul class="toolBar">
+            @*<li><a class="add" href="@Url.Action("CreateOrder")" target="navTab" rel="createedit" title="客服下单"><span>客服下单</span></a></li>*@
+            @*<li><a class="delete" href="@Url.Action("DeleteOrder")?oid={oid}" target="ajaxTodo" title="确定要删除吗?"><span>删除</span></a></li>*@
+            <li><a class="edit" href="@Url.Action("EditOrder")?oid={oid}&type=1" target="navTab" rel="orderedit" title="订单详情"><span>查看</span></a></li>
+            <li class="line">line</li>
+            @*<li><a class="icon" id="export"><span>导出</span></a></li>*@
+            @*<li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targettype="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>*@
+        </ul>
+    </div>
+
+    <!--列表页-->
+    <table class="table" width="1500" layouth="162">
+        <thead>
+            <tr>
+                <th width="20" align="center"></th>
+                <th width="120" align="center">订单号</th>
+                <th width="60" align="center">订单分类</th>
+                <th width="90" align="center">取件手机</th>
+                <th width="60" align="center">订单金额</th>
+                <th width="60" align="center">支付状态</th>
+                <th width="60" align="center">已付金额</th>
+                <th width="70" align="center">订单状态</th>
+                @*<th width="60" align="center">订单类型</th>*@
+                <th width="60" align="center">下单渠道</th>
+                <th width="100" align="center">取件时间</th>
+                <th width="120" align="center">下单时间</th>
+                <th width="60" align="center">订单进程</th>
+                <th width="150" align="center">代操作提示</th>
+                <th width="100" align="center">客服备注</th>
+                <th width="100" align="center">用户备注</th>
+                <th width="350" align="center">用户信息</th>
+                @*<th style="width: 260px;">操作</th>*@
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (@Model.OrderList != null)
+            {
+                int no = 1;
+                foreach (var item in @Model.OrderList)
+                {
+                    <tr target="oid" rel="@item.ID">
+                        <td>@(no++)</td>
+                        <td>@item.OrderNumber</td>
+                        <td>@UIHelper.FormatOrderClass(item.OrderClass)</td>
+                        @if (item.OrderClass == 3)
+                        {
+                            //是合作门店下的单
+                            <td><a href="@Url.Action("EditStoreByGuid", "Store", new { sid = @item.UserID })" target="navTab" rel="storeedit" title="编辑门店">@item.MPNo</a></td>
+                        }
+                        else
+                        {
+                            //是个人下的单
+                            <td><a href="@Url.Action("EditUser","User", new { uid = @item.UserID })" target="navTab" rel="useredit" title="用户信息">@item.MPNo</a></td>
+                        }
+                        <td>@item.TotalAmount</td>
+                        <td>@UIHelper.FormatPayStatus(item.PayStatus)</td>
+                        <td>@item.PayAmount</td>
+                        <td>@UIHelper.FormatOrderStatus(item.OrderStatus)</td>
+                        @*<td>@UIHelper.FormatOrderType(item.OrderType)</td>*@
+                        <td>@UIHelper.FormatRegistSource(item.Channel)</td>
+                        <td>@UIHelper.FormatDate(item.ExpectTime, 4)</td>
+                        <td>@UIHelper.FormatDate(item.Obj_Cdate)</td>
+                        <td>@UIHelper.FormatOrderStep(item.Step)</td>
+                        <td>@item.CSSuggest</td>
+                        <td>@item.CSRemark</td>
+                        <td>@item.UserRemark</td>
+                        <td>@(item.Address + "[" + item.Consignee + "]")</td>
+                    </tr>
+                }
+
+            }
+        </tbody>
+    </table>
+
+    <!--分页条-->
+    <div class="panelBar">
+        <script type="text/javascript">
+            $(function () {
+                $("#@Model.SearchInfo.numPerPageName").attr("value", "@Model.SearchInfo.numPerPage");
+            });
+        </script>
+        <div class="pages">
+            <span>显示</span>
+            <select class="combox" id="@Model.SearchInfo.numPerPageName" name="@Model.SearchInfo.numPerPageName" onchange="navTabPageBreak({numPerPage:this.value})">
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+            <span>条，共 @Model.SearchInfo.RecCount 条</span>
+        </div>
+
+        <div class="pagination" targettype="navTab" totalcount="@Model.SearchInfo.RecCount" numperpage="@Model.SearchInfo.numPerPage" pagenumshown="@Model.SearchInfo.pageNumShown" currentpage="@Model.SearchInfo.pageNum"></div>
+    </div>
+</div>
+
+

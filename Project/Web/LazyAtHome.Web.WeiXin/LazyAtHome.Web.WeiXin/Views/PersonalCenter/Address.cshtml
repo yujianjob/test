@@ -1,0 +1,66 @@
+﻿@model IList<LazyAtHome.WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC>
+@{
+    ViewBag.Title = "地址管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="congzhi">
+    <div class="guanlidizhi">
+        @foreach (var item in Model)
+        {
+            <div class="guanlidizhi_t">
+                <p style="padding-top:15px;">@item.Consignee（@item.MPNo）</p>
+                <p style="padding-bottom:15px;">@item.Address</p>
+                <h4>
+                    <span style="text-align:center; padding-top:3px; color:#aeaeae; font-size:14px; font-weight:normal;"><input name="cDefault" type="checkbox" value="@item.ID" @UIHelper.ShowCBDefault(item.IsDefault) onclick="SetDefault(this)" /><em>默认</em></span>
+                    <span style="text-align:center"><a href="@Url.Action("ModifyAddress", "PersonalCenter", new { aid = item.ID })"><img src="~/images/edit.jpg" /><em>修改</em></a></span>
+                    <span style="text-align:center"><a href="@Url.Action("AddressDel", new { id = item.ID })"><img src="~/images/del.jpg" /><em>删除</em></a></span>
+                </h4>
+                <div class="clear"></div>
+            </div>
+            <div style="margin-top:20px;"></div>
+        }
+        <div class="guanlidizhi_b"><a href="@Url.Action("ModifyAddress", "PersonalCenter")"><img src="~/images/lan31.jpg" /></a></div>
+    </div>
+</div>
+<div class="footer foot"><img src="~/images/lan8.jpg" /></div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript">        
+        $(function () {
+
+        });
+
+        function SetDefault(cb) {
+            selectNo("cDefault");
+            cb.checked = true;
+
+            var postData = { "id": cb.value };
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("AddressDefault", "PersonalCenter")",
+                data: postData,
+                dataType: "json",
+                success: ProcessData,
+                error: function (msg) {
+                    alert(msg);
+                }
+            });
+
+        }
+        function selectNo(name) {
+            var cb = document.getElementsByName(name);
+            for (var i = 0; i < cb.length; i++)
+            { cb[i].checked = false; }
+        }
+
+        function ProcessData(resultJson) {
+            if (resultJson != null) {
+                if (resultJson.code != 0)
+                    alert(resultJson.msg);
+            }
+        }
+    </script>
+}

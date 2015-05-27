@@ -1,0 +1,6 @@
+E:\workspace\Project\LazyAtHome.WCF.UserSystem\LazyAtHome.WCF.UserSystem.Console_Client\bin\Debug\LazyAtHome.WCF.UserSystem.Console_Client.exe.config
+E:\workspace\Project\LazyAtHome.WCF.UserSystem\LazyAtHome.WCF.UserSystem.Console_Client\bin\Debug\LazyAtHome.WCF.UserSystem.Console_Client.exe
+E:\workspace\Project\LazyAtHome.WCF.UserSystem\LazyAtHome.WCF.UserSystem.Console_Client\bin\Debug\LazyAtHome.WCF.UserSystem.Console_Client.pdb
+E:\workspace\Project\LazyAtHome.WCF.UserSystem\LazyAtHome.WCF.UserSystem.Console_Client\obj\Debug\LazyAtHome.WCF.UserSystem.Console_Client.exe
+E:\workspace\Project\LazyAtHome.WCF.UserSystem\LazyAtHome.WCF.UserSystem.Console_Client\obj\Debug\LazyAtHome.WCF.UserSystem.Console_Client.pdb
+E:\workspace\Project\LazyAtHome.WCF.UserSystem\LazyAtHome.WCF.UserSystem.Console_Client\obj\Debug\LazyAtHome.WCF.UserSystem.Console_Client.csprojResolveAssemblyReference.cache

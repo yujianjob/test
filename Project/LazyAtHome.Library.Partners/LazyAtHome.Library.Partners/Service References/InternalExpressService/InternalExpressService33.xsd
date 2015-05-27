@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/LazyAtHome.WCF.Express.Contract.DataContract" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/LazyAtHome.WCF.Express.Contract.DataContract" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://192.168.1.201:8100/LazyAtHome/InternalExpressService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" />
+  <xs:complexType name="Exp_OrderDC">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" base="q1:EntityBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Address" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AllotStatus" type="xs:int" />
+          <xs:element minOccurs="0" name="CSRemark" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ChargeFee" type="xs:decimal" />
+          <xs:element minOccurs="0" name="CompleteTime" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Contacts" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DistrictID" type="xs:int" />
+          <xs:element minOccurs="0" name="DistrictName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ExpNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ExpTime" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="ID" type="xs:int" />
+          <xs:element minOccurs="0" name="Mpno" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="NodeAddress" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="NodeID" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="NodeName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="NodeNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="OperatorID" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="OperatorName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="OperatorTime" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="OutNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PackageCount" type="xs:int" />
+          <xs:element minOccurs="0" name="PackageInfo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="QuickType" type="xs:int" />
+          <xs:element minOccurs="0" name="Step" type="xs:int" />
+          <xs:element minOccurs="0" name="StepRemark" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SystemRemark" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TransportType" type="xs:int" />
+          <xs:element minOccurs="0" name="UserRemark" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Exp_OrderDC" nillable="true" type="tns:Exp_OrderDC" />
+</xs:schema>

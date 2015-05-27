@@ -1,0 +1,30 @@
+﻿@model IList<LazyAtHome.WCF.OrderSystem.Contract.DataContract.Order_OrderDC>
+@{
+    ViewBag.Title = "我的订单";
+}
+
+<section>
+    <div class="orderList">
+        @foreach (LazyAtHome.WCF.OrderSystem.Contract.DataContract.Order_OrderDC oItem in Model)
+        {
+
+            <div class="orderUnit" onclick="location.href = '/Cart/OrderDetail?orderNum=@oItem.OrderNumber'">
+                <p>
+                    联系人:<span class="name">@oItem.Consignee</span><br>
+                    手机号：@oItem.MPNo<br>
+                    订单类型：<span class="type">@UIHelper.ConvertOrderClass(oItem.OrderClass)</span><br>
+                    订单状态：
+                    @if (oItem.OrderStatus == 2)
+                    {
+                        <span class="status">@UIHelper.ConvertStep(oItem.Step)</span><br>
+                    }
+                    else
+                    {
+                        <span class="status">@UIHelper.ConvertOrderStatus(oItem.OrderStatus)</span><br>
+                    }
+                    下单时间：<span class="tm">@oItem.Obj_Cdate.Value.ToString()</span>
+                </p>
+            </div>
+        }
+    </div>
+</section>     

@@ -1,0 +1,36 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\fengyi1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、风衣的面料是全棉织物，在阳光下直晒时间过长会产生褪色现象，因此晾晒要掌握好时间。</p>
+				<p>2、扣子不能扣太猛太急，以免把扣子拉掉，要防止和酸、碱东西接触。</p>
+				<p>3、腰带在束腰的时候要留出一定的余量，防止太卡自己的腰哦。 </p>
+				<p>4、风衣的折叠方法：把衣服整体平铺理好，背面朝上，先折两边，以肩线往下为一条直线，把两侧的折进去，整个衣服就呈长条型，然后最下面的折上去一半，上面的再折下来！ </p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>风衣男士穿，帅气十足。女士穿气质非凡。</p>
+				<p>懒到家，让您在畅享时尚的同时，更多一份洁净！</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\fengyi2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p> 风衣脏了之后清洗很麻烦。所以，日常穿着的时候，不小心弄脏一点就要立即清理干净，此外还要避免弄坏衣物材质，只能这样才能保持较长的使用寿命。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

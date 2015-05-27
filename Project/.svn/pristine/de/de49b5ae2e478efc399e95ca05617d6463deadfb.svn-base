@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="2c7660ca-d22a-42d2-b8a5-ffa0e126ba99" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://192.168.1.201:8100/LazyAtHome/QFExpressService" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="QFExpressService.xsd" MetadataType="Schema" ID="dfb0aad4-6419-4e24-b461-ff784ad9e688" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/QFExpressService?xsd=xsd0" />
+    <MetadataFile FileName="QFExpressService1.xsd" MetadataType="Schema" ID="f764b371-5ab9-4882-b46a-a981d0276690" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/QFExpressService?xsd=xsd1" />
+    <MetadataFile FileName="QFExpressService2.xsd" MetadataType="Schema" ID="b07376da-e7ec-44b0-bad6-1ce6ea964d54" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/QFExpressService?xsd=xsd2" />
+    <MetadataFile FileName="QFExpressService3.xsd" MetadataType="Schema" ID="af72bc78-743b-4886-8715-90fefd01f4d4" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/QFExpressService?xsd=xsd3" />
+    <MetadataFile FileName="QFExpressPortal.wsdl" MetadataType="Wsdl" ID="93d87b76-9f3a-42fe-a716-db29cd104b50" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/QFExpressService?wsdl" />
+    <MetadataFile FileName="QFExpressService.disco" MetadataType="Disco" ID="abe19c99-8fc5-484e-a2f1-dc532b23119c" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/QFExpressService?disco" />
+    <MetadataFile FileName="QFExpressService4.xsd" MetadataType="Schema" ID="b7928cdb-efd9-4d71-967a-ed95aa7e2e58" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/QFExpressService?xsd=xsd4" />
+    <MetadataFile FileName="QFExpressService5.xsd" MetadataType="Schema" ID="a9b4537e-989b-4ef7-9b43-2319fd9eb255" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/QFExpressService?xsd=xsd5" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

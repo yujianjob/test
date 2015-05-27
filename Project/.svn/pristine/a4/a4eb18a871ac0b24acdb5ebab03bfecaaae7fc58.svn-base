@@ -1,0 +1,33 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\chuangzhao1.jpg" /></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、床罩应该经常更换清洁，初次使用前，可先用清水洗涤一次，可将表面的浆质及印染浮色洗掉，使用起来会比较柔软，将来清洗时也不容易褪色。</p>
+				<p>2、收藏时清洗干净，彻底晒干，折叠整齐，并放入一定量的樟脑丸（不能与产品直接接触），宜放在暗处，温度低、通风良好的地方，长期不使用的产品再重新使用前可先在阳光下晾晒，使其恢复蓬松。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>床罩的色彩必定要与房间、家私的色彩相谐和。如奶黄色墙面应配浅棕色有斑纹图画的床罩，棕色的家私可配淡赤色等暖色彩的床罩，空间较大的卧室选用浅咖啡色大花形图画的床罩，可减轻空阔感。老年人的居室用浅橘黄色的床罩，能使人心境兴奋。高血压或心脏病患者，最佳铺上淡蓝色的床罩，心境不稳简略烦躁的人，居室宜用嫩绿色床罩。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\chuangzhao2.jpg" /></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>床罩的主要作用是防菌除尘，保障床的洁净卫生。床罩也不可避免的吸纳了空气中的灰尘和细菌，不经常清洗床罩会使床罩看起来很脏，在抖动铺设床罩时会使粘附在床罩上的灰尘和细菌进入空气中，对您的健康产生很大威胁。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

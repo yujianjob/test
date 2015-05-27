@@ -1,0 +1,116 @@
+﻿@model LazyAtHome.Web.Site.Areas.Member.Models.UserDetailViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>用户详细信息</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserInfo.LoginName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label>@Model.UserInfo.LoginName</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserInfo.Type, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label>个人用户</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserDetail.NickName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserDetail.NickName)
+                @Html.ValidationMessageFor(model => model.UserDetail.NickName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserDetail.Sex, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.RadioButtonFor(model => model.UserDetail.Sex, 2, new { @id = "rbSexSecret", @name = "rbSex" }) 保密
+                @Html.RadioButtonFor(model => model.UserDetail.Sex, 1, new { @id = "rbSexMale", @name = "rbSex" }) 男
+                @Html.RadioButtonFor(model => model.UserDetail.Sex, 0, new { @id = "rbSexFemale", @name = "rbSex" }) 女
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserInfo.MPNo, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label>@Model.UserInfo.MPNo</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserInfo.Email, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label>@Model.UserInfo.Email</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserDetail.RealName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserDetail.RealName)
+                @Html.ValidationMessageFor(model => model.UserDetail.RealName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserDetail.IDCard, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserDetail.IDCard)
+                @Html.ValidationMessageFor(model => model.UserDetail.IDCard)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserDetail.Location, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label>@Model.UserDetail.Location</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserDetail.Birthday, new { @class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.UserDetail.Birthday, new { @class = "easyui-datebox", @style = "width: 100%" })
+                @*@Html.EditorFor(model => model.UserDetail.Birthday)*@
+                @Html.ValidationMessageFor(model => model.UserDetail.Birthday)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserDetail.Hobbies, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.UserDetail.Hobbies)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $(function () {
+        $("#UserDetail_Birthday").datebox();
+        //var datebox = $(".datebox :text");
+        //datebox.attr("readonly", "readonly");
+        //datebox.attr("width", "60px");
+    });
+</script>

@@ -1,0 +1,1794 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="lazyhomedb" Class="DBDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=lazyhomedb;User ID=sa;MultipleActiveResultSets=True;Application Name=EntityFramework" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="lazyhomedbConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.app_version" Member="app_version">
+    <Type Name="app_version">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="appType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="versionCode" Type="System.String" DbType="VarChar(16)" CanBeNull="true" />
+      <Column Name="available" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="downloadUrl" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Wash_Store_OperatorLog" Member="Wash_Store_OperatorLog">
+    <Type Name="Wash_Store_OperatorLog">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OperatorID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OperatorName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LogContent" Type="System.String" DbType="NVarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Base_Card" Member="Base_Card">
+    <Type Name="Base_Card">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Number" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Money" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Balance" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="ExpiryDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CityCode" Type="System.String" DbType="VarChar(4) NOT NULL" CanBeNull="false" />
+      <Column Name="Batch" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Enable" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Used" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Base_CardLog" Member="Base_CardLog">
+    <Type Name="Base_CardLog">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="CardID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CardNumber" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="BeforeBalance" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Money" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="SourceID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Base_Coupon" Member="Base_Coupon">
+    <Type Name="Base_Coupon">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="UseClass" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UseType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GetCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FaceValue" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="MinMoney" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="MaxMoney" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="TotalCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SendCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UseBeginDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UseEndDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ValidDay" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CommitStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Base_Coupon_Base_CouponCode" Member="Base_CouponCode" ThisKey="ID" OtherKey="CouponID" Type="Base_CouponCode" />
+      <Association Name="Base_Coupon_Base_CouponProduct" Member="Base_CouponProduct" ThisKey="ID" OtherKey="CouponID" Type="Base_CouponProduct" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Base_CouponCode" Member="Base_CouponCode">
+    <Type Name="Base_CouponCode">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CouponID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CouponCode" Type="System.String" DbType="VarChar(200) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SendStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Base_Coupon_Base_CouponCode" Member="Base_Coupon" ThisKey="CouponID" OtherKey="ID" Type="Base_Coupon" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Base_CouponProduct" Member="Base_CouponProduct">
+    <Type Name="Base_CouponProduct">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CouponID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Base_Coupon_Base_CouponProduct" Member="Base_Coupon" ThisKey="CouponID" OtherKey="ID" Type="Base_Coupon" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Base_District" Member="Base_District">
+    <Type Name="Base_District">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Code1" Type="System.String" DbType="VarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="Code2" Type="System.String" DbType="VarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="Code3" Type="System.String" DbType="VarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="[Level]" Member="Level" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Base_Log" Member="Base_Log">
+    <Type Name="Base_Log">
+      <Column Name="LogID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AppDomainName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Categories" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Messages" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="EventType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ExtendedProperties" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Priority" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Operator" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LogTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IsNotify" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Base_Notify" Member="Base_Notify">
+    <Type Name="Base_Notify">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EventNumber" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="OrderNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="RoleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PersonnelID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Class" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="[Level]" Member="Level" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Result" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="NotifyUserList" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IsSms" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsEmail" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Base_Push" Member="Base_Push">
+    <Type Name="Base_Push">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="SendStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SendTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="RunTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Tag" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Base_Site" Member="Base_Site">
+    <Type Name="Base_Site">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Pinyin" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Longitude" Type="System.Decimal" DbType="Decimal(10,6)" CanBeNull="true" />
+      <Column Name="Latitude" Type="System.Decimal" DbType="Decimal(10,6)" CanBeNull="true" />
+      <Column Name="IsHot" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsShow" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.base_smscheckcode" Member="base_smscheckcode">
+    <Type Name="base_smscheckcode">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="mpNo" Type="System.String" DbType="VarChar(16)" CanBeNull="true" />
+      <Column Name="checkCode" Type="System.String" DbType="VarChar(16)" CanBeNull="true" />
+      <Column Name="kind" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="remark" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="sendTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="expiredTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Base_SmsSend" Member="Base_SmsSend">
+    <Type Name="Base_SmsSend">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Mobile" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(300) NOT NULL" CanBeNull="false" />
+      <Column Name="SendStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SendTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RunTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Priority" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Channel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Source" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SourceValue" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ReTry" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Base_SmsSend_BlackList" Member="Base_SmsSend_BlackList">
+    <Type Name="Base_SmsSend_BlackList">
+      <Column Name="Mobile" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Base_SmsSend_SendCount" Member="Base_SmsSend_SendCount">
+    <Type Name="Base_SmsSend_SendCount">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Mobile" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="SendTime" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Count" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Base_Tinyurl" Member="Base_Tinyurl">
+    <Type Name="Base_Tinyurl">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(8) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Base_WebAttribute" Member="Base_WebAttribute">
+    <Type Name="Base_WebAttribute">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Page" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Keywords" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Exp_Area" Member="Exp_Area">
+    <Type Name="Exp_Area">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ManagerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Exp_Node" Member="Exp_Node">
+    <Type Name="Exp_Node">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="No" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="DistrictID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Latitude" Type="System.Decimal" DbType="Decimal(18,10)" CanBeNull="true" />
+      <Column Name="Longitude" Type="System.Decimal" DbType="Decimal(18,10)" CanBeNull="true" />
+      <Column Name="Radius" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Keyword" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StorageID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ParentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ManagerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LinkManID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Enable" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CaptainID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AlarmType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AreaID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreateOperatorID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Exp_Operator" Member="Exp_Operator">
+    <Type Name="Exp_Operator">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LoginName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LoginPwd" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NodeID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="MpNo" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Enable" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OnDuty" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Exp_Operator_DutyLog" Member="Exp_Operator_DutyLog">
+    <Type Name="Exp_Operator_DutyLog">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OperatorID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DutyStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Exp_Order" Member="Exp_Order">
+    <Type Name="Exp_Order">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ExpNumber" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="OutNumber" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="TransportType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="QuickType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DistrictID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Contacts" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Mpno" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="ExpTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="OperatorID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NodeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OperatorTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CompleteTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AllotStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PackageInfo" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="PackageCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ChargeFee" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Step" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StepRemark" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="UserRemark" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="CSRemark" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Latitude" Type="System.Decimal" DbType="Decimal(18,10)" CanBeNull="true" />
+      <Column Name="Longitude" Type="System.Decimal" DbType="Decimal(18,10)" CanBeNull="true" />
+      <Column Name="SystemRemark" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TakeTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AllotTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CallUserStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CallUserTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CallUserSecond" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InviteCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Alarm" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="WaitProcess" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Exp_Order_Operator_Temp" Member="Exp_Order_Operator_Temp">
+    <Type Name="Exp_Order_Operator_Temp">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrderID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OperatorID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Exp_Preson_Account" Member="Exp_Preson_Account">
+    <Type Name="Exp_Preson_Account">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Commission" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Frozen" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Payment" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LastCommissionBillDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="LastPaymentBillDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Exp_Preson_CommissionBill" Member="Exp_Preson_CommissionBill">
+    <Type Name="Exp_Preson_CommissionBill">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OperatorID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Period" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="StartTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EndTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Commission" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="RealCommission" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="BillStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BillRemark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Exp_Preson_CommissionLog" Member="Exp_Preson_CommissionLog">
+    <Type Name="Exp_Preson_CommissionLog">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ChangeType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BeforeValue" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="ChangeValue" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="AfterValue" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="CorrelationNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Exp_Preson_CommissionLog_Exp_Preson_CommissionLog" Member="Exp_Preson_CommissionLog2" ThisKey="ID" OtherKey="ID" Type="Exp_Preson_CommissionLog" Cardinality="One" />
+      <Association Name="Exp_Preson_CommissionLog_Exp_Preson_CommissionLog" Member="Exp_Preson_CommissionLog1" ThisKey="ID" OtherKey="ID" Type="Exp_Preson_CommissionLog" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Exp_Preson_PaymentBill" Member="Exp_Preson_PaymentBill">
+    <Type Name="Exp_Preson_PaymentBill">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OperatorID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Period" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="StartTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EndTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Payment" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="RealPayment" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="BillStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BillRemark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Exp_Preson_PaymentLog" Member="Exp_Preson_PaymentLog">
+    <Type Name="Exp_Preson_PaymentLog">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ChangeType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BeforeValue" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="ChangeValue" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="AfterValue" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="CorrelationNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Exp_RoutePush" Member="Exp_RoutePush">
+    <Type Name="Exp_RoutePush">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PushType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ExpNumber" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="OutNumber" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="OpCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="RouteInfo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Remark" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PushStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Exp_Storage" Member="Exp_Storage">
+    <Type Name="Exp_Storage">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ManagerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LinkManID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Exp_StorageItem" Member="Exp_StorageItem">
+    <Type Name="Exp_StorageItem">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Number" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="OtherNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="StorageID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ItemType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ItemName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ItemDetail" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="NodeID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ManagerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TargetType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TargetTime1" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TargetTime2" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TargetTime3" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TargetTime4" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TargetTime5" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TargetTime6" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TargetTime7" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TargetTime8" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Exp_StorageLog" Member="Exp_StorageLog">
+    <Type Name="Exp_StorageLog">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StorageID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Number" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="OtherNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ItemType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ItemName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ItemDetail" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="TargetType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SourceStorageID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SourceStorageName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TargetStorageID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TargetStorageName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="NodeID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ManagerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ManagerName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.factory_order_product" Member="factory_order_product">
+    <Type Name="factory_order_product">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="opId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="fuId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.factory_user" Member="factory_user">
+    <Type Name="factory_user">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="userName" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="userPassword" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="factoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="factoryName" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="validFlag" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.File_UpLoadConfig" Member="File_UpLoadConfig">
+    <Type Name="File_UpLoadConfig">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProjectType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SaveFilePath" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.File_UpLoadLog" Member="File_UpLoadLog">
+    <Type Name="File_UpLoadLog">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProjectType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FileSignKey" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="FileCustomKey" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="SaveFilePath" Type="System.String" DbType="NVarChar(2000) NOT NULL" CanBeNull="false" />
+      <Column Name="FileMD5" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.M_SQL_CONFIG" Member="M_SQL_CONFIG">
+    <Type Name="M_SQL_CONFIG">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="NAME" Type="System.String" DbType="VarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="DB_SRC" Type="System.String" DbType="VarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="SQL_TEXT" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="CRON" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="STATUS" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TRIGGER_TYPE" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TRIGGER_TEXT" Type="System.String" DbType="VarChar(8) NOT NULL" CanBeNull="false" />
+      <Column Name="ACTION_TYPE" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ACTION" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="CREATOR" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="MEMO" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
+      <Column Name="CREATE_TIME" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UPDATE_TIME" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="VERSION" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Mall_Product" Member="Mall_Product">
+    <Type Name="Mall_Product">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Class" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Keyword" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="TypeValue" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TotalCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LeftCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SaleCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Site" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Sort" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MarketPrice" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="SalesPrice" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Enable" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PictureL" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PictureM" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PictureS" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SellBeginDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SellEndDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Order_Amount" Member="Order_Amount">
+    <Type Name="Order_Amount">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Money" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RelationID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Order_ConsigneeAddress" Member="Order_ConsigneeAddress">
+    <Type Name="Order_ConsigneeAddress">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Consignee" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DistrictID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="MPNo" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ZipCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Order_Order_Order_ConsigneeAddress" Member="Order_Order" ThisKey="OID" OtherKey="ID" Type="Order_Order" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Order_ConsigneeAddress20150119" Member="Order_ConsigneeAddress20150119">
+    <Type Name="Order_ConsigneeAddress20150119">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Consignee" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DistrictID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="MPNo" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ZipCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrderNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Order_Express" Member="Order_Express">
+    <Type Name="Order_Express">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="RelationID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="AcceptTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Order_Feedback" Member="Order_Feedback">
+    <Type Name="Order_Feedback">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Score1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Score2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Score3" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Score4" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Content1" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Order_Order" Member="Order_Order">
+    <Type Name="Order_Order">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrderNumber" Type="System.String" DbType="Char(15) NOT NULL" CanBeNull="false" />
+      <Column Name="OrderClass" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrderType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="SourceAmount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="TotalAmount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="PayAmount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="PayStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PayType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserRemark" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="ExpectTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CSRemark" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="SystemRemark" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="PrintRemark" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="RelationID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RelationNo" Type="System.String" DbType="Char(15)" CanBeNull="true" />
+      <Column Name="OrderStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Site" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CompleteTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AllFinishTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Channel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GetExpressNumber" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="GetExpressType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SendExpressNumber" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Step" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Step1Time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Step2Time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Step3Time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Step4Time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Step5Time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Step6Time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Step7Time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ExpressStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PushExpressTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SendType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InviteCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CommissionStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CommissionTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="tmp_PayAmount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Association Name="Order_Order_Order_ConsigneeAddress" Member="Order_ConsigneeAddress" ThisKey="ID" OtherKey="OID" Type="Order_ConsigneeAddress" />
+      <Association Name="Order_Order_Order_Product" Member="Order_Product" ThisKey="ID" OtherKey="OID" Type="Order_Product" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Order_Order20150119" Member="Order_Order20150119">
+    <Type Name="Order_Order20150119">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrderNumber" Type="System.String" DbType="Char(15) NOT NULL" CanBeNull="false" />
+      <Column Name="OrderClass" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrderType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="SourceAmount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="TotalAmount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="PayAmount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="PayStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PayType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserRemark" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="ExpectTime" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CSRemark" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="SystemRemark" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="PrintRemark" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="RelationID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RelationNo" Type="System.String" DbType="Char(15)" CanBeNull="true" />
+      <Column Name="OrderStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Site" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CompleteTime" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="AllFinishTime" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Channel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GetExpressNumber" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="GetExpressType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SendExpressNumber" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Step" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Step1Time" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Step2Time" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Step3Time" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Step4Time" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Step5Time" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Step6Time" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Step7Time" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ExpressStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PushExpressTime" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SendType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InviteCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CommissionStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CommissionTime" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="tmp_PayAmount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Order_OrderNumber" Member="Order_OrderNumber">
+    <Type Name="Order_OrderNumber">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="YearNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DayNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="HashID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="QueueNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrderNumber" Type="System.String" DbType="Char(15) NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="CreateTime" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Order_Payment" Member="Order_Payment">
+    <Type Name="Order_Payment">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PayMoney" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="PayMoneyType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PayChannel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PayDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="RelationID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Order_Payment20150119" Member="Order_Payment20150119">
+    <Type Name="Order_Payment20150119">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PayMoney" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="PayMoneyType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PayChannel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PayDate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="RelationID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrderNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Order_Product" Member="Order_Product">
+    <Type Name="Order_Product">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Attribute" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="OtherCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ReturnStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FactoryWash" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserMPNo" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="UserSignType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserSignTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Step" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Step5Time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Order_Order_Order_Product" Member="Order_Order" ThisKey="OID" OtherKey="ID" Type="Order_Order" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Order_Product20150119" Member="Order_Product20150119">
+    <Type Name="Order_Product20150119">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Attribute" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="OtherCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ReturnStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FactoryWash" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserMPNo" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="UserSignType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserSignTime" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Step" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Step5Time" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrderNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.order_seq" Member="order_seq">
+    <Type Name="order_seq">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Order_Step" Member="Order_Step">
+    <Type Name="Order_Step">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.pay_record" Member="pay_record">
+    <Type Name="pay_record">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="payNo" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="payType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="payAmount" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="orderNumber" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="orderPayAmount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="payStatus" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="pay0Time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="pay1Time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="pay2Time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="loopTimes" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PR_Operator" Member="PR_Operator">
+    <Type Name="PR_Operator">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LoginName" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="LoginPwd" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="MpNo" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="EMail" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Enable" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ParentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="RoleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NodeID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OnDuty" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.pr_operator_role" Member="pr_operator_role">
+    <Type Name="pr_operator_role">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="NAME" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PR_OperatorLog" Member="PR_OperatorLog">
+    <Type Name="PR_OperatorLog">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OperatorID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OperatorName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LogContent" Type="System.String" DbType="NVarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.scan_download_request" Member="scan_download_request">
+    <Type Name="scan_download_request">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ip" Type="System.String" DbType="VarChar(36)" CanBeNull="true" />
+      <Column Name="http_head" Type="System.String" DbType="VarChar(2000)" CanBeNull="true" />
+      <Column Name="create_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Survey_Answer" Member="Survey_Answer">
+    <Type Name="Survey_Answer">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SurID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="UserSource" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Survey_AnswerDetail" Member="Survey_AnswerDetail">
+    <Type Name="Survey_AnswerDetail">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AnsID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="QuID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AnsValue" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AnsContent" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Survey_Main" Member="Survey_Main">
+    <Type Name="Survey_Main">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="BeginDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UserCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CommitStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Survey_Options" Member="Survey_Options">
+    <Type Name="Survey_Options">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SurID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="QuID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Seq" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SelPct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Survey_Question" Member="Survey_Question">
+    <Type Name="Survey_Question">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SurID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Seq" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tmp_node_order" Member="tmp_node_order">
+    <Type Name="tmp_node_order">
+      <Column Name="站点" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150411" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150410" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150409" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150408" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150407" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150406" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150405" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150404" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150403" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150402" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150401" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150331" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150330" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150329" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150328" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150327" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150326" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150325" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150324" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150323" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150322" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150321" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150320" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150319" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150318" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150317" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150316" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150315" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150314" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150313" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150312" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150311" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150310" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150309" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150308" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150307" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150306" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150305" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150304" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150303" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150302" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="日期20150301" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tmp_OrderData" Member="tmp_OrderData">
+    <Type Name="tmp_OrderData">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MPNo" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="DisName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Channel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ExpFee" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="PID1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PID2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PID3" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PID4" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PID5" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PayType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="CSRemark" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tmp_OrderData_Config" Member="tmp_OrderData_Config">
+    <Type Name="tmp_OrderData_Config">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Day" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Count" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Channel_web_p" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Channel_weixin_p" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PayType_yue_p" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PayType_quan_p" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PayType_null_p" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tmp_OrderData1" Member="tmp_OrderData1">
+    <Type Name="tmp_OrderData1">
+      <Column Name="OrderNumber" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PID1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PID2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PID3" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PID4" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PID5" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PID6" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tmp_ProductData" Member="tmp_ProductData">
+    <Type Name="tmp_ProductData">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Min" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Max" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tmp_UserData" Member="tmp_UserData">
+    <Type Name="tmp_UserData">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MPNo" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="LastOrderDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Count" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Association Name="tmp_UserData_tmp_UserData" Member="tmp_UserData2" ThisKey="ID" OtherKey="ID" Type="tmp_UserData" Cardinality="One" />
+      <Association Name="tmp_UserData_tmp_UserData" Member="tmp_UserData1" ThisKey="ID" OtherKey="ID" Type="tmp_UserData" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.umc_record" Member="umc_record">
+    <Type Name="umc_record">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="washCode" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="orderNumber" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="stCode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="userName" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.User_AmountLog" Member="User_AmountLog">
+    <Type Name="User_AmountLog">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="BeforeValue" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="ChangeValue" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="AfterValue" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="SourceID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.User_AppInfo" Member="User_AppInfo">
+    <Type Name="User_AppInfo">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Flag" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Version" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.User_Card" Member="User_Card">
+    <Type Name="User_Card">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CardID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="RelationType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.User_Complaints" Member="User_Complaints">
+    <Type Name="User_Complaints">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="No" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="MPNo" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="HandleStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="HandleEmployeeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="HandleDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="HandleContent" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.User_ConsigneeAddress" Member="User_ConsigneeAddress">
+    <Type Name="User_ConsigneeAddress">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Consignee" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DistrictID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Mpno" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IsDefault" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ZipCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.User_Coupon" Member="User_Coupon">
+    <Type Name="User_Coupon">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="CouponID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CouponStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UseBeginDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UseEndDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UseOrderNumber" Type="System.String" DbType="Char(15)" CanBeNull="true" />
+      <Column Name="UseDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CouponCodeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.User_Detail" Member="User_Detail">
+    <Type Name="User_Detail">
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SeedID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NickName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Birthday" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Sex" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IDCard" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="RealName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DistrictID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Location" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="MaritalStatus" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Salary" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Hobbies" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="User_Info_User_Detail" Member="User_Info" ThisKey="ID" OtherKey="ID" Type="User_Info" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.User_Info" Member="User_Info">
+    <Type Name="User_Info">
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SeedID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LoginName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="MPNo" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(70)" CanBeNull="true" />
+      <Column Name="LoginPassword" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="PayPassword" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Level]" Member="Level" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Site" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LastLoginTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Growth" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Money" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Score" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AccountStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RegistSource" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RecommendedCode" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrderCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Latitude" Type="System.Decimal" DbType="Decimal(18,10)" CanBeNull="true" />
+      <Column Name="Longitude" Type="System.Decimal" DbType="Decimal(18,10)" CanBeNull="true" />
+      <Column Name="NodeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="User_Info_User_Detail" Member="User_Detail" ThisKey="ID" OtherKey="ID" Type="User_Detail" Cardinality="One" />
+    </Type>
+  </Table>
+  <Table Name="dbo.User_LoginLog" Member="User_LoginLog">
+    <Type Name="User_LoginLog">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Channel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LogType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LoginIP" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.User_Message_Private" Member="User_Message_Private">
+    <Type Name="User_Message_Private">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="SendUserID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="MessageType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Message" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="ReadStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PublicID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.User_OAuth" Member="User_OAuth">
+    <Type Name="User_OAuth">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OpenID" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="AccessToken" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.User_RegisterLog" Member="User_RegisterLog">
+    <Type Name="User_RegisterLog">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Channel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SourceID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="InviteUserID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="RegisterIP" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InviteCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.User_RegisterSource" Member="User_RegisterSource">
+    <Type Name="User_RegisterSource">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="InternalKey" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SourceID" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Content" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.User_ScoreLog" Member="User_ScoreLog">
+    <Type Name="User_ScoreLog">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="BeforeValue" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ChangeValue" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AfterValue" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SourceID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.User_Stat" Member="User_Stat">
+    <Type Name="User_Stat">
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.User_WeixinAttentionLog" Member="User_WeixinAttentionLog">
+    <Type Name="User_WeixinAttentionLog">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OpenID" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="AttentionTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Source" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Wash_Activity" Member="Wash_Activity">
+    <Type Name="Wash_Activity">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Link" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="BeginDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Site" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Channel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Sort" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PictureL" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PictureM" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PictureS" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PictureAlt" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="CommitStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Wash_Attribute" Member="Wash_Attribute">
+    <Type Name="Wash_Attribute">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="ParentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="IsDefault" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Sort" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Enable" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="SelectType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Wash_Category" Member="Wash_Category">
+    <Type Name="Wash_Category">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="ClassID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Unit" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Column Name="Keyword" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Enable" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Sort" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PictureL" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PictureM" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PictureS" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PictureAlt" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Wash_Class" Member="Wash_Class">
+    <Type Name="Wash_Class">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ParentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="IsDefault" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Sort" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Enable" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PictureL" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PictureM" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PictureS" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.wash_code" Member="wash_code">
+    <Type Name="wash_code">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Wash_Product" Member="Wash_Product">
+    <Type Name="Wash_Product">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="WebName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="CategoryID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Keyword" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MarketPrice" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="SalesPrice" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Site" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Sort" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RecSort" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Group]" Member="Group" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="VerifyStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SubmitOperatorID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SubmitDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AduitOperatorID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AduitDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="CommitStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OnOperatorID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OnDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="OffOperatorID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OffDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Wash_Product_bak" Member="Wash_Product_bak">
+    <Type Name="Wash_Product_bak">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="WebName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="CategoryID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Keyword" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MarketPrice" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="SalesPrice" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Site" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Sort" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RecSort" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Group]" Member="Group" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="VerifyStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SubmitOperatorID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SubmitDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AduitOperatorID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AduitDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="CommitStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OnOperatorID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OnDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="OffOperatorID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OffDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Wash_ProductAttribute" Member="Wash_ProductAttribute">
+    <Type Name="Wash_ProductAttribute">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AttributeID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Selected" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Default]" Member="Default" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Wash_Store" Member="Wash_Store">
+    <Type Name="Wash_Store">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StoreID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="DistrictID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Site" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="LinkMan" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MPNo" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ZipCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Wash_Store_Operator" Member="Wash_Store_Operator">
+    <Type Name="Wash_Store_Operator">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StoreID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StoreCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="LoginName" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="LoginPwd" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="MPNo" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Enable" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsAdmin" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Remark" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Obj_Cdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Cuser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Mdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Obj_Muser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

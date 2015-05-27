@@ -1,0 +1,58 @@
+﻿<?xml version="1.0"?>
+<configuration>
+  <configSections>
+    <section name="dataConfiguration" type="Microsoft.Practices.EnterpriseLibrary.Data.Configuration.DatabaseSettings, Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, Culture=neutral, PublicKeyToken=null" requirePermission="true" />
+    <section name="dataCacheClient" type="Microsoft.ApplicationServer.Caching.DataCacheClientSection, Microsoft.ApplicationServer.Caching.Core, Version=1.0.0.0,  Culture=neutral, PublicKeyToken=31bf3856ad364e35" allowLocation="true" allowDefinition="Everywhere"/>
+    <section name="securityCryptographyConfiguration" type="Microsoft.Practices.EnterpriseLibrary.Security.Cryptography.Configuration.CryptographySettings, Microsoft.Practices.EnterpriseLibrary.Security.Cryptography, Version=5.0.414.0, Culture=neutral, PublicKeyToken=null" requirePermission="true" />
+  </configSections>
+
+  <appSettings>
+    <add key="CacheName" value="TestCache"/>
+  </appSettings>
+
+  <dataConfiguration defaultDatabase="QueryConn" />
+  <connectionStrings>
+    <add name="QueryConn" connectionString="Application Name=VeloWebManage;Data Source=192.168.27.46;Initial Catalog=VeloMainDB;Persist Security Info=True;User ID=sa;Password=ctrlaltdelete"
+        providerName="System.Data.SqlClient" />
+    <add name="WriteConn" connectionString="Application Name=VeloWebManage;Data Source=192.168.27.46;Initial Catalog=VeloMainDB;Persist Security Info=True;User ID=sa;Password=ctrlaltdelete"
+        providerName="System.Data.SqlClient" />
+  </connectionStrings>
+
+  <securityCryptographyConfiguration>
+    <hashProviders>
+      <add name="MD5Cng" type="Microsoft.Practices.EnterpriseLibrary.Security.Cryptography.HashAlgorithmProvider, Microsoft.Practices.EnterpriseLibrary.Security.Cryptography, Version=5.0.414.0, Culture=neutral, PublicKeyToken=null"
+          algorithmType="System.Security.Cryptography.MD5Cng, System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+          saltEnabled="true" />
+    </hashProviders>
+    <symmetricCryptoProviders>
+      <add type="Microsoft.Practices.EnterpriseLibrary.Security.Cryptography.DpapiSymmetricCryptoProvider, Microsoft.Practices.EnterpriseLibrary.Security.Cryptography, Version=5.0.414.0, Culture=neutral, PublicKeyToken=null"
+          name="DPAPI Symmetric Crypto Provider" />
+    </symmetricCryptoProviders>
+  </securityCryptographyConfiguration>
+
+  <dataCacheClient>
+    <hosts>
+      <host name="newsyue-td" cachePort="22233"/>
+    </hosts>
+    <securityProperties mode="None" protectionLevel="None"/>
+  </dataCacheClient>
+
+  <system.serviceModel>
+    <bindings>
+      <netTcpBinding>
+        <binding name="customBinding" transactionFlow="true" listenBacklog="1000" maxReceivedMessageSize="1310720">
+          <security mode="None"/>
+        </binding>
+      </netTcpBinding>
+    </bindings>
+    <services>
+      <service name="VEBS.Business.Portal.CommonPortal">
+        <endpoint address="net.tcp://192.168.27.18:8001/VeloEnterpriseBusiness/Common" binding="netTcpBinding" bindingConfiguration="customBinding" contract="VEBS.Contract.InterfaceContract.ICommon">
+        </endpoint>
+      </service>
+    </services>
+  </system.serviceModel>
+  <startup>
+    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.0"/>
+  </startup>
+</configuration>

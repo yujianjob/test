@@ -1,0 +1,75 @@
+﻿@model IList<LazyAtHome.WCF.UserSystem.Contract.DataContract.User_Message_PrivateDC>
+@{
+    //ViewBag.Title = "站内信";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--内容-->
+<div id="content">
+    @{Html.RenderPartial("_MemberLeftNav");}
+    <div class="my_content right">
+        <div class="my_contentTitle">站内信</div>
+        <div class="height_50"></div>
+        <div class="my_bangding">
+            <div class="my_dingdanBox" style="display:block">
+                <div class="my_dingdanTitle">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="150" style="padding-left:10px">发件人</td>
+                            <td width="450" align="left">内容</td>
+                            <td align="center">发件时间</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="my_dingdanList">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        @foreach (var msg in Model)
+                        {
+                            <tr>
+                                <td width="150" style="padding-left:10px">@msg.SendUserID</td>
+                                <td width="450" align="left">@msg.Message</td>
+                                <td align="center">@msg.Obj_Cdate.Value.ToString("yyyy-MM-dd")</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+                <div class="my_dingdanPage"><a href="#">上一页</a><span><a href="#" class="this">1</a></span><a href="#">下一页</a></div>
+            </div>
+        </div>
+        @{Html.RenderAction("MoreWash", "Wash");}
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/Scripts/gundong.js")
+
+    <script language="javascript" type="text/javascript">
+        $(function () {
+            //左侧导航
+            $('.my_navList dt').click(function () {
+                $(this).parent().find('dd').slideToggle(200);
+                $(this).toggleClass("my_navList_Top");
+            })
+            //滚动
+            var BOX = $('.cartLuxuryList ul');
+            var HHUM = $('.cartLuxuryList li');
+            var LEFT = $('.cartLuxuryZuo');
+            var RIGHT = $('.cartLuxuryYou');
+            var WIDTH = 184;//单个宽度
+            var PLAY = 5000;//自动播放的时间
+            var SPEED = 500;//切换速度
+            var AOUT = true;//是否自动播放
+            IMG(BOX, LEFT, RIGHT, WIDTH, HHUM, PLAY, SPEED, AOUT);
+
+            $('.cartLuxuryList li').hover(function () {
+                $(this).find('.cartLuxuryListImg').addClass('this');
+            }, function () {
+                $(this).find('.cartLuxuryListImg').removeClass('this');
+            })
+        })
+    </script>
+}

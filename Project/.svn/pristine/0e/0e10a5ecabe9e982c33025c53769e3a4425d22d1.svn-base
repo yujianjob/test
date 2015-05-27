@@ -1,0 +1,34 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\changtongxue1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+			<p>1、皮质靴子，用清洁软布沾上清洁剂，把表面仔仔细细清洁一遍，如果是绒面的靴子，就是刷子仔细清理，一下实在哪里清理的大的污渍可以用橡皮擦，多擦几遍就可以。</p> 
+			<p>2、用专门的刷子恢复绒毛。等清洁干燥以后，可以喷上防水喷雾，防水喷雾可以有效的防止一些污渍喷到靴子上，即使喷到了，也很容易清理，靴子打上油，均匀打上。</p> 
+			<p>3、用一些报纸之类的废纸捏成团，放入靴子内，撑起鞋面，放入干燥剂，就可以保存起来啦。</p> 
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>穿着时尚、光亮的长筒靴会增强人的信心，提高个人身份，衬托出大方气质。<br />当然，洁净一定是前提，专业长筒靴清洁，交给懒到家！</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\changtongxue2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>长筒靴穿久后会发现靴子的表面会出现一些小斑点，或者是里面落了灰尘，可以借用牙刷，去污剂，鞋油，柔软的布片进行清理，让长筒靴更加的光鲜亮丽。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

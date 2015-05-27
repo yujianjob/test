@@ -1,0 +1,606 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+您 Web 项目的发布/打包进程将使用此文件。您可以通过编辑此 MSBuild 文件
+来自定义该进程的行为。若要了解与此相关的详细信息，请访问 http://go.microsoft.com/fwlink/?LinkID=208121。
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>E:\WebRelese\LazyAtHome.Web.WeiXin4</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="App_Code/UIHelper.cshtml">
+      <publishTime>03/19/2015 13:39:11</publishTime>
+    </File>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>03/19/2015 14:05:04</publishTime>
+    </File>
+    <File Include="bin/de/Microsoft.Data.Edm.resources.dll">
+      <publishTime>04/04/2015 11:00:35</publishTime>
+    </File>
+    <File Include="bin/de/Microsoft.Data.OData.resources.dll">
+      <publishTime>04/04/2015 11:00:36</publishTime>
+    </File>
+    <File Include="bin/de/Microsoft.Data.Services.Client.resources.dll">
+      <publishTime>04/04/2015 11:00:37</publishTime>
+    </File>
+    <File Include="bin/de/Microsoft.Data.Services.resources.dll">
+      <publishTime>04/04/2015 11:00:38</publishTime>
+    </File>
+    <File Include="bin/de/System.Spatial.resources.dll">
+      <publishTime>04/04/2015 11:00:32</publishTime>
+    </File>
+    <File Include="bin/es/Microsoft.Data.Edm.resources.dll">
+      <publishTime>04/04/2015 11:00:35</publishTime>
+    </File>
+    <File Include="bin/es/Microsoft.Data.OData.resources.dll">
+      <publishTime>04/04/2015 11:00:36</publishTime>
+    </File>
+    <File Include="bin/es/Microsoft.Data.Services.Client.resources.dll">
+      <publishTime>04/04/2015 11:00:37</publishTime>
+    </File>
+    <File Include="bin/es/Microsoft.Data.Services.resources.dll">
+      <publishTime>04/04/2015 11:00:38</publishTime>
+    </File>
+    <File Include="bin/es/System.Spatial.resources.dll">
+      <publishTime>04/04/2015 11:00:32</publishTime>
+    </File>
+    <File Include="bin/fr/Microsoft.Data.Edm.resources.dll">
+      <publishTime>04/04/2015 11:00:35</publishTime>
+    </File>
+    <File Include="bin/fr/Microsoft.Data.OData.resources.dll">
+      <publishTime>04/04/2015 11:00:36</publishTime>
+    </File>
+    <File Include="bin/fr/Microsoft.Data.Services.Client.resources.dll">
+      <publishTime>04/04/2015 11:00:37</publishTime>
+    </File>
+    <File Include="bin/fr/Microsoft.Data.Services.resources.dll">
+      <publishTime>04/04/2015 11:00:38</publishTime>
+    </File>
+    <File Include="bin/fr/System.Spatial.resources.dll">
+      <publishTime>04/04/2015 11:00:32</publishTime>
+    </File>
+    <File Include="bin/it/Microsoft.Data.Edm.resources.dll">
+      <publishTime>04/04/2015 11:00:35</publishTime>
+    </File>
+    <File Include="bin/it/Microsoft.Data.OData.resources.dll">
+      <publishTime>04/04/2015 11:00:36</publishTime>
+    </File>
+    <File Include="bin/it/Microsoft.Data.Services.Client.resources.dll">
+      <publishTime>04/04/2015 11:00:37</publishTime>
+    </File>
+    <File Include="bin/it/Microsoft.Data.Services.resources.dll">
+      <publishTime>04/04/2015 11:00:38</publishTime>
+    </File>
+    <File Include="bin/it/System.Spatial.resources.dll">
+      <publishTime>04/04/2015 11:00:32</publishTime>
+    </File>
+    <File Include="bin/ja/Microsoft.Data.Edm.resources.dll">
+      <publishTime>04/04/2015 11:00:35</publishTime>
+    </File>
+    <File Include="bin/ja/Microsoft.Data.OData.resources.dll">
+      <publishTime>04/04/2015 11:00:36</publishTime>
+    </File>
+    <File Include="bin/ja/Microsoft.Data.Services.Client.resources.dll">
+      <publishTime>04/04/2015 11:00:37</publishTime>
+    </File>
+    <File Include="bin/ja/Microsoft.Data.Services.resources.dll">
+      <publishTime>04/04/2015 11:00:38</publishTime>
+    </File>
+    <File Include="bin/ja/System.Spatial.resources.dll">
+      <publishTime>04/04/2015 11:00:32</publishTime>
+    </File>
+    <File Include="bin/ko/Microsoft.Data.Edm.resources.dll">
+      <publishTime>04/04/2015 11:00:35</publishTime>
+    </File>
+    <File Include="bin/ko/Microsoft.Data.OData.resources.dll">
+      <publishTime>04/04/2015 11:00:36</publishTime>
+    </File>
+    <File Include="bin/ko/Microsoft.Data.Services.Client.resources.dll">
+      <publishTime>04/04/2015 11:00:37</publishTime>
+    </File>
+    <File Include="bin/ko/Microsoft.Data.Services.resources.dll">
+      <publishTime>04/04/2015 11:00:38</publishTime>
+    </File>
+    <File Include="bin/ko/System.Spatial.resources.dll">
+      <publishTime>04/04/2015 11:00:32</publishTime>
+    </File>
+    <File Include="bin/LazyAtHome.Core.dll">
+      <publishTime>02/09/2015 15:29:33</publishTime>
+    </File>
+    <File Include="bin/LazyAtHome.Core.Web.dll">
+      <publishTime>02/09/2015 15:29:31</publishTime>
+    </File>
+    <File Include="bin/LazyAtHome.Library.Pay.dll">
+      <publishTime>04/15/2015 08:05:56</publishTime>
+    </File>
+    <File Include="bin/LazyAtHome.WCF.Common.Contract.dll">
+      <publishTime>02/09/2015 15:29:33</publishTime>
+    </File>
+    <File Include="bin/LazyAtHome.WCF.OrderSystem.Contract.dll">
+      <publishTime>04/16/2015 08:53:59</publishTime>
+    </File>
+    <File Include="bin/LazyAtHome.WCF.UserSystem.Contract.dll">
+      <publishTime>02/09/2015 15:29:31</publishTime>
+    </File>
+    <File Include="bin/LazyAtHome.WCF.Wash.Contract.dll">
+      <publishTime>02/09/2015 15:29:30</publishTime>
+    </File>
+    <File Include="bin/LazyAtHome.Web.WeiXin4.dll">
+      <publishTime>05/20/2015 09:57:53</publishTime>
+    </File>
+    <File Include="bin/Microsoft.ApplicationServer.Caching.Client.dll">
+      <publishTime>02/09/2015 15:29:30</publishTime>
+    </File>
+    <File Include="bin/Microsoft.ApplicationServer.Caching.Core.dll">
+      <publishTime>02/09/2015 15:29:31</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Data.Edm.dll">
+      <publishTime>04/04/2015 11:00:35</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Data.OData.dll">
+      <publishTime>04/04/2015 11:00:36</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Data.Services.Client.dll">
+      <publishTime>04/04/2015 11:00:37</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Data.Services.dll">
+      <publishTime>04/04/2015 11:00:38</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.EnterpriseLibrary.Common.dll">
+      <publishTime>02/09/2015 15:29:33</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.EnterpriseLibrary.Data.dll">
+      <publishTime>02/09/2015 15:29:33</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.EnterpriseLibrary.Security.Cryptography.dll">
+      <publishTime>02/09/2015 15:29:33</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.ServiceLocation.dll">
+      <publishTime>02/09/2015 15:29:30</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.Unity.dll">
+      <publishTime>02/09/2015 15:29:31</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.Unity.Interception.dll">
+      <publishTime>02/09/2015 15:29:33</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>03/19/2015 14:05:58</publishTime>
+    </File>
+    <File Include="bin/Microsoft.WindowsFabric.Common.dll">
+      <publishTime>02/09/2015 15:29:31</publishTime>
+    </File>
+    <File Include="bin/Microsoft.WindowsFabric.Data.Common.dll">
+      <publishTime>02/09/2015 15:29:33</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>03/19/2015 14:06:12</publishTime>
+    </File>
+    <File Include="bin/ru/Microsoft.Data.Edm.resources.dll">
+      <publishTime>04/04/2015 11:00:35</publishTime>
+    </File>
+    <File Include="bin/ru/Microsoft.Data.OData.resources.dll">
+      <publishTime>04/04/2015 11:00:36</publishTime>
+    </File>
+    <File Include="bin/ru/Microsoft.Data.Services.Client.resources.dll">
+      <publishTime>04/04/2015 11:00:37</publishTime>
+    </File>
+    <File Include="bin/ru/Microsoft.Data.Services.resources.dll">
+      <publishTime>04/04/2015 11:00:38</publishTime>
+    </File>
+    <File Include="bin/ru/System.Spatial.resources.dll">
+      <publishTime>04/04/2015 11:00:32</publishTime>
+    </File>
+    <File Include="bin/Senparc.Weixin.dll">
+      <publishTime>03/19/2015 14:06:17</publishTime>
+    </File>
+    <File Include="bin/Senparc.Weixin.MP.dll">
+      <publishTime>03/19/2015 14:06:21</publishTime>
+    </File>
+    <File Include="bin/Senparc.Weixin.MP.MvcExtension.dll">
+      <publishTime>03/19/2015 14:06:23</publishTime>
+    </File>
+    <File Include="bin/System.Spatial.dll">
+      <publishTime>04/04/2015 11:00:32</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>03/19/2015 14:05:52</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>03/19/2015 14:05:13</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>03/19/2015 14:05:45</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>03/19/2015 14:05:40</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>03/19/2015 14:05:52</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>03/19/2015 14:05:52</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>03/19/2015 14:05:52</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>03/19/2015 14:06:26</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/Microsoft.Data.Edm.resources.dll">
+      <publishTime>04/04/2015 11:00:35</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/Microsoft.Data.OData.resources.dll">
+      <publishTime>04/04/2015 11:00:36</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/Microsoft.Data.Services.Client.resources.dll">
+      <publishTime>04/04/2015 11:00:37</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/Microsoft.Data.Services.resources.dll">
+      <publishTime>04/04/2015 11:00:38</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Spatial.resources.dll">
+      <publishTime>04/04/2015 11:00:32</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.Helpers.resources.dll">
+      <publishTime>03/19/2015 14:05:55</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.Mvc.resources.dll">
+      <publishTime>03/19/2015 14:05:34</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.Optimization.resources.dll">
+      <publishTime>03/19/2015 14:05:49</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.Razor.resources.dll">
+      <publishTime>03/19/2015 14:05:43</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.WebPages.Deployment.resources.dll">
+      <publishTime>03/19/2015 14:05:55</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.WebPages.Razor.resources.dll">
+      <publishTime>03/19/2015 14:05:55</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.WebPages.resources.dll">
+      <publishTime>03/19/2015 14:05:55</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/Microsoft.Data.Edm.resources.dll">
+      <publishTime>04/04/2015 11:00:35</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/Microsoft.Data.OData.resources.dll">
+      <publishTime>04/04/2015 11:00:36</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/Microsoft.Data.Services.Client.resources.dll">
+      <publishTime>04/04/2015 11:00:37</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/Microsoft.Data.Services.resources.dll">
+      <publishTime>04/04/2015 11:00:38</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/System.Spatial.resources.dll">
+      <publishTime>04/04/2015 11:00:32</publishTime>
+    </File>
+    <File Include="Content/ldj.css">
+      <publishTime>05/13/2015 17:10:26</publishTime>
+    </File>
+    <File Include="Content/main.css">
+      <publishTime>04/08/2015 10:09:37</publishTime>
+    </File>
+    <File Include="favicon.ico">
+      <publishTime>03/19/2015 13:39:11</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>03/19/2015 13:39:11</publishTime>
+    </File>
+    <File Include="img/%281%29.jpg">
+      <publishTime>03/31/2015 18:50:53</publishTime>
+    </File>
+    <File Include="img/%2810%29.jpg">
+      <publishTime>03/31/2015 18:50:28</publishTime>
+    </File>
+    <File Include="img/%282%29.jpg">
+      <publishTime>03/31/2015 17:00:36</publishTime>
+    </File>
+    <File Include="img/%283%29.jpg">
+      <publishTime>04/02/2015 17:32:36</publishTime>
+    </File>
+    <File Include="img/%284%29.jpg">
+      <publishTime>03/31/2015 18:50:46</publishTime>
+    </File>
+    <File Include="img/%285%29.jpg">
+      <publishTime>03/31/2015 18:03:24</publishTime>
+    </File>
+    <File Include="img/%286%29.jpg">
+      <publishTime>03/31/2015 18:03:31</publishTime>
+    </File>
+    <File Include="img/%288%29.jpg">
+      <publishTime>03/31/2015 18:03:17</publishTime>
+    </File>
+    <File Include="img/%289%29.jpg">
+      <publishTime>03/31/2015 18:03:37</publishTime>
+    </File>
+    <File Include="img/%2894%29.jpg">
+      <publishTime>03/31/2015 17:00:19</publishTime>
+    </File>
+    <File Include="img/activities2.png">
+      <publishTime>03/25/2015 09:47:04</publishTime>
+    </File>
+    <File Include="img/activityIcn.jpg">
+      <publishTime>03/19/2015 13:39:12</publishTime>
+    </File>
+    <File Include="img/activity_banner.jpg">
+      <publishTime>03/19/2015 13:39:12</publishTime>
+    </File>
+    <File Include="img/activity_qrcode.jpg">
+      <publishTime>03/19/2015 13:39:12</publishTime>
+    </File>
+    <File Include="img/addressIcn.jpg">
+      <publishTime>03/19/2015 13:39:12</publishTime>
+    </File>
+    <File Include="img/androidIcn.png">
+      <publishTime>03/19/2015 13:39:12</publishTime>
+    </File>
+    <File Include="img/banner.gif">
+      <publishTime>03/19/2015 13:39:13</publishTime>
+    </File>
+    <File Include="img/banner.jpg">
+      <publishTime>03/19/2015 13:39:12</publishTime>
+    </File>
+    <File Include="img/dialog01.jpg">
+      <publishTime>04/05/2015 23:11:54</publishTime>
+    </File>
+    <File Include="img/dialog01_btn.jpg">
+      <publishTime>04/05/2015 23:27:27</publishTime>
+    </File>
+    <File Include="img/downarrow.png">
+      <publishTime>03/19/2015 13:39:12</publishTime>
+    </File>
+    <File Include="img/downloadIcn.jpg">
+      <publishTime>03/19/2015 13:39:12</publishTime>
+    </File>
+    <File Include="img/dwicon.png">
+      <publishTime>03/19/2015 13:39:12</publishTime>
+    </File>
+    <File Include="img/fangjia_pic1.jpg">
+      <publishTime>03/19/2015 13:39:12</publishTime>
+    </File>
+    <File Include="img/fangjia_pic2.jpg">
+      <publishTime>03/19/2015 13:39:12</publishTime>
+    </File>
+    <File Include="img/form_title01.png">
+      <publishTime>04/05/2015 14:46:10</publishTime>
+    </File>
+    <File Include="img/guide.png">
+      <publishTime>03/19/2015 13:39:12</publishTime>
+    </File>
+    <File Include="img/icon.png">
+      <publishTime>03/19/2015 13:39:12</publishTime>
+    </File>
+    <File Include="img/icons.jpg">
+      <publishTime>03/19/2015 13:39:12</publishTime>
+    </File>
+    <File Include="img/icon_close.png">
+      <publishTime>04/06/2015 01:06:19</publishTime>
+    </File>
+    <File Include="img/iosIcn.png">
+      <publishTime>03/19/2015 13:39:12</publishTime>
+    </File>
+    <File Include="img/loading.gif">
+      <publishTime>03/19/2015 13:39:12</publishTime>
+    </File>
+    <File Include="img/loginoutIcn.jpg">
+      <publishTime>03/19/2015 13:39:12</publishTime>
+    </File>
+    <File Include="img/logo.png">
+      <publishTime>03/19/2015 13:39:12</publishTime>
+    </File>
+    <File Include="img/maskbg.png">
+      <publishTime>03/19/2015 13:39:12</publishTime>
+    </File>
+    <File Include="img/morenIcn.png">
+      <publishTime>03/19/2015 13:39:12</publishTime>
+    </File>
+    <File Include="img/orderIcn.jpg">
+      <publishTime>03/19/2015 13:39:12</publishTime>
+    </File>
+    <File Include="img/page01.png">
+      <publishTime>04/05/2015 12:41:56</publishTime>
+    </File>
+    <File Include="img/page02.jpg">
+      <publishTime>03/31/2015 17:00:19</publishTime>
+    </File>
+    <File Include="img/page04.jpg">
+      <publishTime>04/02/2015 17:32:36</publishTime>
+    </File>
+    <File Include="img/page05.jpg">
+      <publishTime>03/31/2015 18:03:37</publishTime>
+    </File>
+    <File Include="img/page06.jpg">
+      <publishTime>03/31/2015 18:50:28</publishTime>
+    </File>
+    <File Include="img/prize_box.png">
+      <publishTime>04/05/2015 14:27:38</publishTime>
+    </File>
+    <File Include="img/prize_box2.png">
+      <publishTime>04/05/2015 14:28:02</publishTime>
+    </File>
+    <File Include="img/prize_cover.png">
+      <publishTime>04/05/2015 14:29:13</publishTime>
+    </File>
+    <File Include="img/qbicon.jpg">
+      <publishTime>03/19/2015 13:39:12</publishTime>
+    </File>
+    <File Include="img/rarrow.png">
+      <publishTime>03/19/2015 13:39:12</publishTime>
+    </File>
+    <File Include="img/ren.jpg">
+      <publishTime>03/19/2015 13:39:12</publishTime>
+    </File>
+    <File Include="img/ren.png">
+      <publishTime>03/19/2015 13:39:12</publishTime>
+    </File>
+    <File Include="img/step02_bg1.png">
+      <publishTime>04/05/2015 10:53:59</publishTime>
+    </File>
+    <File Include="img/tkt_available.png">
+      <publishTime>04/06/2015 00:44:48</publishTime>
+    </File>
+    <File Include="img/tkt_available_yyx.png">
+      <publishTime>04/14/2015 07:48:00</publishTime>
+    </File>
+    <File Include="img/tkt_bg.png">
+      <publishTime>04/06/2015 00:31:30</publishTime>
+    </File>
+    <File Include="img/tkt_bg1.png">
+      <publishTime>04/05/2015 23:51:38</publishTime>
+    </File>
+    <File Include="img/tkt_expired.png">
+      <publishTime>04/06/2015 00:43:59</publishTime>
+    </File>
+    <File Include="img/tkt_expired_yyx.png">
+      <publishTime>04/14/2015 07:48:00</publishTime>
+    </File>
+    <File Include="img/tkt_used.png">
+      <publishTime>04/14/2015 07:48:00</publishTime>
+    </File>
+    <File Include="img/tkt_used_yyx.png">
+      <publishTime>04/14/2015 07:48:00</publishTime>
+    </File>
+    <File Include="img/user_friend.png">
+      <publishTime>04/05/2015 22:50:20</publishTime>
+    </File>
+    <File Include="img/user_new.png">
+      <publishTime>04/05/2015 14:18:28</publishTime>
+    </File>
+    <File Include="img/washioIcn.jpg">
+      <publishTime>03/19/2015 13:39:12</publishTime>
+    </File>
+    <File Include="main.css">
+      <publishTime>04/16/2015 07:56:39</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>04/04/2015 11:00:39</publishTime>
+    </File>
+    <File Include="Scripts/confirm.js">
+      <publishTime>03/19/2015 13:39:11</publishTime>
+    </File>
+    <File Include="Scripts/hui.js">
+      <publishTime>04/05/2015 11:09:19</publishTime>
+    </File>
+    <File Include="Scripts/iscroll.js">
+      <publishTime>03/19/2015 13:39:11</publishTime>
+    </File>
+    <File Include="Scripts/jquery-2.1.1.js">
+      <publishTime>03/19/2015 13:39:11</publishTime>
+    </File>
+    <File Include="Scripts/jquery-2.1.1.min.js">
+      <publishTime>03/19/2015 13:39:11</publishTime>
+    </File>
+    <File Include="Scripts/jquery-2.1.1.min.map">
+      <publishTime>03/19/2015 13:39:11</publishTime>
+    </File>
+    <File Include="Scripts/jquery-2.1.3.js">
+      <publishTime>04/05/2015 11:04:30</publishTime>
+    </File>
+    <File Include="Scripts/jquery-2.1.3.min.js">
+      <publishTime>04/05/2015 11:04:36</publishTime>
+    </File>
+    <File Include="Scripts/jweixin-1.0.0.js">
+      <publishTime>04/03/2015 14:21:19</publishTime>
+    </File>
+    <File Include="Scripts/landaojia.js">
+      <publishTime>03/19/2015 13:39:10</publishTime>
+    </File>
+    <File Include="Scripts/_references.js">
+      <publishTime>04/14/2015 07:55:20</publishTime>
+    </File>
+    <File Include="Views/Address/AddressManage.cshtml">
+      <publishTime>05/07/2015 16:45:50</publishTime>
+    </File>
+    <File Include="Views/Address/AddressModify.cshtml">
+      <publishTime>05/07/2015 16:03:03</publishTime>
+    </File>
+    <File Include="Views/Cart/MyOrders.cshtml">
+      <publishTime>05/14/2015 15:50:11</publishTime>
+    </File>
+    <File Include="Views/Cart/OneKey.cshtml">
+      <publishTime>05/13/2015 14:47:28</publishTime>
+    </File>
+    <File Include="Views/Cart/OrderDetail.cshtml">
+      <publishTime>05/07/2015 11:03:07</publishTime>
+    </File>
+    <File Include="Views/Cart/ProductList.cshtml">
+      <publishTime>05/07/2015 17:43:14</publishTime>
+    </File>
+    <File Include="Views/Home/Activites.cshtml">
+      <publishTime>04/09/2015 15:43:31</publishTime>
+    </File>
+    <File Include="Views/Home/Activites1.cshtml">
+      <publishTime>04/09/2015 15:26:38</publishTime>
+    </File>
+    <File Include="Views/Home/Activites2.cshtml">
+      <publishTime>04/09/2015 16:10:05</publishTime>
+    </File>
+    <File Include="Views/Home/DownAPP.cshtml">
+      <publishTime>03/19/2015 13:39:11</publishTime>
+    </File>
+    <File Include="Views/Home/HappyNewYear.cshtml">
+      <publishTime>03/19/2015 13:39:11</publishTime>
+    </File>
+    <File Include="Views/Home/Index.cshtml">
+      <publishTime>04/15/2015 17:42:57</publishTime>
+    </File>
+    <File Include="Views/Home/test.cshtml">
+      <publishTime>03/19/2015 13:39:11</publishTime>
+    </File>
+    <File Include="Views/Member/AddCoupon.cshtml">
+      <publishTime>03/19/2015 13:39:11</publishTime>
+    </File>
+    <File Include="Views/Member/GetShareBonuses.cshtml">
+      <publishTime>05/06/2015 14:00:40</publishTime>
+    </File>
+    <File Include="Views/Member/GetSystemBonuses.cshtml">
+      <publishTime>04/20/2015 14:35:40</publishTime>
+    </File>
+    <File Include="Views/Member/MobileBindingShow.cshtml">
+      <publishTime>04/16/2015 16:02:40</publishTime>
+    </File>
+    <File Include="Views/Member/MyBalance.cshtml">
+      <publishTime>03/19/2015 13:39:11</publishTime>
+    </File>
+    <File Include="Views/Member/MyBonusesList.cshtml">
+      <publishTime>04/14/2015 12:25:27</publishTime>
+    </File>
+    <File Include="Views/Member/MyBounusesList.cshtml">
+      <publishTime>04/08/2015 09:49:17</publishTime>
+    </File>
+    <File Include="Views/Member/MyCoupons.cshtml">
+      <publishTime>03/19/2015 13:39:11</publishTime>
+    </File>
+    <File Include="Views/Member/MyWallet.cshtml">
+      <publishTime>05/07/2015 14:26:24</publishTime>
+    </File>
+    <File Include="Views/Member/ShareBonuses.cshtml">
+      <publishTime>05/06/2015 14:00:40</publishTime>
+    </File>
+    <File Include="Views/Member/SystemBonuses.cshtml">
+      <publishTime>05/06/2015 14:00:40</publishTime>
+    </File>
+    <File Include="Views/Payment/Show.cshtml">
+      <publishTime>04/17/2015 17:41:18</publishTime>
+    </File>
+    <File Include="Views/Shared/Error.cshtml">
+      <publishTime>03/19/2015 13:39:11</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>04/10/2015 18:44:32</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>03/19/2015 13:39:11</publishTime>
+    </File>
+    <File Include="Views/_ViewStart.cshtml">
+      <publishTime>03/19/2015 13:39:11</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>05/13/2015 11:00:26</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

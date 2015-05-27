@@ -1,0 +1,35 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\xuedixue1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、不要讲整鞋浸泡，针对有污渍的地方，可以用清水浸湿。</p> 
+				<p>2、如果换季不穿雪地靴的时候，记得一定要把靴内放置撑片，因为羊皮的材质较软，这样能保持血统直立有型。</p> 
+				<p>3、清洗后一定放置阴凉通风的地方晾干，不要加热烘干，更不能放在阳光下暴晒。</p>
+				<p>4、不要实用漂白剂等各种清洁剂，必须使用羊皮专用清洁剂。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>雪地靴，现在冬天MM们的必备品。不仅温暖，更可以在冬日里展现MM们的可爱与魅力。懒到家，让美丽没有后顾之忧。懒到家，清洁有我，洁净到家。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\xuedixue2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>雪地靴以温暖舒适、百搭的形象在全球风靡，全世界挂起了一阵抢购狂潮。如果要是没有一双雪地靴，那就真的out了。在秋冬到来的时候，雪地靴便成为了时尚男女的必备单品，但是在穿久了之后，也需要专门的清洁与护理。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

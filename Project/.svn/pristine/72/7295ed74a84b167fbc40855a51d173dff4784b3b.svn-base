@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="566c157d-3d7c-4165-a946-eb946ffebeee" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://192.168.1.201:8100/LazyAtHome/SFExpressService" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="SFExpressService7.xsd" MetadataType="Schema" ID="988e2783-eb6c-4faa-a6c5-69d6838128cb" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/SFExpressService?xsd=xsd7" />
+    <MetadataFile FileName="SFExpressService.xsd" MetadataType="Schema" ID="6adcfb6f-f343-47ac-b90d-7ed8fb327b84" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/SFExpressService?xsd=xsd1" />
+    <MetadataFile FileName="SFExpressService1.xsd" MetadataType="Schema" ID="d10d2d95-ffc1-49c1-963e-7840f5d26ec3" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/SFExpressService?xsd=xsd2" />
+    <MetadataFile FileName="SFExpressService2.xsd" MetadataType="Schema" ID="49e2ef0f-8f35-4820-9065-bca24ad5c3f2" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/SFExpressService?xsd=xsd3" />
+    <MetadataFile FileName="SFExpressService3.xsd" MetadataType="Schema" ID="2515760b-edd7-4ae2-8c3d-f19fcc00bf87" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/SFExpressService?xsd=xsd0" />
+    <MetadataFile FileName="SFExpressPortal.wsdl" MetadataType="Wsdl" ID="347d42e3-f9c0-4f8d-a354-dff6cc0bf4cf" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/SFExpressService?wsdl" />
+    <MetadataFile FileName="SFExpressService4.xsd" MetadataType="Schema" ID="066ae3b1-7339-4d5c-a454-11f643476f6f" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/SFExpressService?xsd=xsd6" />
+    <MetadataFile FileName="SFExpressService.disco" MetadataType="Disco" ID="ce548d57-3979-46c5-9bc4-ad348fc8a08a" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/SFExpressService?disco" />
+    <MetadataFile FileName="SFExpressService5.xsd" MetadataType="Schema" ID="abb75c52-8f0d-4ac8-81ee-1a05aa22ccc4" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/SFExpressService?xsd=xsd4" />
+    <MetadataFile FileName="SFExpressService6.xsd" MetadataType="Schema" ID="5b1da6b9-8865-4938-a877-e18b65dddfcd" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/SFExpressService?xsd=xsd5" />
+    <MetadataFile FileName="SFExpressService71.xsd" MetadataType="Schema" ID="11ce4441-6391-41e6-9ad7-6c97fca9637f" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/SFExpressService?xsd=xsd8" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -1,0 +1,164 @@
+﻿<form id="pagerForm" method="post" action="demo_page1.html">
+    <input type="hidden" name="status" value="${param.status}">
+    <input type="hidden" name="keywords" value="${param.keywords}" />
+    <input type="hidden" name="pageNum" value="1" />
+    <input type="hidden" name="numPerPage" value="${model.numPerPage}" />
+    <input type="hidden" name="orderField" value="${param.orderField}" />
+</form>
+
+<div class="pageHeader">
+    <form onsubmit="return navTabSearch(this);" action="demo_page1.html" method="post">
+        <div class="searchBar">
+            <!--<ul class="searchContent">
+                <li>
+                    <label>我的客户：</label>
+                    <input type="text"/>
+                </li>
+                <li>
+                <select class="combox" name="province">
+                    <option value="">所有省市</option>
+                    <option value="北京">北京</option>
+                    <option value="上海">上海</option>
+                    <option value="天津">天津</option>
+                    <option value="重庆">重庆</option>
+                    <option value="广东">广东</option>
+                </select>
+                </li>
+            </ul>
+            -->
+            <table class="searchContent">
+                <tr>
+                    <td>
+                        我的客户：<input type="text" name="keyword" />
+                    </td>
+                    <td>
+                        <select class="combox" name="province">
+                            <option value="">所有省市</option>
+                            <option value="北京">北京</option>
+                            <option value="上海">上海</option>
+                            <option value="天津">天津</option>
+                            <option value="重庆">重庆</option>
+                            <option value="广东">广东</option>
+                        </select>
+                    </td>
+                    <td>
+                        建档日期：<input type="text" class="date" readonly="true" />
+                    </td>
+                </tr>
+            </table>
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+                    <li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="pageContent">
+    <div class="panelBar">
+        <ul class="toolBar">
+            <li><a class="add" href="demo_page4.html" target="navTab"><span>添加</span></a></li>
+            <li><a class="delete" href="demo/common/ajaxDone.html?uid={sid_user}" target="ajaxTodo" title="确定要删除吗?"><span>删除</span></a></li>
+            <li><a class="edit" href="demo_page4.html?uid={sid_user}" target="navTab"><span>修改</span></a></li>
+            <li class="line">line</li>
+            <li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targettype="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>
+        </ul>
+    </div>
+    <table class="table" width="100%" layouth="137">
+        <thead>
+            <tr>
+                <th width="80"></th>
+                <th width="120">客户号</th>
+                <th>客户名称</th>
+                <th width="100">客户类型</th>
+                <th width="150">证件号码</th>
+                <th width="80" align="center">信用等级</th>
+                <th width="80">所属行业</th>
+                <th width="80">建档日期</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr target="sid_user" rel="1">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="panelBar">
+        <div class="pages">
+            <span>显示</span>
+            <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="200">200</option>
+            </select>
+            <span>条，共${totalCount}条</span>
+        </div>
+
+        <div class="pagination" targettype="navTab" totalcount="200" numperpage="20" pagenumshown="10" currentpage="1"></div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function testConfirmMsg(url, data) {
+        alertMsg.confirm("您修改的资料未保存，请选择保存或取消！", {
+            okCall: function () {
+                $.post(url, data, DWZ.ajaxDone, "json");
+            }
+        });
+    }
+</script>
+<h2 class="contentTitle">提示对话框演示</h2>
+<div style="padding:0 10px;">
+
+    <div class="tabs">
+        <div class="tabsHeader">
+            <div class="tabsHeaderContent">
+                <ul>
+                    <li class="selected"><a href="javascript:;"><span>示例</span></a></li>
+                    <li><a href="javascript:;"><span>代码</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="tabsContent" layouth="100">
+            <div>
+                <a class="button" href="javascript:;" onclick="testConfirmMsg('demo/common/ajaxDone.html')"><span>确认（是/否）</span></a><br /><br /><br />
+                <a class="button" href="javascript:;" onclick="alertMsg.error('您提交的数据有误，请检查后重新提交！')"><span>错误提示</span></a><br /><br /><br />
+                <a class="button" href="javascript:;" onclick="alertMsg.info('您提交的数据有误，请检查后重新提交！')"><span>信息提示</span></a><br /><br /><br />
+                <a class="button" href="javascript:;" onclick="alertMsg.warn('您提交的数据有误，请检查后重新提交！')"><span>警告提示</span></a><br /><br /><br />
+                <a class="button" href="javascript:;" onclick="alertMsg.correct('您的数据提交成功！')"><span>成功提示</span></a><br /><br />
+            </div>
+
+            <div>
+                <textarea name="textarea" cols="100" rows="15">
+                    <script type="text/javascript">
+                        function testConfirmMsg(url, data) {
+                            alertMsg.confirm("您修改的资料未保存，请选择保存或取消！", {
+                                okCall: function () {
+                                    $.post(url, data, DWZ.ajaxDone, "json");
+                                }
+                            });
+                        }
+                    </script>
+                    <a class="button" href="javascript:;" onclick="testConfirmMsg('demo/common/ajaxDone.html')"><span>确认（是/否）</span></a><br /><br />
+                    <a class="button" href="javascript:;" onclick="alertMsg.error('您提交的数据有误，请检查后重新提交！')"><span>错误提示</span></a><br /><br />
+                    <a class="button" href="javascript:;" onclick="alertMsg.info('您提交的数据有误，请检查后重新提交！')"><span>信息提示</span></a><br /><br />
+                    <a class="button" href="javascript:;" onclick="alertMsg.warn('您提交的数据有误，请检查后重新提交！')"><span>警告提示</span></a><br /><br />
+                    <a class="button" href="javascript:;" onclick="alertMsg.correct('您的数据提交成功！')"><span>成功提示</span></a><br /><br />
+                </textarea>
+            </div>
+        </div>
+        <div class="tabsFooter">
+            <div class="tabsFooterContent"></div>
+        </div>
+    </div>
+</div>

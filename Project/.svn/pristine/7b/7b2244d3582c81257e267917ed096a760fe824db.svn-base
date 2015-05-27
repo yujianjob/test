@@ -1,0 +1,36 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\xiuxianxie1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、切忌接触有机试剂和油脂类溶液、化合物、真皮面。 </p> 
+				<p>2、不宜在温度较高的环境下长时间穿用。 </p> 
+				<p>3、不宜在温度较高的环境下长时间穿用。 </p>
+				<p>4、如长时间不穿，应先将鞋刷干净，放置于阴凉处存放，避免放生霉变。鞋内最好用填充物撑起，避免变形。</p> 
+				<p>5、不要穿一般的慢跑鞋或走步鞋进行足球等剧烈运动。任何一种运动鞋都不能与利器接触。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>给她，加倍呵护，由心掌控；<br />给他，悉心照料，知寒体暖。<br /> 用心有你，洁净有我--懒到家！</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\xiuxianxie2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>穿着简约时尚的休闲鞋的皮鞋会增强人的信心，提高个人品味，衬托出独特的气质。休闲鞋在穿久之后也会遇到清洁和保养问题。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

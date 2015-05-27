@@ -1,0 +1,26 @@
+﻿@{
+    //ViewBag.Title = "奢侈品保养";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home", new { index = "luxury" });}
+
+<!--内容-->
+<div class="luxuy">
+    <img src="~/Content/images/luxuy-wait-pic.gif" />
+</div>
+
+@section scripts
+{
+    <script language="javascript" type="text/javascript">
+        $(function () {
+            //奢侈品保养
+            $('.luxuryList li').hover(function () {
+                $(this).find('span').addClass('this');
+            }, function () {
+                $(this).find('span').removeClass('this');
+            })
+        })
+    </script>
+}

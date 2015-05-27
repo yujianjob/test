@@ -1,0 +1,93 @@
+﻿@{
+    ViewBag.Title = "懒到家";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--图片切换 start-->
+<div id="wrapper">
+    <div id="scroller">
+        <ul id="thelist">
+            <li><a href="@Url.Action("ActivesA", "Top")"><img src="~/images/hd1-banner.jpg" /></a></li>
+            <li><a href="@Url.Action("ActivesB", "Top")"><img src="~/images/hd2-banner.jpg" /></a></li>
+            <li><a href="@Url.Action("ActivesC", "Top")"><img src="~/images/hd3-banner.jpg" /></a></li>
+            <li><a href="#"><img src="~/images/hd4-banner.jpg" /></a></li>
+        </ul>
+    </div>
+    <div id="nav">
+        <!--<div id="prev" onClick="myScroll.scrollToPage('prev', 0);return false">&larr; 上一张</div>-->
+        <ul id="indicator">
+            <li class="active">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+        <!--<div id="next" onClick="myScroll.scrollToPage('next', 0);return false">下一张 &rarr;</div>-->
+    </div>
+</div>
+
+<!--图片切换 end-->
+<!--首页功能列表 start-->
+<div class="indexList">
+    <ul>
+        <li style="margin-right:2%;"><a href="@Url.Action("Product")"><img src="~/images/lan4.jpg" /></a></li>
+        <li><a href="@Url.Action("SpecialEvents","Top")"><img src="~/images/lan5.jpg" /></a></li>
+        <li style="margin-right:2%;"><a href="@Url.Action("Book", "Wash")"><img src="~/images/lan6.jpg" /></a></li>
+        <li><a href="@Url.Action("OneKey", "Wash")"><img src="~/images/lan7.jpg" /></a></li>
+    </ul>
+    <div class="clear"></div>
+</div>
+<!--首页功能列表 start-->
+<!--尾部 start-->
+<div class="footer foot"><img src="~/images/lan8.jpg" /></div>
+@section scripts
+{
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/Scripts/iscroll.js")
+    <script type="text/javascript">
+        $(function () {
+            if (typeof WeixinJSBridge == "undefined") {
+                if (document.addEventListener) {
+                    document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+                } else if (document.attachEvent) {
+                    document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                    document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+                }
+            } else {
+                onBridgeReady();
+            }
+            main_doResize();
+            main_loaded();
+            window.addEventListener("resize", main_doResize);
+            var myScroll;
+        });
+        function onBridgeReady() {
+            WeixinJSBridge.call('hideOptionMenu');
+        }        
+        document.addEventListener('DOMContentLoaded', loaded, false);
+
+        function main_loaded() {
+            var count = document.getElementById("thelist").getElementsByTagName("img").length;
+            for (i = 0; i < count; i++) {
+                document.getElementById("thelist").getElementsByTagName("img").item(i).style.cssText = " width:" + document.body.clientWidth + "px";
+            }
+            document.getElementById("scroller").style.cssText = " width:" + document.body.clientWidth * count + "px";
+            //setInterval(function(){myScroll.scrollToPage('next', 0,400,count);},3500);
+            myScroll = new iScroll('wrapper', {
+                snap: true,
+                momentum: false,
+                hScrollbar: false,
+                onScrollEnd: function () {
+                    document.querySelector('#indicator > li.active').className = '';
+                    document.querySelector('#indicator > li:nth-child(' + (this.currPageX + 1) + ')').className = 'active';
+                }
+            });
+        }
+        function main_doResize() {
+            var count = document.getElementById("thelist").getElementsByTagName("img").length;
+            for (i = 0; i < count; i++) {
+                document.getElementById("thelist").getElementsByTagName("img").item(i).style.cssText = " width:" + document.body.clientWidth + "px";
+            }
+            document.getElementById("scroller").style.cssText = " width:" + document.body.clientWidth * count + "px";
+        }
+    </script>
+}

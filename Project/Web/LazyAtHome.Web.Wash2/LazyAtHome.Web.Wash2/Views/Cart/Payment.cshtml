@@ -1,0 +1,33 @@
+﻿@{
+    //ViewBag.Title = "支付方式";
+}
+
+<div class="page-content inset order-confirm">
+    <div class="row">
+        <div class="col-md-7 col-md-offset-1">
+            <form id="payform" action="/Cart/Alipay" method="post">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="background:#ececec">请选择支付方式</div>
+                    <div class="panel-body payfs">
+                        <input type="hidden" name="OrderNum" value="@ViewBag.OrderNum" />
+                        <div class="row">
+                            <div class="container-fluid banklist">
+                                <div class="col-md-4 col-xs-12">
+                                    <input type="radio" name="payType" id="payType" value="1" checked="checked">
+                                    <img src="/img/zfb_pic.jpg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+
+                        <button type="submit" class="btn btn-success btn-lg pull-right" style="margin-bottom:40px">提交</button>
+                        <button type="button" class="btn btn-success btn-lg pull-right" style="margin-bottom:40px;margin-right:15px; background:#4bc7c7" onclick="window.location.href='/Member/MyOrders'">暂不付款</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

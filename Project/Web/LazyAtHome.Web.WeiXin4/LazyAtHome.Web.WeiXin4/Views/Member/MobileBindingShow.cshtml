@@ -1,0 +1,117 @@
+﻿@{
+    ViewBag.Title = "验证手机";
+}
+
+<section>
+    <div class="mobileBind">
+        <div class="tips"><h2>您的手机号是?</h2>为方便物流联系用户，请验证手机~</div>
+        <div class="mobileBox">
+            <div class="imgVertify">
+                <input type="text" id="txtMPNo" name="txtMPNo" maxlength="11" placeholder="手机号" />
+                <span class="getVerifyCode-btn" onclick="VerifyMobile();">验证</span>
+            </div>
+            <label><input type="text" id="txtCode" name="txtCode" maxlength="6" placeholder="验证码" /></label>
+            <label><input type="text" id="txtInvitCode" name="txtInvitCode" maxlength="10" placeholder="邀请码" /></label>
+        </div>
+        <button class="btn" type="button" onclick="formSubmit();">开始</button>
+    </div>
+</section>
+
+
+@section scripts
+{
+    <script type="text/javascript">
+        var timer = null;
+
+        $(function () {
+        });
+
+        function formSubmit() {
+
+            var rtn = CheckMobile(txtMPNo);
+            if (rtn.code == 0) {
+                showPopDiv(rtn.msg);
+                return false
+            }
+
+            if (!txtCode.value.trim().match("^[0-9]{6}$")) {
+                showPopDiv("验证码为6位数字");
+                return false;
+            }
+
+            process();
+            var postData = { "MPNo": txtMPNo.value.trim(), "vCode": txtCode.value.trim(), inviteCode: txtInvitCode.value.trim() };
+            $.ajax({
+                type: "post",
+                url: "/Member/MobileBinding",
+                data: postData,
+                dataType: "json",
+                success: ProcessUserReg,
+                error: function (msg) {
+                    showPopDiv("系统异常，请稍微再试。");
+                }
+            });
+        }
+
+        function ProcessUserReg(resultJson) {
+            removeProcess();
+            if (resultJson != null) {
+                if (resultJson.Code == 1) {
+                    window.location.href = resultJson.Msg;
+                }
+                else {
+                    showPopDiv(resultJson.Msg);
+                }
+            }
+        }
+
+        function VerifyMobile() {
+            if (timer != null)
+                return;
+
+            var rtn = CheckMobile(txtMPNo);
+            if (rtn.code == 0) {
+                showPopDiv(rtn.msg);
+                return false
+            }
+
+            var postData = { "mpno": txtMPNo.value.trim() };
+
+            $.ajax({
+                type: "post",
+                url: "/Member/VerifyMobile",
+                data: postData,
+                dataType: "json",
+                success: function (resultJson) {
+                    if (resultJson.Code == 1) {
+                        showPopDiv("短信已发送");
+                        daojishi();
+                    }
+                    else {
+                        showPopDiv(resultJson.Msg);
+                    }
+                },
+                error: function (msg) {
+                    showPopDiv(msg);
+                }
+            });
+        }
+
+        function daojishi() {
+            var i = 60;
+            if (!timer) {
+                $(".getVerifyCode-btn").text(i);
+                $(".getVerifyCode-btn").css("background", "#adaaaa");
+                timer = setInterval(function () {
+                    i--;
+                    $(".getVerifyCode-btn").text(i);
+                    if (i == -1) {
+                        clearInterval(timer);
+                        timer = null;
+                        $(".getVerifyCode-btn").css("background", "#4cc7c8").text("获取验证码");
+                    }
+                }, 1000);
+            }
+        }
+    </script>
+}

@@ -1,0 +1,103 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace LazyAtHome.Web.Wash2.Controllers
+{
+    public class WashController : BaseController
+    {
+        //
+        // GET: /Wash/
+        public ActionResult Index()
+        {
+            var rtn = WCF.Wash.Contract.ClientProxy.web_ProductClient.Cache_web_Wash_Class_Second_SELECT_List();
+            ViewBag.WashClass = rtn.OBJ;
+
+            return View();
+        }
+
+        public ActionResult Search(string keyword)
+        {
+            var rtn = App_Code.Proxy.WashProxy.Select_Category_Search(keyword, AppConfig.SiteID, 1, 20);
+            if (rtn.Success)
+            {
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                foreach (var item in rtn.OBJ.ReturnList)
+                {
+                    foreach (var detail in item.CategoryList)
+                    {
+                        foreach (var p in detail.ProductList)
+                        {
+                            sb.Append("<tr><td>" + p.Name + "</td>");
+                            if (p.MarketPrice != p.SalesPrice)
+                                sb.Append("<td align='left'><strike style='width:30%; display:inline-block'>￥" + p.MarketPrice + "</strike> <font style='color:#e95259'>￥" + p.SalesPrice + "</font></td>");
+                            else
+                                sb.Append("<td align='left'>￥" + p.MarketPrice);
+                            sb.Append("<td><button class='btn btn-default' onclick=\"AddToCart(" + p.ID + ", true)\">+</button></td></tr>");
+                        }
+                        //if (detail.ProductList.Count > 1)
+                        //{
+                        //    foreach (var p in detail.ProductList)
+                        //    {
+                        //        sb.Append("<tr><td>" + detail.Name + "(" + p.Name + ")</td><td align='left'>");
+                        //        if (p.MarketPrice != p.SalesPrice)
+                        //            sb.Append("<strike>￥" + p.MarketPrice + "</strike> <font style='color:#e95259'>" + p.SalesPrice + "</font>");
+                        //        else
+                        //            sb.Append("￥" + p.MarketPrice);
+                        //        sb.Append("</td><td><button class=\"btn btn-default\" onclick=\"AddToCart(" + p.ID + ", true)\">+</button></td></tr>");
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    var p = detail.ProductList[0];
+                        //    sb.Append("<tr><td>" + detail.Name + "</td><td align='left'>");
+                        //    if (p.MarketPrice != p.SalesPrice)
+                        //        sb.Append("<strike>￥" + p.MarketPrice + "</strike> <font style='color:#e95259'>" + p.SalesPrice + "</font>");
+                        //    else
+                        //        sb.Append("￥" + p.MarketPrice);
+                        //    sb.Append("</td><td><button class=\"btn btn-default\" onclick=\"AddToCart(" + p.ID + ", true)\">+</button></td></tr>");
+                        //}
+                    }                    
+                }
+
+                ViewBag.SearchResult = sb.ToString();
+                var rtnWashClass = WCF.Wash.Contract.ClientProxy.web_ProductClient.Cache_web_Wash_Class_Second_SELECT_List();
+                if (rtnWashClass.Success)
+                    ViewBag.WashClass = rtnWashClass.OBJ;
+            }
+            else
+                RedirectToAction("Index");
+            return View("Index");
+        }
+
+        public JsonResult ClassShow(int classid)
+        {
+            int Code = 0;
+            string Msg = "";
+
+            var rtn = WCF.Wash.Contract.ClientProxy.web_ProductClient.Cache_web_Wash_Category_SELECT_List(classid, AppConfig.SiteID);
+            if (rtn.Success)
+            {
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                foreach (var item in rtn.OBJ)
+                {
+                    foreach (var detail in item.ProductList)
+                    {
+                        sb.Append("<tr><td>" + detail.Name + "</td>");
+                        if (detail.MarketPrice != detail.SalesPrice)
+                            sb.Append("<td align='left'><strike style='width:30%; display:inline-block'>￥" + detail.MarketPrice + "</strike> <font style='color:#e95259'>￥" + detail.SalesPrice + "</font></td>");
+                        else
+                            sb.Append("<td align='left'>￥" + detail.MarketPrice);
+                        sb.Append("<td><button class='btn btn-default' onclick=\"AddToCart(" + detail.ID + ", true)\">+</button></td></tr>");
+                    }
+                }
+                Code = 1;
+                Msg = sb.ToString();
+            }
+
+            return Json(new { code = Code, msg = Msg });
+        }
+    }
+}

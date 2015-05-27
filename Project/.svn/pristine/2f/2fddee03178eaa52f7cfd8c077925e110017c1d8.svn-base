@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+    <head>
+        <script>
+        (function() {
+    if ("-ms-user-select" in document.documentElement.style && navigator.userAgent.match(/IEMobile\/10\.0/)) {
+        var msViewportStyle = document.createElement("style");
+        msViewportStyle.appendChild(
+            document.createTextNode("@-ms-viewport{width:auto!important}")
+        );
+        document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
+    }
+})();
+</script>
+
+        <title>App Framework Kitchen Sink</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        
+        <link rel="stylesheet" type="text/css" href="css/icons.css" />    
+ 
+       <!--   
+     <link rel="stylesheet" type="text/css" href="css/af.ui.css" title="default" />
+  -->
+      <link rel="stylesheet" type="text/css" href="css/main.css"  />
+      <link rel="stylesheet" type="text/css" href="css/appframework.css"  />
+      <link rel="stylesheet" type="text/css" href="css/lists.css"  />
+      <link rel="stylesheet" type="text/css" href="css/forms.css"  />
+      <link rel="stylesheet" type="text/css" href="css/buttons.css"  />        
+      <link rel="stylesheet" type="text/css" href="css/badges.css"  />        
+      <link rel="stylesheet" type="text/css" href="css/grid.css"  />
+
+      <link rel="stylesheet" type="text/css" href="css/android.css"  />
+      <link rel="stylesheet" type="text/css" href="css/win8.css"  />
+      <link rel="stylesheet" type="text/css" href="css/bb.css"  />
+      <link rel="stylesheet" type="text/css" href="css/ios.css"  />
+      <link rel="stylesheet" type="text/css" href="css/ios7.css"  />
+      <link rel="stylesheet" type="text/css" href="css/tizen.css"  />
+        
+      <link rel="stylesheet" type="text/css" href="plugins/css/af.actionsheet.css"  />
+      <link rel="stylesheet" type="text/css" href="plugins/css/af.popup.css"  />
+      <link rel="stylesheet" type="text/css" href="plugins/css/af.scroller.css"  />
+      <link rel="stylesheet" type="text/css" href="plugins/css/af.selectBox.css"  />        
+        
+        <!-- uncomment for intel.xdk apps 
+        <script type="text/javascript" charset="utf-8" src="intelxdk.js"></script>
+        <script type="text/javascript" charset="utf-8" src="xhr.js"></script>
+        -->
+        <script type="text/javascript" charset="utf-8" src="./appframework.js"></script>
+        <!-- include af.desktopBrowsers.js on desktop browsers only -->
+        <script>
+
+            function loadedPanel(what) {
+                //We are going to set the badge as the number of li elements inside the target
+                $.ui.updateBadge("#aflink", $("#af").find("li").length);
+            }
+
+
+            function unloadedPanel(what) {
+                console.log("unloaded " + what.id);
+            }
+
+            if (!((window.DocumentTouch && document instanceof DocumentTouch) || 'ontouchstart' in window)) {
+                var script = document.createElement("script");
+                script.src = "plugins/af.desktopBrowsers.js";
+                var tag = $("head").append(script);
+                //$.os.desktop=true;
+            }
+
+          //  $.feat.nativeTouchScroll=true;
+          
+        </script>        
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.actionsheet.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.css3animate.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.passwordBox.js"></script>          
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.scroller.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.selectBox.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.touchEvents.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.touchLayer.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.popup.js"></script>
+
+        <script type="text/javascript" charset="utf-8" src="./ui/appframework.ui.js"></script>
+        <!-- <script type="text/javascript" charset="utf-8" src="./ui/transitions/all.js"></script> -->
+        <script type="text/javascript" charset="utf-8" src="./ui/transitions/fade.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./ui/transitions/flip.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./ui/transitions/pop.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./ui/transitions/slide.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./ui/transitions/slideDown.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./ui/transitions/slideUp.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.slidemenu.js"></script>
+        
+
+        <script type="text/javascript">
+            /* This function runs once the page is loaded, but intel.xdk is not yet active */
+            //$.ui.animateHeaders=false;
+             var search=document.location.search.toLowerCase().replace("?","");
+             //if(!search)
+            $.ui.useOSThemes=true;
+            if(search.length>0) //Android fix has too many buggy issues on iOS - can't preview with $.os.android
+            {
+
+               $.ui.useOSThemes=true;
+                if(search=="win8")
+                    $.os.ie=true;
+                $.ui.ready(function(){
+                     $("#afui").get(0).className=search;
+                });
+            }
+            
+ 			var webRoot = "./";
+            // $.os.android=true;
+            //$.ui.autoLaunch = false;
+            $.ui.openLinksNewTab = false;
+            $.ui.splitview=false;
+            
+
+            $(document).ready(function(){
+            	
+            });
+            
+            
+            /* This code is used to run as soon as intel.xdk activates */
+            var onDeviceReady = function () {
+                intel.xdk.device.setRotateOrientation("portrait");
+                intel.xdk.device.setAutoRotate(false);
+                webRoot = intel.xdk.webRoot + "";
+                //hide splash screen
+                intel.xdk.device.hideSplashScreen();
+                $.ui.blockPageScroll(); //block the page from scrolling at the header/footer
+            };
+            document.addEventListener("intel.xdk.device.ready", onDeviceReady, false);
+
+            function showHide(obj, objToHide) {
+                var el = $("#" + objToHide)[0];
+
+                if (obj.className == "expanded") {
+                    obj.className = "collapsed";
+                } else {
+                    obj.className = "expanded";
+                }
+                $(el).toggle();
+
+            }
+
+
+            if($.os.android||$.os.ie||search=="android"){
+                $.ui.ready(function(){
+                    $("#main .list").append("<li><a id='toggleAndroidTheme'>Toggle Theme Color</a></li>");
+                    var $el=$("#afui");
+                    $("#toggleAndroidTheme").bind("click",function(e){
+                        if($el.hasClass("light"))
+                            $el.removeClass("light");
+                        else
+                            $el.addClass("light");
+                    });
+                });
+            }
+			function checkConnection() {
+		     	var networkState = navigator.network.connection.type;
+		        if( networkState == Connection.NONE ) {
+		        	showPopup("网络连接失败");
+		            return false;
+		        }
+  		 	}                       
+        </script>
+	    <script type="text/javascript" src="cordova.js"></script>
+	    <script type="text/javascript" src="barcodescanner.js"></script>
+	    <script type="text/javascript" src="location.js"></script>
+        <script src="md5.js"></script>
+        <script src="basic.js"></script>
+        <script src="common.js"></script>
+        <script src="gxcommon.js"></script>
+        <script type="text/javascript">
+        	document.addEventListener("deviceready",myDeviceReady,false);
+        	function myDeviceReady(){
+        		document.addEventListener('backbutton', myBackButton, false);
+        	}
+        	function myBackButton(){
+        		cordova.exec(function(str){ }, function(err) { alert(err) }, "CommonFun", "toBack", ['1']);
+        	}
+        	
+		var Phone = function(){
+			
+		}
+		Phone.prototype.call = function(successCallback,failureCallback,number){
+			cordova.exec(successCallback,failureCallback,"Phone","call",[number]);
+		}
+		window.Phone = new Phone();
+		var dadianhua = function(orderid,phoneNumber,operatorid){
+			window.Phone.call(function(obj){
+				var str = JSON.stringify(obj);
+				var thjson = eval('(' + str + ')');
+				var starttime = thjson.startTime;//通话开始时间
+				var second = thjson.duration;
+
+				var ts=getTs();
+				var str=actid+orderid+starttime+second+operatorid+version+ts;
+				str=str.toUpperCase();
+				var hash=hex_md5(str);
+				hash=hash.toUpperCase();
+				hash=hash+Key;
+				hash=hex_md5(hash);
+				hash=hash.toUpperCase();
+				var vkey=hash;
+
+				var postData = {"actid":actid,"orderid":orderid,"starttime":starttime,"second":second,"operatorid":operatorid,"version":version,"ts":ts,"vkey": vkey };
+				//alert(starttime+"--"+second+"--"+postData);
+				//return;
+				$.ajax({
+					type: "post",
+					url: host+"/CallUserDetail",
+					data: postData,
+					dataType: "json",
+					success: function(data){
+					//alert(333333);
+						if(data.code==0){
+							
+						}else{
+							showPopup(data.message);
+						}
+					},
+					error:function(msg){
+						showPopup(msg);	
+					}
+				 });
+			},function(error){
+				alert(JSON.stringify(obj));
+			},phoneNumber);		
+		}
+        </script>
+	<link rel="stylesheet" type="text/css" href="mycss.css" /> 
+</head>
+    <body>
+        <div id="afui">
+        	<div id="content">
+            	<!--登录-->
+            	<!--登录-->
+            	<div id="login_panel" class="panel" data-load="loadLoginPanel" data-unload="unloadLoginPanel">
+                	<div class="formGroupHead">登录</div>
+                    <form>
+                        <input type="text" id="username" placeholder="请输入登录账号" class="">
+                        <input type="password" id="password" placeholder="请输入登录密码">
+       					 <label for="" class="" style="width:100%; text-align:left"> <input type="checkbox" id="autoLoginCheck" style="display:inline-block"> 记住用户名和密码</label>
+                         <div style="clear:both"></div>
+                        <a class="button green block" onClick="loginEntrance();">立即登录</a>
+                    </form>
+                </div>
+                <!--上岗-->
+                <div id="OperatorOnLine_panel" class="panel" data-load="OperatorOnLine_fn" data-unload="unOperatorOnLine_fn" data-header="OperatorOnLine_header">
+                	<div id="OperatorOnLine-box">
+						<a class="button block" onClick="OperatorOnline();">上岗</a>
+					</div>
+                </div>
+            	<!--操作列表-->
+            	<div id="OperatorOnLineList_panel" class="panel" data-load="OperatorOnLineListPanel" data-unload="uOperatorOnLineListPanel" data-header="OperatorOnLineList_header">
+					<h2>收衣</h2>
+					<a class="button block" onClick="OrderWaitTakeList();">接单</a>
+                    <a class="button block" onClick="ShouYi();">取件</a> 
+                    <a class="button block" href="#historyQj_panel">历史取件</a>
+                    <h2>送衣</h2>
+                    <a class="button block" href="#OrderTake_panel" data-transition="slide">揽件</a>
+                    <a class="button block" href="#SongYiList_panel">送件</a>
+                    <a class="button block" href="#historySj_panel">历史送件</a>
+                    <div style="clear:both;overflow:hidden" id="czyGroup">
+                        <a class="button" style="width:49%;float:left" href="#OperatorInfo_panel">操作员</a>
+                        <a class="button" style="width:49%;float:right" href="#SiteStorage_panel">站点入库</a>
+                    </div>
+                </div>
+                  <!--历史记录-->
+                 <div id="historyRecord_panel" class="panel" data-load="historyRecord_load" data-unload="historyRecord_unload" data-header="historyRecord_header">
+                 	 
+                    
+                 </div>
+                  <!--历史取件-->
+                 <div id="historyQj_panel" class="panel" data-load="historyQj_load" data-unload="historyQj_unload" data-header="historyQj_header" data-footer="historyQj_footer">
+                  	<ui id="historyQjUl"></ul>
+   
+                 </div>
+                 <!--历史送件-->
+                 <div id="historySj_panel" class="panel" data-load="historySj_load" data-unload="historySj_unload" data-header="historySj_header" data-footer="historySj_footer">
+                  	<ui id="historySjUl"></ul>
+                 </div>
+                <!--站点入库-->
+                <div id="SiteStorage_panel" class="panel" data-load="loadRk" data-unload="uloadRk" data-header="SiteStorage_header">
+                	<ul class="siteStorageUl"></ul>
+                	<div class="danhao"><span>面单号:</span><input type="text" id="mdhinput"><button type="button" onclick="tjMdh();">提交</button></div>
+                	<div class="btngroups">
+                		<button type="button" onClick="exceptionHandle();">异常处理</button><button type="button" onClick="shoujianComplete();">收件完成</button>
+                	</div>
+                </div>
+            	<!--带接单列表-->
+            	<div id="OrderWaitTakeList_panel" class="panel" data-load="loadOrderWaitTakeListPanel" data-unload="uloadOrderWaitTakeListPanel" data-header="OrderWaitTakeList_header">
+					<ul class="list acceptOrderList" id="OrderWaitTakeListUl">
+						
+                    </ul>
+                </div>
+                <!--收衣-->
+            	<div id="ShouYiList_panel" class="panel" data-load="loadShouYiList" data-unload="uloadShouYiList" data-header="ShouYiList_header">
+					<ul class="list acceptOrderList" id="ShouYiList_panelUl">
+                   
+                    </ul>
+                </div> 
+                <!--收衣详情-->
+            	<div id="ShouYiDetail_panel" class="panel" data-load="loadShouYiDetail" data-unload="uloadShouYiDetail" data-header="ShouYiDetail_header">
+                	<div id="ShouYiDetailP">
+                    
+                    </div>
+					<ul class="list acceptOrderList" id="ShouYiDetail_panelUl">
+                   		
+                    </ul>
+                </div>                     
+                <!--操作员-->
+                <div id="OperatorInfo_panel" class="panel" data-load="LoadOperator" data-unload="unLoadOperator" data-header="OperatorInfo_header">
+					<ul class="list" id="OperatorInfoList"> </ul>
+                    <div id="jyDetail"></div>
+                </div>
+                <!--交易详情-->
+                 <div id="Jydetail_panel" class="panel" data-load="LoadJydetail" data-unload="unLoadJydetail" data-header="Jydetail_header">
+					<table border="0" cellspacing="0" cellpadding="0" align="center" class="jyxqtabs" style="margin-bottom:30px">
+					  <thead>
+					  <tr>
+					    <th width="33.3%">时间</th>
+					    <th width="42%">操作</th>
+					    <th>金额</th>
+					  </tr>
+					  </thead>
+					  <tbody class="jylist">
+					  </tbody>
+					</table>
+                 </div>
+                <!--揽件-->
+                <div id="OrderTake_panel" class="panel" data-load="LoadOrderTake" data-unload="unLoadOrderTake" data-header="OrderTake_header" data-footer="OrderTake_footer">
+					<ul class="list" id="OrderTakeList">
+                    	
+                    </ul>
+                </div>
+                <!--送衣列表-->
+                <div id="SongYiList_panel" class="panel" data-load="LoadSongYiList" data-unload="unLoadSongYiList" data-header="SongYiList_header">
+					<ul class="list" id="SongYiList">
+                    	
+                    </ul>
+                </div>
+                <!--送衣详情-->
+                <div id="SongYiDetail_panel" class="panel" data-load="LoadSongYiDetail" data-unload="unLoadSongYiDetail" data-header="SongYiDetail_header" data-footer="SongYiDetail_footer">
+					<ul class="list" id="SongYiDetailUl">
+                    	
+                    </ul>
+                </div>
+                
+                
+                <!--干线主操作面板-->
+               <div id="gxOperatorOnLineList_panel" class="panel" data-load="gxOperatorOnLineListPanel" data-unload="gxuOperatorOnLineListPanel" data-header="gxOperatorOnLineList_header">
+					<h2>取站点件</h2>
+					<a class="button block" href='#gxSelectZd_panel'>取站点件</a>
+					<a class="button block" href="#gxhistoryQj_panel">历史取件</a>
+					
+					<h2>取工厂件</h2>
+                    <a class="button block" href='#gxgetFactory_panel'>取工厂件</a> 
+                    <a class="button block" href="#gxhistorySj_panel">历史送件</a>
+                    <a class="button block" href='#gxWarehouse_panel'>工厂入库详情</a>
+                   
+                    <!--<a class="button block" href="#gxhistoryRecord_panel">历史记录</a>-->
+                    <div style="clear:both;overflow:hidden" id="gxczyGroup">
+                        <a class="button" style="width:49%;float:right" href="#gxOperatorInfo_panel">操作员</a>
+                    </div>
+                </div>
+                <!--干线历史记录-->
+                 <div id="gxhistoryRecord_panel" class="panel" data-load="gxhistoryRecord_load" data-unload="" data-header="gxhistoryRecord_header">
+                 	
+                     
+                 </div>
+                 <!--干线历史取件-->
+                 <div id="gxhistoryQj_panel" class="panel" data-load="gxhistoryQj_load" data-unload="gxhistoryQj_unload" data-header="gxhistoryQj_header" data-footer="gxhistoryQj_footer">
+                  	<ui id="gxhistoryQjUl"></ul>
+   
+                 </div>
+                 <!--干线历史送件-->
+                 <div id="gxhistorySj_panel" class="panel" data-load="gxhistorySj_load" data-unload="gxhistorySj_unload" data-header="gxhistorySj_header" data-footer="gxhistorySj_footer">
+                  	<ui id="gxhistorySjUl"></ul>
+                 </div>
+                <!--干线操作员-->
+                <div id="gxOperatorInfo_panel" class="panel" data-load="gxLoadOperator" data-unload="gxunLoadOperator" data-header="gxOperatorInfo_header">
+					<p style="font-weight:bold; height:20px;line-height:20px">操作员信息</p>
+                    <ul class="list" id="gxOperatorInfoList">
+                    	
+                    </ul>
+                    <p style="font-weight:bold; height:20px;line-height:20px;margin-top:30px">负责站点</p>
+                    <ul class="list" id="gxsiteList">
+
+                    </ul>
+                </div>
+               <!--干线站点取件-->
+                <div id="gxSelectZd_panel" class="panel" data-load="gxloadSelectZd" data-unload="gxuloadSelectZd" data-header="gxSelectZd_header">
+                    <!--<a class="block button" onClick="selzd();">选择站点</a>-->
+                    <div id="zdList"></div>
+                </div>
+                <!--干线取站点件-->
+                <div id="gxSiteStorage_panel" class="panel" data-load="gxloadSiteStorage" data-unload="gxuloadSiteStorage" data-header="gxSiteStorage_header">
+                	<ul class="site1StorageUl">
+                	</ul>
+                	<div class="danhao"><span>面单号:</span><input type="text" id="gxmdh" oninput="gxQzdOnIpt(this);"><button type="button" onclick="gxtjMdh();">提交</button></div>
+                	<div class="btngroups">
+                		<button type="button" onClick="gxexceptionHandle();">异常处理</button><button type="button" onClick="gxshoujianComplete();">收件完成</button>
+                	</div>
+                </div>
+                <!--干线取工厂件-->
+                <div id="gxgetFactory_panel" class="panel" data-load="gxloadgetFactory" data-unload="gxuloadgetFactory" data-header="gxgetFactory_header">
+                	<ul class="FACsiteStorageUl">
+                	</ul>
+                	<div class="danhao"><span>面单号:</span><input type="text" id="gxFacmdh" oninput="gxQFacOnIpt(this);"><button type="button" onclick="gxFactjMdh();">提交</button></div>
+                	<div class="btngroups">
+                		<button type="button" onClick="gxFacexceptionHandle();">异常处理</button><button type="button" onClick="gxFACshoujianComplete();">收件完成</button>
+                	</div>
+                </div>
+                <!--干线工厂入库-->
+                <div id="gxWarehouse_panel" class="panel" data-load="gxloadWarehouse" data-unload="gxuloadWarehouse" data-header="gxWarehouse_header">
+                	<ul class="site2StorageUl">
+
+                	</ul>
+                    <!--<a class="block button" onClick="rkFinish();">入库完成</a>-->
+                </div>
+                <header id="gxhistoryRecord_header">
+                 	<a class="button" style="float:left" onClick="$.ui.goBack();">返回</a>
+                    <h1>历史记录</h1>
+                </header>
+                
+                <header id="gxhistoryQj_header">
+                 	<a class="button" style="float:left" onClick="$.ui.goBack();">返回</a>
+                    <h1>历史取件</h1>
+                    <div style="position:absolute;top:70px;left:0;right:0;height:50px; background:white;color:#333">
+                    	<!--<input type="text" placeholder="请输入物流单号" id="addWldhInput" style="margin-top:5px;width:80%;float:left;border-radius:20px 0 0 20px">-->
+                         <select id="gxhistoryQj_monthdaySelect" class='ipt1'style="width:40%;margin-top:5px;margin-left:5px;"><option>选择时间</option></select>
+                         <select id="gxhistoryQj_status" class='ipt1' style="width:35%;margin-top:5px"><option value="0">全部</option><option value="1">在干线</option><option value="2">交付工厂</option></select>
+                        <div class="searchBtn">
+                        	<a class="button" href="javascript:void(0);" onClick="gxhistoryQjSearch();">搜索</a>
+                        </div>
+                    </div>
+                </header>
+                <header id="gxhistorySj_header">
+                 	<a class="button" style="float:left" onClick="$.ui.goBack();">返回</a>
+                    <h1>历史送件</h1>
+                    <div style="position:absolute;top:70px;left:0;right:0;height:50px; background:white;color:#333">
+                    	<!--<input type="text" placeholder="请输入物流单号" id="addWldhInput" style="margin-top:5px;width:80%;float:left;border-radius:20px 0 0 20px">-->
+                         <select id="gxhistorySj_monthdaySelect" class='ipt1'style="width:40%;margin-top:5px;margin-left:5px"><option>选择时间</option></select>
+                         <select id="gxhistorySj_status" class='ipt1' style="width:35%;margin-top:5px"><option value="0">全部</option><option value="1">在干线</option><option value="2">交付站点</option></select>
+                        <div class="searchBtn">
+                        	<a class="button" href="javascript:void(0);" onClick="gxhistorySjSearch();">搜索</a>
+                        </div>
+                    </div>
+                </header>
+                
+                
+                
+                <header id="historyRecord_header">
+                 	<a class="button" style="float:left" onClick="$.ui.goBack();">返回</a>
+                    <h1>历史记录</h1>
+                </header>
+                
+                <header id="historyQj_header">
+                 	<a class="button" style="float:left" onClick="$.ui.goBack();">返回</a>
+                    <h1>历史取件</h1>
+                    <div style="position:absolute;top:70px;left:0;right:0;height:50px; background:white;color:#333;">
+                    	<!--<input type="text" placeholder="请输入物流单号" id="addWldhInput" style="margin-top:5px;width:80%;float:left;border-radius:20px 0 0 20px">-->
+                         <select id="historyQj_monthdaySelect" class='ipt1'style="width:40%;margin-top:5px;margin-left:5px" ><option>选择时间</option></select>
+                         <select id="historyQj_status" class='ipt1' style="width:35%;margin-top:5px"><option value="0">全部</option><option value="1">在站点</option><option value="2">交付干线</option></select>
+                        <div class="searchBtn">
+                        	<a class="button" href="javascript:void(0);" onClick="historyQjSearch();">搜索</a>
+                        </div>
+                    </div>
+                </header>
+                <header id="historySj_header">
+                 	<a class="button" style="float:left" onClick="$.ui.goBack();">返回</a>
+                    <h1>历史送件</h1>
+                    <div style="position:absolute;top:70px;left:0;right:0;height:50px; background:white;color:#333">
+                    	<!--<input type="text" placeholder="请输入物流单号" id="addWldhInput" style="margin-top:5px;width:80%;float:left;border-radius:20px 0 0 20px">-->
+                         <select id="historySj_monthdaySelect" class='ipt1'style="width:40%;margin-top:5px;margin-left:5px"><option>选择时间</option></select>
+                         <select id="historySj_status" class='ipt1' style="width:35%;margin-top:5px"><option value="0">全部</option><option value="1">在站点</option><option value="2">送件完成</option></select>
+                        <div class="searchBtn">
+                        	<a class="button" href="javascript:void(0);" onClick="historySjSearch();">搜索</a>
+                        </div>
+                    </div>
+                </header>
+                <header id="gxWarehouse_header">
+                    <a class="button" style="float:left" onClick="$.ui.goBack();">返回</a>
+                    <h1>工厂取件</h1>
+                </header>
+                <header id="gxgetFactory_header">
+                    <a class="button" style="float:left" onClick="$.ui.goBack();">返回</a>
+                    <h1>取工厂件</h1>
+                    <a class="button" style="float:right" onClick="gxFACsiteStorageScan();">扫描</a>
+                </header>
+                <header id="gxSiteStorage_header">
+                    <a class="button" style="float:left" onClick="$.ui.goBack();">返回</a>
+                    <h1>取站点件</h1>
+                    <a class="button" style="float:right" onClick="gxsiteStorageScan();">扫描</a>
+                </header>
+                <header id="gxOperatorOnLineList_header">
+                    <a id="userNameLabel_02" class='button'></a>
+                    <a class="button" style="float:right" onClick="exitUser(2);">注销</a>
+                </header>  
+                <header id="gxOperatorInfo_header">
+                    <a class="button" style="float:left" onClick="$.ui.goBack();">返回</a>
+                    <h1>操作员</h1>
+                </header>
+                <header id="gxSelectZd_header">
+                    <a class="button" style="float:left" onClick="$.ui.goBack();">返回</a>
+                    <h1>站点选择</h1>
+                </header>
+                
+                
+                <header id="OperatorOnLine_header">
+                    <a id="userNameLabel_02" class='button'></a>
+                    <a class="button" style="float:right" onClick="exitUser(1);">注销</a>
+                </header>
+                <header id="OrderTake_header">
+                    <a class="button" style="float:left" href="#OperatorOnLineList_panel">返回</a>
+                    <h1>揽件列表</h1>
+                    <a class="button" style="float:right;" onClick="OrderTakescanCode();">扫描</a>
+					<div style="position:absolute;top:70px;left:0;right:0;height:50px; background:white;color:#333">
+                    	<input type="text" placeholder="请输入物流单号" id="addWldhInput" style="margin-top:5px;width:80%;float:left;border-radius:20px 0 0 20px">
+                        <div class="searchBtn">
+                        	<a class="button" href="javascript:void(0);" onClick="addWldh();">添加</a>
+                        </div>
+                    </div>
+                </header>
+                <header id="OperatorInfo_header">
+                    <a class="button" style="float:left" onClick="$.ui.goBack();">返回</a>
+                    <h1>操作员</h1>
+                </header>
+                <header id="Jydetail_header">
+                	<a class="button" style="float:left" onClick="$.ui.goBack();">返回</a>
+                	 <h1>交易详情</h1>
+                </header>
+                <header id="SiteStorage_header">
+                    <a class="button" style="float:left" onClick="$.ui.goBack();">返回</a>
+                    <h1>站点入库</h1>
+                    <a class="button" style="float:right" onClick="siteStorageScan();">扫描</a>
+                </header>
+                
+                <header id="OrderWaitTakeList_header">
+                    <a class="button" style="float:left" href="#OperatorOnLineList_panel">返回</a>
+                    <h1>接单</h1>
+                    <a class="button" style="float:right" onClick="loadOrderWaitTakeListPanel('true');">刷新</a>
+					<div style="position:absolute;top:70px;left:0;right:0;height:50px; background:white;color:#333">
+                    	<input type="search" placeholder="搜索" id="jdsearchInput" oninput="jdOnInput (event)" style="margin-top:5px;width:80%;float:left;border-radius:20px 0 0 20px">
+                        <div class="searchBtn">
+                        	<a class="button" href="javascript:void(0);" onClick="jdsearchResult();">搜索</a>
+                        </div>
+                    </div>                      
+                </header>
+                <header id="ShouYiList_header">
+                    <a class="button" style="float:left" href='#OperatorOnLineList_panel'>返回</a>
+                    <h1>收衣列表</h1>
+                    <a class="button" style="float:right" onClick="loadShouYiList('true');">刷新</a>
+					<div style="position:absolute;top:70px;left:0;right:0;height:50px; background:white;color:#333">
+                    	<input type="search" placeholder="搜索" id="searchInput" oninput="OnInput (event)"  style="margin-top:5px;width:80%;float:left;border-radius:20px 0 0 20px">
+                        <div class="searchBtn">
+                        	<a class="button" href="javascript:void(0);" onClick="searchResult();">搜索</a>
+                        </div>
+                    </div>
+                </header>
+                <header id="ShouYiDetail_header">
+                    <a class="button" style="float:left" onClick="$.ui.goBack();">返回</a>
+                    <h1>收衣详情</h1>
+                    <a class="button" style="float:right" onClick="scanCode();">扫描</a>
+                </header>
+				<header id="OperatorOnLineList_header">
+                    <a id="userNameLabel_01" class='button'></a>
+                    <a class="button" style="float:right" onClick="OperatorOffLine();">离岗</a>
+                </header>
+                <header id="SongYiList_header">
+                    <a class="button" style="float:left" href='#OperatorOnLineList_panel'>返回</a>
+                    <h1>送衣列表</h1>
+					<div style="position:absolute;top:70px;left:0;right:0;height:50px; background:white;color:#333">
+                    	<input type="search" placeholder="搜索" id="songYisearchInput" oninput="songYiOnInput (event)" style="margin-top:5px;width:80%;float:left;border-radius:20px 0 0 20px">
+                        <div class="searchBtn">
+                        	<a class="button" href="javascript:void(0);" onClick="songYisearchResult();">搜索</a>
+                        </div>
+                    </div>               
+                </header>
+                <header id="SongYiDetail_header">
+                    <a class="button" style="float:left" onClick="$.ui.goBack();">返回</a>
+                    <h1>送衣详情</h1>
+                    <a class="button" style="float:right" onClick="syDetailRefresh();")">刷新</a>                
+                </header>
+                <footer id="SongYiDetail_footer">
+                	<a style='color:white;font-size:1.5em;background:#4cc7c8;display:block;width:100%;padding:0;margin:0 auto;border:0'class='button block' onclick='javascript:OrderSendComplete();'>已送达</a>
+                </footer>
+                <footer id="OrderTake_footer">
+                	<a  onclick="javascript:expnumberSub();">揽件</a>
+                </footer>
+                
+                 <footer id="historyQj_footer">
+                 	<div style="float:left;width:20%;text-align:center"><a href="javascript:void(0);" onclick="getPrevInfo();">上一页</a></div>
+                    <div style="float:left;width:60%;text-align:center">共<span class='totalcount' style='color:red;font-weight:bold'></span>条 <span class='page' style='color:red;font-weight:bold'>1</span> / <span class='totalpage'>5</span></div>
+                    <div style="float:right;width:20%;text-align:center"><a href="javascript:void(0);" onclick="getNextInfo();">下一页</a></div>
+                 </footer>
+                   <footer id="historySj_footer">
+                 	<div style="float:left;width:20%;text-align:center"><a href="javascript:void(0);" onclick="getSjPrevInfo();">上一页</a></div>
+                    <div style="float:left;width:60%;text-align:center">共<span class='totalcount' style='color:red;font-weight:bold'></span>条 <span class='page' style='color:red;font-weight:bold'>1</span> / <span class='totalpage'>5</span></div>
+                    <div style="float:right;width:20%;text-align:center"><a href="javascript:void(0);" onclick="getSjNextInfo();">下一页</a></div>
+                 </footer>
+                 
+                 <footer id="gxhistoryQj_footer">
+                 	<div style="float:left;width:20%;text-align:center"><a href="javascript:void(0);" onclick="gxgetPrevInfo();">上一页</a></div>
+                    <div style="float:left;width:60%;text-align:center">共<span class='totalcount' style='color:red;font-weight:bold'></span>条 <span class='page' style='color:red;font-weight:bold'>1</span> / <span class='totalpage'>5</span></div>
+                    <div style="float:right;width:20%;text-align:center"><a href="javascript:void(0);" onclick="gxgetNextInfo();">下一页</a></div>
+                 </footer>
+                   <footer id="gxhistorySj_footer">
+                 	<div style="float:left;width:20%;text-align:center"><a href="javascript:void(0);" onclick="gxgetSjPrevInfo();">上一页</a></div>
+                    <div style="float:left;width:60%;text-align:center">共<span class='totalcount' style='color:red;font-weight:bold'></span>条 <span class='page' style='color:red;font-weight:bold'>1</span> / <span class='totalpage'>5</span></div>
+                    <div style="float:right;width:20%;text-align:center"><a href="javascript:void(0);" onclick="gxgetSjNextInfo();">下一页</a></div>
+                 </footer>
+            </div>
+        </div>
+
+    </body>
+</html>

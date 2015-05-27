@@ -1,0 +1,34 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\neiku1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、不要直接暴晒，先放在阴凉处风干，再放在阳光下消毒；</p> 
+				<p>2、内裤最好单独放置，可以买一些专门的收纳袋，或者装进干净的塑料袋中，以免沾上灰尘和细菌，影响健康。</p> 
+				<p>3、女生经期穿的内裤平时不要穿。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>洁净小常识：生活中一定要养成勤换洗内裤的习惯，建议每天更换，洗时要和外衣裤分开。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\neiku2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p> 大家都知道，内裤要每天都换洗的。有研究表明，一条脏内裤平均带有0.1克粪便，而一克粪便中含有1000万个病菌，其中大多数有害病菌会进入人体，对人造成危害，所以必须要定期杀菌消毒。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

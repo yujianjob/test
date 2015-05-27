@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://192.168.1.201:8100/LazyAtHome/SFExpressService?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/LazyAtHome.WCF.WebService.Contract.DataContract.SFExpress" />
+  <xs:import schemaLocation="http://192.168.1.201:8100/LazyAtHome/SFExpressService?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Enumerate" />
+  <xs:import schemaLocation="http://192.168.1.201:8100/LazyAtHome/SFExpressService?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+  <xs:complexType name="ReturnEntityOfOrderDCVyyWkXyZ">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ReturnEntityOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="OrderDC" Namespace="http://schemas.datacontract.org/2004/07/LazyAtHome.WCF.WebService.Contract.DataContract.SFExpress" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Code" type="xs:int" />
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/LazyAtHome.WCF.WebService.Contract.DataContract.SFExpress" minOccurs="0" name="OBJ" nillable="true" type="q1:OrderDC" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ReturnEntityOfOrderDCVyyWkXyZ" nillable="true" type="tns:ReturnEntityOfOrderDCVyyWkXyZ" />
+  <xs:complexType name="EntityBase">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ModifyEnable" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Obj_Cdate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Obj_Cuser" type="xs:int" />
+      <xs:element minOccurs="0" name="Obj_CuserName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Obj_Mdate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Obj_Muser" type="xs:int" />
+      <xs:element minOccurs="0" name="Obj_MuserName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Obj_Remark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Obj_Status" type="xs:unsignedByte" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Enumerate" minOccurs="0" name="UpdateFlag" type="q2:UpdateModel" />
+      <xs:element minOccurs="0" name="UpdateParam" nillable="true" type="tns:ArrayOfUpdateParamEntity" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EntityBase" nillable="true" type="tns:EntityBase" />
+  <xs:complexType name="ArrayOfUpdateParamEntity">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UpdateParamEntity" nillable="true" type="tns:UpdateParamEntity" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUpdateParamEntity" nillable="true" type="tns:ArrayOfUpdateParamEntity" />
+  <xs:complexType name="UpdateParamEntity">
+    <xs:sequence>
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/System.Data" minOccurs="0" name="DbType" type="q3:DbType" />
+      <xs:element minOccurs="0" name="IsPrimaryKey" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NewValue" nillable="true" type="xs:anyType" />
+      <xs:element minOccurs="0" name="OldValue" nillable="true" type="xs:anyType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UpdateParamEntity" nillable="true" type="tns:UpdateParamEntity" />
+</xs:schema>

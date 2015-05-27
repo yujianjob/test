@@ -1,0 +1,37 @@
+staticFileConfig.isContextPath=true
+staticFileConfig.resPrefix=/statics/dev
+
+#----datasource-------------------------------
+datasource.driverClassName=com.mysql.jdbc.Driver
+datasource.url=jdbc:mysql://127.0.0.1:3306/lazyhomedb?characterEncoding=UTF-8&useServerPrepStmts=true
+datasource.username=root
+datasource.password=
+#datasource.url=jdbc:mysql://192.168.1.118:3306/lazyhomedb?characterEncoding=UTF-8&useServerPrepStmts=true
+#datasource.username=liuxi
+#datasource.password=1234
+#Data Source=192.168.1.200;Initial Catalog=LazyMasterDB;Persist Security Info=True;User ID=sa;Password=support007@velo.com.cn
+datasource.initialSize=1
+datasource.minIdle=1
+datasource.maxActive=10
+datasource.maxWait=10000
+datasource.timeBetweenEvictionRunsMillis=30000
+datasource.minEvictableIdleTimeMillis=300000
+datasource.validationQuery=select 1
+datasource.testWhileIdle=true
+datasource.testOnBorrow=false
+datasource.testOnReturn=false
+datasource.poolPreparedStatements=false
+datasource.maxPoolPreparedStatementPerConnectionSize=20
+datasource.filters=stat
+
+#----hibernate-------------------------------
+hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
+hibernate.showSql=false
+hibernate.useOuterJoin=true
+hibernate.jdbc.useGetGeneratedKeys=false
+hibernate.maxFetchDepth=1
+hibernate.cache.providerClass=org.hibernate.cache.HashtableCacheProvider
+swarmcache.lru.size=10000
+swarmcache.multicast.ip=127.0.0.1
+hibernate.jdbc.fetch_size=100
+hibernate.jdbc.batch_size=50

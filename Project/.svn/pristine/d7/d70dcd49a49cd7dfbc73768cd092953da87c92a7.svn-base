@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyAtHome.WCF.Express.Business", "LazyAtHome.WCF.Express.Business\LazyAtHome.WCF.Express.Business.csproj", "{E738B233-672C-4DC2-A37C-3FB12691E6AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyAtHome.WCF.Express.Console_Client", "LazyAtHome.WCF.Express.Console_Client\LazyAtHome.WCF.Express.Console_Client.csproj", "{590D9326-4DEF-497E-A405-57BCDDEA6D94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyAtHome.WCF.Express.Console_Server", "LazyAtHome.WCF.Express.Console_Server\LazyAtHome.WCF.Express.Console_Server.csproj", "{7A484E4D-0F4E-4EA5-880B-91190C3B5F20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyAtHome.WCF.Express.Contract", "LazyAtHome.WCF.Express.Contract\LazyAtHome.WCF.Express.Contract.csproj", "{B0F35734-8D87-4A0C-8706-AB91E66D7CEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyAtHome.WCF.Express.DAL", "LazyAtHome.WCF.Express.DAL\LazyAtHome.WCF.Express.DAL.csproj", "{86A3DAF0-CF9A-4779-A5DD-CA2D32180350}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyAtHome.WCF.Express.Interface", "LazyAtHome.WCF.Express.Interface\LazyAtHome.WCF.Express.Interface.csproj", "{759633EE-38D6-4604-B2A6-284E18E36F92}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E738B233-672C-4DC2-A37C-3FB12691E6AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E738B233-672C-4DC2-A37C-3FB12691E6AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E738B233-672C-4DC2-A37C-3FB12691E6AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E738B233-672C-4DC2-A37C-3FB12691E6AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{590D9326-4DEF-497E-A405-57BCDDEA6D94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{590D9326-4DEF-497E-A405-57BCDDEA6D94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{590D9326-4DEF-497E-A405-57BCDDEA6D94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{590D9326-4DEF-497E-A405-57BCDDEA6D94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A484E4D-0F4E-4EA5-880B-91190C3B5F20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A484E4D-0F4E-4EA5-880B-91190C3B5F20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A484E4D-0F4E-4EA5-880B-91190C3B5F20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A484E4D-0F4E-4EA5-880B-91190C3B5F20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0F35734-8D87-4A0C-8706-AB91E66D7CEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0F35734-8D87-4A0C-8706-AB91E66D7CEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0F35734-8D87-4A0C-8706-AB91E66D7CEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0F35734-8D87-4A0C-8706-AB91E66D7CEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86A3DAF0-CF9A-4779-A5DD-CA2D32180350}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86A3DAF0-CF9A-4779-A5DD-CA2D32180350}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86A3DAF0-CF9A-4779-A5DD-CA2D32180350}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86A3DAF0-CF9A-4779-A5DD-CA2D32180350}.Release|Any CPU.Build.0 = Release|Any CPU
+		{759633EE-38D6-4604-B2A6-284E18E36F92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{759633EE-38D6-4604-B2A6-284E18E36F92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{759633EE-38D6-4604-B2A6-284E18E36F92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{759633EE-38D6-4604-B2A6-284E18E36F92}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

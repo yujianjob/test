@@ -1,0 +1,32 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\lingdai1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>不要将丝巾收藏在潮湿、不通风或阳光直射的地方，以免造成丝巾出现菌斑和褪色。 收藏时避免将干燥剂、化装品、香水等化学制剂直接沾染于丝巾上。若不小心沾时，应及时清洗，否则易造成丝巾变黄发黑。收藏时可将丝巾平整的折叠好放于抽屉中，也可以挂在光滑的衣架上。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>懒到家，让领带洗涤后焕然一新。平整和洁净让懂得生活品质的您尽情彰显男性魅力。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\lingdai2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>  作为西服的固定搭配，领带平整和洁净也是彰显男性魅力的重要方面。领带打结处容易褶皱不易还原平整，这个时候注重除污的同时还要注重烫平，这样有助于延长领带的寿命。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

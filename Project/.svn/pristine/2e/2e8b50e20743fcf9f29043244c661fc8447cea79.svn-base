@@ -1,0 +1,782 @@
+﻿using LazyAtHome.Core.Infrastructure.WCF;
+using LazyAtHome.WCF.OrderSystem.Contract.DataContract;
+using LazyAtHome.WCF.OrderSystem.Contract.Enumerate;
+using LazyAtHome.WCF.UserSystem.Contract.DataContract;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LazyAtHome.WCF.OrderSystem.Interface.IDAL
+{
+    public interface IOrderDAL
+    {
+        /// <summary>
+        /// 生成订单号
+        /// </summary>
+        /// <returns></returns>
+        string Order_OrderNumber_Create();
+
+        /// <summary>
+        /// 新增订单主表
+        /// </summary>
+        /// <param name="iOrder_OrderDC"></param>
+        /// <returns></returns>
+        int Order_Order_ADD(Order_OrderDC iOrder_OrderDC);
+
+        /// <summary>
+        /// 新增步骤
+        /// </summary>
+        /// <param name="iOrderID"></param>
+        /// <param name="iStep"></param>
+        /// <param name="iContent"></param>
+        void Order_Step_ADD(int iOrderID, WashStepType iStep, string iContent);
+
+        /// <summary>
+        /// 获取订单列表
+        /// </summary>
+        /// <param name="iOrderNumber"></param>
+        /// <param name="iUserID"></param>
+        /// <param name="iMPNo"></param>
+        /// <param name="iLoginName"></param>
+        /// <param name="iOrderType"></param>
+        /// <param name="iOrderStatus"></param>
+        /// <param name="iSite"></param>
+        /// <param name="iChannel"></param>
+        /// <param name="iTotalAmountMax"></param>
+        /// <param name="iTotalAmountMin"></param>
+        /// <param name="iStartDate"></param>
+        /// <param name="iEndDate"></param>
+        /// <param name="iPageIndex"></param>
+        /// <param name="iPageSize"></param>
+        /// <returns></returns>
+        RecordCountEntity<Order_OrderDC> Order_Order_SELECT_List(
+            string iOrderNumber,
+            Guid? iUserID, string iMPNo, string iLoginName,
+            OrderClass? iOrderClass,
+            OrderType? iOrderType, OrderStatus? iOrderStatus,
+            int? iSite, int? iChannel,
+            decimal? iTotalAmountMax, decimal? iTotalAmountMin,
+            DateTime? iStartDate, DateTime? iEndDate,
+            int iPageIndex, int iPageSize,
+            string iConsignee,
+            int iSortType,
+            DateTime? iExpStartDate, DateTime? iExpEndDate,
+            int? iStep, int? iGetExpressType);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="iUserID"></param>
+        /// <param name="iOrderStatus"></param>
+        /// <param name="iStartDate"></param>
+        /// <param name="iEndDate"></param>
+        /// <param name="iPageIndex"></param>
+        /// <param name="iPageSize"></param>
+        /// <returns></returns>
+        RecordCountEntity<Order_OrderDC> Order_Order_SELECT_List(
+            Guid iUserID, OrderStatus? iOrderStatus,
+            DateTime? iStartDate, DateTime? iEndDate,
+            int iPageIndex, int iPageSize);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="iUserID"></param>
+        /// <param name="iOrderStatus"></param>
+        /// <param name="iPageIndex"></param>
+        /// <param name="iPageSize"></param>
+        /// <returns></returns>
+        RecordCountEntity<Order_OrderDC> wx_Order_Order_SELECT_List(
+            Guid iUserID, OrderStatus? iOrderStatus, int iPageIndex, int iPageSize);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="iUserID"></param>
+        /// <param name="iOrderStatus"></param>
+        /// <param name="iPageIndex"></param>
+        /// <param name="iPageSize"></param>
+        /// <returns></returns>
+        RecordCountEntity<Order_OrderDC> app_Order_Order_SELECT_List(
+           Guid iUserID, OrderStatus? iOrderStatus,
+           int iPageIndex, int iPageSize);
+
+        /// <summary>
+        /// 退单
+        /// </summary>
+        /// <param name="iOrderNumber"></param>
+        /// <param name="iOrderStatus"></param>
+        /// <returns></returns>
+        int Order_Order_Cancel(string iOrderNumber, OrderStatus iOrderStatus);
+
+        /// <summary>
+        /// 退单
+        /// </summary>
+        /// <param name="iOrderNumber"></param>
+        /// <param name="iChannel"></param>
+        /// <returns></returns>
+        int Order_Order_ChargeBack(string iOrderNumber, Channel iChannel);
+
+        /// <summary>
+        /// 根据ID查询订单主表
+        /// </summary>
+        /// <param name="iID">主键</param>
+        /// <returns></returns>
+        Order_OrderDC Order_Order_SELECT_Entity(int iID,
+            bool iGetProduct, bool iGetAmount, bool iGetConsigneeAddress,
+            bool iGetExpress, bool iGetPayment, bool iGetStep, bool iGetFeedback = false);
+
+        /// <summary>
+        /// 根据ID查询订单主表
+        /// </summary>
+        /// <param name="iOrderNumber">主键</param>
+        /// <returns></returns>
+        Order_OrderDC Order_Order_SELECT_Entity(string iOrderNumber,
+            bool iGetProduct, bool iGetAmount, bool iGetConsigneeAddress,
+            bool iGetExpress, bool iGetPayment, bool iGetStep);
+
+        /// <summary>
+        /// 根据物流订单号查订单
+        /// </summary>
+        /// <param name="iExpressNumber"></param>
+        /// <param name="iGetProduct"></param>
+        /// <param name="iGetAmount"></param>
+        /// <param name="iGetConsigneeAddress"></param>
+        /// <param name="iGetExpress"></param>
+        /// <param name="iGetPayment"></param>
+        /// <param name="iGetStep"></param>
+        /// <returns></returns>
+        Order_OrderDC Order_Order_SELECT_Entity_Express(string iExpressNumber,
+          bool iGetProduct, bool iGetAmount, bool iGetConsigneeAddress,
+          bool iGetExpress, bool iGetPayment, bool iGetStep);
+
+        /// <summary>
+        /// 根据工厂条形码查订单
+        /// </summary>
+        /// <param name="iCodeNumber"></param>
+        /// <param name="iGetProduct"></param>
+        /// <param name="iGetAmount"></param>
+        /// <param name="iGetConsigneeAddress"></param>
+        /// <param name="iGetExpress"></param>
+        /// <param name="iGetPayment"></param>
+        /// <param name="iGetStep"></param>
+        /// <returns></returns>
+        Order_OrderDC Order_Order_SELECT_Entity_FactoryCode(string iCodeNumber,
+              bool iGetProduct, bool iGetAmount, bool iGetConsigneeAddress,
+              bool iGetExpress, bool iGetPayment, bool iGetStep);
+
+        /// <summary>
+        /// 修改订单支付金额
+        /// </summary>
+        /// <param name="iOrderID"></param>
+        /// <param name="iOrderStatus"></param>
+        /// <returns></returns>
+        bool Order_Order_UPDATE_OrderStatus(int iOrderID, OrderStatus iOrderStatus, DateTime? iExpectTime);
+
+        /// <summary>
+        /// 修改订单完成时间
+        /// </summary>
+        /// <param name="iOrderID"></param>
+        /// <param name="iFinishTime"></param>
+        /// <returns></returns>
+        bool Order_Order_UPDATE_AllFinish(int iOrderID, DateTime iFinishTime, Guid iUserID);
+
+        /// <summary>
+        /// 新增支付信息
+        /// </summary>
+        /// <param name="iOrder_PaymentDC"></param>
+        /// <returns></returns>
+        int Order_Payment_ADD(Order_PaymentDC iOrder_PaymentDC);
+
+        /// <summary>
+        /// 删除金额详情
+        /// </summary>
+        /// <param name="iOrderID"></param>
+        /// <returns></returns>
+        bool Order_Payment_DEL(int iPaymentID);
+
+        /// <summary>
+        /// 更新订单支付状态
+        /// </summary>
+        /// <param name="iOrderID"></param>
+        /// <param name="iPayStatus"></param>
+        /// <returns></returns>
+        bool Order_Order_UPDATE_PayStatus(int iOrderID, PayStatus iPayStatus);
+
+        /// <summary>
+        /// 修改订单返洗状态
+        /// </summary>
+        /// <param name="iPID"></param>
+        /// <returns></returns>
+        bool Order_Product_UPDATE_ReturnStatus(int iPID);
+
+        /// <summary>
+        /// 用户余额使用
+        /// </summary>
+        /// <param name="iUserID"></param>
+        /// <param name="iUseMoney"></param>
+        /// <param name="iContent"></param>
+        /// <param name="iSourceID"></param>
+        /// <returns></returns>
+        int User_Amount_Use(Guid iUserID, decimal iUseMoney, string iContent, string iSourceID);
+
+        /// <summary>
+        /// 用户余额退还
+        /// </summary>
+        /// <param name="iUserID"></param>
+        /// <param name="iUseMoney"></param>
+        /// <param name="iContent"></param>
+        /// <param name="iSourceID"></param>
+        /// <returns></returns>
+        int User_Amount_Back(Guid iUserID, decimal iUseMoney, string iContent, string iSourceID);
+
+        /// <summary>
+        /// 用户卡余额使用
+        /// </summary>
+        /// <param name="iUserID"></param>
+        /// <param name="iUserCardID"></param>
+        /// <param name="iUseMoney"></param>
+        /// <param name="iContent"></param>
+        /// <param name="iSourceID"></param>
+        /// <returns></returns>
+        int User_Card_Use(Guid iUserID, int iUserCardID, decimal iUseMoney, string iContent, string iSourceID);
+
+        /// <summary>
+        /// 新增物流
+        /// </summary>
+        /// <param name="iOrder_ExpressDC"></param>
+        /// <returns></returns>
+        int Order_Express_ADD(Order_ExpressDC iOrder_ExpressDC);
+
+        /// <summary>
+        /// 价目单个
+        /// </summary>
+        /// <param name="iID"></param>
+        /// <returns></returns>
+        Wash_ProductDC Wash_Product_SELECT_Entity(int iID);
+
+        /// <summary>
+        /// 查询全部产品
+        /// </summary>
+        /// <param name="iOrderID"></param>
+        /// <param name="iOrderClass"></param>
+        /// <returns></returns>
+        IList<Order_ProductDC> Order_Product_SELECT_List(int iOrderID, int iOrderClass);
+
+        /// <summary>
+        /// 门店订单删除产品
+        /// </summary>
+        /// <param name="iOrderID"></param>
+        /// <param name="iOrderProductID"></param>
+        /// <returns></returns>
+        bool Order_Product_DELETE_Store(int iOrderID, int iOrderProductID);
+
+        /// <summary>
+        /// 新增产品
+        /// </summary>
+        /// <param name="iOrder_ProductDC"></param>
+        /// <returns></returns>
+        int Order_Product_ADD(Order_ProductDC iOrder_ProductDC);
+
+        /// <summary>
+        /// 删除产品详情
+        /// </summary>
+        /// <param name="iID"></param>
+        /// <returns></returns>
+        bool Order_Product_DEL(int iID);
+
+        /// <summary>
+        /// 删除产品详情
+        /// </summary>
+        /// <param name="iOrderID"></param>
+        /// <returns></returns>
+        bool Order_Product_DEL_OrderID(int iOrderID);
+
+        /// <summary>
+        /// 更新订单金额(一键下单)
+        /// </summary>
+        /// <param name="iOrderID"></param>
+        /// <param name="iTitle"></param>
+        /// <param name="iTotalAmount"></param>
+        /// <param name="iSourceAmount"></param>
+        /// <returns></returns>
+        bool Order_Order_UPDATE_Amount_OneKey(int iOrderID, string iTitle, decimal iTotalAmount, decimal iSourceAmount, int iSendType);
+
+        /// <summary>
+        /// 更新订单金额
+        /// </summary>
+        /// <param name="iOrderID"></param>
+        /// <param name="iTitle"></param>
+        /// <param name="iTotalAmount"></param>
+        /// <param name="iSourceAmount"></param>
+        /// <param name="iPayAmount"></param>
+        /// <returns></returns>
+        bool Order_Order_UPDATE_Amount_EditProduct(int iOrderID, string iTitle,
+            decimal iTotalAmount, decimal iSourceAmount, decimal iPayAmount);
+
+        /// <summary>
+        /// 删除物流
+        /// </summary>
+        /// <param name="iOrderID"></param>
+        /// <param name="iType"></param>
+        /// <param name="iMuser"></param>
+        /// <returns></returns>
+        bool Order_Express_DELETE(int iOrderID, int iType, int iMuser);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="iOrderID"></param>
+        /// <param name="iCSRemark"></param>
+        /// <returns></returns>
+        bool Order_Order_UPDATE_CSRemark(int iOrderID, string iCSRemark);
+
+        /// <summary>
+        /// 修改送货地址表
+        /// </summary>
+        /// <param name="iOrder_ConsigneeAddressDC"></param>
+        /// <returns></returns>
+        bool Order_ConsigneeAddress_UPDATE(Order_ConsigneeAddressDC iOrder_ConsigneeAddressDC);
+
+        /// <summary>
+        /// 订单审核
+        /// </summary>
+        /// <param name="iOrderID"></param>
+        /// <param name="iAuditStatus"></param>
+        /// <param name="iMuser"></param>
+        /// <returns></returns>
+        bool Order_Order_Audit(int iOrderID, bool iAuditStatus, int iMuser);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="iOrderID"></param>
+        void Order_Order_FinishExpress_Get(int iOrderID);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="iOrderID"></param>
+        /// <param name="iExpressNumber"></param>
+        /// <param name="iExpressType"></param>
+        void Order_Order_UPDATE_ExpressNumber(int iOrderID, string iExpressNumber, ExpressType iExpressType);
+
+        /// <summary>
+        /// 用户信息
+        /// </summary>
+        /// <param name="iUserID"></param>
+        /// <returns></returns>
+        User_InfoDC User_Info_SELECT_Entity(Guid iUserID);
+
+        /// <summary>
+        /// 用户信息
+        /// </summary>
+        /// <param name="iOpenid"></param>
+        /// <param name="iOAuthType"></param>
+        /// <returns></returns>
+        User_InfoDC User_Info_SELECT_Entity(string iOpenid, OAuthType iOAuthType);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="iUserID"></param>
+        /// <param name="iUserCardID"></param>
+        /// <param name="iUseMoney"></param>
+        /// <returns></returns>
+        bool User_Card_CheckBalance(Guid iUserID, int iUserCardID, decimal iUseMoney);
+
+        /// <summary>
+        /// 根据门店ID查询订单主表
+        /// </summary>
+        /// <param name="iStoreID">门店ID</param>
+        /// <returns></returns>
+        Order_OrderDC Order_Order_SELECT_Entity(Guid iStoreID);
+
+        /// <summary>
+        /// 微信ID获取用户ID
+        /// </summary>
+        /// <param name="iOpenid"></param>
+        /// <param name="iOAuthType"></param>
+        /// <returns></returns>
+        Guid? User_Weixin_SELECT_UserID(string iOpenid, OAuthType iOAuthType);
+
+        /// <summary>
+        /// 门店完成订单
+        /// </summary>
+        /// <param name="iOrderID"></param>
+        /// <param name="iTitle"></param>
+        /// <param name="iTotalAmount"></param>
+        /// <param name="iExpressNumber"></param>
+        /// <returns></returns>
+        bool Order_Order_UPDATE_StoreFinish(int iOrderID, string iTitle, decimal iTotalAmount, string iExpressNumber);
+
+
+        /// <summary>
+        /// 门店签收用户订单产品
+        /// </summary>
+        /// <param name="iUserMPNo"></param>
+        /// <param name="iUserName"></param>
+        /// <param name="iUserSignType"></param>
+        /// <returns></returns>
+        bool Order_Product_UPDATE_UserSignType(int iOrderProductID, UserSignType iUserSignType);
+
+        /// <summary>
+        /// 门店查询用户未签收订单产品
+        /// </summary>
+        /// <param name="iStoreID"></param>
+        /// <param name="iUserMPNo"></param>
+        /// <param name="iUserName"></param>
+        /// <param name="iUserSignType"></param>
+        /// <param name="iStartDate"></param>
+        /// <param name="iEndDate"></param>
+        /// <returns></returns>
+        IList<Order_ProductDC> Order_Product_SELECT_List_Store(Guid iStoreID, string iUserMPNo, string iUserName,
+            UserSignType? iUserSignType, DateTime iStartDate, DateTime iEndDate);
+
+        /// <summary>
+        /// 完成订单消息推送
+        /// </summary>
+        /// <returns></returns>
+        void Order_Finish_Message(int iOrderID);
+
+        /// <summary>
+        /// 订单出工厂消息推送
+        /// </summary>
+        /// <returns></returns>
+        void Order_OutFactory_Message(int iOrderID);
+
+        /// <summary>
+        /// 订单签收消息推送
+        /// </summary>
+        /// <returns></returns>
+        void Order_AllFinish_Message(int iOrderID);
+
+        /// <summary>
+        /// 订单到工厂消息推送
+        /// </summary>
+        /// <returns></returns>
+        void Order_Onekey_InFactory_Message(int iOrderID);
+
+        /// <summary>
+        /// 根据ID查询商场产品
+        /// </summary>
+        /// <param name="iID">主键</param>
+        /// <returns></returns>
+        Mall_ProductDC Mall_Product_SELECT_Entity(int iID);
+
+        /// <summary>
+        /// 获取电子懒人卡的最后ID
+        /// </summary>
+        /// <returns></returns>
+        int Base_Card_GetLastID_E(string iPrefix);
+
+        /// <summary>
+        /// 检查密码是否重复
+        /// </summary>
+        /// <param name="Password"></param>
+        /// <returns></returns>
+        bool Base_Card_Password_Exists(string iPassword);
+
+        /// <summary>
+        /// 创建懒人卡
+        /// </summary>
+        /// <param name="iType"></param>
+        /// <param name="iCardID"></param>
+        /// <param name="iPassword"></param>
+        /// <param name="iFaceValue"></param>
+        /// <param name="iOrderNumber"></param>
+        /// <returns></returns>
+        int Base_Card_Create(int iType, string iCardID, string iPassword, decimal iFaceValue, string iOrderNumber);
+
+        /// <summary>
+        /// 订单更新卡密
+        /// </summary>
+        /// <param name="iID"></param>
+        /// <param name="iCode"></param>
+        /// <returns></returns>
+        bool Order_Product_UPDATE_Code(int iID, string iCode, string iAttribute);
+
+
+        /// <summary>
+        /// 修改工厂洗涤状态
+        /// </summary>
+        /// <param name="iID"></param>
+        /// <param name="iFactoryWash"></param>
+        /// <returns></returns>
+        bool Order_Product_UPDATE_FactoryWash(int iID, int iFactoryWash);
+
+        /// <summary>
+        /// 更新商城产品剩余数量
+        /// </summary>
+        /// <param name="iProductID"></param>
+        /// <param name="iBuyCount"></param>
+        bool Mall_Product_UPDATE_LeftCount(int iProductID, int iBuyCount);
+
+        /// <summary>
+        /// 合并订单
+        /// </summary>
+        /// <param name="iPrimaryOrderID"></param>
+        /// <param name="iSlaveOrderID"></param>
+        /// <returns></returns>
+        bool Order_Order_Merger(int iPrimaryOrderID, int iSlaveOrderID);
+
+
+        RecordCountEntity<Partner_Order_ExpressDC> Partner_Order_Express_SELECT_List(
+          string iUserName, string iMPNo, int? iExpressStatus,
+          int iPageIndex, int iPageSize);
+
+
+        RecordCountEntity<Partner_Order_ExpressDC> Partner_Order_Express_SELECT_List(
+           string iUserName, string iMPNo, string iGetExpressNumber,
+           DateTime? iStartDate, DateTime? iEndDate,
+           int iPageIndex, int iPageSize);
+
+
+        bool Partner_Order_Express_UPDATE_ExpressStatus(int iOrderID, int iExpressStatus);
+
+        /// <summary>
+        /// 查询用户优惠券
+        /// </summary>
+        /// <param name="iUserID"></param>
+        /// <param name="iUserCouponID"></param>
+        /// <returns></returns>
+        User_CouponDC User_Coupon_SELECT_Entity(Guid iUserID, int iUserCouponID);
+
+        /// <summary>
+        /// 用户使用优惠券
+        /// </summary>
+        /// <param name="iUserID"></param>
+        /// <param name="iUserCouponID"></param>
+        /// <param name="iOrderNumber"></param>
+        /// <returns></returns>
+        int User_Coupon_Use(Guid iUserID, int iUserCouponID, string iOrderNumber);
+
+        /// <summary>
+        /// 获取用户卡
+        /// </summary>
+        /// <param name="iUserID"></param>
+        /// <param name="iUserCardID"></param>
+        /// <returns></returns>
+        User_CardDC User_Card_SELECT_Entity(Guid iUserID, int iUserCardID);
+
+        /// <summary>
+        /// 新增 Order_Feedback
+        /// </summary>
+        /// <param name="iOrder_FeedbackDC"></param>
+        /// <returns></returns>
+        int Order_Feedback_ADD(Order_FeedbackDC iOrder_FeedbackDC);
+
+        /// <summary>
+        /// 新增金额变更表
+        /// </summary>
+        /// <param name="iOrder_AmountDC"></param>
+        /// <returns></returns>
+        int Order_Amount_ADD(Order_AmountDC iOrder_AmountDC);
+
+        /// <summary>
+        /// 删除金额详情
+        /// </summary>
+        /// <param name="iOrderID"></param>
+        /// <returns></returns>
+        bool Order_Amount_DEL(int iID);
+
+        /// <summary>
+        /// 删除金额详情
+        /// </summary>
+        /// <param name="iOrderID"></param>
+        /// <returns></returns>
+        bool Order_Amount_DEL_OrderID(int iOrderID);
+
+        /// <summary>
+        /// 获取优惠券
+        /// </summary>
+        /// <param name="iUserCouponID"></param>
+        /// <returns></returns>
+        User_CouponDC User_Coupon_SELECT_Entity(int iUserCouponID);
+
+        /// <summary>
+        /// 绑定优惠券
+        /// </summary>
+        /// <param name="iUserID"></param>
+        /// <param name="iCouponCode"></param>
+        /// <returns></returns>
+        int User_Coupon_Bind(Guid iUserID, string iCouponCode);
+
+        /// <summary>
+        /// 优惠券支付金额变更
+        /// </summary>
+        /// <param name="iOrderID"></param>
+        /// <param name="iPaymentID"></param>
+        /// <param name="iPayMoney"></param>
+        /// <returns></returns>
+        bool Order_Pay_Coupon_EditProduct(int iOrderID, int iPaymentID, decimal iPayMoney);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="iOrderID"></param>
+        /// <param name="iPaymentID"></param>
+        /// <param name="iPayMoney"></param>
+        /// <returns></returns>
+        bool Order_Pay_Coupon_Factory(int iOrderID, int iPaymentID, decimal iPayMoney);
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="iOrderID"></param>
+        /// <param name="iPayMoney"></param>
+        /// <returns></returns>
+        bool Order_Pay_Balance_Factory(int iOrderID, decimal iPayMoney);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="iUserID"></param>
+        /// <param name="iUserCouponID"></param>
+        /// <returns></returns>
+        int User_Coupon_Back(Guid iUserID, int iUserCouponID);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="iOrderID"></param>
+        /// <param name="iExpectTime"></param>
+        /// <returns></returns>
+        bool Order_ExpectTime_Change(int iOrderID, DateTime iExpectTime);
+
+        /// <summary>
+        /// 完成订单推广送券
+        /// </summary>
+        /// <param name="iOrderID"></param>
+        void Order_Finish_SendCoupon(int iOrderID);
+
+        /// <summary>
+        /// 修改产品步骤
+        /// </summary>
+        /// <param name="iOrderProductID"></param>
+        /// <param name="iStep"></param>
+        /// <returns></returns>
+        bool Order_Product_UPDATE_Step(int iOrderProductID, int iStep);
+
+        /// <summary>
+        /// 工厂洗涤条码导出
+        /// </summary>
+        /// <param name="iStartDate"></param>
+        /// <param name="iEndDate"></param>
+        /// <param name="iPageIndex"></param>
+        /// <param name="iPageSize"></param>
+        /// <returns></returns>
+        RecordCountEntity<Order_Order_StatDC> Order_Product_WashStep_Code_Stat(
+            DateTime iStartDate, DateTime iEndDate,
+            int iPageIndex, int iPageSize);
+
+        /// <summary>
+        /// 订单步骤时间统计
+        /// </summary>
+        /// <param name="iStartDate"></param>
+        /// <param name="iEndDate"></param>
+        /// <param name="iPageIndex"></param>
+        /// <param name="iPageSize"></param>
+        /// <returns></returns>
+        RecordCountEntity<Order_Order_StatDC> Order_Order_StepTime_Stat(
+            DateTime iStartDate, DateTime iEndDate,
+            int iPageIndex, int iPageSize);
+
+        /// <summary>
+        /// 订单出库查询
+        /// </summary>
+        /// <param name="iStartDate"></param>
+        /// <param name="iEndDate"></param>
+        /// <param name="iPageIndex"></param>
+        /// <param name="iPageSize"></param>
+        /// <returns></returns>
+        RecordCountEntity<Order_Order_StatDC> Order_Order_OutFactory_Stat(
+            DateTime iStartDate, DateTime iEndDate,
+            int iPageIndex, int iPageSize);
+
+        /// <summary>
+        /// 订单入库查询
+        /// </summary>
+        /// <param name="iStartDate"></param>
+        /// <param name="iEndDate"></param>
+        /// <param name="iPageIndex"></param>
+        /// <param name="iPageSize"></param>
+        /// <returns></returns>
+        RecordCountEntity<Order_Order_StatDC> Order_Order_InFactory_Stat(
+            DateTime iStartDate, DateTime iEndDate,
+            int iPageIndex, int iPageSize);
+
+        /// <summary>
+        /// 修改物流类型
+        /// </summary>
+        /// <param name="iOrderID"></param>
+        /// <param name="iType"></param>
+        /// <returns></returns>
+        bool Order_Order_UPDATE_GetExpressType(int iOrderID, int iType);
+
+        /// <summary>
+        /// 订单步骤时间预警
+        /// </summary>
+        /// <param name="iStartDate"></param>
+        /// <param name="iEndDate"></param>
+        /// <param name="iPageIndex"></param>
+        /// <param name="iPageSize"></param>
+        /// <returns></returns>
+        RecordCountEntity<Order_Order_StatDC> Order_Order_Alarm_Stat(
+            bool iGetPackage, bool iWash, bool iSendPackage, bool iAll,
+            DateTime iStartDate, DateTime iEndDate,
+            int iPageIndex, int iPageSize);
+
+        /// <summary>
+        /// 订单步骤时间预警
+        /// </summary>
+        /// <param name="iGetPackage"></param>
+        /// <param name="iWash"></param>
+        /// <param name="iSendPackage"></param>
+        /// <param name="iStartDate"></param>
+        /// <param name="iEndDate"></param>
+        /// <param name="iPageIndex"></param>
+        /// <param name="iPageSize"></param>
+        /// <returns></returns>
+        RecordCountEntity<Order_Order_StatDC> Order_Order_Warning_Stat(
+            bool iGetPackage, bool iWash, bool iSendPackage,
+            DateTime iStartDate, DateTime iEndDate,
+            int iPageIndex, int iPageSize);
+
+        /// <summary>
+        /// 更新外部编号
+        /// </summary>
+        /// <param name="iOrderID"></param>
+        /// <param name="iOrderProductID"></param>
+        /// <param name="iOtherCode"></param>
+        /// <returns></returns>
+        bool Order_Product_UPDATE_OtherCode(int iOrderID, int iOrderProductID, string iOtherCode);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="iUserID"></param>
+        /// <returns></returns>
+        bool Order_Order_ContinueCheck(Guid iUserID);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="iKeyword"></param>
+        /// <param name="iCreateStartDate"></param>
+        /// <param name="iCreateEndDate"></param>
+        /// <param name="iFinishStartDate"></param>
+        /// <param name="iFinishEndDate"></param>
+        /// <param name="iPageIndex"></param>
+        /// <param name="iPageSize"></param>
+        /// <returns></returns>
+        IList<string[]> Order_Order_Export(
+            string iKeyword,
+            DateTime? iCreateStartDate, DateTime? iCreateEndDate,
+            DateTime? iFinishStartDate, DateTime? iFinishEndDate,
+            int iPageIndex, int iPageSize);
+    }
+}

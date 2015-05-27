@@ -1,0 +1,12 @@
+<div class="panel"></div>
+<header id="testheader">
+    <a id="userNameLabel" class='button'></a>
+    <a class="button" style="float:right" onClick="exitUser();">注销</a>
+</header>
+<div id="OperatorOnLine-box">
+	<a class="button block" onClick="OperatorOnline();">上岗</a>
+</div>
+<script>
+	$("#userNameLabel").html(getItem("userName"));
+	$.ui.toggleNavMenu();
+</script>

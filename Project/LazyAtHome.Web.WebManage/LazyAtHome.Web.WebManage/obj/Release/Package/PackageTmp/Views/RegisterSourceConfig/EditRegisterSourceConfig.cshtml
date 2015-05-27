@@ -1,0 +1,87 @@
+﻿@model LazyAtHome.Web.WebManage.Models.RegisterSourceConfig.RegisterSourceConfigModel
+@*@{
+    
+    
+    <script src="@Url.Content("~/Scripts/qrcode/jquery.qrcode.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/qrcode/qrcode.js")" type="text/javascript"></script>
+    
+    <script src="@Url.Content("~/Scripts/RegisterSourceConfig/registersourceconfigedit.js")" type="text/javascript"></script>
+}*@
+
+<!--报错信息-->
+@Html.Raw(ViewBag.Script)
+
+<div class="pageContent">
+    <form method="post" action="@Url.Action("SaveRegisterSourceConfig", "RegisterSourceConfig")" id="frmSaveRegisterSourceConfig" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
+        <div class="pageFormContent" layouth="56">
+            <div class="panel">
+                <h1>基本信息</h1>
+                <div>
+                    @Html.HiddenFor(model => model.RegisterSourceConfigInfo.ID)
+                    <div class="unit">
+                        <p>
+                            <label>推广编号：</label>
+                            @Html.TextBoxFor(model => model.RegisterSourceConfigInfo.InternalKey, new { @maxlength = 7, @class = "required alphanumeric" })
+                        </p>
+                        <p>
+                            <label>推广类型：</label>
+                            @Html.RadioButtonFor(model => model.RegisterSourceConfigInfo.Type, 1)兼职
+                            @Html.RadioButtonFor(model => model.RegisterSourceConfigInfo.Type, 2)顺丰
+                        </p>
+                    </div>
+
+
+                    <div class="unit">
+                        <p>
+                            <label>外部编号：</label>
+                            @Html.TextBoxFor(model => model.RegisterSourceConfigInfo.SourceID, new { @maxlength = 50, @class = "required" })
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="unit">
+                        <dl class="nowrap">
+                            <dt>推广链接：</dt>
+                            @Html.TextBoxFor(model => model.RegisterSourceConfigInfo.Content, new { @maxlength = 200, @class = "required", size = "82" })
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            @{
+                if (Model.RegisterSourceConfigInfo.ID != 0)
+                {
+                    <div class="panel">
+                        <h1>二维码预览</h1>
+                        <div><img src="@Model.RegisterSourceConfigInfo.Content" width="300" height="300"/></div>
+                        @*<div id="qrcodeCanvas"></div>*@
+                    </div>
+                }
+                
+            }
+            
+            
+
+        </div>
+
+        <div class="formBar">
+            <ul>
+                <!--<li><a class="buttonActive" href="javascript:;"><span>保存</span></a></li>-->
+                @{
+                    if (Model.RegisterSourceConfigInfo.ID == 0)
+                    {
+                        //至支持添加
+                        <li><div class="buttonActive"><div class="buttonContent"><button type="submit" id="btnSave">保存</button></div></div></li>
+                    }
+                }
+
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>
+

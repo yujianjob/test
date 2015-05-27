@@ -1,0 +1,115 @@
+﻿@model LazyAtHome.WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC
+@{
+    ViewBag.Title = "地址修改";
+}
+
+<section>
+    <div class="addressModify">
+        <form>
+            <label><span>收件人</span> <input type="text" id="txtConsignee" name="txtConsignee" value="@Model.Consignee" /></label>
+            <label><span style="letter-spacing:.65em">电话</span> <input type="text" id="txtMPNo" name="txtMPNo" value="@Model.MPNo" /></label>            
+            <div style="clear:both;margin-bottom:15px;overflow:hidden">
+                <span style="width:25%;letter-spacing:.65em; float:left;color:#4cc7c8">地址</span>
+                <textarea style="width:60%;" id="txtAddress" name="txtAddress">@Model.Address</textarea>
+                <div style="width:15%;float:right;">
+                    <img src="/img/positionIcon.png" onclick="GetLocation();" style="display:block;margin:0 auto">
+                </div>
+            </div>
+            <div style="clear:both"></div>
+            <label><input type="checkbox" id="txtIsDefault" name="txtIsDefault"> 设为默认地址</label>
+            <div class="addModifyGroup">
+                <button class="saveUserInfo-btn" type="button">保存</button>
+                <button class="cancelUserInfo-btn" type="button" onclick="window.location.href='@Request.UrlReferrer.ToString()'">取消</button>
+            </div>
+
+        </form>
+    </div>
+</section>
+
+@section scripts
+{
+    <script type="text/javascript">
+        var aid = "@Model.ID";
+        var districtid = "@Model.DistrictID";
+        $(function () {
+            if (districtid == "")
+                districtid = "310101";
+            $("#txtDistrictID").val(districtid);
+            $(".saveUserInfo-btn").click(function () {
+                if (Check()) {
+                    var bDefalut = 1;
+                    if (!txtIsDefault.checked)
+                        bDefalut = 0;
+
+                    process();
+                    var postData = { "id": aid, "consignee": txtConsignee.value, "districtID": 0, "address": txtAddress.value, "mpno": txtMPNo.value, "isdefault": bDefalut };
+                    $.ajax({
+                        type: "post",
+                        url: "@Url.Action("User_AddressUpdate", "Member")",
+                        data: postData,
+                        dataType: "json",
+                        success: ProcessData,
+                        error: function (msg) {
+                            removeProcess();
+                            showPopDiv(msg.toString());
+                        }
+                    });
+                }
+            });
+            GetLocation();
+        });
+
+        function Check() {
+            $("#msgInfo").html("");
+
+            if (!txtConsignee.value.trim().match("^[\u4E00-\u9FA5A-Za-z0-9 ]+$")) {
+                showPopDiv("收件人姓名格式不正确");                
+                return false;
+            }
+
+            if (!txtAddress.value.trim().match("^[\u4E00-\u9FA5A-Za-z0-9_ -]+$")) {
+                showPopDiv("地址格式不正确");                
+                return false;
+            }
+
+            if (!$("#txtMPNo").val().match(/^0?(13[0-9]|15[012356789]|18[0-9]|14[57])[0-9]{8}$/)) {
+                showPopDiv("手机号码格式不正确！");                
+                return false;
+            }
+            return true;
+        }
+
+        function ProcessData(resultJson) {
+            removeProcess();
+            if (resultJson != null) {
+                if (resultJson.Code == 1) {
+                    window.location.href = resultJson.CallBack;
+                }
+                else
+                    showPopDiv(resultJson.Msg);
+            }
+        }
+
+        function GetLocation() {
+            process();
+            $.ajax({
+                type: "post",
+                url: "/Member/GetUserLocation",
+                dataType: "json",
+                success: function (resultJson) {
+                    removeProcess();
+                    if (resultJson != null) {
+                        if (resultJson.Code == 1) {
+                            txtAddress.value = resultJson.Address;
+                        }
+                        else
+                            showPopDiv(resultJson.Msg);
+                    }
+                },
+                error: function (msg) {
+                    showPopDiv(msg.toString());
+                }
+            });
+        }
+    </script>
+}

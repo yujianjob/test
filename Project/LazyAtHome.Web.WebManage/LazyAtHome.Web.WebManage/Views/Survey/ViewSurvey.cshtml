@@ -1,0 +1,173 @@
+﻿@model LazyAtHome.Web.WebManage.Models.Survey.SurveyViewModel
+
+<!--报错信息-->
+@Html.Raw(ViewBag.Script)
+
+<div class="pageContent">
+    <form method="post" action="@Url.Action("", "")" id="frmViewSurvey" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
+        <div class="pageFormContent" layouth="56">
+            <div class="panel">
+                <h1>基本信息</h1>
+                <div>
+                    @Html.HiddenFor(model => model.ID)
+                    <div class="unit">
+                        <p>
+                            <label>问卷名称：</label>
+                            @Html.TextBoxFor(model => model.Title, new { @maxlength = 50, @readonly = "readonly" })
+                        </p>
+
+                        <p>
+                            <label>参与人数：</label>
+                            @Html.TextBoxFor(model => model.UserCount, new { @maxlength = 50, @readonly = "readonly" })
+                        </p>
+
+                    </div>
+
+                    @{
+                        if (Model.UserSource != null)
+                        {
+                            <div class="unit">
+                                <p>
+                                    <label>用户信息：</label>
+                                    @Html.TextBoxFor(model => model.UserSource, new { @maxlength = 50, @readonly = "readonly" })
+                                </p>
+
+                            </div>
+                        }
+                    }
+                    
+
+                    <div class="unit">
+                        <p>
+                            <label>开始时间：</label>
+                            @{
+                                var DateFrom = "";
+                                if (Model.BeginDate == System.DateTime.MinValue)
+                                {
+                                    DateFrom = "";
+                                }
+                                else
+                                {
+                                    DateFrom = Convert.ToDateTime(Model.BeginDate).ToString("yyyy-MM-dd");
+                                }
+                            }
+                            <input type="text" id="SurveyInfo_BeginDate" name="SurveyInfo_BeginDate" value="@DateFrom" class="date required" datefmt="yyyy-MM-dd" readonly="readonly" /><a class="inputDateButton" href="javascript:;">选择</a>
+                        </p>
+
+                        <p>
+                            <label>结束时间：</label>
+                            @{
+                                var DateTo = "";
+                                if (Model.EndDate == System.DateTime.MinValue)
+                                {
+                                    DateTo = "";
+                                }
+                                else
+                                {
+                                    DateTo = Convert.ToDateTime(Model.EndDate).ToString("yyyy-MM-dd");
+                                }
+                            }
+                            <input type="text" id="SurveyInfo_EndDate" name="SurveyInfo_EndDate" value="@DateTo" class="date required" datefmt="yyyy-MM-dd" readonly="readonly" /><a class="inputDateButton" href="javascript:;">选择</a>
+                        </p>
+
+                    </div>
+
+                    <div class="unit">
+                        <label>问卷描述：</label>
+                        @Html.TextAreaFor(model => model.Content, new { @maxlength = 500, cols = "82", rows = "3", @class = "textarea", @readonly = "readonly" })
+                    </div>
+
+                    @*<div class="unit">
+
+                        <p>
+                            <label>状态：</label>
+                            @Html.RadioButtonFor(model => model.CommitStatus, 0, new { @checked = "checked" })未上线
+                            @Html.RadioButtonFor(model => model.CommitStatus, 1)已上线
+                            @Html.RadioButtonFor(model => model.CommitStatus, 2)已下线
+                        </p>
+                    </div>*@
+                </div>
+            </div>
+
+            <div class="panel">
+                <h1>问题与答案</h1>
+                <div>
+                    @{
+                        foreach (var qitem in Model.QuestionViewList)
+                        {
+                            
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @{
+                                                string qType = "";
+                                                if (qitem.Type == 1)
+                                                {
+                                                    qType = " [单选]";
+                                                }
+                                                if (qitem.Type == 2)
+                                                {
+                                                    qType = " [多选]";
+                                                }
+                                                if (qitem.Type == 3)
+                                                {
+                                                    qType = " [问答]";
+                                                }
+                                            }
+
+                                            @(qitem.Seq + ". " + qitem.Title + qType)
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                                     
+                                </tbody>
+                            </table>
+                            <br />
+                        
+                            <table width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td width="10"></td>
+                                        @{
+                                            foreach (var oitem in qitem.OptionsViewList)
+                                            {
+                                                if (qitem.Type != 3)
+                                                {
+                                                    <td><input type="checkbox" checked="@oitem.isSelected" />@(string.IsNullOrEmpty(oitem.AnsContent) ? oitem.Name + oitem.Title + oitem.strSelPct : oitem.Name + oitem.Title + oitem.strSelPct + "  " + oitem.AnsContent)</td>
+                                                }
+                                                else
+                                                { 
+                                                    
+                                                    <td><textarea rows="2" cols="80">@oitem.AnsContent</textarea></td>
+                                                }
+                                            }
+                                        }
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="divider"></div>
+                        }
+                    }
+
+                    
+
+                </div>
+
+            </div>
+                
+        </div>
+
+        <div class="formBar">
+            <ul>
+                <!--<li><a class="buttonActive" href="javascript:;"><span>保存</span></a></li>-->
+                @*<li><div class="buttonActive"><div class="buttonContent"><button type="submit" id="btnSave">保存</button></div></div></li>*@
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>
+

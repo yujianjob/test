@@ -1,0 +1,103 @@
+﻿@{
+    //ViewBag.Title = "社区中心";
+}
+<link href="/Content/share_style0_24.css" media="screen" rel="stylesheet">
+<div class="page-content inset">
+    <div class="row">
+        <div class="col-md-7 col-md-offset-1">
+            <div class="sqzx">
+                <ul class="nav nav-tabs coupon-nav" role="tablist">
+                    <li class="active"><a href="#wsy" role="tab" data-toggle="tab">邀请注册</a></li>
+                    <li><a href="#ysy" role="tab" data-toggle="tab">站内信</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="wsy">
+                        <div class="share-unit">
+                            1.把地址分享到：<br>
+                            <div class="bdsharebuttonbox" data-tag="share_1" style="padding-top:10px">
+                                <a class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                                <a class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+                                <a class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                                <a class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+                                <a class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+                                <a class="bds_qzone" href="#" data-cmd="qzone" title="分享到QQ空间"></a>
+                                <a class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+                                <a class="bds_kaixin001" data-cmd="kaixin001" title="分享到开心网"></a>
+                                <a class="bds_t163" data-cmd="t163" title="分享到网易微博"></a>
+                                <a class="bds_ty" data-cmd="ty" title="分享到天涯社区"></a>
+                                <a class="bds_more" style="font-size:1.2em" data-cmd="more">更多</a>
+
+                            </div>
+                        </div>
+                        <div class="share-unit">
+                            2.把地址分享到微博/QQ/论坛上:<br><br>
+                            <div class="input-group">
+                                <input id="shareLink" type="text" value="http://www.landaojia.com/home/index?invitecode=@ViewBag.Code">
+                                <span class="input-group-btn">
+                                    <button id="copyBtn" data-clipboard-target="shareLink" class="btn btn-default" type="button">复制链接</button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </div>
+                        <div class="share-unit">
+                            <p>
+                                3.邀请注册奖励:<br>
+                                邀请人将上面的邀请链接复制发送给自己的好友，被邀请人点击邀请链接注册懒到家，成功填写手机号码并验证，即邀请成功；
+                                用户只要邀请至少5人成功注册懒到家账户，即可获得懒到家赠送的20元现金奖励，20元奖励可以用于购买懒到家所有的产品服务；
+                                奖励的现金通过审核后，系统会自动绑定至用户的账户余额中。
+                            </p>
+                        </div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="active"><a href="#tag1" role="tab" data-toggle="tab">近三个月邀请记录</a></li>
+                            <li><a href="#tag2" role="tab" data-toggle="tab">三个月前邀请记录</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tag1">
+                                <table class="table">
+                                    <thead><tr><th>成功邀请</th><th>奖励金额</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>0</td><td>￥0.00</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="tag2">
+                                <table class="table">
+                                    <thead><tr><th>成功邀请</th><th>奖励金额</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>0</td><td>￥0.00</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="ysy">
+                        <table class="table station-letter">
+                            <thead><tr><th>发件人</th><th>内容</th><th>时间</th></tr></thead>
+                            <tbody>
+                                <tr><td>System</td><td>感谢注册懒到家。懒到家，让您足不出户，坐享洁净健康的品质生活。如需帮助，请咨询懒到家客服热线：4008-762-799。</td><td>2014-07-28</td></tr>
+                            </tbody>
+                        </table>
+                        <ul class="pagination pull-right">
+                            <li><a href="#">&laquo;</a></li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">&raquo;</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script type="text/javascript" id="bdshare_js" data="type=tools&mini=1"></script>
+    <script type="text/javascript" id="bdshell_js"></script>
+    <script language="javascript" type="text/javascript">
+        $(function () {
+            window._bd_share_config = {
+                "common": { "bdSnsKey": {}, "bdText": "Oh！my God万万没想到，9元就能洗羽绒服，单笔订单满18还能免邮，此等好事不分享就太不厚道了，禁不住良心的谴责，我还是分享给大家吧，谁让我是雷锋呢，反正你洗与不洗实惠就在哪里，转瞬即逝～想要体验的小伙伴赶紧，过了这村就没了这店咯～", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16", "bdUrl": $("#shareLink").val() },
+                "share": { "tag": "share_1", "bdSize": 24 }
+            }
+            with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion=' + ~(-new Date() / 36e5)];
+        });
+    </script>
+}

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/ldj.css" media="screen" rel="stylesheet">
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/judgePlatform.js"></script>
+<script>
+	if(browser.versions.android || browser.versions.iPhone || browser.versions.iPad || browser.versions.ios){
+	document.write("<script type='text/javascript' src='js/iscroll.js'><\/script><script type='text/javascript' src='js/iscrollobj.js'><\/script>");
+	}
+</script>
+<!--[if lt IE 9]>
+    <script src="js/html5.js"></script>
+    <script src="js/respond.min.js"></script>
+<![endif]-->
+<script src="js/landaojia.js"></script>
+</head>
+<body >
+<div class="wrapper">
+  <!--网站侧边导航 start-->
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-brand"> <img src="img/logo.png"> </li>
+      <li> <a class="active" href="洗涤服务.html"> <span class="icon-white-xdfw"></span> <span class="nav-title">洗涤服务</span> </a> </li>
+      <li> <a href="奢侈品护理.html"> <span class="icon-white-hl"></span> <span class="nav-title">奢侈品护理</span> </a> </li>
+      <li> <a href="懒人神器.html"> <span class="icon-white-lrsq"></span> <span class="nav-title">懒人神器</span> </a> </li>
+      <li> <a href="缤纷活动.html"> <span class="icon-white-bfhd"></span> <span class="nav-title">缤纷活动</span> </a> </li>
+      <li> <a href="我的订单.html"> <span class="icon-white-myorder"></span> <span class="nav-title">我的订单</span> </a> </li>
+      <li> <a href="历史订单.html"> <span class="icon-white-history"></span> <span class="nav-title">历史订单</span> </a> </li>
+      <li> <a href="帮助与反馈.html"> <span class="icon-white-history"></span> <span class="nav-title">帮助与反馈</span> </a> </li>
+      <li> <a href="关于懒到家.html"> <span class="icon-white-about"></span> <span class="nav-title">关于懒到家</span> </a> </li>
+    </ul>
+  </div>
+  <!--网站侧边导航 end-->
+  <div id="page-content-wrapper"> 
+   <!--主体内容头部 start-->
+  	<div class="navbar" role="navigation">
+    	<div class="container-fluid">
+       		<div class="row">
+            	<div class="col-sm-9 col-md-1">
+                    <a id="navbar-logo" data-toggle="offcanvas" class="brand-toggle" onClick="showHideSiderbar();">
+                        <img src="img/navbar-logo.png">
+                    </a>
+                    <h2 class="navbar-brand visible-xs visible-sm" style="float:left;">缤纷活动</h2>
+                    <button type="button" class="visible-xs navbar-toggle collapsed icon-collapsed pull-right" data-toggle="collapse" data-target="#navbar-collapse-1"> 
+                        <img src="img/dropdown-cog-blue.png"> 
+                    </button>
+                </div>
+                <div class="col-sm-7 col-md-7 hidden-sm hidden-xs">
+                	<h2 class="navbar-brand" style="float:left;padding:10px 0 0 0">缤纷活动</h2>
+                    <div style="margin-left:150px;">
+                           <form method="post" action="" class="tsearch">
+                                <input type="text" placeholder="搜索清洗服务">
+                                <button class="icon-search"><img src="img/icon-search.png"></button>
+                            </form>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-md-4 hidden-xs">
+                    <ul class="nav navbar-nav navbar-right">
+                         <li class="dropdown"> 
+                        	 <a class="dropdown-toggle memberCentre" data-toggle="dropdown"> 
+                                <span class="name">会员名</span> 
+                                <span class="icon-member"></span> 
+                             </a>
+                              <ul class="dropdown-menu" id="member-info">
+                                <li><a href="用户中心.html">用户中心</a></li>
+                                <li class="divider"></li>
+                                <li><a href="地址管理.html">地址管理</a></li>
+                                <li><a href="我的懒人卡.html">我的懒人卡</a></li>
+                                <li><a href="我的优惠劵.html">我的优惠劵</a></li>
+                                <li class="divider"></li>
+                                <li><a href="社区中心.html">社区中心</a></li>
+                                <li class="divider"></li>
+                                <li><a>退出</a></li>
+                              </ul>
+                         </li>
+                    	<li class="hidden-sm navbar-question"> <a href="#">我们的服务流程?</a> </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="visible-xs">
+              <div class="collapse navbar-collapse" id="navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-c">
+                  <li><a href="用户中心.html">用户中心</a></li>
+                  <li class="divider"></li>
+                  <li><a href="地址管理.html">地址管理</a></li>
+                  <li><a href="我的懒人卡.html">我的懒人卡</a></li>
+                  <li><a href="我的优惠劵.html">我的优惠劵</a></li>
+                  <li class="divider"></li>
+                  <li><a href="社区中心.html">社区中心</a></li>
+                  <li class="divider"></li>
+                  <li><a>退出</a></li>
+                </ul>
+              </div>
+         </div>
+        <div class="visible-xs visible-sm s-search-bar">
+          <div>
+            <input type="text">
+            <button class="icon-search"><img src="img/icon-search.png"></button>
+          </div>
+        </div>
+    </div>
+   <!--主体内容头部 end-->
+   <div class="page-content inset service-fee">
+				<div class="row">
+                	<div class="col-md-7 col-md-offset-1">
+                        <div class="kajishao" style="overflow:hidden">
+                       <!-- <a class="pull-right btn btn-sm btn-danger" href="缤纷活动.html" style="margin-bottom:20px;">返回</a>-->
+                        <img src="img/activity_banner.jpg" style="width:100%;height:auto;margin-bottom:30px">
+						<h2 style="font-size:1.5em; text-align:center;color:#333">懒到家请上海人民免费洗衣服</h2>
+                        <p style="line-height:30px; text-indent:25px">实惠每天享，洗衣新选择!
+                            即日起在懒到家官网、APP平台以及微信平台下单，即可坐享实惠，免费洗衣只收取基本的同城快递费，还在等什么？赶快体验吧，便捷的操作、大大的实惠，一站式全程服务，一定会给您带来全新的体验，极大的震撼，懒到家请上海人民免费洗衣~
+                            </p>
+                            <p style="line-height:30px;">
+                            <strong>活动规则</strong><br>
+                            1、活动时间2014年9月15日-2014年12月31日<br>
+                            2、活动期间，在懒到家下单用户只需支付18元同城快递费，即可尊享3件以内衣物免洗特权，同单3件以上每件增收6元快递费（本活动适用于规定内的免费洗适用产品，皮质、丝质衣物不参与本活动）。<br>
+                            3、正常产品下单或者含正常产品的订单，免收18元快递费用，若此订单含有免费洗产品，则按照每件6元收取费用。<br>
+                            4、本活动的最终解释及变更权由懒到家所有。
+                            </p>
+                            <img src="img/activity_qrcode.jpg" style="display:block;margin:50px auto 0 auto">
+
+                              <h2 class="freeWashTit"><a id="tt"></a>免费洗适用产品</h2>
+                              <table cellpadding="0" cellspacing="0" class="table clothTable">
+                                  <thead>
+                                        <tr>
+                                        <th colspan="4" style="border:10px solid white">上装</th>
+                                        </tr>
+                                   </thead>
+                                   <tbody>
+                                   <tr>
+                                      <td bgcolor="#f3f3f3">西装</td>
+                                      <td bgcolor="#f3f3f3">睡衣</td>
+                                      <td bgcolor="#f3f3f3">防辐射服</td>
+                                      <td bgcolor="#f3f3f3">大衣</td>
+                                     </tr>
+                                     <tr>
+                                      <td bgcolor="#f3f3f3">衬衫</td>
+                                      <td bgcolor="#f3f3f3">浴袍</td>
+                                      <td bgcolor="#f3f3f3">背心</td>
+                                      <td bgcolor="#f3f3f3">冲锋衣</td>
+                                     </tr>
+                                     <tr>
+                                      <td bgcolor="#f3f3f3">羽绒服</td>
+                                      <td bgcolor="#f3f3f3">保暖内衣</td>
+                                      <td bgcolor="#f3f3f3">T恤</td>
+                                      <td bgcolor="#f3f3f3">雪纺衫</td>
+                                     </tr>
+                                     <tr>
+                                      <td bgcolor="#f3f3f3">马甲</td>
+                                      <td bgcolor="#f3f3f3">毛衣外套</td>
+                                      <td bgcolor="#f3f3f3">夹克</td>
+                                      <td bgcolor="#f3f3f3">吊带衫</td>
+                                     </tr>
+                                     <tr>
+                                      <td bgcolor="#f3f3f3">棉衣</td>
+                                      <td bgcolor="#f3f3f3">针织衫</td>
+                                      <td bgcolor="#f3f3f3">运动衣/卫衣</td>
+                                      <td bgcolor="#f3f3f3">中山装</td>
+                                     </tr>
+                                     <tr>
+                                      <td bgcolor="#f3f3f3">风衣</td>
+                                      <td bgcolor="#f3f3f3">羊毛衫</td>
+                                      <td bgcolor="#f3f3f3">牛仔衣</td>
+                                      <td bgcolor="#f3f3f3">唐装</td>
+                                     </tr>
+                                </tbody>
+                              </table>
+                               <table cellpadding="0" cellspacing="0" class="table clothTable">
+                                  <thead>
+                                        <tr>
+                                        	<th colspan="2" style="border:10px solid white">上装</th>
+                                            <th style="border:10px solid white">配饰</th>
+                                            <th style="border:10px solid white">鞋包</th>
+                                        </tr>
+                                   </thead>
+                                   <tbody>
+                                   <tr>
+                                      <td bgcolor="#f3f3f3">西裤</td>
+                                      <td bgcolor="#f3f3f3">短裤</td>
+                                      <td bgcolor="#f3f3f3">帽子</td>
+                                      <td bgcolor="#f3f3f3">运动鞋</td>
+                                     </tr>
+                                     <tr>
+                                      <td bgcolor="#f3f3f3">休闲裤</td>
+                                      <td bgcolor="#f3f3f3">中裤</td>
+                                      <td bgcolor="#f3f3f3">围巾</td>
+                                      <td bgcolor="#f3f3f3">休闲鞋</td>
+                                     </tr>
+                                     <tr>
+                                      <td bgcolor="#f3f3f3">运动裤</td>
+                                      <td bgcolor="#f3f3f3">裙裤</td>
+                                      <td bgcolor="#f3f3f3">披肩</td>
+                                      <td bgcolor="#f3f3f3">帆布鞋</td>
+                                     </tr>
+                                     <tr>
+                                      <td bgcolor="#f3f3f3">羽绒裤</td>
+                                      <td bgcolor="#f3f3f3">睡裤</td>
+                                      <td bgcolor="#f3f3f3">领带</td>
+                                      <td bgcolor="#f3f3f3">登山鞋</td>
+                                     </tr>
+                                     <tr>
+                                      <td bgcolor="#f3f3f3">冲锋裤</td>
+                                      <td bgcolor="#f3f3f3">裙子</td>
+                                      <td bgcolor="#f3f3f3">手套</td>
+                                      <td bgcolor="#f3f3f3">双肩包</td>
+                                     </tr>
+                                     <tr>
+                                      <td bgcolor="#f3f3f3">牛仔裤</td>
+                                      <td bgcolor="#f3f3f3">连衣裙</td>
+                                      <td bgcolor="#f3f3f3"></td>
+                                      <td bgcolor="#f3f3f3">单肩包</td>
+                                     </tr>
+                                     <tr>
+                                      <td bgcolor="#f3f3f3">保暖裤</td>
+                                      <td bgcolor="#f3f3f3">吊带裙</td>
+                                      <td bgcolor="#f3f3f3"></td>
+                                      <td bgcolor="#f3f3f3"></td>
+                                     </tr>
+                                     <tr>
+                                      <td bgcolor="#f3f3f3">唐装裤</td>
+                                      <td bgcolor="#f3f3f3">打底裤</td>
+                                      <td bgcolor="#f3f3f3"></td>
+                                      <td bgcolor="#f3f3f3"></td>
+                                     </tr>
+                                </tbody>
+                              </table> 
+                              <div class="xd-btngroup">
+                                  <a class="btn btn-danger btn-lg" style="margin-right:30px">普通下单</a>   
+                                  <a class="btn btn-danger btn-lg">一键下单</a>
+                              </div>                     
+							
+                            
+                      </div>
+                    </div>
+                </div>
+
+		</div>
+    </div>
+</div>
+</body>
+</html>

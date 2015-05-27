@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://192.168.1.201:8100/LazyAtHome/QFExpressService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/LazyAtHome.WCF.WebService.Contract.DataContract.PR" />
+  <xs:import schemaLocation="http://192.168.1.201:8100/LazyAtHome/QFExpressService?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://192.168.1.201:8100/LazyAtHome/QFExpressService?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" />
+  <xs:element name="CreateOrder">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/LazyAtHome.WCF.WebService.Contract.DataContract.PR" minOccurs="0" name="iCredentials" nillable="true" type="q1:LoginCredentials" />
+        <xs:element minOccurs="0" name="iOrderNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iExpressNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="j_Name" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="j_PostCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="j_Phone" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="j_Mobile" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="j_Province" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="j_City" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="j_Address" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="d_Name" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="d_PostCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="d_Phone" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="d_Mobile" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="d_Province" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="d_City" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="d_Address" nillable="true" type="xs:string" />
+        <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="iItemList" nillable="true" type="q2:ArrayOfKeyValueOfstringint" />
+        <xs:element minOccurs="0" name="iExpectStartTime" nillable="true" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="iExpectEndTime" nillable="true" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateOrderResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" minOccurs="0" name="CreateOrderResult" nillable="true" type="q3:ReturnEntityOfboolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelOrder">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/LazyAtHome.WCF.WebService.Contract.DataContract.PR" minOccurs="0" name="iCredentials" nillable="true" type="q4:LoginCredentials" />
+        <xs:element minOccurs="0" name="iOrderNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iRemark" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelOrderResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" minOccurs="0" name="CancelOrderResult" nillable="true" type="q5:ReturnEntityOfboolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

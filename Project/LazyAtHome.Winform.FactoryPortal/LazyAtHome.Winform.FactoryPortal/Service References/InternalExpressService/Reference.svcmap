@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="b7d13794-9b5f-4426-bc90-bcb88ab6f969" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://192.168.1.201:8100/LazyAtHome/InternalExpressService" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="InternalExpressPortal.wsdl" MetadataType="Wsdl" ID="f895b68e-ba77-4170-953e-929cb5094764" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/InternalExpressService?wsdl" />
+    <MetadataFile FileName="InternalExpressService7.xsd" MetadataType="Schema" ID="e74a19c8-3db5-450c-ba8a-1797809e1864" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/InternalExpressService?xsd=xsd8" />
+    <MetadataFile FileName="InternalExpressService5.xsd" MetadataType="Schema" ID="8ed946fc-a379-48cc-9c18-5936f870fe78" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/InternalExpressService?xsd=xsd5" />
+    <MetadataFile FileName="InternalExpressService1.xsd" MetadataType="Schema" ID="88a915c8-38ae-4ea6-afa8-a4d5d12cece5" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/InternalExpressService?xsd=xsd0" />
+    <MetadataFile FileName="InternalExpressService.disco" MetadataType="Disco" ID="0e3a7a48-db9e-4c06-9a0c-77547a6805e7" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/InternalExpressService?disco" />
+    <MetadataFile FileName="InternalExpressService.xsd" MetadataType="Schema" ID="5f252ad7-7193-4334-80b7-9b1bde0c4cd0" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/InternalExpressService?xsd=xsd3" />
+    <MetadataFile FileName="InternalExpressService71.xsd" MetadataType="Schema" ID="7691e285-b35b-4e8e-912e-bc56828f84aa" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/InternalExpressService?xsd=xsd7" />
+    <MetadataFile FileName="InternalExpressService4.xsd" MetadataType="Schema" ID="1a60b047-fa3d-4b1b-aae8-74dea56e6e1e" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/InternalExpressService?xsd=xsd2" />
+    <MetadataFile FileName="InternalExpressService8.xsd" MetadataType="Schema" ID="131e15df-4947-43f3-adaa-3661bd3264ed" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/InternalExpressService?xsd=xsd9" />
+    <MetadataFile FileName="InternalExpressService6.xsd" MetadataType="Schema" ID="fa7e9b2b-682b-444b-8e7a-7aef5104f9a9" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/InternalExpressService?xsd=xsd1" />
+    <MetadataFile FileName="InternalExpressService2.xsd" MetadataType="Schema" ID="9693c995-2cef-4713-834c-ca153b7541c1" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/InternalExpressService?xsd=xsd6" />
+    <MetadataFile FileName="InternalExpressService3.xsd" MetadataType="Schema" ID="2e7ed8b6-3d65-4182-adfa-ef2bfa6cc5f1" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/InternalExpressService?xsd=xsd4" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

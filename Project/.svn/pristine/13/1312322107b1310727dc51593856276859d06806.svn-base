@@ -1,0 +1,36 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\mianyi1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、棉衣不应曝晒以免对棉料造成损伤。</p>
+				<p>2、棉衣在收藏之前应先清洗干净，防止布质发硬，避免浮色污染其他衣服。</p> 
+				<p>3、刚晾晒好的棉衣可先熨烫定型，然后折叠存放。</p>
+				<p>4、如存放的时间较久，尤其是雨季过后，最好能把棉衣拿出来晾一晾才不容易发霉。</p>
+				<p>5、如发现霉点可用酒精拭擦，再以湿布擦洗干净，晾透后再妥善收藏。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>懒到家，用自己的方式，给您最想要的极致洁净，让您在这个冬天享受温暖的同时，更多一份洁净。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\mianyi2.jpg" /></div>
+			<div class="txt right">
+				<h2></h2>
+				<p> 棉衣如果沾上污渍清洗不当，会缩水变形不保暖，既不美观又不实用了。棉服最好不要用洗衣机洗，否则棉絮会被洗衣机拧绞板结，减短棉服的寿命。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

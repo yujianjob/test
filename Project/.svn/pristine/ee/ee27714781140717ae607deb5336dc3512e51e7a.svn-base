@@ -1,0 +1,35 @@
+﻿<!--内容-->
+<div id="content">
+     <div class="mediaShowTitle"><p><a href="/Home/LaundryTips">小常识列表</a><span>&gt;</span>洗衣小常识</p></div>
+     <div class="mediaShow">
+     	  <div class="mediaShowBt">
+          	   <h2>各类被子的洗涤保养以及储藏方法？</h2>
+               <p><b>2014.05.12</b>浏览次数：<span>90</span></p>
+               <dl>
+                  <dt>分享到：</dt>
+                  <dd><a href="#"><img src="~/Content/images/fenxiang_01.gif" /></a></dd>
+                  <dd><a href="#"><img src="~/Content/images/fenxiang_02.gif" /></a></dd>
+                  <dd><a href="#"><img src="~/Content/images/fenxiang_03.gif" /></a></dd>
+               </dl>
+          </div>
+          <div class="mediaShowContent laundrytips">
+          	   <p><b>1、羊毛被</b></p>
+			   <p></p>
+			   <p>洗涤保养方法：羊毛被不可水洗、不可氯漂、不可熨烫，如需洗涤，可到专业干洗店干洗，但务必充分悬挂晾干。使用时请拍被套；建议羊毛被从包装取出后，最好在避阳处晾晒2-3小时，并轻拍被子恢复其弹性。并间隔一周左右时间在避阳处定时晾干，以上午10点至下午3时阴凉为佳，正反各晾2小时即可。</p>
+			   <p></p>
+			   <p>储藏方法：存放前，在避阳处晾4-5小时，并在密封包装前，将2-3粒防虫剂放在羊毛被中，然后放置在干燥处存放，切忌重压。</p>
+			   <img src="~/Content/images/tips7-pic1.jpg" align="center"/>
+			   <p></p>
+			   <p><b>2、羽绒被</b></p>
+			   <p>洗涤保养方法：羽绒被不可水洗、不可氯漂、不可熨烫、如需洗涤，可到专业干洗店干洗，但务必充分悬挂晾干。使用时请加被套；在使用1-2个月后，羽绒被需在通风良好且无阳光直射的地方晾晒2-3小时，收回时请轻轻拍打被子表面、去尘并恢复被子弹性。</p>
+			   <p></p>
+			   <p>储藏方法：收藏时应选择清洁、干燥、通风的环境，并定期晾晒，以防霉变。</p>
+			   <p><b>3、蚕丝被</b></p>
+			   <img src="~/Content/images/tips7-pic2.jpg" align="center"/>
+			   <p>清洗保养：蚕丝被不宜水洗，不可氯漂，不可熨烫，如需洗涤，可到专业干洗店干洗，但务必充分悬挂晾干。使用时请加被套；为了杀菌同时也为了增加蚕丝被的保暖性，建议将使用一段时间后的蚕丝被放在通风良好的阳光下，晾晒时间最好选择在上午10点到下午3点，至少要翻晒两至三次，使表里两面都能晒到，并且在晾晒时最好覆一层白布。</p>
+			   <p></p>
+			   <p>收藏方法：蚕丝被很容易受潮，因此收藏时尽量放置在干燥通风的地方，同时加适量的防虫剂。</p>
+          </div>
+         <!-- <div class="pages"><a href="#">上一篇</a><a href="#">下一篇</a></div>-->
+     </div>
+</div>

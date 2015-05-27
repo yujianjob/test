@@ -1,0 +1,129 @@
+﻿@model LazyAtHome.Web.StoreManage.Models.Order.OrderListModel
+
+<form id="pagerForm" method="post" action="@Url.Action("SearchOrder")">
+    <input type="hidden" name="status" value="@Model.SearchInfo.status">
+    <input type="hidden" name="keywords" value="@Model.SearchInfo.keywords" />
+    <input type="hidden" name="pageNum" value="@Model.SearchInfo.pageNum" />
+    <input type="hidden" name="numPerPage" value="@Model.SearchInfo.numPerPage" />
+    <input type="hidden" name="orderField" value="@Model.SearchInfo.orderField" />
+</form>
+
+<!--报错信息-->
+@Html.Raw(ViewBag.Script)
+
+<!--搜索条-->
+<div class="pageHeader">
+    <form id="searchForm" onsubmit="return navTabSearch(this);" action="@Url.Action("SearchOrder")" method="post" rel="pagerForm">
+        <div class="searchBar">
+
+            <table class="searchContent">
+                <tr>
+                    <td>
+                        创建日期：
+                        @{
+                            var DateFrom = "";
+                            if (Model.SearchInfo.DateFrom != null)
+                            {
+
+                                DateFrom = Convert.ToDateTime(Model.SearchInfo.DateFrom).ToString("yyyy-MM-dd");
+                            }
+                            var DateTo = "";
+                            if (Model.SearchInfo.DateTo != null)
+                            {
+
+                                DateTo = Convert.ToDateTime(Model.SearchInfo.DateTo).ToString("yyyy-MM-dd");
+                            }
+                        }
+                        <input type="text" id="txtFrom" name="DateFrom" value="@DateFrom"
+                               class="date" style="width: 120px" />
+                        至
+                        <input type="text" id="txtTo" name="DateTo" value="@DateTo"
+                               class="date" style="width: 120px" />
+                    </td>
+
+                </tr>
+            </table>
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+                    @*<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>*@
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="pageContent">
+    <!--功能按键-->
+    <div class="panelBar">
+        <ul class="toolBar">
+            <li><a class="add" href="@Url.Action("StoreOrderIndex")" target="navTab" rel="createorder" title="收衣篮"><span>收衣篮</span></a></li>
+            <li><a class="delete" href="@Url.Action("DeleteOrder")?oid={oid}" target="ajaxTodo" title="确定要删除吗?"><span>删除</span></a></li>
+            <li><a class="edit" href="@Url.Action("GetStoreOrder")?ordernumber={oid}" target="navTab" rel="createorder" title="收衣篮"><span>查看包裹</span></a></li>
+            <li class="line">line</li>
+            @*<li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targettype="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>*@
+        </ul>
+    </div>
+
+    <!--列表页-->
+    <table class="table" width="100%" layouth="138">
+        <thead>
+            <tr>
+                <th width="10" align="center"></th>
+                <th width="120" align="center">包裹号</th>
+                <th width="120" align="center">物流单号(送)</th>
+                <th width="120" align="center">物流单号(收)</th>
+                <th width="100" align="center">包裹订单状态</th>
+                <th width="100" align="center">支付状态</th>
+                <th width="120" align="center">创建时间</th>
+                <th width="90" align="center">进程</th>
+                @*<th style="width: 260px;">操作</th>*@
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (@Model.OrderList != null)
+            {
+                int no = 1;
+                foreach (var item in @Model.OrderList)
+                {
+                    <tr target="oid" rel="@item.OrderNumber">
+                        <td>@(no++)</td>
+                        <td>@item.OrderNumber</td>
+                        <td>@item.GetExpressNumber</td>
+                        <td>@item.SendExpressNumber</td>
+                        <td>@UIHelper.FormatOrderStatus(item.OrderStatus)</td>
+                        <td>@UIHelper.FormatPayStatus(item.PayStatus)</td>
+                        <td>@UIHelper.FormatDate(item.Obj_Cdate)</td>
+                        <td>@UIHelper.FormatOrderStep(item.Step)</td>
+                    </tr>
+                }
+
+            }
+        </tbody>
+    </table>
+
+    <!--分页条-->
+    <div class="panelBar">
+        <script type="text/javascript">
+            $(function () {
+                $("#@Model.SearchInfo.numPerPageName").attr("value", "@Model.SearchInfo.numPerPage");
+            });
+        </script>
+        <div class="pages">
+            <span>显示</span>
+            <select class="combox" id="@Model.SearchInfo.numPerPageName" name="@Model.SearchInfo.numPerPageName" onchange="navTabPageBreak({numPerPage:this.value})">
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+            <span>条，共 @Model.SearchInfo.RecCount 条</span>
+        </div>
+
+        <div class="pagination" targettype="navTab" totalcount="@Model.SearchInfo.RecCount" numperpage="@Model.SearchInfo.numPerPage" pagenumshown="@Model.SearchInfo.pageNumShown" currentpage="@Model.SearchInfo.pageNum"></div>
+    </div>
+</div>
+
+

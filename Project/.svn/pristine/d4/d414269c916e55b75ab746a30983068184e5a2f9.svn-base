@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "免洗活动";
+}
+
+<section>
+    <div class="paymentSuccess">
+        <p><img src="/img/rhuse.png" height="100%" width="100%" /></p>
+        <button type="button" style="display:block;margin:0 auto" onclick="window.location.href = '/Cart/OneKey'">懒到家洗涤</button>
+        <p class="paytips">
+            <b>特别提示:</b><br>
+            如您需要帮助，请拨打我们的客服电话：400-876-2799!
+        </p>
+    </div>
+</section>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            $(".menuIcon").remove();
+        });
+    </script>
+}

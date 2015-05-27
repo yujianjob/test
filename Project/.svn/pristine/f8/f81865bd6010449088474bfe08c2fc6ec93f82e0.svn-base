@@ -1,0 +1,53 @@
+﻿@{
+    //ViewBag.Title = "找回密码";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--内容-->
+<div id="password">
+    <div class="password">
+        <div class="passwordTitle">找回密码</div>
+        <div class="passwordBox">
+            <div class="passwordUrl"><img src="~/Content/Images/password_02.gif" /></div>
+            <div class="password_01">
+                <form action="password_03.html" method="post">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td align="right">请选择验证身份方式：</td>
+                            <td>
+                                <select name="jumpMenu" id="jumpMenu">
+                                    <option>邮箱</option>
+                                    <option>手机</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" height="18">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="290">用户名：</td>
+                            <td><font>3****3</font></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" height="18">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td align="right">邮箱地址：</td>
+                            <td><font>3*****3@qq.com</font></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" height="18">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td colspan="3"><input name="" type="submit" value="发送验证邮件" class="anniu"></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="passwordBottom"><img src="~/Content/Images/reg_01.gif" /></div>
+</div>
+
+

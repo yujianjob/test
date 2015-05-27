@@ -1,0 +1,178 @@
+﻿@{
+    //ViewBag.Title = "我的懒人卡";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--内容-->
+<div id="content">
+    @{Html.RenderPartial("_MemberLeftNav");}
+    <div class="my_content right">
+        <div class="my_contentTitle">懒人卡</div>
+        <div class="my_lanrenka">
+            <h3>懒人卡-商务馈赠、节日送礼、企业福利的最佳选择</h3>
+            <p>超过百万种商品的海量选择；可以与其他优惠券同时使用；有效期长达36个月。<a href="#">立即购买»</a></p>
+            <h2>如何使用懒人卡？</h2>
+            <p><img src="~/Content/Images/pic_15.jpg" width="765" height="87" /></p>
+            <ul>
+                <span>备注：</span>
+                <li>1.账户中已有绑定的懒人卡，可在结算信息中，勾选已绑定的懒人卡，懒人卡余额将会抵扣订单金额；</li>
+                <li>2.账户中未有绑定的懒人卡，可在结算信息中，输入懒人卡密码，懒人卡余额将会抵扣订单金额。</li>
+                <li>3.您可以通过设置<a href="#">支付密码</a>保障账户中懒人卡的安全。</li>
+            </ul>
+        </div>
+        <div class="my_bangding">
+            <div class="my_bangdingTitle">
+                <ul>
+                    <li class="this li">充值卡绑定<span></span><b></b></li>
+                    <li class="li">已绑定充值卡明细<span></span><b></b></li>
+                    <li><a href="@Url.Action("Index", "LazyArtifact")">充值卡购买</a><span></span><b></b></li>
+                    <div class="clear"></div>
+                </ul>
+            </div>
+            <div class="my_bangdingBox" style="display:block;">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td style="font-size:14px;" width="130">请输入懒到家卡密：</td>
+                        <td width="72"><input id="pw1" name="pw1" type="text" class="srk" onkeyup="FuncCheckPass(this)" /></td>
+                        <td width="20" align="center">-</td>
+                        <td width="72"><input id="pw2" name="pw2" type="text" class="srk" onkeyup="FuncCheckPass(this)" /></td>
+                        <td width="20" align="center">-</td>
+                        <td width="72"><input id="pw3" name="pw3" type="text" class="srk" onkeyup="FuncCheckPass(this)" /></td>
+                        <td width="20" align="center">-</td>
+                        <td><input id="pw4" name="pw4" type="text" class="srk" onkeyup="FuncCheckPass(this)" /></td>
+                    </tr>
+                    <tr>
+                        <td height="35">&nbsp;</td>
+                        <td colspan="7" style="font-family:'宋体'; color:#afafaf;">卡密不区分大小</td>
+                    </tr>
+                    <tr>
+                        <td height="40" colspan="8" valign="bottom"><input name="" type="button" class="anniu" value="绑定" onclick="FuncBindCard()" /><span id="msg" style="color:red;margin-left:15px"></span></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="my_bangdingBox my_bangdingBiaoge">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr class="my_bangdingBiaogeTitle">
+                        <td>类别</td>
+                        <td>卡号</td>
+                        <td>面值</td>
+                        <td>余额</td>
+                        <td>有效期</td>
+                    </tr>
+                    @foreach (LazyAtHome.WCF.UserSystem.Contract.DataContract.User_CardDC item in ViewBag.CardList)
+                    {
+                        <tr>
+                            <td>懒人卡</td>
+                            <td>@item.Number</td>
+                            <td>@item.Money</td>
+                            <td>@item.Balance</td>
+                            <td>@item.ExpiryDate.ToString("yyyy-MM-dd")</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+        <div class="my_tishi">
+            <h2>懒到家温馨提示</h2>
+            <ul>
+                <li><span>1</span>懒到家卡绑定账户后，只能当前账户使用，不能跨账户使用；</li>
+                <li><span>2</span>懒到家卡有效期一般为36个月，请您在有效期内尽快使用；</li>
+                <li><span>3</span>订单金额中使用懒到家卡支付的部分，将不开出发票；</li>
+                <li><span>4</span>退货时，懒到家卡支付部分退回原懒到家卡内，不予兑换；</li>
+                <li><span>5</span>单张懒到家卡可多次使用；每笔订单可以使用多张懒到家卡，但个别情况下由于浏览器的不同，一次使用多张懒到家卡的张数不定，最多为49张；懒到家卡不可兑换现金。</li>
+            </ul>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script language="javascript" type="text/javascript">
+        $(function () {
+            //左侧导航
+            $('.my_navList dt').click(function () {
+                $(this).parent().find('dd').slideToggle(200);
+                $(this).toggleClass("my_navList_Top");
+            })
+            //切换
+            $('.my_bangdingTitle .li').click(function () {
+                var li = $(this).index();
+                $('.my_bangdingTitle .li').removeClass('this');
+                $(this).addClass('this');
+                $('.my_bangding .my_bangdingBox').hide();
+                $('.my_bangding .my_bangdingBox').eq(li).show();
+            })
+        })
+
+        function FuncCheckPass(obj) {
+            if (!obj.value.match("^[0-9a-fA-F]{1,4}$"))
+                obj.value = obj.value.substr(0, obj.value.length - 1).toUpperCase();
+            else
+                obj.value = obj.value.toUpperCase();
+            if (obj.value.length == 4) {
+                switch (obj.name) {
+                    case "pw1":
+                        pw2.focus();
+                        break;
+                    case "pw2":
+                        pw3.focus();
+                        break;
+                    case "pw3":
+                        pw4.focus();
+                        break;
+                }
+            }
+        }
+
+        function FuncBindCard() {
+            $("#msg").html("");
+            if (pw1.value.length != 4) {
+                pw1.focus();
+                return false;
+            }
+
+            if (pw2.value.length != 4) {
+                pw2.focus();
+                return false;
+            }
+
+            if (pw3.value.length != 4) {
+                pw3.focus();
+                return false;
+            }
+
+            if (pw4.value.length != 4) {
+                pw4.focus();
+                return false;
+            }
+
+            var sPass = pw1.value + pw2.value + pw3.value + pw4.value;
+            var postData = { "cardPass": sPass };
+
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("User_BindCard", "Member")",
+                data: postData,
+            dataType: "json",
+            success: ProcessCardBind,
+            error: function (msg) {
+                alert(msg.toString());
+            }
+        });
+        }
+
+        function ProcessCardBind(resultJson) {
+            if (resultJson != null) {
+                if (resultJson.Code == 1) {
+                    $(".my_bangdingBiaogeTitle").after("<tr><td>懒人卡</td><td>" + resultJson.Number + "</td><td>" + resultJson.Money.toFixed(2) + "</td><td>" + resultJson.Balance.toFixed(2) + "</td><td>" + resultJson.ExpiryDate + "</td></tr>");
+                    $('.my_bangding .my_bangdingBox').eq(1).show();
+                }
+                else {
+                    $("#msg").html(resultJson.Msg);
+                }
+            }
+        }
+    </script>
+}

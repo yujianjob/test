@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "我的钱包";
+}
+
+<section>
+    <div class="WalletBox">
+        <div class="unit" onclick="location.href = '/Member/MyCoupons'">
+            <span class="bt">优惠券</span>
+            <span class="num">@ViewBag.CouponCount</span>
+        </div>
+        <div class="unit" onclick="location.href = '/Member/MyBalance'">
+            <span class="bt">余额</span>
+            <span class="num">￥@ViewBag.Money</span>
+        </div>
+    </div>
+</section>

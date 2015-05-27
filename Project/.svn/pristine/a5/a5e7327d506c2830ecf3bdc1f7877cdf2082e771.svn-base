@@ -1,0 +1,191 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace LazyAtHome.Web.WeiXin4.Controllers
+{
+    public class MemberController : BaseController
+    {
+        public ActionResult MobileBindingShow()
+        {
+            if (Request.UrlReferrer != null)
+                HttpContext.Cache[AppConfig.Cache_CallbackUrl + _UserOpenID] = Request.UrlReferrer.ToString();
+            return View();
+        }
+
+        public JsonResult MobileBinding(string MPNo, string vCode, string inviteCode)
+        {
+            int code = 0;
+            string msg = "/Cart/OneKey";
+
+            var obj = HttpContext.Cache[AppConfig.Cache_SmsCode + MPNo];
+            if ((obj != null) && (vCode == obj.ToString()))
+            {
+                if (string.IsNullOrWhiteSpace(inviteCode))
+                    inviteCode = GetCooking("LazywxLinkCode");
+
+                var rtn = App_Code.Proxy.UserProxycs.wx_User_Weixin_BindMPNo(_UserOpenID, MPNo, MPNo, 1, inviteCode);
+                if (rtn.Success)
+                {
+                    code = 1;
+                    UpdateUserInfo();
+
+                    HttpCookie cook = new HttpCookie("Lazywxlogin4");
+                    cook.Expires = DateTime.Now.AddMonths(1);
+                    cook.Value = "login";
+                    Response.Cookies.Add(cook);
+
+                    var callBack = HttpContext.Cache[AppConfig.Cache_CallbackUrl + _UserOpenID];
+                    if (callBack != null)
+                    {
+                        HttpContext.Cache.Remove(AppConfig.Cache_CallbackUrl + _UserOpenID);
+                        msg = callBack.ToString();
+                    }
+                    else
+                        msg = "/Cart/OneKey";
+                }
+                else
+                    msg = rtn.Message;
+            }
+            else
+            {
+                msg = "验证码错误，请重新输入";
+            }
+
+            return Json(new { Code = code, Msg = msg });
+        }
+
+        public JsonResult VerifyMobile(string mpno, short check = 0)
+        {
+            int code = 1;
+            string rtnMsg = null;
+            bool send = true;
+
+            if (check == 1)
+            {
+                var rtn = App_Code.Proxy.UserProxycs.User_Exist_Check(mpno, WCF.UserSystem.Contract.Enumerate.LoginType.MPNo);
+                if (!rtn.Success)
+                {
+                    send = false;
+                    code = 0;
+                    rtnMsg = "手机号已经存在";
+                }
+            }
+            if (send)
+            {
+                Random rnd = new Random();
+                string strCode = rnd.Next(0, 999999).ToString().PadLeft(6, '0');
+                HttpContext.Cache[AppConfig.Cache_SmsCode + mpno] = strCode;
+                WCF.Common.Contract.ClientProxy.SmsClient.Base_SmsSend_Create(mpno, "尊敬的用户您好，为了保证您的安全，本次操作您的验证码为" + strCode + "，请您在5分钟之内完成验证。");
+            }
+
+            return Json(new { Code = code, Msg = rtnMsg });
+        }
+
+        public ActionResult MyWallet()
+        {
+            var user = GetUserInfo();
+            if (user.User == null || !CheckLoginCook())
+            {
+                HttpContext.Cache[AppConfig.Cache_CallbackUrl + _UserOpenID] = Request.Url.ToString();
+                return RedirectToAction("MobileBindingShow", "Member");
+            }
+            UpdateUserInfo();
+            ViewBag.CouponCount = user.User.CouponList.Count;
+            ViewBag.Money = user.User.UserInfo.Money;
+            return View();
+        }
+
+        public ActionResult MyCoupons()
+        {
+            var user = GetUserInfo();
+            if (user.User == null || !CheckLoginCook())
+            {
+                HttpContext.Cache[AppConfig.Cache_CallbackUrl + _UserOpenID] = Request.Url.ToString();
+                return RedirectToAction("MobileBindingShow", "Member");
+            }
+
+            IList<WCF.UserSystem.Contract.DataContract.User_CouponDC> xlist = null;
+            var rtnCouponList = App_Code.Proxy.UserProxycs.User_Coupon_SELECT_List(user.User.UserInfo.ID, null, null, WCF.UserSystem.Contract.Enumerate.CouponStatus.Normal, null, null, 1, 20);
+            if (rtnCouponList.Success)
+                xlist = rtnCouponList.OBJ.ReturnList;
+            if (xlist == null)
+                xlist = new List<WCF.UserSystem.Contract.DataContract.User_CouponDC>();
+            return View(xlist);
+        }
+
+        public ActionResult AddCoupon()
+        {
+            return View();
+        }
+
+        public JsonResult User_BindCoupon(string couponPass, string vCode = "")
+        {
+            int code = 0;
+            string rtnMsg = null;
+
+
+            var obj = HttpContext.Cache[AppConfig.Cache_ValidateCode + _UserOpenID];
+            if ((obj == null) || (vCode != obj.ToString()))
+            {
+                code = -3;
+                rtnMsg = "验证码输入有误！";
+                return Json(new { Code = code, Msg = rtnMsg });
+            }
+
+            int couponID = 0;
+            string couponName = "";
+            string couponDate = "";
+
+
+            var user = GetUserInfo();
+
+            var rtn = App_Code.Proxy.UserProxycs.User_Coupon_Bind(user.User.UserInfo.ID, couponPass.ToUpper());
+            if (rtn.Success)
+            {
+                code = 1;
+                couponID = rtn.OBJ.ID;
+                couponName = rtn.OBJ.Name;
+                couponDate = rtn.OBJ.UseEndDate.ToString("yyyy-MM-dd");
+            }
+            else
+            {
+                code = rtn.Code;
+                rtnMsg = rtn.Message;
+            }
+
+            return Json(new { Code = code, Msg = rtnMsg, CouponID = couponID, CouponName = couponName, CouponDate = couponDate });
+        }
+
+        public ActionResult MyBalance()
+        {
+            var user = GetUserInfo();
+            if (user.User == null || !CheckLoginCook())
+            {
+                HttpContext.Cache[AppConfig.Cache_CallbackUrl + _UserOpenID] = Request.Url.ToString();
+                return RedirectToAction("MobileBindingShow", "Member");
+            }
+
+            ViewBag.Balance = user.User.UserInfo.Money;
+
+            IList<WCF.UserSystem.Contract.DataContract.User_AmountLogDC> xList = null;
+            var rtnLogList = App_Code.Proxy.UserProxycs.User_AmountLog_SELECT_List(user.User.UserInfo.ID, null, null, null, 1, 20);
+            if (rtnLogList.Success)
+                xList = rtnLogList.OBJ.ReturnList;
+            if (xList == null)
+                xList = new List<WCF.UserSystem.Contract.DataContract.User_AmountLogDC>();
+
+            return View(xList);
+        }
+
+        public ActionResult Logout()
+        {
+            HttpCookie cook = Request.Cookies.Get("Lazywxlogin4");
+            cook.Expires = DateTime.Now.AddDays(-1);
+            Response.Cookies.Add(cook);
+            return RedirectToAction("OneKey", "Cart");
+        }
+    }
+}

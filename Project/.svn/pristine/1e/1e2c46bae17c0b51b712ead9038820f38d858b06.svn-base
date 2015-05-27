@@ -1,0 +1,38 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\maoyiwaitao1.jpg" /></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、羊毛很容易被虫蛀，加上轻薄易变形，收藏前必须洗净晾干，装袋平放，以免悬垂变形。</p>
+				<p>2、不要与其他衣物同袋混放。</p>
+				<p>3、放在避光、通风、干燥处，存放时注意防蛀，严禁防蛀剂与羊毛衫直接接触。</p>
+				<p>4、内穿时与其配套的外衣里子最好是光滑的，内袋勿装较硬的东西，以免局部摩擦起球，外穿时尽量减少与较硬的东西摩擦和强拉硬钩。</p>
+				<p>5、穿着时间不宜太长，10天左右注意间歇，使其恢复弹力。 </p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>给她，加倍呵护，由心掌控；<br />
+					给他，悉心照料，知寒体暖。 <br />
+				   用心有你，洁净有我--懒到家！</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\maoyiwaitao2.jpg" /></div>
+			<div class="txt right">
+				<h2></h2>
+					<p> 毛衣清洗不当会起球变形，如果清洁不彻底又容易被虫蛀侵蚀。懒到家为您提供贴身的清洁，传递您贴心的爱，让您的爱时刻柔若溪流、软如肌肤。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

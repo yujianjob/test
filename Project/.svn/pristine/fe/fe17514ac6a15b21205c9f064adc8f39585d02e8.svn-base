@@ -1,0 +1,37 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\zuodian1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、用吸尘器去除坐垫的灰尘</p>
+				<p>2、清洗汽车坐垫</p>
+				<p>3、用清洁剂擦拭汽车坐垫</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>设备过硬：国际领先的干洗设备，国际检测认证，真正健康环保的洗涤用品。<br />
+					健康洗衣：100%杀菌消毒，100%专业洗涤，100%让您满意。<br />
+					超值服务：缓解您舟车劳顿之苦、49小时快速洗衣服务。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\zuodian2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p> 坐垫在人们生活中使用频率很高，其中汽车坐垫最为普遍，仟皮四季坐垫：选用中性或低碱性洗涤剂，其中不要含氯漂成分，水温以三十摄氏度为宜，洗涤时应避免用力揉搓，尤其忌用硬刷；使用前请先用拧干的湿毛巾将席面轻轻擦试，待晾干后即可使用。对于洒在皮面上的水及非油脂性脏物，请迅速用毛巾擦干。</p>
+				<p> 冰丝坐垫干洗水洗均可，干洗效果最佳，水洗时用低含碱清洗剂，先在30度温水中浸泡10分钟，用软毛刷沾清洗剂轻轻刷洗，把垫子叠好后放在脱水机内进行脱水，然后把坐垫摊平放在阴凉通风处阴干即可.</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

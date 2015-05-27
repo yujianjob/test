@@ -1,0 +1,14 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" type="text/css" href="../Content/FWFL—3.css">
+</head>
+<body>
+    <div class="entire">
+        @RenderBody()
+    </div>
+</body>
+</html>

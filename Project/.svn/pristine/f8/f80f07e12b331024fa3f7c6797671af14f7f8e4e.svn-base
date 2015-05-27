@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyAtHome.Core", "LazyAtHome.Core\LazyAtHome.Core.csproj", "{C062E4E9-BA49-4BEA-8EEF-8C29563BF12C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyAtHome.Core.Web", "LazyAtHome.Core.Web\LazyAtHome.Core.Web.csproj", "{1FB663DC-7E53-4054-81DE-C4FF42AAA3D0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C062E4E9-BA49-4BEA-8EEF-8C29563BF12C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C062E4E9-BA49-4BEA-8EEF-8C29563BF12C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C062E4E9-BA49-4BEA-8EEF-8C29563BF12C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C062E4E9-BA49-4BEA-8EEF-8C29563BF12C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FB663DC-7E53-4054-81DE-C4FF42AAA3D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FB663DC-7E53-4054-81DE-C4FF42AAA3D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FB663DC-7E53-4054-81DE-C4FF42AAA3D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FB663DC-7E53-4054-81DE-C4FF42AAA3D0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+EndGlobal

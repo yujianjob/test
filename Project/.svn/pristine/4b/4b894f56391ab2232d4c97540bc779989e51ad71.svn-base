@@ -1,0 +1,347 @@
+﻿@{
+    //ViewBag.Title = "一键下单";
+}
+
+<div class="page-content inset order-confirm">
+    <div class="row">
+        <div class="col-md-7 col-md-offset-1">
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="" class="col-sm-2 col-lg-2 col-xs-12 control-label">取送地址</label>
+                    <div class="col-sm-8 col-lg-8 col-xs-8">
+                        <select id="selGetAddress" style="width:100%">
+                            @foreach (LazyAtHome.WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC item in ViewBag.AddressList)
+                            {
+                                if (item.IsDefault == 1)
+                                {
+                                    <option value="@item.ID" selected="selected">@(item.DistrictName + item.Address)</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.ID">@(item.DistrictName + item.Address)</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="col-sm-2 col-lg-2 col-xs-2" style="padding-left:0"><button type="button" class="btn addDizhi" onclick="window.location.href='/Member/AddressModify'">新增</button></div>
+                </div>
+                @*<div class="form-group">
+                    <label for="" class="col-sm-2 col-lg-2 col-xs-12 control-label">送件地址</label>
+                    <div class="col-sm-8 col-lg-8 col-xs-12">
+                        <select id="selSendAddress" style="width:100%">
+                            @foreach (LazyAtHome.WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC item in ViewBag.AddressList)
+                            {
+                                if (item.IsDefault == 1)
+                                {
+                                    <option value="@item.ID" selected="selected">@(item.DistrictName + item.Address)</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.ID">@(item.DistrictName + item.Address)</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>*@
+
+                <div class="form-group">
+                    <label for="" class="col-sm-2 col-xs-12 control-label" style="padding-right:0">使用余额</label>
+                    <div class="col-sm-10 col-xs-12">
+                        <div class="col-xs-6 col-sm-6" style="padding-left:0; padding-right:5px"><span class="order-confirm-label" style="text-align:left">当前余额:<lead>￥@ViewBag.Money</lead></span></div>
+                        <div class="col-xs-6 col-sm-6" style="padding-left:0; padding-right:0">
+                            <div class="checkbox">
+                                <label>
+                                    使用 <input type="checkbox" id="userMoney">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+
+                <div class="form-group">
+                    <label for="" class="col-sm-2 col-xs-12 control-label" style="padding-right:0">选择优惠劵</label>
+                    <div class="col-sm-10 col-xs-12">
+                        <select class="rt-half" id="couponList" name="couponList">
+                            <option value=" 0">不使用</option>
+                            @if (ViewBag.CouponList != null)
+                            {
+                                foreach (LazyAtHome.WCF.UserSystem.Contract.DataContract.User_CouponDC item in ViewBag.CouponList)
+                                {
+                                    <option value="@item.ID">@item.Name 有效期:@item.UseEndDate.ToString("yyyy-MM-dd")</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <label for="" class="col-sm-2 col-xs-12 control-label" style="padding-right:0">绑定优惠劵</label>
+                    <div class="col-sm-8 col-xs-10">
+                        <input type="text" id="txtCode" style="width:100%">
+                    </div>
+                    <div class="col-sm-2 col-xs-2" style="padding-left:0"><button type="button" class="btn bindingBtn" onclick="FuncBindCoupon();">绑 定</button></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="" class="col-sm-2 control-label">收衣日期</label>
+                    <div class="col-sm-10">
+                        <div class="row" style="padding:0 0 0 15px;">
+                            <div class="col-xs-4 col-sm-4">
+                                @*<input class="dateInput" readonly="readonly" type="text" id="timeDay" name="timeDay" value="@(DateTime.Now.Hour >= 12 ? DateTime.Now.AddDays(1).ToString("yyyy-MM-dd") : DateTime.Now.ToString("yyyy-MM-dd"))" onfocus="WdatePicker({position:{right:0,top:-20},onpicked:getstat,minDate:'@DateTime.Now.Date.ToShortDateString()',maxDate:'@DateTime.Now.AddDays(6).ToShortDateString()'})" style="width:100%; background:white url(img/glyphicons-halflings.png) no-repeat 96% center" />*@
+                                <input class="dateInput" readonly="readonly" type="text" id="timeDay" name="timeDay" value="@DateTime.Now.ToString("yyyy-MM-dd")" onfocus="WdatePicker({position:{right:0,top:-20},onpicked:getstat,minDate:'@DateTime.Now.Date.ToShortDateString()',maxDate:'@DateTime.Now.AddDays(6).ToShortDateString()'})" style="width:100%; background:white url(img/glyphicons-halflings.png) no-repeat 96% center" />
+                            </div>
+                            
+                            @*<div class="col-xs-4 col-sm-4">
+                                <select id="timeType" name="timeType">
+
+                                </select>
+                            </div>*@
+
+
+                            <div class="col-xs-4 col-sm-4">
+                                <select id="timeHour" name="timeHour" style="width:100%">
+                                    @{
+                                        @*var currHour = DateTime.Now.Hour;
+                                        currHour += 1;
+                                        if (currHour < 10 || currHour >= 19)
+                                        {
+                                            currHour = 10;
+                                        }
+
+                                        for (int i = currHour; i < 19; i++)
+                                        {
+                                            <option value="@i">@(i)时</option>
+                                        }*@
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-xs-4 col-sm-4">
+                                <select id="timeMin" name="timeMin" style="width:100%">
+                                    <option value="0" selected>00分</option>
+                                    <option value="30">30分</option>
+                                </select>
+                            </div>
+                            <div class="help-block" style="clear:both;padding:5px 0 0 5px">
+                                小主，如您的订单中包含皮质、鞋类等特殊品类的衣物，想必洗涤时间会有所延长，如果您同意……必是极好的。
+                                说人话：您的衣物将分单送回或者延时送回。
+                                @*如在中午12点前下的订单当日可完成取件，中午12点后下的订单则次日完成取件。*@
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-sm-2 control-label">支付方式</label>
+                    <div class="col-sm-10" style="padding-top:14px">
+                        货到付款
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="" class="col-sm-2 control-label">备注</label>
+                    <div class="col-sm-10">
+                        <textarea id="txtReamrk" name="txtReamrk"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="button" onclick="formsubmit();" class="btn btn-success btn-lg pull-right">确认下单</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="/Scripts/WdatePicker.js"></script>
+
+    <script language="javascript" type="text/javascript">
+        $(function () {
+            //ChangePayInfo(null, -1);
+        });
+
+        function Check() {
+
+        }
+
+        function formsubmit() {
+            if ($("#selGetAddress").val() == "") {
+            //if (selGetAddress.value == "") {
+                alert("请选择或新增取件地址");
+                return false;
+            }
+
+            //if ($("#selSendAddress").val() == "") {
+            //    alert("请选择或新增送件地址");
+            //    return false;
+            //}
+
+            //var etime = timeDay.value.trim();
+            //if (etime == "")
+            //{
+            //    var myDate = new Date();
+            //    etime = myDate.getFullYear() + "/" + myDate.getMonth() + "/" + myDate.getDay();
+            //}
+
+            var etime = $("#timeDay").val().trim();
+            etime = etime + " " + $("#timeHour").val() + ":" + $("#timeMin").val() + ":00";
+            //var etime = timeDay.value.trim();
+            //etime = etime + " " + timeHour.value + ":" + timeMin.value + ":00";
+
+
+            
+            //var postData = { getAddressID: selGetAddress.value, sendAddreddID: selSendAddress.value, exceptTime: etime, timeType: timeType.value, remark: txtReamrk.value, couponid: couponList.value };
+            //add by yfyang 增加余额使用 2014-12-10
+            var postData = { getAddressID: $("#selGetAddress").val(), sendAddreddID: 0, exceptTime: etime, remark: $("#txtReamrk").val(), couponid: $("#couponList").val(), userMoney: document.getElementById("userMoney").checked };
+            $.ajax({
+                type: "post",
+                url: "/Cart/OneKeySubmit",
+                data: postData,
+                dataType: "json",
+                success: function (resultJson) {
+                    if (resultJson != null) {
+                        if (resultJson.Code == 1) {
+                            showPopDiv("订单已经提交", true, null, "/Member/MyOrders");                            
+                        }
+                        else
+                            alert(resultJson.Msg);
+                            
+                    }
+                },
+                error: function (msg) {
+                    alert(msg.toString());
+                }
+            });
+        }
+
+
+
+        function FuncBindCoupon() {
+            //if (!txtCode.value.trim().match("^[0-9a-zA-Z]{6,16}$")) {
+            //    txtCode.focus();
+            if (!$("#txtCode").val().trim().match("^[0-9a-zA-Z]{6,16}$")) {
+                $("#txtCode").focus();
+                showPopDiv("优惠券代码格式错误", false);
+                return false;
+            }
+
+            //var postData = { "couponPass": txtCode.value.trim() };
+            var postData = { "couponPass": $("#txtCode").val().trim() };
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("User_BindCoupon", "Member")",
+                data: postData,
+            dataType: "json",
+            success: ProcessCouponBind,
+            error: function (msg) {
+                showPopDiv(msg.toString(), false);
+            }
+        });
+        }
+
+        function ProcessCouponBind(resultJson) {
+            if (resultJson != null) {
+                if (resultJson.Code == 1) {
+                    $("#txtCode").val("");
+                    //txtCode.value = "";
+                    $("#couponList").append("<option value='" + resultJson.CouponID + "'>" + resultJson.CouponName + " 有效期:" + resultJson.CouponDate + "</option>");
+                    $("#couponList").val(resultJson.CouponID);
+                    //ChangePayInfo(couponList, 3)
+                    showPopDiv("绑定成功", false);
+                }
+                else {
+                    showPopDiv(resultJson.Msg, false);
+                }
+            }
+        }
+
+        InitSelectDate();
+
+        function InitSelectDate() {
+            SelectTimeType($("#timeDay").val());
+        }
+
+        function SelectTimeType(date) {
+
+            var systemDate = new Date();
+            var y = systemDate.getFullYear();
+            var m = systemDate.getMonth() + 1;//获取当前月份的日期 
+            var d = systemDate.getDate();
+            var h = systemDate.getHours();
+            if (m.toString().length < 2) {
+                m = "0" + m;
+            }
+            if (d.toString().length < 2) {
+                d = "0" + d;
+            }
+            var riqi = y + "-" + m + "-" + d;
+
+            var optionStr = "";
+            if (date == riqi) {//是当天
+
+                for (var i = h + 1; i < 24; i++) {
+                    optionStr += "<option value='" + i +"'>" + i + "时</option>";
+                }
+                $("#timeHour").html(optionStr);
+                //if (h >= 12) {
+                //    //alert("当前已超过12点,请选择明天取件");
+                //    showPopDiv("当前已超过12点<br>请选择明天取件",false);
+
+                //    $("#timeType").html("");
+                //    var nextDay = getNextDate(1);
+                //    $(".dateInput").val(nextDay);
+                //    optionStr += "<option value='0'>上午</option><option value='1'>下午</option>";
+                //    $("#timeType").html(optionStr);
+
+                //} else {
+                //    optionStr += "<option value='1'>下午</option>";
+                //    $("#timeType").html(optionStr);
+                //}
+
+            } else {//不是当天
+                for (var i = 0; i < 24; i++) {
+                    if (i==10) {
+                        optionStr += "<option value='" + i + "' selected>" + i + "时</option>";
+                    }
+                    else {
+                        optionStr += "<option value='" + i + "'>" + i + "时</option>";
+                    }
+                    
+                }
+                $("#timeHour").html(optionStr);
+
+                //optionStr += "<option value='0'>上午</option><option value='1'>下午</option>";
+                //$("#timeType").html(optionStr);
+            }
+        }
+
+        function getstat() {
+            var selectedDate = $dp.cal.getDateStr();
+
+            SelectTimeType(selectedDate);
+        }        //获取下一天
+        function getNextDate(AddDayCount) {
+            var startDate = new Date();
+            var startMillisecond = startDate.getTime();
+            startDate.setTime(startMillisecond + AddDayCount * 24 * 60 * 60 * 1000);//获取AddDayCount天后的日期
+            var y = startDate.getFullYear();
+            var m = startDate.getMonth() + 1;//获取当前月份的日期 
+            var d = startDate.getDate();
+            if (m.toString().length < 2) {
+                m = "0" + m;
+            }
+            if (d.toString().length < 2) {
+                d = "0" + d;
+            }
+            var riqi = y + "-" + m + "-" + d;
+
+            return riqi;
+        }
+    </script>
+}

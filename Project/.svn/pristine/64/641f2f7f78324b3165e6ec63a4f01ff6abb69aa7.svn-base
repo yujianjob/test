@@ -1,0 +1,140 @@
+﻿@model LazyAtHome.WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC
+@{
+    //ViewBag.Title = "地址修改";
+}
+
+<div class="page-content inset modify-address">
+    <div class="row">
+        <div class="col-md-7 col-md-offset-1">
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="" class="col-sm-2 control-label">收件人</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="txtConsignee" name="txtConsignee" value="@Model.Consignee">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-sm-2 control-label">电话</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="txtMPNo" name="txtMPNo" value="@Model.MPNo">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-sm-2 control-label">区域</label>
+                    <div class="col-sm-10 select-city">
+                        <select><option>上海市</option></select>
+                        <select><option>上海市</option></select>
+                        <select id="txtDistrictID" name="txtDistrictID">
+                            <option selected="selected" value="310101">黄浦区</option>
+                            <option value="310104">徐汇区</option>
+                            <option value="310105">长宁区</option>
+                            <option value="310106">静安区</option>
+                            <option value="310107">普陀区</option>
+                            <option value="310108">闸北区</option>
+                            <option value="310109">虹口区</option>
+                            <option value="310110">杨浦区</option>
+                            <option value="310112">闵行区</option>
+                            <option value="310113">宝山区</option>
+                            <option value="310114">嘉定区</option>
+                            <option value="310115">浦东新区</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-sm-2 control-label" style="padding-right:0">详细地址</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="txtAddress" name="txtAddress" value="@Model.Address">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <div class="checkbox">
+                            <input id="txtIsDefault" name="txtIsDefault" type="checkbox">设为默认地址
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12 btns-group">
+                        <p id="msgInfo" class="help-block" style="text-align:center;"></p>
+                        <button type="button" class="btn  btn-lg pull-right cancel-btn" onclick="window.location.href='@Request.UrlReferrer.ToString()'">取 消</button>
+                        <button type="button" class="btn  btn-lg pull-right save-btn">保 存</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script type="text/javascript">
+        var aid = "@Model.ID";
+        var districtid = "@Model.DistrictID";
+        $(function () {
+            if (districtid == "")
+                districtid = "310101";
+            $("#txtDistrictID").val(districtid);
+            $(".save-btn").click(function () {
+                if (Check()) {
+                    var bDefalut = 1;
+                    if (!document.getElementById("txtIsDefault").checked)
+                    //if (!txtIsDefault.checked)
+                        bDefalut = 0;
+
+                    var postData = { "id": aid, "consignee": $("#txtConsignee").val(), "districtID": $("#txtDistrictID").val(), "address": $("#txtAddress").val(), "mpno": $("#txtMPNo").val(), "isdefault": bDefalut };
+                    //var postData = { "id": aid, "consignee": txtConsignee.value, "districtID": txtDistrictID.value, "address": txtAddress.value, "mpno": txtMPNo.value, "isdefault": bDefalut };
+
+                    $.ajax({
+                        type: "post",
+                        url: "@Url.Action("User_AddressUpdate", "Member")",
+                        data: postData,
+                        dataType: "json",
+                        success: ProcessData,
+                        error: function (msg) {
+                            alert(msg.toString());
+                        }
+                    });
+                }
+            });
+        });
+
+        function Check()
+        {
+            $("#msgInfo").html("");
+
+            if (!$("#txtConsignee").val().trim().match("^[\u4E00-\u9FA5A-Za-z0-9 ]+$")) {
+            //if (!txtConsignee.value.trim().match("^[\u4E00-\u9FA5A-Za-z0-9 ]+$")) {
+                $("#msgInfo").html("收件人姓名格式不正确");
+                $("#txtConsignee").focus();
+                //txtConsignee.focus();
+                return false;
+            }
+
+            if (!$("#txtAddress").val().trim().match("^[\u4E00-\u9FA5A-Za-z0-9_ -]+$")) {
+            //if (!txtAddress.value.trim().match("^[\u4E00-\u9FA5A-Za-z0-9_ -]+$")) {
+                $("#msgInfo").html("地址格式不正确");
+                $("#txtAddress").focus();
+                //txtAddress.focus();
+                return false;
+            }
+
+            if (!$("#txtMPNo").val().match(/^0?(13[0-9]|15[012356789]|18[0-9]|14[57])[0-9]{8}$/)) {
+                $("#msgInfo").html("手机号码格式不正确！");
+                $("#txtMPNo").focus();
+                //txtMPNo.focus();
+                return false;
+            }
+            return true;
+        }
+
+        function ProcessData(resultJson) {
+            if (resultJson != null) {
+                if (resultJson.Code == 1) {
+                    window.location.href = resultJson.CallBack;
+                }
+                else
+                    alert(resultJson.Msg);
+            }
+        }
+    </script>
+}

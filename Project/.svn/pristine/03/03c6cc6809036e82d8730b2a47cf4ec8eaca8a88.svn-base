@@ -1,0 +1,195 @@
+﻿@{
+    //ViewBag.Title = "夏装洗涤";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--内容-->
+<!--活动主体内容 start-->
+<div id="activity-main">
+
+    <span class="title">活动中心</span>
+    <div class="summer-banner"></div>
+    <!--立即下单 start-->
+    <div class="s-place-order">
+        <div class="item">
+            <div class="freecharge"></div>
+            <div class="p-img"><img src="http://img.landaojia.com/Category/duanku002.png" /></div>
+            <p class="tit">
+                <span class="name">
+                    短裤 <br />
+                    <input type="checkbox" name="cbActive" pid="52" price="16" /><em>￥16.00</em>
+                </span>
+            </p>
+        </div>
+        <div class="add-icn"></div>
+        <div class="item">
+            <div class="p-img"><img src="http://img.landaojia.com/Category/zhongku002.png" /></div>
+            <p class="tit">
+                <span class="name">
+                    中裤 <br />
+                    <input type="checkbox" name="cbActive" pid="53" price="16" /><em>￥16.00</em>
+                </span>
+            </p>
+        </div>
+        <div class="add-icn"></div>
+        <div class="item">
+            <div class="p-img"><img src="http://img.landaojia.com/Category/qunzi002.png" /></div>
+            <p class="tit">
+                <span class="name">
+                    裙子 <br />
+                    <input type="checkbox" name="cbActive" pid="56" price="20" /><em>￥20.00</em>
+                </span>
+            </p>
+        </div>
+        <div class="add-icn"></div>
+        <div class="item">
+            <div class="p-img"><img src="http://img.landaojia.com/Category/t-xu002.png" /></div>
+            <p class="tit">
+                <span class="name">
+                    T恤 <br />
+                    <input type="checkbox" name="cbActive" pid="42" price="15" /><em>￥15.00</em>
+                </span>
+            </p>
+        </div>
+        <div class="add-icn"></div>
+        <div class="item">
+            <div class="p-img"><img src="http://img.landaojia.com/Category/beixin002.png" /></div>
+            <p class="tit">
+                <span class="name">
+                    背心 <br />
+                    <input type="checkbox" name="cbActive" pid="41" price="15" /><em>￥15.00</em>
+                </span>
+            </p>
+        </div>
+        <div class="add-icn"></div>
+        <div class="clear"></div>
+        <div class="item">
+            <div class="p-img"><img src="http://img.landaojia.com/Category/diaodaishan002.png" /></div>
+            <p class="tit">
+                <span class="name">
+                    吊带衫 <br />
+                    <input type="checkbox" name="cbActive" pid="39" price="15" /><em>￥15.00</em>
+                </span>
+            </p>
+        </div>
+        <div class="add-icn"></div>
+        <div class="item">
+            <div class="p-img"><img src="http://img.landaojia.com/Category/lianyiqun002.png" /></div>
+            <p class="tit">
+                <span class="name">
+                    连衣裙 <br />
+                    <input type="checkbox" name="cbActive" pid="58" price="30" /><em>￥30.00</em>
+                </span>
+            </p>
+        </div>
+        <div class="add-icn"></div>
+        <div class="item">
+            <div class="p-img"><img src="http://img.landaojia.com/Category/siwa002.png" /></div>
+            <p class="tit">
+                <span class="name">
+                    丝袜 <br />
+                    <input type="checkbox" name="cbActive" pid="72" price="20" /><em>￥20.00</em>
+                </span>
+            </p>
+        </div>
+        <div class="add-icn"></div>
+        <div class="item">
+            <div class="p-img"><img src="http://img.landaojia.com/Category/qunku002.png" /></div>
+            <p class="tit">
+                <span class="name">
+                    裙裤 <br />
+                    <input type="checkbox" name="cbActive" pid="54" price="20" /><em>￥20.00</em>
+                </span>
+            </p>
+        </div>
+        <div class="equal-icn"></div>
+        <div class="placeorder-price">
+            <p>
+                <label class="activity-price-tit">活动价:</label>
+                <span class="activity-price">0元</span>
+            </p>
+            <p>
+                <label class="original-price-tit">原&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价:</label>
+                <span class="original-price">0元</span>
+            </p>
+            <p><label>总优惠价:</label><span class="total-price">0元</span></p>
+            <img class="placeorder-btn" src="~/Content/images/placeorder-btn.jpg" onclick="CreateOrder()" />
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!--立即下单 end-->
+    <!--活动说明 start-->
+    <div class="activity-description">
+        <img src="~/Content/images/summer-pic1.jpg" />
+        <div class="txt">
+            <h2>夏装洗涤，当季衣物随意搭</h2>
+            <p>短裤/中裤/裤裙/T恤/背心/吊带衫/裙子/连衣裙/丝袜</p>
+            <p>夏季来临，还在为衣物的洗涤烦恼吗？</p>
+            <p>懒到家为您提供夏季衣物随意搭套餐，以上类目的衣物。任选其中的5件洗涤，我们将免单一件。（免单的一件为五件产品洗涤价格最贵的那件）。</p>
+        </div>
+    </div>
+    <!--活动说明 end-->
+    <!--温馨提醒 start-->
+    <div class="warm-reminder">
+        <div class="txt">
+            <h2>温馨提醒</h2>
+            <p>炎热夏季、酷暑难耐，无疑是一场时装秀，频繁的更换衣物，穿多了，洗多了，很容易让衣物变旧，选择懒到家则无需担忧衣物的损坏，懒到家采用世界领先的洗涤设备以及绿色洗涤剂，最大力度减少衣物的损伤，更好的呵护您的爱衣。</p>
+        </div>
+        <img src="~/Content/images/summer-pic2.jpg" />
+    </div>
+    <!--温馨提醒 end-->
+</div>
+<!--活动主体内容 end-->
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            $(":checkbox").click(function () {                
+                var index = 0;
+                var totalPrice = 0;
+                var maxPrice = 0;
+                $(":checked").each(function () {
+                    var currPrice = parseInt($(this).attr('price'));
+                    totalPrice += currPrice;
+                    index++;
+                    if (currPrice > maxPrice)
+                        maxPrice = currPrice;
+                });
+                $(".original-price").html(totalPrice + "元");
+                if (index < 5)
+                {
+                    $(".activity-price").html(totalPrice + "元");
+                    $(".total-price").html("0元");
+                }
+                else
+                {
+                    $(".activity-price").html(totalPrice - maxPrice + "元");
+                    $(".total-price").html(maxPrice + "元");
+                }
+            })
+        })
+
+        function CreateOrder() {
+            var index = 0;
+            var param = "";
+            $(":checked").each(function () {
+                param += $(this).attr('pid') + ",";
+                index++;
+            });
+
+            if (param != "")
+                param = param.substring(0, param.length - 1);
+
+            var bCheck = true;
+            if (index < 5)
+                bCheck = confirm("您选择的数量小于5件，将无法得到活动优惠。");
+
+            if (bCheck) {
+                window.location.href = "/Activities/Submit/3?param=" + param;
+            }
+        }
+    </script>
+}

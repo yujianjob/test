@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <system.serviceModel>
+    <bindings>
+      <basicHttpBinding>
+        <binding name="CommonServiceServiceSoapBinding" />
+      </basicHttpBinding>
+    </bindings>
+    <client>
+      <!--<endpoint address="http://219.134.187.154:8100/bsp-ois/ws/expressService" -->
+      <endpoint address="http://bsp-test.sf-express.com:9090/bsp-ois/ws/expressService"
+      
+      binding="basicHttpBinding" bindingConfiguration="CommonServiceServiceSoapBinding"
+      contract="SFExpressService.IService" name="CommonServicePort" />
+    </client>
+  </system.serviceModel>
+    <startup> 
+        <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.5" />
+    </startup>
+  <appSettings>
+    <add key="SF_Account_CustomerID" value="SHLDJ"/>
+    <add key="SF_Account_Check" value="U;q[8D4enR8Zq3Cw"/>
+    <add key="SF_Account_CardID" value="0210481559"/>
+  </appSettings>
+</configuration>

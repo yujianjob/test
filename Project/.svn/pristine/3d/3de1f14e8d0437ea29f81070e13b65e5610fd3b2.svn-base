@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <startup> 
+        <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.5" />
+    </startup>
+    <system.serviceModel>
+        <bindings>
+            <wsHttpBinding>
+                <binding name="WSHttpBinding_IPR">
+                    <reliableSession enabled="true" />
+                    <security mode="None" />
+                </binding>
+                <binding name="WSHttpBinding_IWashProduct" maxReceivedMessageSize="13107200">
+                    <readerQuotas maxDepth="32" maxStringContentLength="13107200"
+                        maxArrayLength="13107200" maxBytesPerRead="4096" maxNameTableCharCount="16384" />
+                    <reliableSession enabled="true" />
+                    <security mode="None" />
+                </binding>
+                <binding name="WSHttpBinding_IWashOrder">
+                    <reliableSession enabled="true" />
+                    <security mode="None" />
+                </binding>
+            </wsHttpBinding>
+        </bindings>
+        <client>
+            <endpoint address="http://192.168.1.201:8100/LazyAtHome/PRService/service1"
+                binding="wsHttpBinding" bindingConfiguration="WSHttpBinding_IPR"
+                contract="PRService.IPR" name="WSHttpBinding_IPR" />
+            <endpoint address="http://192.168.1.201:8100/LazyAtHome/WashProductService"
+                binding="wsHttpBinding" bindingConfiguration="WSHttpBinding_IWashProduct"
+                contract="WashProductService.IWashProduct" name="WSHttpBinding_IWashProduct" />
+            <endpoint address="http://192.168.1.201:8100/LazyAtHome/WashOrderService"
+                binding="wsHttpBinding" bindingConfiguration="WSHttpBinding_IWashOrder"
+                contract="WashOrderService.IWashOrder" name="WSHttpBinding_IWashOrder" />
+        </client>
+    </system.serviceModel>
+</configuration>

@@ -1,0 +1,125 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Web;
+using System.Web.Mvc;
+using LazyAtHome.WCF.Common.Contract.DataContract.PR;
+
+namespace LazyAtHome.Web.SFSupport
+{
+    public class BaseController : Controller
+    {
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+
+            //判定IP地址
+            string ip = getIPAddress();
+
+            //是否被禁止
+            bool Forbid = true;
+
+            if (ip != "218.83.243.54" && ip != "218.83.243.58")
+            {
+                //不在IP访问列表内 判断是否是超级账号
+
+                //获取登录信息
+                OperatorDC item = CodeSource.SiteSession.OperatorInfo;
+                CodeSource.ReturnJsonEntity rjEntity = new CodeSource.ReturnJsonEntity();
+                if (item == null)
+                {
+                    rjEntity.statusCode = CodeSource.StatusCode.SessionTimeout;
+                    rjEntity.message = CodeSource.Common.ConstConfig.WRONG_SessionTimeoutMessage;
+                    filterContext.Result = Json(rjEntity, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    if (item.LoginName == "sfadmin")
+                    {
+                        Forbid = false;
+                    }
+                    else
+                    {
+                        Forbid = true;
+                    }
+                }
+
+
+            }
+            else
+            {
+                Forbid = false;
+            }
+
+            if (Forbid)
+            {
+                CodeSource.ReturnJsonEntity rjEntity = new CodeSource.ReturnJsonEntity();
+                rjEntity.statusCode = CodeSource.StatusCode.SessionTimeout;
+                rjEntity.message = "您的IP地址为：[" + ip + "]，不在访问列表内！";//CodeSource.Common.ConstConfig.WRONG_SessionTimeoutMessage;
+                filterContext.Result = Json(rjEntity, JsonRequestBehavior.AllowGet);
+            }
+            //base.OnActionExecuting(filterContext);
+        }
+
+
+
+        /// <summary>
+        /// 获取IP地址
+        /// </summary>
+        /// <returns></returns>
+        public static string getIPAddress()
+        {
+            string result = String.Empty;
+
+            result = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+
+            // 如果使用代理，获取真实IP 
+            if (result != null && result.IndexOf(".") == -1)    //没有“.”肯定是非IPv4格式 
+                result = null;
+            else if (result != null)
+            {
+                if (result.IndexOf(",") != -1)
+                {
+                    //有“,”，估计多个代理。取第一个不是内网的IP。 
+                    result = result.Replace(" ", "").Replace("'", "");
+                    string[] temparyip = result.Split(",;".ToCharArray());
+                    for (int i = 0; i < temparyip.Length; i++)
+                    {
+                        if (IsIPAddress(temparyip[i])
+                            && temparyip[i].Substring(0, 3) != "10."
+                            && temparyip[i].Substring(0, 7) != "192.168"
+                            && temparyip[i].Substring(0, 7) != "172.16.")
+                        {
+                            return temparyip[i];    //找到不是内网的地址 
+                        }
+                    }
+                }
+                else if (IsIPAddress(result)) //代理即是IP格式 
+                    return result;
+                else
+                    result = null;    //代理中的内容 非IP，取IP 
+            }
+            if (null == result || result == String.Empty)
+                result = System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+
+            if (result == null || result == String.Empty)
+                result = System.Web.HttpContext.Current.Request.UserHostAddress;
+
+            return result;
+        }
+        /// <summary>
+        /// 判断是否是IP地址格式 0.0.0.0
+        /// </summary>
+        /// <param name="str1">待判断的IP地址</param>
+        /// <returns>true or false</returns>
+        private static bool IsIPAddress(string str1)
+        {
+            if (str1 == null || str1 == string.Empty || str1.Length < 7 || str1.Length > 15) return false;
+
+            string regformat = @"^\d{1,3}[\.]\d{1,3}[\.]\d{1,3}[\.]\d{1,3}$";
+
+            Regex regex = new Regex(regformat, RegexOptions.IgnoreCase);
+            return regex.IsMatch(str1);
+        }
+	}
+}

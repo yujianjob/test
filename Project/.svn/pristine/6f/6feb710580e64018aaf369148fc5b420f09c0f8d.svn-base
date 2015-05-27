@@ -1,0 +1,22 @@
+﻿@model Int32
+
+<div class="pageContent">
+    <form method="post" action="@Url.Action("PackageOrder")" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+        <div class="pageFormContent" layouth="56">
+            <input type="hidden" name="oid" value="@Model" />
+            <p>
+                <label>物流单号：</label>
+                <input name="expressnum" class="required digits" type="text" size="30" value="" alt="请输入物流单号" />
+            </p>
+        </div>
+        <div class="formBar">
+            <ul>
+                <!--<li><a class="buttonActive" href="javascript:;"><span>保存</span></a></li>-->
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>

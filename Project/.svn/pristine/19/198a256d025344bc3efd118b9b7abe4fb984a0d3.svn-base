@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="082d1acf-cc63-40fe-92d3-d7dac38bd67b" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://192.168.1.201:8100/LazyAtHome/PRService" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="PRPortal1.wsdl" MetadataType="Wsdl" ID="b64ac5e9-ed6a-4f9d-8641-2672eeb29ad3" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/PRService?wsdl" />
+    <MetadataFile FileName="PRService3.xsd" MetadataType="Schema" ID="47693b81-cb71-485f-a477-8bd666abd0ce" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/PRService?xsd=xsd5" />
+    <MetadataFile FileName="PRService31.xsd" MetadataType="Schema" ID="6c6b5846-d92e-4ea2-b5c4-7f2dedf77477" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/PRService?xsd=xsd3" />
+    <MetadataFile FileName="PRService32.xsd" MetadataType="Schema" ID="32378d40-ff1b-42ef-91f4-a46f70f7cff1" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/PRService?xsd=xsd6" />
+    <MetadataFile FileName="PRService33.xsd" MetadataType="Schema" ID="b994214a-7f16-43a3-813c-5151c59ba2aa" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/PRService?xsd=xsd4" />
+    <MetadataFile FileName="PRService1.disco" MetadataType="Disco" ID="3e9d5da6-7a5b-4f1f-a549-6399879f672b" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/PRService?disco" />
+    <MetadataFile FileName="PRService34.xsd" MetadataType="Schema" ID="93dd8b85-d8e4-44b3-9068-ebca8b928815" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/PRService?xsd=xsd2" />
+    <MetadataFile FileName="PRService35.xsd" MetadataType="Schema" ID="627eb83b-00cd-4805-adba-f22c6714c86f" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/PRService?xsd=xsd1" />
+    <MetadataFile FileName="PRService36.xsd" MetadataType="Schema" ID="ab4020a7-6574-4962-85cd-0e4255e5bde8" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/PRService?xsd=xsd0" />
+    <MetadataFile FileName="PRService37.xsd" MetadataType="Schema" ID="de777ea9-7eda-4ec7-aacb-47a48a240aa3" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/PRService?xsd=xsd7" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

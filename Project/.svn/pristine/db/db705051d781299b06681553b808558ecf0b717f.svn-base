@@ -1,0 +1,36 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\jiaodian1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、塑料脚垫的清洗方法：塑料脚垫的清洗方法是极为简单的，这种脚垫清洗比较简单。就是直接拿水冲或者洒点洗衣粉、洗洁精，然后用刷子刷几下，再用水冲冲就可以了。</p>
+                <p>2、毛绒脚垫的清洗方法：如果你使用的是毛绒脚垫的话，只要是不太脏的，就可以用吸尘器把尘吸掉就行;要是太脏的话那就用水和洗衣粉来洗，然后晾干就行了。</p>
+                <p>3、皮革脚垫的清洗方法：皮革脚垫日常清理只需湿抹布擦拭,也可以用水冲洗后凉干,还可以用皮革脚垫清洗济清洗,但是不建议用水冲洗，这样做会加速脚垫的老化(注意：就算你用水洗，但是不能让皮革脚垫长期泡在水里。)。 </p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>设备过硬：国际领先的干洗设备，国际检测认证，真正健康环保的洗涤用品。<br />
+					健康洗衣：100%杀菌消毒，100%专业洗涤，100%让您满意。<br />
+					超值服务：缓解您舟车劳顿之苦、49小时快速洗衣服务。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\jiaodian2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p> 汽车里面最容易脏的就是汽车脚垫，脚垫是我们平时身边最常见的一种汽车用品，其根据人们喜好的不同，脚垫的材质的也有很多种，比如说：塑料脚垫、毛绒脚垫、皮革脚垫等，不同的材质洗涤均有不同。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd" >
+<hibernate-configuration>
+	<session-factory>
+		<mapping class="com.landaojia.washclothes.laundry.dao.basenotify.BaseNotifyEo" />
+		<mapping class="com.landaojia.washclothes.laundry.dao.exporder.ExpOrderEo" />
+		<mapping class="com.landaojia.washclothes.laundry.dao.orderorder.OrderOrderEo" />
+		<mapping class="com.landaojia.washclothes.laundry.dao.orderproduct.OrderProductEo" />
+		<mapping class="com.landaojia.washclothes.laundry.dao.washcategory.WashCategoryEo" />
+		<mapping class="com.landaojia.washclothes.laundry.dao.washclass.WashClassEo" />
+		<mapping class="com.landaojia.washclothes.laundry.dao.washcode.WashCodeEo" />
+		<mapping class="com.landaojia.washclothes.laundry.dao.washproduct.WashProductEo" />
+	</session-factory>
+</hibernate-configuration>

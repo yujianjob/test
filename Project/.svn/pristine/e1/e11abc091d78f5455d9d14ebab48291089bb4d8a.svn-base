@@ -1,0 +1,66 @@
+﻿
+@{
+    //ViewBag.Title = "账户安全";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--内容-->
+<div id="content">
+    @{Html.RenderPartial("_MemberLeftNav");}
+    <div class="my_content right">
+        <div class="my_contentTitle">账户安全</div>
+        <div class="height_50"></div>
+        <div class="account-safe">
+            <div class="safe-level">
+                安全级别:<span class="level-num">中级</span><span class="advice">建议您启动全部安全设置，以保障账户及资金安全。</span>
+            </div>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="200"><img src="~/Content/images/safe-icn01.jpg" /></td>
+                    <td width="400">互联网账号存在被盗风险，建议您定期更改密码以保护账户安全。</td>
+                    <td><a href="#">修改</a></td>
+                </tr>
+                <tr>
+                    <td><img src="~/Content/images/mailverify-icn.jpg" /></td>
+                    <td>验证后，可用于快速找回登录密码，接收账户余额变动提醒。</td>
+                    <td><a href="#">立即验证</a></td>
+                </tr>
+                <tr>
+                    <td><img src="~/Content/images/mobileverify-icn.jpg" /></td>
+                    <td>您验证的手机： 135*****761   若已丢失或停用，请立即更换，避免账户被盗 </td>
+                    <td><a href="#">修改</a></td>
+                </tr>
+                <tr>
+                    <td><img src="~/Content/images/payment-icn.jpg" /></td>
+                    <td>启用支付密码后，在使用账户资产时，需通过支付密码进行身份认证。</td>
+                    <td><a href="#">立即验证</a></td>
+                </tr>
+                <tr>
+                    <td><img src="~/Content/images/shuzi-icn.jpg" /></td>
+                    <td>安装数字证书后，即使密码被盗，对方也不能使用您的账户资产。</td>
+                    <td><a href="#">立即验证</a></td>
+                </tr>
+            </table>
+            <p class="tips">
+                <strong>安全服务提示</strong><br />1.确认您登录的是懒到家网址http://www.landaojia.com，注意防范进入钓鱼网站，不要轻信各种即时通讯工具发送的商品或支付链接，谨防网购诈骗。<br />
+                2.建议您安装杀毒软件，并定期更新操作系统等软件补丁，确保账户及交易安全。
+            </p>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script language="javascript" type="text/javascript">
+        $(function () {
+            //左侧导航
+            $('.my_navList dt').click(function () {
+                $(this).parent().find('dd').slideToggle(200);
+                $(this).toggleClass("my_navList_Top");
+            })
+        })
+    </script>
+}

@@ -1,0 +1,677 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{56FFFE40-5B9E-4F91-BB53-E7DBAFA86080}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LazyAtHome.Winform.FactoryPortal</RootNamespace>
+    <AssemblyName>LazyAtHome.Winform.FactoryPortal</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Win32Resource>
+    </Win32Resource>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Camera_NET">
+      <HintPath>D:\CommonDLL\Camera_NET.dll</HintPath>
+    </Reference>
+    <Reference Include="DirectShowLib-2010, Version=2.1.0.0, Culture=neutral, PublicKeyToken=67e7b740cdfc2d3f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\CommonDLL\DirectShowLib-2010.dll</HintPath>
+    </Reference>
+    <Reference Include="LazyAtHome.Core">
+      <HintPath>D:\CommonDLL\LazyAtHome.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UDF.GUI.PrintControl">
+      <HintPath>D:\CommonDLL\打印模板\UDF.GUI.PrintControl.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Business\Base.cs" />
+    <Compile Include="Business\Operator.cs" />
+    <Compile Include="Business\WashOrder.cs" />
+    <Compile Include="Business\WashProduct.cs" />
+    <Compile Include="Common\ConstConfig.cs" />
+    <Compile Include="Common\Function.cs" />
+    <Compile Include="Common\WriteLog.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\OperatorLog.cs" />
+    <Compile Include="Model\SFExpress.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proxy\OperatorProxy.cs" />
+    <Compile Include="Service References\InternalExpressService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\PRService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\QFExpressService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\SFExpressService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\WashOrderService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\WashProductService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Camera\frmPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Camera\frmPreview.Designer.cs">
+      <DependentUpon>frmPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Camera\frmSetup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Camera\frmSetup.Designer.cs">
+      <DependentUpon>frmSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\frmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\frmLogin.Designer.cs">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Print\ConsigneePrint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Print\ConsigneePrint.Designer.cs">
+      <DependentUpon>ConsigneePrint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Operator\frmPasswordChange.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Operator\frmPasswordChange.Designer.cs">
+      <DependentUpon>frmPasswordChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Test\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\Form2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Test\Form2.Designer.cs">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\FrxArrayList.cs" />
+    <Compile Include="UI\Test\FrxDataSet.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Test\FrxDataTable.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Test\FrxDataView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\WareHouse\frmCodeRelation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\WareHouse\frmCodeRelation.Designer.cs">
+      <DependentUpon>frmCodeRelation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\WareHouse\frmProductSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\WareHouse\frmProductSelect.Designer.cs">
+      <DependentUpon>frmProductSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\WareHouse\frmQFOrderNumInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\WareHouse\frmQFOrderNumInput.Designer.cs">
+      <DependentUpon>frmQFOrderNumInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\WareHouse\frmStockIn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\WareHouse\frmStockIn.Designer.cs">
+      <DependentUpon>frmStockIn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\WareHouse\frmStockInNotifyItemError.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\WareHouse\frmStockInNotifyItemError.Designer.cs">
+      <DependentUpon>frmStockInNotifyItemError.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\WareHouse\frmStockOut.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\WareHouse\frmStockOut.Designer.cs">
+      <DependentUpon>frmStockOut.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\WareHouse\frmStockOutNotifyItemBad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\WareHouse\frmStockOutNotifyItemBad.Designer.cs">
+      <DependentUpon>frmStockOutNotifyItemBad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\WareHouse\frmStockPre.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\WareHouse\frmStockPre.Designer.cs">
+      <DependentUpon>frmStockPre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\WareHouse\frmWashCheck.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\WareHouse\frmWashCheck.Designer.cs">
+      <DependentUpon>frmWashCheck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\WareHouse\FrxDataTable.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebHelp\WebServiceHelper.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="UI\Camera\frmPreview.resx">
+      <DependentUpon>frmPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Camera\frmSetup.resx">
+      <DependentUpon>frmSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\frmLogin.resx">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Print\ConsigneePrint.resx">
+      <DependentUpon>ConsigneePrint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Operator\frmPasswordChange.resx">
+      <DependentUpon>frmPasswordChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Test\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Test\Form2.resx">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\WareHouse\frmCodeRelation.resx">
+      <DependentUpon>frmCodeRelation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\WareHouse\frmProductSelect.resx">
+      <DependentUpon>frmProductSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\WareHouse\frmQFOrderNumInput.resx">
+      <DependentUpon>frmQFOrderNumInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\WareHouse\frmStockIn.resx">
+      <DependentUpon>frmStockIn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\WareHouse\frmStockInNotifyItemError.resx">
+      <DependentUpon>frmStockInNotifyItemError.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\WareHouse\frmStockOut.resx">
+      <DependentUpon>frmStockOut.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\WareHouse\frmStockOutNotifyItemBad.resx">
+      <DependentUpon>frmStockOutNotifyItemBad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\WareHouse\frmStockPre.resx">
+      <DependentUpon>frmStockPre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\WareHouse\frmWashCheck.resx">
+      <DependentUpon>frmWashCheck.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Data\ClothesCodeBar.fr3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Express.fr3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Express_V2.fr3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Express_V3.fr3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\SF-Express-New2.fr3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\SF.fr3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Properties\DataSources\LazyAtHome.WCF.Common.Contract.DataContract.PR.OperatorDC.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Service References\InternalExpressService\InternalExpressPortal.wsdl" />
+    <None Include="Service References\InternalExpressService\InternalExpressService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\InternalExpressService\InternalExpressService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\InternalExpressService\InternalExpressService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\InternalExpressService\InternalExpressService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\InternalExpressService\InternalExpressService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\InternalExpressService\InternalExpressService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\InternalExpressService\InternalExpressService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\InternalExpressService\InternalExpressService7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\InternalExpressService\InternalExpressService71.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\InternalExpressService\InternalExpressService8.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\InternalExpressService\LazyAtHome.Winform.FactoryPortal.InternalExpressService.Exp_NodeDC.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\InternalExpressService\LazyAtHome.Winform.FactoryPortal.InternalExpressService.Exp_OrderDC.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\InternalExpressService\LazyAtHome.Winform.FactoryPortal.InternalExpressService.Exp_StorageItemDC.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PRService\LazyAtHome.Winform.FactoryPortal.PRService.OperatorDC.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PRService\PRPortal.wsdl" />
+    <None Include="Service References\PRService\PRService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PRService\PRService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PRService\PRService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PRService\PRService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PRService\PRService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PRService\PRService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PRService\PRService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PRService\PRService7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\QFExpressService\QFExpressPortal.wsdl" />
+    <None Include="Service References\QFExpressService\QFExpressService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\QFExpressService\QFExpressService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\QFExpressService\QFExpressService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\QFExpressService\QFExpressService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\QFExpressService\QFExpressService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\QFExpressService\QFExpressService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SFExpressService\LazyAtHome.Winform.FactoryPortal.SFExpressService.OrderDC.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SFExpressService\SFExpressPortal.wsdl" />
+    <None Include="Service References\SFExpressService\SFExpressService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SFExpressService\SFExpressService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SFExpressService\SFExpressService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SFExpressService\SFExpressService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SFExpressService\SFExpressService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SFExpressService\SFExpressService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SFExpressService\SFExpressService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SFExpressService\SFExpressService7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SFExpressService\SFExpressService71.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WashOrderService\LazyAtHome.Winform.FactoryPortal.WashOrderService.Order_OrderDC.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WashOrderService\WashOrderPortal.wsdl" />
+    <None Include="Service References\WashOrderService\WashOrderService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WashOrderService\WashOrderService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WashOrderService\WashOrderService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WashOrderService\WashOrderService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WashOrderService\WashOrderService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WashOrderService\WashOrderService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WashOrderService\WashOrderService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WashOrderService\WashOrderService7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WashOrderService\WashOrderService8.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WashProductService\LazyAtHome.Winform.FactoryPortal.WashProductService.Wash_ClassDC.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WashProductService\LazyAtHome.Winform.FactoryPortal.WashProductService.Wash_ProductDC.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WashProductService\WashProductPortal.wsdl" />
+    <None Include="Service References\WashProductService\WashProductService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WashProductService\WashProductService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WashProductService\WashProductService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WashProductService\WashProductService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WashProductService\WashProductService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WashProductService\WashProductService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WashProductService\WashProductService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WashProductService\WashProductService7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WashProductService\WashProductService71.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="update.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="FastReport">
+      <Guid>{D3C6FB9B-9EDF-48F3-9A02-6D8320EAA9F5}</Guid>
+      <VersionMajor>4</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\InternalExpressService\" />
+    <WCFMetadataStorage Include="Service References\PRService\" />
+    <WCFMetadataStorage Include="Service References\QFExpressService\" />
+    <WCFMetadataStorage Include="Service References\SFExpressService\" />
+    <WCFMetadataStorage Include="Service References\WashOrderService\" />
+    <WCFMetadataStorage Include="Service References\WashProductService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PRService\PRService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PRService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PRService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PRService\PRService8.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PRService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\5.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\6.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\7.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btnAdd.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btnBetchUpdate.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btnDel.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WashOrderService\WashOrderService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WashOrderService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WashOrderService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WashOrderService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SFExpressService\SFExpressService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SFExpressService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SFExpressService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SFExpressService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WashProductService\WashProductService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WashProductService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WashProductService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WashProductService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\QF.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="logo.ico" />
+    <Content Include="logo1.ico" />
+    <None Include="Service References\InternalExpressService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\InternalExpressService\configuration.svcinfo" />
+    <None Include="Service References\InternalExpressService\configuration91.svcinfo" />
+    <None Include="Service References\InternalExpressService\InternalExpressService.disco" />
+    <None Include="Service References\QFExpressService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\QFExpressService\configuration.svcinfo" />
+    <None Include="Service References\QFExpressService\configuration91.svcinfo" />
+    <None Include="Service References\QFExpressService\QFExpressService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AutoUpdater\AutoUpdater.csproj">
+      <Project>{8a7504d6-2cb4-4e89-8a48-8821219e6206}</Project>
+      <Name>AutoUpdater</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

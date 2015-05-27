@@ -1,0 +1,5 @@
+
+2015/3/23 17:08:36: |OperatorProxy Login|无法连接到 net.tcp://localhost:8000/LazyAtHome/CommonPortal。连接尝试持续了 00:00:02.2401281 时间跨度。TCP 错误代码 10061: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:8000。
+2015/3/23 17:37:40: |OperatorProxy Login|发送到 net.tcp://localhost:8000/LazyAtHome/CommonPortal 的请求操作在配置的超时(00:01:00)内未收到回复。分配给此操作的时间可能已经是更长超时的一部分。这可能由于服务仍在处理操作或服务无法发送回复消息。请考虑增加操作超时(将通道/代理转换为 IContextChannel 并设置 OperationTimeout 属性)并确保服务能够连接到客户端。
+2015/3/23 17:40:04: |OperatorProxy Login|发送到 net.tcp://localhost:8000/LazyAtHome/CommonPortal 的请求操作在配置的超时(00:01:00)内未收到回复。分配给此操作的时间可能已经是更长超时的一部分。这可能由于服务仍在处理操作或服务无法发送回复消息。请考虑增加操作超时(将通道/代理转换为 IContextChannel 并设置 OperationTimeout 属性)并确保服务能够连接到客户端。
+2015/3/23 17:44:40: |OperatorProxy Login|发送到 net.tcp://localhost:8000/LazyAtHome/CommonPortal 的请求操作在配置的超时(00:01:00)内未收到回复。分配给此操作的时间可能已经是更长超时的一部分。这可能由于服务仍在处理操作或服务无法发送回复消息。请考虑增加操作超时(将通道/代理转换为 IContextChannel 并设置 OperationTimeout 属性)并确保服务能够连接到客户端。

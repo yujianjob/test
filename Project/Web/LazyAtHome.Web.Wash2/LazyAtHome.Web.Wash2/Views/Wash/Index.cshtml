@@ -1,0 +1,230 @@
+﻿@{
+    //ViewBag.Title = "洗涤服务";
+}
+
+<div class="page-content inset washing-service">
+    <div class="row">
+        <div class="col-md-7 col-md-offset-1">
+            <!--缩小后的洗衣篮div-->
+            <div class="relative-div visible-xs visible-sm">
+                <button class="visible-xs visible-sm btn btn-sm pull-right viewshopcart" onclick="shopcartCollpase(this);">查看洗衣篮</button>
+                <div class="shopcart-collapse" style="display:none">
+                    <div class="shopcartList-collapse">
+                        <div class="tit">
+                            <span class="pull-left">洗衣篮</span>
+                            <div class="pull-right"><span onclick="ClearCart();" style="cursor:pointer">清除</span></div>
+                            @*<span class="pull-right"><a href="#" onclick="ClearCart();">清除</a></span>*@
+                        </div>
+                        <div class="biaot">
+                            <div class="bt pull-left">服务产品</div>
+                            <div class="p-num pull-right">数量</div>
+                        </div>
+                        <div class="gwlist">
+                        </div>
+                        <span class="total-price">总计 <b>￥0.00</b></span>
+                        <div style="clear:both"></div>
+                        <div class="expressMess"></div>
+                        <a class="btn btn-block btn-sm js-btn" href="/Cart/OrderConfirm" onclick="ga('send','event','洗衣篮','结算','洗衣篮_列表');">去结算</a>
+                    </div>
+                </div>
+            </div>
+            <!--缩小后的洗衣篮div-->
+
+            <h2><img src="/img/icon-currency.png">服务费</h2>
+            <table class="table servicefee-tabs">
+                <tbody>
+                    <tr>
+                        <td class="servicefee-bt">同城快递</td>
+                        <td class="price"><font color="#d9534f">￥18.00(满18元免快递费)</font></td>
+                        <td class="servicefee-bt">24小时加急</td>
+                        <td class="price">￥100.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tagSwitch" style="margin-bottom:20px">
+                <ul class="nav nav-tabs" role="tablist">
+                    @if (ViewBag.WashClass != null)
+                    {
+                        foreach (LazyAtHome.WCF.Wash.Contract.DataContract.web.web_Wash_ClassDC item in ViewBag.WashClass)
+                        {
+                            <li classid="@item.ID"><a href="javascript:void(0)">@item.Name</a></li>
+                        }
+                    }
+                </ul>
+                <div class="tab-content xdfw-box" style="padding:20px 0; background:white;border:1px solid #ddd">
+                    <table class="table cloth-list">
+                        <tbody id="accordion">
+                            @Html.Raw(ViewBag.SearchResult)
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 hidden-xs hidden-sm">
+            <div class="shopcartList">
+                <!--空洗衣篮 start-->
+                <div class="estimator">
+                    <h2>您的洗衣篮还空着呢!</h2>
+                    <img src="/img/empty-shopcar.png">
+                </div><!--空洗衣篮 end-->
+                <div class="full-shopcart" style="display:none">
+                    <div class="tit">
+                        <span class="pull-left">洗衣篮</span>
+                        <div class="pull-right"><span onclick="ClearCart();" style="cursor:pointer">清除</span></div>
+                        @*<span class="pull-right"><a href="#" onclick="ClearCart();">清除</a></span>*@
+                    </div>
+                    <div class="biaot">
+                        <div class="bt pull-left">服务产品</div>
+                        <div class="p-num pull-right">数量</div>
+                    </div>
+                    <div class="gwlist">
+                    </div>
+                    <span class="total-price">总计 <b>￥0.00</b></span>
+                    <div style="clear:both"></div>
+                    <div class="expressMess"></div>
+                    <a class="btn btn-block btn-sm js-btn" href="/Cart/OrderConfirm" onclick="ga('send','event','洗衣篮','结算','洗衣篮_列表');">去结算</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    #popdiv {
+        padding: 0px 0px;
+         border:1px solid #9c9c9c;
+    }
+        #popdiv p {
+            line-height:22px;
+            padding:10px;
+        }
+        #popdiv > span {
+            width:100%;
+            height:25px;
+            line-height:25px;
+            cursor:pointer;
+            padding-right:10px;
+            background: #4CC7C8;color:white;text-align:right
+        } 
+</style>
+<script>
+function hidePopdiv(){
+    $("#popdiv").hide();
+}
+</script>
+<div style="position:fixed; width:245px; height:180px; background:white; right:20px; bottom:20px" id="popdiv">
+    <span style="display:block;float:right" onclick="hidePopdiv();">关闭</span>
+    <div style="clear:both"></div>
+    <p style="display:block; text-indent:25px">
+        懒到家现进行网点整合，新开网点正在急速增长中，如您所在区域无法下单，还望亲耐心等待，我们会尽快开通未覆盖区域，为您带来更为优质的洗衣服务。
+    </p>
+</div>
+
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            $(".nav-tabs li").each(function () {
+                $(this).click(function () {
+                    $(".nav-tabs li").removeClass("active");
+                    $(this).addClass("active");
+                    Show($(this).attr("classid"));
+                });
+            });
+            @if (ViewBag.SearchResult == null)
+            {
+            @:$('.nav-tabs li').eq(0).click();
+            }
+            AddToCart(0);
+        });
+        function Show(id) {
+            var postData = { classid: id };
+            $.ajax({
+                type: "post",
+                url: "/Wash/ClassShow",
+                data: postData,
+                dataType: "json",
+                success: function (resultJson) {
+                    if (resultJson != null) {
+                        if (resultJson.code == 1) {
+                            $("#accordion").html(resultJson.msg);
+                        }
+                        else
+                            alert(resultJson.msg);
+                    }
+                },
+                error: function (msg) {
+                    $("#msg").html("服务器异常，请稍微再试！");
+                }
+            });
+        }
+
+        function AddToCart(pid, opear) {
+            if (opear == null)
+                opear = true;
+
+            var postData = { pid: pid, opearFlag: opear };
+            $.ajax({
+                type: "post",
+                url: "/Cart/jsAddToCart",
+                data: postData,
+                dataType: "json",
+                success: function (resultJson) {
+                    if (resultJson != null) {
+                        if (resultJson.Code == 1) {
+                            $(".gwlist").html(resultJson.Content);
+                            $(".total-price").html("<div><span>合计 </span> <b>￥" + resultJson.ProductPrice.toFixed(2) + "</b></div><div><span>运费 </span> <b>￥" + resultJson.ExpressMoney.toFixed(2) + "</b></div><div><span>总计 </span><b>￥" + resultJson.TotalPrice.toFixed(2) + "</b></div><div style='clear:both'></div>");
+
+                            if (parseFloat(resultJson.ExpressMoney) > 0) {
+                                $(".expressMess").html("<div style='clear:both'></div><div style='text-align:center;padding-bottom:10px'>想要免运费嘛？再来一件吧！</div>");
+                            }
+                            else {
+                                $(".expressMess").html("");
+                            }
+                            ga("send", "event", resultJson.Msg, "", "产品_列表");
+                            if (resultJson.Content == "") {
+                                $(".estimator").show();
+                                $(".full-shopcart").hide();
+                            }
+                            else {
+                                $(".full-shopcart").show();
+                                $(".estimator").hide();
+                            }
+                        }
+                        else
+                            alert(resultJson.Msg);
+                    }
+                },
+                error: function (msg) {
+                    $("#msg").html("服务器异常，请稍微再试！");
+                }
+            });
+        }
+
+        function ClearCart() {
+            $.ajax({
+                type: "post",
+                url: "/Cart/jsCartClear",
+                dataType: "json",
+                success: function (resultJson) {
+                    if (resultJson != null) {
+                        if (resultJson.Code == 1) {
+                            $(".gwlist").html(resultJson.Content);
+                            $(".total-price").html("总计 <b>￥0.00</b>");
+                            $(".estimator").show();
+                            $(".full-shopcart").hide();
+                        }
+                        else
+                            alert(resultJson.Msg);
+                    }
+                },
+                error: function (msg) {
+                    $("#msg").html("服务器异常，请稍微再试！");
+                }
+            });
+        }
+    </script>
+}

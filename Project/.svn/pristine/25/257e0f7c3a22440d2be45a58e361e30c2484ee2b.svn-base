@@ -1,0 +1,36 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\Txu2.jpg" /></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、洗涤时如非必要，不要使用漂白剂，以防褪色。 </p> 
+				<p>2、为使衣料不褪色，不要在热水、肥皂水、碱水中长时间浸泡，不要用洗衣板或毛刷搓刷。</p> 
+				<p>3、要防止衣领变形，晾晒时将衣架从衫脚伸入T恤，不拉扯圆领。</p> 
+				<p>4、晾晒时不要在阳光下曝晒，以免造成褪色。</p> 
+				<p>5、平时不要拉扯T恤印花部位，以免印花胶浆开裂。</p> 
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>夏日的海边，身着淡色T恤，呼吸着海上的空气，好似这空气流入心田，从内而外的清心感觉，打开了心中那一扇心门。 </p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\Txu1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>  纯棉T恤吸汗、透气、舒适的特点让它受到人们的热爱和欢迎，不过容易变形、发黄、脱色等现象又阻断了人们购买它的"脚步"。起毛、失去弹性等问题也影响着它的美观。衣物洁净中散发出阵阵清香，清爽干净，得体大方无疑给炎热的夏天添加一丝清透凉爽。懒到家，清洁衣物的同时，对衣物进行柔化让您穿在身上更加舒服。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

@@ -1,0 +1,4 @@
+E:\workspace\Project\LazyAtHome.WCF.WebService\LazyAtHome.WCF.WebService.Interface\bin\Debug\LazyAtHome.WCF.WebService.Interface.dll
+E:\workspace\Project\LazyAtHome.WCF.WebService\LazyAtHome.WCF.WebService.Interface\bin\Debug\LazyAtHome.WCF.WebService.Interface.pdb
+E:\workspace\Project\LazyAtHome.WCF.WebService\LazyAtHome.WCF.WebService.Interface\obj\Debug\LazyAtHome.WCF.WebService.Interface.dll
+E:\workspace\Project\LazyAtHome.WCF.WebService\LazyAtHome.WCF.WebService.Interface\obj\Debug\LazyAtHome.WCF.WebService.Interface.pdb

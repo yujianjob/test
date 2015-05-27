@@ -1,0 +1,141 @@
+﻿@{
+    //ViewBag.Title = "冬装保养";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--活动主体内容 start-->
+<div id="activity-main">
+
+    <span class="title">活动中心</span>
+    <div class="w-banner"></div>
+    <!--立即下单 start-->
+    <div class="place-order">
+        <div class="item">
+            <div class="freecharge"></div>
+            <div class="p-img"><img src="http://img.landaojia.com/Category/yurongfu002.png" /></div>
+            <p class="tit">
+                <span class="name">
+                    羽绒服 <br />
+                    <input type="checkbox" name="cbActive" pid="5" price="48" /><em>￥48.00</em>
+                </span>
+            </p>
+        </div>
+        <div class="add-icn"></div>
+        <div class="item">
+            <div class="freecharge"></div>
+            <div class="p-img"><img src="http://img.landaojia.com/Category/mianyi002.png" /></div>
+            <p class="tit">
+                <span class="name">
+                    棉衣 <br />
+                    <input type="checkbox" name="cbActive" pid="12" price="40" /><em>￥40.00</em>
+                </span>
+            </p>
+        </div>
+        <div class="add-icn"></div>
+        <div class="item">
+            <div class="freecharge"></div>
+            <div class="p-img"><img src="http://img.landaojia.com/Category/dayi002.png" /></div>
+            <p class="tit">
+                <span class="name">
+                    大衣 <br />
+                    <input type="checkbox" name="cbActive" pid="16" price="48" /><em>￥48.00</em>
+                </span>
+            </p>
+        </div>
+        <div class="add-icn"></div>
+        <div class="item">
+            <div class="freecharge"></div>
+            <div class="p-img"><img src="http://img.landaojia.com/Category/fengyi002.png" /></div>
+            <p class="tit">
+                <span class="name">
+                    风衣 <br />
+                    <input type="checkbox" name="cbActive" pid="14" price="36" /><em>￥36.00</em>
+                </span>
+            </p>
+        </div>
+        <div class="equal-icn"></div>
+        <div class="placeorder-price">
+            <p>
+                <label class="activity-price-tit">活动价:</label>
+                <span class="activity-price">0元</span>
+            </p>
+            <p>
+                <label class="original-price-tit">原&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价:</label>
+                <span class="original-price">0元</span>
+            </p>
+            <p><label>总优惠价:</label><span class="total-price">0元</span></p>
+            <img class="placeorder-btn" src="~/Content/images/placeorder-btn.jpg" onclick="CreateOrder()" />
+        </div>
+    </div>
+    <!--立即下单 end-->
+    <!--活动说明 start-->
+    <div class="activity-description">
+        <img src="~/Content/images/winter-pic1.jpg" />
+        <div class="txt">
+            <h2>活动说明</h2>
+            <p>
+                懒到家上线之季，特推出反季服装清洗护理活动，羽绒服、棉衣、大衣、风衣，任意组合3件，原价至少128元的洗涤费用，现在特惠价只需88元。<br />
+                如此巨惠，还等什么呢，赶快为你的爱衣一次专业护理Spa。
+            </p>
+        </div>
+    </div>
+    <!--活动说明 end-->
+    <!--温馨提醒 start-->
+    <div class="warm-reminder">
+        <div class="txt">
+            <h2>温馨提醒</h2>
+            <p>上海梅雨季节气候潮湿、闷热，衣物容易蛀虫、发黄，因此在储藏之前一定要进行清洗晾晒，懒到家为您的冬装进行全面洗涤保养，为你的冬装上一层保鲜膜，不再受蛀虫、发黄困扰。</p>
+        </div>
+        <img src="~/Content/images/winter-pic2.jpg" />
+    </div>
+    <!--温馨提醒 end-->
+</div>
+<!--活动主体内容 end-->
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            $(":checkbox").click(function () {
+                var index = 0;
+                var totalPrice = 0;
+                $(":checked").each(function () {
+                    var currPrice = parseInt($(this).attr('price'));
+                    totalPrice += currPrice;
+                    index++;
+                });
+                $(".original-price").html(totalPrice + "元");
+                if (index != 3) {
+                    $(".activity-price").html(totalPrice + "元");
+                    $(".total-price").html("0元");
+                }
+                else {
+                    $(".activity-price").html("88元");
+                    $(".total-price").html(totalPrice - 88 + "元");
+                }
+            })
+        })
+
+        function CreateOrder() {
+            var index = 0;
+            var param = "";
+            $(":checked").each(function () {
+                param += $(this).attr('pid') + ",";
+                index++;
+            });
+
+            if (param != "")
+                param = param.substring(0, param.length - 1);
+
+            if (index != 3) {
+                alert("本次活动必须选择三件才可参与。");
+                return false;
+            }
+
+            window.location.href = "/Activities/Submit/2?param=" + param;
+
+        }
+    </script>
+}

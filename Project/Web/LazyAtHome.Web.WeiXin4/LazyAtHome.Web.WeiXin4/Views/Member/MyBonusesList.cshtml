@@ -1,0 +1,144 @@
+﻿@{
+    ViewBag.Title = "我的红包";
+}
+
+<section>
+
+    <div class="page">
+        <div class="prize_list">
+            @if (ViewBag.Bonuses != null)
+            {
+                foreach (var item in ViewBag.Bonuses)
+                {
+                    if (item.type == 1)
+                    {
+                        if (item.status == 1)
+                        {
+                            <div class="tkt_item tkt_yyxavailable">
+                                <div class="tkt_num">
+                                    <span class="per">¥</span>
+                                    <span class="num">@item.denomination</span>
+                                </div>
+                                <div class="tkt_name">@(item.name )</div>
+                                <div class="tkt_expire">
+                                    <span class="tkt_title">有效期:</span>
+                                    <span class="tkt_span">
+                                        <span class="start">@item.validDate.ToString("yyyy.MM.dd")</span>-<span class="end">@item.expDate.ToString("yyyy.MM.dd")</span>
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                        else if (item.status == 3)
+                        {
+                            <div class="tkt_item tkt_yyxused">
+                                <div class="tkt_num">
+                                    <span class="per">¥</span>
+                                    <span class="num">@item.denomination</span>
+                                </div>
+                                <div class="tkt_name">@(item.name )</div>
+                                <div class="tkt_expire">
+                                    <span class="tkt_title">有效期:</span>
+                                    <span class="tkt_span">
+                                        <span class="start">@item.validDate.ToString("yyyy.MM.dd")</span>-<span class="end">@item.expDate.ToString("yyyy.MM.dd")</span>
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="tkt_item tkt_yyxexpired">
+                                <div class="tkt_num">
+                                    <span class="per">¥</span>
+                                    <span class="num">@item.denomination</span>
+                                </div>
+                                <div class="tkt_name">@(item.name)</div>
+                                <div class="tkt_expire">
+                                    <span class="tkt_title">有效期:</span>
+                                    <span class="tkt_span">
+                                        <span class="start">@item.validDate.ToString("yyyy.MM.dd")</span>-<span class="end">@item.expDate.ToString("yyyy.MM.dd")</span>
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                    }
+                    if (item.type == 2)
+                    {
+                        if (item.status == 1)
+                        {
+                            <div class="tkt_item tkt_available">
+                                <div class="tkt_num">
+                                    <span class="per">¥</span>
+                                    <span class="num">@item.denomination</span>
+                                </div>
+                                <div class="tkt_name">@(item.name + "(可多张叠加使用)")</div>
+                                <div class="tkt_expire">
+                                    <span class="tkt_title">有效期:</span>
+                                    <span class="tkt_span">
+                                        <span class="start">@item.validDate.ToString("yyyy.MM.dd")</span>-<span class="end">@item.expDate.ToString("yyyy.MM.dd")</span>
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                        else if (item.status == 3)
+                        {
+                            <div class="tkt_item tkt_used">
+                                <div class="tkt_num">
+                                    <span class="per">¥</span>
+                                    <span class="num">@item.denomination</span>
+                                </div>
+                                <div class="tkt_name">@(item.name + "(可多张叠加使用)")</div>
+                                <div class="tkt_expire">
+                                    <span class="tkt_title">有效期:</span>
+                                    <span class="tkt_span">
+                                        <span class="start">@item.validDate.ToString("yyyy.MM.dd")</span>-<span class="end">@item.expDate.ToString("yyyy.MM.dd")</span>
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="tkt_item tkt_expired">
+
+                                <div class="tkt_num">
+                                    <span class="per">¥</span>
+                                    <span class="num">@item.denomination</span>
+                                </div>
+                                <div class="tkt_name">@(item.name + "(可多张叠加使用)")</div>
+                                <div class="tkt_expire">
+                                    <span class="tkt_title">有效期:</span>
+                                    <span class="tkt_span">
+                                        <span class="start">@item.validDate.ToString("yyyy.MM.dd")</span>-<span class="end">@item.expDate.ToString("yyyy.MM.dd")</span>
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+            }
+        </div>
+    </div>
+</section>
+@section scripts
+{
+    <script type="text/javascript" src="/Scripts/hui.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery-2.1.3.js"></script>
+    <script>
+        var page = { moving: false };
+        page.init = function () {
+            page.tap = function () { };
+            page.swipeUp = function () { };
+            page.swipeRight = function () { };
+            page.swipeDown = function () { };
+            page.swipeLeft = function () { };
+            page.repaint = function () { };
+        };
+        page.onresize = function () {
+            document.documentElement.style.fontSize = parseInt($('.page').get(0).offsetWidth) / 24 + 'px';
+            // page.repaint();
+        };
+        page.init();
+
+        $(window).on('resize', function () { page.onresize(); });
+
+    </script>
+}

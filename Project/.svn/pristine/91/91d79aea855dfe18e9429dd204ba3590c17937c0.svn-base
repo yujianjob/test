@@ -1,0 +1,319 @@
+﻿@model LazyAtHome.Web.Wash2.Models.UserModel
+@{
+    //ViewBag.Title = "订单确认";
+}
+
+<div class="page-content inset order-confirm">
+    <div class="row">
+        <div class="col-md-7 col-md-offset-1">
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="" class="col-sm-2 col-lg-2 col-xs-12 control-label">取送地址</label>
+                    <div class="col-sm-8 col-lg-8 col-xs-10" style="padding-left:0">
+                        <select id="selGetAddress" style="width:100%">
+                            @foreach (LazyAtHome.WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC item in ViewBag.AddressList)
+                            {
+                                if (item.IsDefault == 1)
+                                {
+                                    <option value="@item.ID" selected="selected">@(item.DistrictName + item.Address)</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.ID">@(item.DistrictName + item.Address)</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="col-sm-2 col-lg-2 col-xs-2" style="padding-left:0"><button type="button" class="btn addDizhi" onclick="window.location.href='/Member/AddressModify'">新增</button></div>
+                </div>
+                @*<div class="form-group">
+                    <label for="" class="col-sm-2 col-lg-2 col-xs-12 control-label">送件地址</label>
+                    <div class="col-sm-8 col-lg-8 col-xs-10" style="padding-left:0">
+                        <select id="selSendAddress" style="width:100%">
+                            @foreach (LazyAtHome.WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC item in ViewBag.AddressList)
+                            {
+                                if (item.IsDefault == 1)
+                                {
+                                    <option value="@item.ID" selected="selected">@(item.DistrictName + item.Address)</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.ID">@(item.DistrictName + item.Address)</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>*@
+
+
+                <div class="form-group">
+                    <label for="" class="col-sm-2 control-label">支付方式</label>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-4 balance"><span class="order-confirm-label">余额:<lead>￥@Model.User.Money</lead></span></div>
+                            <div class="col-xs-6 col-sm-8">
+                                <div class="checkbox">
+                                    <label>
+                                        使用余额 <input type="checkbox" onclick="ChangePayInfo(this, 1)">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="row">
+                            <div class="col-xs-6 col-sm-4 balance"><span class="order-confirm-label">懒人卡</span></div>
+                            <div class="col-xs-6 col-sm-8">
+                                <select class="rt-half" onchange="ChangePayInfo(this, 2)">
+                                    <option value="0">不使用懒人卡</option>
+                                    @foreach (LazyAtHome.WCF.UserSystem.Contract.DataContract.User_CardDC item in ViewBag.CardList)
+                                    {
+                                        <option value="@item.ID">面值：@item.Money 余额：@item.Balance 有效期：@item.ExpiryDate.ToShortDateString()</option>
+                                    }                                                        
+                                </select>
+                            </div>
+                        </div>*@
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-4 balance"><span class="order-confirm-label">选择优惠劵</span></div>
+                            <div class="col-xs-6 col-sm-8">
+                                <select class="rt-half" id="couponList" onchange="ChangePayInfo(this, 3)">
+                                    <option value="0">不使用</option>
+                                    @if (ViewBag.CouponList != null)
+                                    {
+                                        foreach (LazyAtHome.WCF.UserSystem.Contract.DataContract.User_CouponDC item in ViewBag.CouponList)
+                                        {
+                                            <option value="@item.ID">@item.Name 有效期:@item.UseEndDate.ToString("yyyy-MM-dd")</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-4 balance"><span class="order-confirm-label">绑定优惠劵</span></div>
+                            <div class="col-xs-5 col-sm-5" style="padding-right:0"><input type="text" id="txtCode" style="width:100%"></div>
+                            <div class="col-xs-3 col-sm-3"><button type="button" class="btn bindingBtn" onclick="FuncBindCoupon();">绑 定</button></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-sm-2 control-label">产品信息</label>
+                    <div class="col-sm-10" style="padding-left:0">
+                        <div class="pro-info">
+                            <table class="table">
+                                @foreach (var p in Model.Cart.ProductList)
+                                {
+                                    <tr>
+                                        <td>@p.ProductInfo.Name</td>
+                                        <td>@(p.Count)件</td>
+                                        @if (p.ProductInfo.SalesPrice != p.ProductInfo.MarketPrice)
+                                        {
+                                            <td width="15%"><s>￥@(p.ProductInfo.MarketPrice * p.Count)</s> </td>
+                                            <td width="15%"><font color="#ea535a">￥@(p.ProductInfo.SalesPrice * p.Count)</font></td>
+                                        }
+                                        else
+                                        {
+                                            <td width="15%"></td>
+                                            <td width="15%">￥@(p.ProductInfo.SalesPrice * p.Count)</td>
+                                        }
+                                    </tr>
+                                }
+                            </table>
+                            <span id="payinfo" class="pull-right" style="text-align:right">
+                                合计:￥45.00<br>
+                                优惠金额:￥45.00<br>
+                                快递费:￥45.00<br>
+                                应付:<lead>￥45.00</lead><br>
+                            </span>
+                            @*<span class="pull-right"><b>合计：</b><lead>@Model.Cart.TotalPrice</lead></span>
+                <span id="payinfo" class="pull-right">
+                    <p>应付金额:<lead>￥@Model.Cart.TotalPrice</lead></p>
+                </span>*@
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2" style="padding-left: 0; color: #D9534F">
+                        小主，如您的订单中包含皮质、鞋类等特殊品类的衣物，想必洗涤时间会有所延长，如果您同意……必是极好的。
+                        说人话：您的衣物将分单送回或者延时送回。
+                    </div>
+                </div>
+                
+
+                <div class="form-group">
+                    <label for="" class="col-sm-2 control-label">备注</label>
+                    <div class="col-sm-10" style="padding-left:0">
+                        <textarea id="txtRemark" name="txtRemark"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="button" class="btn btn-success btn-lg pull-right" onclick="formSubmit();">确认下单</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script language="javascript" type="text/javascript">
+    var payMoney = "@Model.Cart.TotalPrice.ToString("0.00")";
+        $(function () {
+            ChangePayInfo(null, -1);
+        });
+
+        function ChangePayInfo(obj, type) {
+
+            var cardid = 0;
+            var opera = 1;
+
+            switch (type) {
+                case 1:
+                    if (obj.checked) {
+                        opera = 1;
+                    }
+                    else
+                        opera = 0;
+                    break;
+                case 2:
+                case 3:
+                    cardid = obj.value;
+                    if (cardid != 0)
+                        opera = 1;
+                    else
+                        opera = 0;
+                    break;
+            }
+
+            var postData = { "payType": type, "cardid": cardid, "opera": opera };
+
+
+            $.ajax({
+                type: "post",
+                url: "/Cart/CalcuPayMoney",
+                data: postData,
+                dataType: "json",
+                success: ProcessPayChange,
+                error: function (msg) {
+                    alert(msg.toString());
+                }
+            });
+        }
+
+        function ProcessPayChange(resultJson) {
+
+            //alert(resultJson);
+
+            if (resultJson != null) {
+                if (resultJson.Code == 1) {
+                    $("#payinfo").html("合计：￥" + payMoney + "<br>");
+                    if (resultJson.Balance != 0) {
+                        $("#payinfo").append("余额支付：-¥" + resultJson.Balance.toFixed(2) + "<br>");
+                    }
+
+                    if (resultJson.CardPay != 0) {
+                        $("#payinfo").append("懒人卡支付：-¥" + resultJson.CardPay.toFixed(2) + "<br>");
+                    }
+
+                    if (resultJson.CouponPay != 0) {
+                        $("#payinfo").append("优惠券抵扣：-¥" + resultJson.CouponPay.toFixed(2) + "<br>");
+                    }
+
+                    if (resultJson.SalePrice != 0) {
+                        $("#payinfo").append("活动优惠：-¥" + resultJson.SalePrice.toFixed(2) + "<br>");
+                    }
+
+                    if (resultJson.ExpressPrice != 0) {
+                        $("#payinfo").append("快递费：+¥" + resultJson.ExpressPrice.toFixed(2) + "<br>");
+                    }
+
+                    $("#payinfo").append("<p><b>应付金额：<lead>￥" + resultJson.Pay.toFixed(2) + "</lead></b></p>");
+                }
+                else if (resultJson.Code == -3) {
+                    alert(resultJson.Msg);
+                    $("#couponList").val("0");
+                    //ChangePayInfo(couponList, 3);
+                    
+                    ChangePayInfo(document.getElementById("couponList"), 3);
+                }
+                else {
+                    if (resultJson.Balance != 100)
+                        alert(resultJson.Msg);
+                }
+            }
+        }
+
+        function formSubmit() {
+
+            var addressID = $("#selGetAddress").val();
+            if (addressID == null) {
+                alert("请选择收货地址");
+                return false;
+            }
+
+            var postData = { "address": addressID, "remark": $("#txtRemark").val().trim() };
+
+            $.ajax({
+                type: "post",
+                url: "/Cart/SubmitProcess",
+                data: postData,
+                dataType: "json",
+                success: function (resultJson) {
+                    if (resultJson.Code == 1) {
+                        window.location.href = resultJson.TagUrl;
+                    }
+                    else
+                        alert(resultJson.Msg);
+                },
+                error: function (msg) {
+                    alert(msg.toString());
+                }
+            });
+        }
+
+        function FuncBindCoupon() {
+            //if (!txtCode.value.trim().match("^[0-9a-zA-Z]{6,16}$")) {
+            //    txtCode.focus();
+            if (!$("#txtCode").val().trim().match("^[0-9a-zA-Z]{6,16}$")) {
+                $("#txtCode").focus();
+                showPopDiv("优惠券代码格式错误", false);
+                return false;
+            }
+
+            var postData = { "couponPass": $("#txtCode").val().trim() };
+            //var postData = { "couponPass": txtCode.value.trim() };
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("User_BindCoupon", "Member")",
+                data: postData,
+            dataType: "json",
+            success: ProcessCouponBind,
+            error: function (msg) {
+                showPopDiv(msg.toString(), false);
+            }
+        });
+        }
+
+        function ProcessCouponBind(resultJson) {
+            if (resultJson != null) {
+                if (resultJson.Code == 1) {
+                    $("#txtCode").val("");
+                    //txtCode.value = "";
+                    $("#couponList").append("<option value='" + resultJson.CouponID + "'>" + resultJson.CouponName + " 有效期:" + resultJson.CouponDate + "</option>");
+                    $("#couponList").val(resultJson.CouponID);
+                    //ChangePayInfo(couponList, 3)
+                    ChangePayInfo(document.getElementById("couponList"), 3);
+                    showPopDiv("绑定成功", false);
+                }
+                else {
+                    showPopDiv(resultJson.Msg, false);
+                }
+            }
+        }
+
+    </script>
+}

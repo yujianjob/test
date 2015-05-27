@@ -1,0 +1,1 @@
+E:\workspace\Project\Web\LazyAtHome.API.TinyURL\LazyAtHome.API.TinyURL\obj\Debug\LazyAtHome.API.TinyURL.csprojResolveAssemblyReference.cache

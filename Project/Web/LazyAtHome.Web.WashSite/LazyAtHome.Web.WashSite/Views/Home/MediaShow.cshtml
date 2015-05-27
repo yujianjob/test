@@ -1,0 +1,31 @@
+﻿@{
+    //ViewBag.Title = "新闻详情";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--内容-->
+<div id="content">
+    <div class="mediaShowTitle"><p><a href="#">新闻列表</a><span>&gt;</span>新闻详情</p></div>
+    <div class="mediaShow">
+        <div class="mediaShowBt">
+            <h2>上海懒到家干洗店荣获“2013年度最佳干洗奖”</h2>
+            <p><b>2014.05.12</b>浏览次数：<span>90</span></p>
+            <dl>
+                <dt>分享到：</dt>
+                <dd><a href="#"><img src="~/Content/Images/fenxiang_01.gif" /></a></dd>
+                <dd><a href="#"><img src="~/Content/Images/fenxiang_02.gif" /></a></dd>
+                <dd><a href="#"><img src="~/Content/Images/fenxiang_03.gif" /></a></dd>
+            </dl>
+        </div>
+        <div class="mediaShowContent">
+            <p>　　2014年5月4日晚，由中国领军媒体集团“财讯传媒”旗舰杂志《voyage新旅行》主办的“《新旅行十年 2013 年度旅行品牌颁奖盛典”在时尚国际之都——上海闪耀亮相，世界小姐张梓琳、著名影星李晨等各界名人盛装出席了此次活动。</p>
+            <p>　　当晚，主办方为大家揭晓了第五届《新旅行》年度高端酒店榜单，佛山保利洲际酒店荣获独具特色高端酒店类中的“最佳商务会奖酒店”奖。</p>
+            <p>　　“《新旅行》年度旅行品牌盛典”是中国国内最早发起、涵盖评选种类最全面、最专业、最广泛关注的旅行产业标杆性票选活动，《新旅行》资深编辑团队联合多媒体推选、网络在线投票、行业内权威评委提名、资深旅游者及商旅人士亲身体验等方式，共同汇集成涵盖国内外旅行目的地、旅游局、高端酒店、奢华美食、航空公司、汽车、户外、数码、旅行服务机构等领域2013年度媒体权威旅行榜单。</p>
+            <p>　　佛山保利洲际酒店自2010年4月10日开业以来，在佛山地区已经拥有一定的知名度，影响力覆盖范围也在不断扩大。每年接待多场不同类型的会议，致力于提供专业的洲际会议行家服务，结合本地的特色风俗，让客人留下深刻的印象。今后，我们一定会不断提升服务质量，朝着成为客人挚爱的杰出酒店这个目标不断前进。</p>
+        </div>
+        <div class="pages"><a href="#">上一篇</a><a href="#">下一篇</a></div>
+    </div>
+</div>

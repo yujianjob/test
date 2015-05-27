@@ -1,0 +1,21 @@
+	var bo=true;
+	function getVerifyCode(obj){
+		if(bo){
+			var i=60;
+			$(obj).text(i);
+			$(obj).css("background","#adaaaa");
+			var timer=setInterval(function(){
+				if(i<=0){
+					clearInterval(timer); 
+					timer=null;
+					$(obj).css("background","#a62424").text("获取验证");
+					bo=true;
+				}else{
+					i--;
+					$(obj).text(i);
+					$(obj).css("background","#adaaaa");	
+					bo=false;		
+				}
+			},1000);		
+		}
+	}

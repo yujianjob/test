@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3A0C30A6-DF7A-4C10-99A3-815443BBB4EC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LazyAtHome.WCF.Common.Business</RootNamespace>
+    <AssemblyName>LazyAtHome.WCF.Common.Business</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LazyAtHome.Core">
+      <HintPath>D:\CommonDLL\LazyAtHome.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Business\Base.cs" />
+    <Compile Include="Business\CacheTimer.cs" />
+    <Compile Include="Business\File.cs" />
+    <Compile Include="Business\JPush.cs" />
+    <Compile Include="Business\PR.cs" />
+    <Compile Include="Business\Sms.cs" />
+    <Compile Include="Business\Survey.cs" />
+    <Compile Include="Business\Tinyurl.cs" />
+    <Compile Include="Portal\BasePortal.cs" />
+    <Compile Include="Portal\CommonPortal.cs" />
+    <Compile Include="Portal\FilePortal.cs" />
+    <Compile Include="Portal\PRPortal.cs" />
+    <Compile Include="Portal\SmsPortal.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ifunction.JPush\ifunction.JPush.csproj">
+      <Project>{a48d3b61-f51b-47c3-b4bc-e073214bba69}</Project>
+      <Name>ifunction.JPush</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LazyAtHome.WCF.Common.Contract\LazyAtHome.WCF.Common.Contract.csproj">
+      <Project>{bb832cff-84e5-443d-bdd7-a4349a36cba3}</Project>
+      <Name>LazyAtHome.WCF.Common.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LazyAtHome.WCF.Common.DAL\LazyAtHome.WCF.Common.DAL.csproj">
+      <Project>{43a687f1-e9ec-41a6-8053-c9c4634be504}</Project>
+      <Name>LazyAtHome.WCF.Common.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LazyAtHome.WCF.Common.Interface\LazyAtHome.WCF.Common.Interface.csproj">
+      <Project>{6c1b535f-0910-46ce-ae5f-f72d418b68d7}</Project>
+      <Name>LazyAtHome.WCF.Common.Interface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

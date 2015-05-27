@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/LazyAtHome.WCF.Common.Contract.Enumerate" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/LazyAtHome.WCF.Common.Contract.Enumerate" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://192.168.1.201:8100/LazyAtHome/PRService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:simpleType name="OperatorType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ALL">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">-1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Manage" />
+      <xs:enumeration value="Factory" />
+      <xs:enumeration value="Site" />
+      <xs:enumeration value="Line" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="OperatorType" nillable="true" type="tns:OperatorType" />
+</xs:schema>

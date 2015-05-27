@@ -1,0 +1,217 @@
+package com.landaojia.washclothes.laundry.client.printer;
+
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.awt.print.Book;
+import java.awt.print.PageFormat;
+import java.awt.print.Paper;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+
+import org.krysalis.barcode4j.impl.codabar.CodabarBean;
+import org.krysalis.barcode4j.impl.code128.Code128Bean;
+import org.krysalis.barcode4j.impl.code128.Code128Constants;
+import org.krysalis.barcode4j.impl.code128.EAN128Bean;
+import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider;
+import org.krysalis.barcode4j.tools.UnitConv;
+
+import com.landaojia.washclothes.laundry.client.util.PathUtil;
+
+public class CommonPrinter implements Printable {
+	static int X = 12;
+	static int Y = 12;
+	static int W = 275;
+	static int H = 410;
+
+	static String basePath = CommonPrinter.class.getResource("/META-INF/printer/").getPath();
+	//static String basePath = PathUtil.getRunDir();
+	
+	private ExpressBill b;
+
+	private CommonPrinter(ExpressBill b) {
+		this.b = b;
+	}
+
+	/**
+	 * @param Graphic
+	 *            指明打印的图形环境
+	 * @param PageFormat
+	 *            指明打印页格式（页面大小以点为计量单位，1点为1英才的1/72，1英寸为25.4毫米。A4纸大致为595×842点）
+	 * @param pageIndex
+	 *            指明页号
+	 **/
+	public int print(Graphics gra, PageFormat pf, int pageIndex) throws PrinterException {
+		// 转换成Graphics2D
+		Graphics2D g = (Graphics2D) gra;
+		g.setColor(Color.black);
+		switch (pageIndex) {
+		case 0:
+			float[] dash1 = { 2.0f };
+			// 设置打印线的属性。 1.线宽 2、3、不知道，4、空白的宽度，5、虚线的宽度，6、偏移量
+			g.setStroke(new BasicStroke(0.5f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 2.0f, dash1, 0.0f)); //
+			g.setStroke(new BasicStroke(0.5f));// 设置线宽
+			Image bar = Toolkit.getDefaultToolkit().getImage(getBar(b.getOrderNo()).getAbsolutePath());
+			Image logo = Toolkit.getDefaultToolkit().getImage(basePath + "logo.png");
+			Image phone = Toolkit.getDefaultToolkit().getImage(basePath + "phone.png");
+
+			// 设置打印字体（字体名称、样式和点大小）（字体名称可以是物理或者逻辑名称）
+			// Java平台所定义的五种字体系列：Serif、SansSerif、Monospaced、Dialog 和 DialogInput
+			Font font1 = new Font("黑体", Font.PLAIN, 8);
+			Font font2 = new Font("新宋体", Font.PLAIN, 9);
+			Font font3 = new Font("黑体", Font.PLAIN, 20);
+
+			g.drawLine(X, Y, X, Y + 240);// 第一联左线
+			g.drawLine(X, Y, X + 265, Y);// 第一联上线
+			g.drawLine(X + 265, Y, X + 265, Y + 240);// 第一联右线
+			g.drawLine(X, Y + 240, X + 265, Y + 240);// 第一联下线
+
+			int cx = X + 5;
+			int cy = Y + 2;
+			g.drawImage(logo, cx, cy, 90, 15, null);//第一联log
+			d(g, font1, b.getBillNo(), 120, 20);//第一联运单号
+			g.drawImage(phone, X + W - 100, cy, 90, 15, null);//第一联电话
+
+			cy += 20;
+			g.drawLine(X, cy, X + 265, cy);
+			g.drawLine(X + 190, cy, X + 190, cy + 90);
+			cy += 13;
+			d(g, font1, "站点地址", cx, cy);
+			d(g, font1, "站点号", cx + 190, cy);
+			d(g, font2, b.getStationAddr1(), cx + 10, cy + 10);
+			d(g, font2, b.getStationAddr2(), cx + 10, cy + 23);
+			d(g, font3, b.getStationNo(), cx + 190, cy + 20);
+			cy += 27;
+			g.drawLine(X, cy, X + 265, cy);
+			cy += 3;
+			g.drawImage(bar, cx, cy, 150, 45, null);
+			d(g, font1, "干线号", cx + 190, cy + 10);
+			d(g, font3, b.getLineNo(), cx + 190, cy + 40);
+			cy += 47;
+			g.drawLine(X, cy, X + 265, cy);
+			cy += 13;
+			d(g, font1, "收件人", cx, cy);
+			d(g, font2, b.getRecipients() + "    " + b.getPhoneNo(), cx + 30, cy + 2);
+			d(g, font2, b.getRecipientsAddr1(), cx + 30, cy + 15);
+			d(g, font2, b.getRecipientsAddr2(), cx + 30, cy + 25);
+			cy += 37;
+			g.drawLine(X, cy, X + 265, cy);
+			cy += 13;
+			d(g, font1, "应收", cx, cy);
+			d(g, font2, "￥ " + b.getAmount(), cx + 30, cy);
+			d(g, font1, "派件员", cx + 130, cy);
+			d(g, font2, b.getCourier(), cx + 160, cy);
+			cy += 7;
+			g.drawLine(X, cy, X + 265, cy);
+			cy += 13;
+			d(g, font1, "备注", cx, cy);
+			d(g, font1, "收方签署", cx + 130, cy);
+			d(g, font1, "日期            月    日", cx + 130, cy + 40);
+
+			g.drawLine(X, Y + 250, X, Y + 400);// 第二联左线
+			g.drawLine(X, Y + 250, X + 265, Y + 250);// 第二联上线
+			g.drawLine(X + 265, Y + 250, X + 265, Y + 400);// 第二联右线
+			g.drawLine(X, Y + 400, X + 265, Y + 400);// 第二联下线
+
+			cy = Y + 250;
+			g.drawImage(logo, cx, cy + 2, 90, 15, null);
+			d(g, font1, b.getBillNo(), 120, 270);
+			g.drawImage(phone, X + W - 100, cy + 2, 90, 15, null);
+			cy += 20;
+			g.drawLine(X, cy, X + 265, cy);
+			cy += 3;
+			g.drawImage(bar, cx, cy, 150, 35, null);
+			cy += 37;
+			g.drawLine(X, cy, X + 265, cy);
+			cy += 13;
+			d(g, font1, "收件", cx, cy);
+			d(g, font2, b.getRecipients() + "    " + b.getPhoneNo(), cx + 30, cy + 2);
+			d(g, font2, b.getRecipientsAddr1(), cx + 30, cy + 13);
+			cy += 17;
+			g.drawLine(X, cy, X + 265, cy);
+
+			g.drawLine(X + 160, cy, X + 160, Y + 400);
+			cy += 13;
+			d(g, font1, "详情", cx, cy);
+			d(g, font2, b.getMemo1(), cx + 30, cy + 2);
+			d(g, font2, b.getMemo2(), cx + 30, cy + 12);
+			d(g, font1, "备注", cx + 160, cy);
+
+			return PAGE_EXISTS;
+		default:
+			return NO_SUCH_PAGE;
+		}
+	}
+
+	private void d(Graphics2D g2, Font font, String msg, int x, int y) {
+		g2.setFont(font);
+		g2.drawString(msg, x, y);
+	}
+
+	private File getBar(String code) {
+		File tmpFile = new File(basePath + "tmp" + code);
+		OutputStream out;
+		final int dpi = 150;
+		try {
+			out = new FileOutputStream(tmpFile);
+			BitmapCanvasProvider canvas = new BitmapCanvasProvider(out, "image/jpeg", 150, BufferedImage.TYPE_BYTE_BINARY, true, 0);
+
+			Code128Bean bar = new Code128Bean();
+			bar.setModuleWidth(UnitConv.in2mm(5.0f / dpi));
+			bar.setCodeset(Code128Constants.CODESET_B);
+			bar.doQuietZone(true);
+			bar.setQuietZone(2);
+			bar.setFontSize(6);
+			bar.generateBarcode(canvas, code);
+			canvas.finish();
+
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tmpFile;
+	}
+
+	public static void print(ExpressBill b) {
+		print(b, false);
+	}
+
+	public static void print(ExpressBill b, boolean needConfirm) {
+		Book book = new Book();
+		PageFormat pf = new PageFormat();
+		pf.setOrientation(PageFormat.PORTRAIT);
+		Paper p = new Paper();
+		p.setSize(365, 555);
+		p.setImageableArea(10, 10, 355, 545);
+		pf.setPaper(p);
+		book.append(new CommonPrinter(b), pf);
+		PrinterJob job = PrinterJob.getPrinterJob();
+		job.setPageable(book);
+		try {
+			if (needConfirm) {
+				if (job.printDialog()) {
+					job.print();
+				}
+			} else {
+				job.print();
+			}
+		} catch (PrinterException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				File tmpFile = new File(basePath + "tmp" + b.getOrderNo());
+				tmpFile.delete();
+			} catch (Exception e2) {
+			}
+		}
+	}
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd" >
+<hibernate-configuration>
+	<session-factory>
+		<mapping class="com.landaojia.washclothes.userappserver.dao.basepush.BasePushEo" />
+		<mapping class="com.landaojia.washclothes.userappserver.dao.basesmssend.BaseSmsSendEo" />
+		<mapping class="com.landaojia.washclothes.userappserver.dao.exporder.ExpOrderEo" />
+		<mapping class="com.landaojia.washclothes.userappserver.dao.exporderoperatortemp.ExpOrderOperatorTempEo" />
+		<mapping class="com.landaojia.washclothes.userappserver.dao.orderconsigneeaddress.OrderConsigneeAddressEo" />
+		<mapping class="com.landaojia.washclothes.userappserver.dao.orderexpress.OrderExpressEo" />
+		<mapping class="com.landaojia.washclothes.userappserver.dao.orderorder.OrderOrderEo" />
+		<mapping class="com.landaojia.washclothes.userappserver.dao.orderproduct.OrderProductEo" />
+		<mapping class="com.landaojia.washclothes.userappserver.dao.orderseq.OrderSeqEo" />
+		<mapping class="com.landaojia.washclothes.userappserver.dao.orderstep.OrderStepEo" />
+		<mapping class="com.landaojia.washclothes.userappserver.dao.userconsigneeaddress.UserConsigneeAddressEo" />
+		<mapping class="com.landaojia.washclothes.userappserver.dao.userinfo.UserInfoEo" />
+		<mapping class="com.landaojia.washclothes.userappserver.dao.washcategory.WashCategoryEo" />
+		<mapping class="com.landaojia.washclothes.userappserver.dao.washclass.WashClassEo" />
+		<mapping class="com.landaojia.washclothes.userappserver.dao.washproduct.WashProductEo" />
+	</session-factory>
+</hibernate-configuration>

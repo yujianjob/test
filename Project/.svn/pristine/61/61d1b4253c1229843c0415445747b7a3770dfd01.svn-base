@@ -1,0 +1,96 @@
+﻿@model IList<LazyAtHome.WCF.Express.Contract.DataContract.Exp_AreaDC>
+
+
+@*<form id="pagerForm" method="post" action="@Url.Action("SearchExpArea")">
+    <input type="hidden" name="status" value="@Model.SearchInfo.status">
+    <input type="hidden" name="keywords" value="@Model.SearchInfo.keywords" />
+    <input type="hidden" name="pageNum" value="@Model.SearchInfo.pageNum" />
+    <input type="hidden" name="numPerPage" value="@Model.SearchInfo.numPerPage" />
+    <input type="hidden" name="orderField" value="@Model.SearchInfo.orderField" />
+</form>*@
+
+<!--报错信息-->
+@Html.Raw(ViewBag.Script)
+
+<!--搜索条-->
+<div class="pageHeader">
+    <form id="searchForm" onsubmit="return navTabSearch(this);" action="@Url.Action("SearchExpArea")" method="post" >
+        <div class="searchBar">
+            <table class="searchContent">
+                <tr>
+                </tr>
+            </table>
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit" id="search">检索</button></div></div></li>
+                    @*<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>*@
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="pageContent">
+    <!--功能按键-->
+    <div class="panelBar">
+        <ul class="toolBar">
+            <li><a class="add" href="@Url.Action("EditExpArea")?aid=0" target="navTab" rel="expareaedit" title="添加区域"><span>添加</span></a></li>
+            @*<li><a class="delete" href="@Url.Action("")?cid={cid}" target="ajaxTodo" title="确定要删除吗?"><span>删除</span></a></li>*@
+            <li><a class="edit" href="@Url.Action("EditExpArea")?aid={aid}" target="navTab" rel="expareaedit" title="编辑区域"><span>编辑</span></a></li>
+            <li class="line">line</li>
+            @*<li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targettype="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>*@
+        </ul>
+    </div>
+
+    <!--列表页-->
+    <table class="table" width="100%" layouth="137">
+        <thead>
+            <tr>
+                <th width="20" align="center"></th>
+                <th width="100" align="center">ID</th>
+                <th width="200" align="center">名称</th>
+                <th width="150" align="center">负责人</th>
+                <th width="120" align="center">创建时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (@Model != null)
+            {
+                int no = 1;
+                foreach (var item in @Model)
+                {
+                    <tr target="aid" rel="@item.ID">
+                        <td>@(no++)</td>
+                        <td>@item.ID</td>
+                        <td>@item.Name</td>
+                        <td>@item.ManagerName</td>
+                        <td>@UIHelper.FormatDate(item.Obj_Cdate)</td>
+                    </tr>
+                }
+
+            }
+        </tbody>
+    </table>
+
+    <!--分页条-->
+    @*<div class="panelBar">
+            <script type="text/javascript">
+                $(function () {
+                    $("#numPerPage").attr("value", "@Model.SearchInfo.numPerPage");
+                });
+            </script>
+            <div class="pages">
+                <span>显示</span>
+                <select class="combox" id="numPerPage" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                </select>
+                <span>条，共 @Model.SearchInfo.RecCount 条</span>
+            </div>
+
+            <div class="pagination" targettype="navTab" totalcount="@Model.SearchInfo.RecCount" numperpage="@Model.SearchInfo.numPerPage" pagenumshown="@Model.SearchInfo.pageNumShown" currentpage="@Model.SearchInfo.pageNum"></div>
+        </div>*@
+</div>

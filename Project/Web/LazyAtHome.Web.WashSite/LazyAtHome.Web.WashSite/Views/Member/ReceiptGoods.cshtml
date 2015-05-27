@@ -1,0 +1,204 @@
+﻿@model IList<LazyAtHome.WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC>
+@{
+    //ViewBag.Title = "收货地址";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--内容-->
+<div id="content">
+    @{Html.RenderPartial("_MemberLeftNav");}
+    <div class="my_content right">
+        <div class="my_contentTitle">收货地址</div>
+        <div class="height_50"></div>
+        <!--收货人信息列表 start-->
+        <div class="consignee-list">
+            @foreach (var item in Model)
+            {
+                <div class="unit">
+                    <div class="tit">
+                        <span class="name">@item.Consignee</span>
+                        <span class="modify-del"><a href="/Member/AddressDel/@item.ID" class="modify">删除</a></span>
+                    </div>
+                    <p>
+                        <label>收货人地址：</label><span>@(item.DistrictName + item.Address)</span><br />
+                        <label>邮编：</label><span>@item.ZipCode</span><br />
+                        <label>手机：</label><span>@item.MPNo</span><br />
+                    </p>
+                </div>
+            }
+        </div>
+        <!--收货人信息列表 end-->
+        <!--添加收货人信息 start-->
+        <div class="add-consignee-info">
+            <p><img src="~/Content/images/addDizhi-btn.gif" onclick="showConsignee();" /><span>您已创建<em>@Model.Count</em>个收货地址，最多可创建<em>20</em>个</span></p>
+            <div class="addconsignee-form" style="display:none">
+                <form action="" method="post">
+                    <ul>
+                        <li><label><font class="red">*</font>收货人姓名:</label><input id="txtConsignee" name="txtConsignee" type="text" /><label id="msgConsignee" style="padding-left:10px;color:red"></label></li>
+                        <li>
+                            <label><font class="red">*</font>省市区:</label>
+                            <select>
+                                <option selected="selected" value="上海市">上海市</option>
+                            </select>
+                            <select>
+                                <option selected="selected" value="上海市">上海市</option>
+                            </select>
+                            <select name="txtDistrictID" id="txtDistrictID">
+                                <option selected="selected" value="310101">黄浦区</option>
+                                <option value="310104">徐汇区</option>
+                                <option value="310105">长宁区</option>
+                                <option value="310106">静安区</option>
+                                <option value="310107">普陀区</option>
+                                <option value="310108">闸北区</option>
+                                <option value="310109">虹口区</option>
+                                <option value="310110">杨浦区</option>
+                                <option value="310112">闵行区</option>
+                                <option value="310113">宝山区</option>
+                                <option value="310114">嘉定区</option>
+                                <option value="310115">浦东新区</option>
+                                <option value="310116">金山区</option>
+                                <option value="310117">松江区</option>
+                                <option value="310118">青浦区</option>
+                                <option value="310120">奉贤区</option>
+                                <option value="310230">崇明县</option>
+                            </select>
+                        </li>
+                        <li>
+                            <label><font class="red">*</font>街道地址:</label>
+                            <input id="txtAddress" name="txtAddress" type="text" class="street-address" />
+                            <label id="msgAddress" style="padding-left: 10px; color: red;text-align:left;"></label>
+                        </li>
+                        <li>
+                            <label>邮编:</label>
+                            <input id="txtZipCode" name="txtZipCode" type="text" />
+                            <label id="msgZipCode" style="padding-left: 10px; color: red;text-align:left;"></label>
+                        </li>
+                        <li>
+                            <label><font class="red">*</font>手机号码:</label>
+                            <input id="txtMPNo" name="txtMPNo" type="text" />
+                            <label id="msgMPNo" style="padding-left: 10px; color: red"></label>
+                        </li>
+                        <li>
+                            <label>默认:</label>
+                            <input id="txtIsDefault" name="txtIsDefault" type="checkbox" checked="checked" style="width:20px;"/>
+                        </li>
+                        <li class="btns">
+                            <input type="button" class="save" onclick="SaveAddress();" />
+                            <a href="javascript:void(0);" onclick="cancelConsignee();" class="cancel"></a>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+        <!--添加收货人信息 end-->
+        @{Html.RenderAction("MoreWash", "Wash");}
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/Scripts/gundong.js")
+    <script language="javascript" type="text/javascript">
+        $(function () {
+            //左侧导航
+            $('.my_navList dt').click(function () {
+                $(this).parent().find('dd').slideToggle(200);
+                $(this).toggleClass("my_navList_Top");
+            })
+            //切换
+            $('.my_bangdingTitle .li').click(function () {
+                var li = $(this).index();
+                $('.my_bangdingTitle .li').removeClass('this');
+                $(this).addClass('this');
+                $('.my_bangding .my_dingdanBox').hide();
+                $('.my_bangding .my_dingdanBox').eq(li).show();
+            })
+            //滚动
+            var BOX = $('.cartLuxuryList ul');
+            var HHUM = $('.cartLuxuryList li');
+            var LEFT = $('.cartLuxuryZuo');
+            var RIGHT = $('.cartLuxuryYou');
+            var WIDTH = 184;//单个宽度
+            var PLAY = 5000;//自动播放的时间
+            var SPEED = 500;//切换速度
+            var AOUT = true;//是否自动播放
+            IMG(BOX, LEFT, RIGHT, WIDTH, HHUM, PLAY, SPEED, AOUT);
+
+            $('.cartLuxuryList li').hover(function () {
+                $(this).find('.cartLuxuryListImg').addClass('this');
+            }, function () {
+                $(this).find('.cartLuxuryListImg').removeClass('this');
+            })
+        })
+        function showConsignee() {
+            $(".addconsignee-form").slideDown();
+        }
+        function cancelConsignee() {
+            $(".addconsignee-form").slideUp();
+        }
+
+        function SaveAddress() {
+            $("#msgConsignee").html("");
+            $("#msgAddress").html("");
+            $("#msgZipCode").html("");
+            $("#msgMPNo").html("");
+
+            if (!txtConsignee.value.trim().match("^[\u4E00-\u9FA5A-Za-z0-9 ]+$")) {
+                $("#msgConsignee").html("收件人姓名格式不正确");
+                txtConsignee.focus();
+                return false;
+            }
+
+            if (!txtAddress.value.trim().match("^[\u4E00-\u9FA5A-Za-z0-9_ -]+$")) {
+                $("#msgAddress").html("地址格式不正确");
+                txtAddress.focus();
+                return false;
+            }
+
+            if (txtZipCode.value.trim() != "")
+                if (!txtZipCode.value.trim().match("^[0-9]{6}$")) {
+                    $("#msgZipCode").html("邮编应为6位数字");
+                    txtZipCode.focus();
+                    return false;
+                }
+
+            if (!$("#txtMPNo").val().match(/^0?(13[0-9]|15[012356789]|18[0-9]|14[57])[0-9]{8}$/)) {
+                $("#msgMPNo").html("手机号码格式不正确！");
+                txtMPNo.focus();
+                return false;
+            }
+
+            var bDefalut = 1;
+            if (!txtIsDefault.checked)
+                bDefalut = 0;
+
+            var postData = { "consignee": txtConsignee.value, "districtID": txtDistrictID.value, "address": txtAddress.value, "mpno": txtMPNo.value, "zipcode": txtZipCode.value, "isdefault": bDefalut };
+
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("User_AddressAdd", "Member")",
+                data: postData,
+                dataType: "json",
+                success: ProcessData,
+                error: function (msg) {
+                    alert(msg.toString());
+                }
+            });
+        }
+
+        function ProcessData(resultJson) {
+            if (resultJson != null) {
+                if (resultJson.Code == 1) {
+                    window.location.reload();
+                }
+                else
+                    alert(resultJson.Msg);
+            }
+            //var strData = JSON.stringify(data);
+            //$("#resultbox").val(strData);
+        }
+    </script>
+}

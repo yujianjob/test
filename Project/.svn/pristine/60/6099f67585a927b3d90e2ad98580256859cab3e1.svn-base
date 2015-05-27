@@ -1,0 +1,36 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\beitao1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1. 用洗衣机清洗被套时最好用热水，水温应控制在54℃—66℃之间，清洗15—20分钟，洗后要及时烘干或晾干，才能达到杀菌的作用。</p>
+				<p>2. 如果采用手洗的办法，可以在冷水中加入适量过氧化氢，也能起到杀菌作用。</p>
+				<p>3.收藏时清洗干净，彻底晒干，折叠整齐，并放入一定量的樟脑丸（不能与产品直接接触），宜放在暗处，温度低、通风良好的地方，长期不使用的产品再重新使用前可先在阳光下晾晒，使其恢复蓬松。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>精致生活，从睡眠开始。</p>
+				<p>精致睡眠，从洁净开始。</p>
+				<p>懒到家，立足专业，用心服务，让您洗的放心，睡的舒心。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\beitao2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>被套使用一段时间后会有汗渍、污垢、螨虫和异味等，因此需要不定时对被套进行清洗护理；新买的被套表面也会有污渍和异味等，需要洗涤过后才能放心使用。被套的面积大，晾晒在阳台很容易造成褶皱，影响美观。晾晒在户外，又很容易吸收空气中的灰尘，导致过敏。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

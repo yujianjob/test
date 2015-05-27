@@ -1,0 +1,122 @@
+﻿@model LazyAtHome.Web.SFSupport.Models.Order.HisOrderListModel
+
+<form id="pagerForm" method="post" action="@Url.Action("SearchHisOrder")">
+    <input type="hidden" name="status" value="@Model.SearchInfo.status">
+    <input type="hidden" name="keywords" value="@Model.SearchInfo.keywords" />
+    <input type="hidden" name="pageNum" value="@Model.SearchInfo.pageNum" />
+    <input type="hidden" name="numPerPage" value="@Model.SearchInfo.numPerPage" />
+    <input type="hidden" name="orderField" value="@Model.SearchInfo.orderField" />
+</form>
+
+<!--报错信息-->
+@Html.Raw(ViewBag.Script)
+
+<!--搜索条-->
+<div class="pageHeader">
+    <form id="searchForm" onsubmit="return navTabSearch(this);" action="@Url.Action("SearchHisOrder")" method="post" rel="pagerForm">
+        <div class="searchBar">
+            <table class="searchContent">
+                <tr>
+                    <td>
+                        用户名称：
+                        <input type="text" name="username" value="@Model.SearchInfo.UserName" maxlength="15">
+                    </td>
+                    <td>
+                        用户手机号：
+                        <input type="text" name="mpno" value="@Model.SearchInfo.MPNo" maxlength="20" class="digits" alt="请输入数字">
+
+                    </td>
+                    <td>
+                        取件单号：
+                        <input type="text" name="getexpressnumber" value="@Model.SearchInfo.GetExpressNumber" maxlength="20" class="digits" alt="请输入数字">
+                    </td>
+
+                </tr>
+            </table>
+
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+                    @*<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>*@
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="pageContent">
+    <!--功能按键-->
+    <div class="panelBar">
+        <ul class="toolBar">
+            @*<li><a class="add" href="@Url.Action("EditOrder")" target="navTab" rel="orderedit" title="添加订单"><span>添加</span></a></li>
+                <li><a class="delete" href="@Url.Action("DeleteOrder")?oid={oid}" target="ajaxTodo" title="确定要删除吗?"><span>删除</span></a></li>*@
+            @*<li><a class="edit" href="" target="navTab" rel="orderedit" title="订单详情"><span>查看</span></a></li>
+                <li class="line">line</li>
+                <li><a class="icon" id="export"><span>导出</span></a></li>*@
+            @*<li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targettype="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>*@
+        </ul>
+    </div>
+
+    <!--列表页-->
+    <table class="table" width="100%" layouth="138">
+        <thead>
+            <tr>
+                <th width="20" align="center"></th>
+                <th width="120" align="center">懒到家订单号</th>
+                <th width="120" align="center">用户名称</th>
+                <th width="100" align="center">用户手机号</th>
+                <th width="200" align="center">用户地址</th>
+                <th width="80" align="center">取件信息</th>
+                <th width="120" align="center">下单时间</th>
+                <th width="120" align="center">期望收件时间</th>
+                <th width="150" align="center">取件单号</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (@Model.OrderList != null)
+            {
+                int no = 1;
+                foreach (var item in @Model.OrderList)
+                {
+                    <tr target="oid" rel="@item.ID">
+                        <td>@(no++)</td>
+                        <td>@item.OrderNumber</td>
+                        <td>@item.UserName</td>
+                        <td>@item.MPNo</td>
+                        <td>@item.Address</td>
+                        <td>衣物</td>
+                        <td>@UIHelper.FormatDate(item.CompleteTime)</td>
+                        <td>@UIHelper.FormatDate(item.ExpectTime)</td>
+                        <td>@item.GetExpressNumber</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+    <!--分页条-->
+    <div class="panelBar">
+        <script type="text/javascript">
+            $(function () {
+                $("#@Model.SearchInfo.numPerPageName").attr("value", "@Model.SearchInfo.numPerPage");
+            });
+        </script>
+        <div class="pages">
+            <span>显示</span>
+            <select class="combox" id="@Model.SearchInfo.numPerPageName" name="@Model.SearchInfo.numPerPageName" onchange="navTabPageBreak({numPerPage:this.value})">
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+            <span>条，共 @Model.SearchInfo.RecCount 条</span>
+        </div>
+
+        <div class="pagination" targettype="navTab" totalcount="@Model.SearchInfo.RecCount" numperpage="@Model.SearchInfo.numPerPage" pagenumshown="@Model.SearchInfo.pageNumShown" currentpage="@Model.SearchInfo.pageNum"></div>
+    </div>
+</div>
+
+
+

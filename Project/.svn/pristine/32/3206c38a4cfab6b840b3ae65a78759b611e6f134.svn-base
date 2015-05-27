@@ -1,0 +1,137 @@
+﻿@{
+    ViewBag.Title = "缤纷活动";
+}
+
+<div class="page-content inset service-fee">
+    <div class="row" style="padding-top:40px">
+        <div class="col-md-7 col-md-offset-1">
+            <div class="kajishao" style="overflow:hidden">
+                <!-- <a class="pull-right btn btn-sm btn-danger" href="缤纷活动.html" style="margin-bottom:20px;">返回</a>-->
+                <img src="/img/activity_banner.jpg" style="width:100%;height:auto;margin-bottom:30px">
+                <h2 style="font-size:1.2em; text-align:center;color:#333">懒到家请上海人民免费洗衣服</h2>
+                <p style="line-height:30px; text-indent:25px">
+                    实惠每天享，洗衣新选择!
+                    即日起在懒到家官网、APP平台以及微信平台下单，即可坐享实惠，免费洗衣只收取基本的同城快递费，还在等什么？赶快体验吧，便捷的操作、大大的实惠，一站式全程服务，一定会给您带来全新的体验，极大的震撼，懒到家请上海人民免费洗衣~
+                </p>
+                <p style="line-height:30px;">
+                    <strong>活动规则</strong><br>
+                    1、活动时间2014年9月15日-2014年12月31日<br>
+                    2、活动期间，在懒到家下单用户只需支付18元同城快递费，即可尊享3件以内衣物免洗特权，同单3件以上每件增收6元快递费（本活动适用于规定内的免费洗适用产品，皮质、丝质衣物不参与本活动）。<br>
+                    3、正常产品下单或者含正常产品的订单，免收18元快递费用，若此订单含有免费洗产品，则按照每件6元收取费用。<br>
+                    4、本活动的最终解释及变更权由懒到家所有。
+                </p>
+                <img src="/img/activity_qrcode.jpg" style="display:block;margin:50px auto 0 auto">
+
+                <h2 class="freeWashTit"><a id="tt"></a>免费洗适用产品</h2>
+                <table cellpadding="0" cellspacing="0" class="table clothTable">
+                    <thead>
+                        <tr>
+                            <th colspan="4" style="border:10px solid white">上装</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td bgcolor="#f3f3f3">西装</td>
+                            <td bgcolor="#f3f3f3">睡衣</td>
+                            <td bgcolor="#f3f3f3">防辐射服</td>
+                            <td bgcolor="#f3f3f3">大衣</td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#f3f3f3">衬衫</td>
+                            <td bgcolor="#f3f3f3">浴袍</td>
+                            <td bgcolor="#f3f3f3">背心</td>
+                            <td bgcolor="#f3f3f3">冲锋衣</td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#f3f3f3">羽绒服</td>
+                            <td bgcolor="#f3f3f3">保暖内衣</td>
+                            <td bgcolor="#f3f3f3">T恤</td>
+                            <td bgcolor="#f3f3f3">雪纺衫</td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#f3f3f3">马甲</td>
+                            <td bgcolor="#f3f3f3">毛衣外套</td>
+                            <td bgcolor="#f3f3f3">夹克</td>
+                            <td bgcolor="#f3f3f3">吊带衫</td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#f3f3f3">棉衣</td>
+                            <td bgcolor="#f3f3f3">针织衫</td>
+                            <td bgcolor="#f3f3f3">运动衣/卫衣</td>
+                            <td bgcolor="#f3f3f3">中山装</td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#f3f3f3">风衣</td>
+                            <td bgcolor="#f3f3f3">羊毛衫</td>
+                            <td bgcolor="#f3f3f3">牛仔衣</td>
+                            <td bgcolor="#f3f3f3">唐装</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table cellpadding="0" cellspacing="0" class="table clothTable">
+                    <thead>
+                        <tr>
+                            <th colspan="2" style="border:10px solid white">上装</th>
+                            <th style="border:10px solid white">配饰</th>
+                            <th style="border:10px solid white">鞋包</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td bgcolor="#f3f3f3">西裤</td>
+                            <td bgcolor="#f3f3f3">短裤</td>
+                            <td bgcolor="#f3f3f3">帽子</td>
+                            <td bgcolor="#f3f3f3">运动鞋</td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#f3f3f3">休闲裤</td>
+                            <td bgcolor="#f3f3f3">中裤</td>
+                            <td bgcolor="#f3f3f3">围巾</td>
+                            <td bgcolor="#f3f3f3">休闲鞋</td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#f3f3f3">运动裤</td>
+                            <td bgcolor="#f3f3f3">裙裤</td>
+                            <td bgcolor="#f3f3f3">披肩</td>
+                            <td bgcolor="#f3f3f3">帆布鞋</td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#f3f3f3">羽绒裤</td>
+                            <td bgcolor="#f3f3f3">睡裤</td>
+                            <td bgcolor="#f3f3f3">领带</td>
+                            <td bgcolor="#f3f3f3">登山鞋</td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#f3f3f3">冲锋裤</td>
+                            <td bgcolor="#f3f3f3">裙子</td>
+                            <td bgcolor="#f3f3f3">手套</td>
+                            <td bgcolor="#f3f3f3">双肩包</td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#f3f3f3">牛仔裤</td>
+                            <td bgcolor="#f3f3f3">连衣裙</td>
+                            <td bgcolor="#f3f3f3"></td>
+                            <td bgcolor="#f3f3f3">单肩包</td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#f3f3f3">保暖裤</td>
+                            <td bgcolor="#f3f3f3">吊带裙</td>
+                            <td bgcolor="#f3f3f3"></td>
+                            <td bgcolor="#f3f3f3"></td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#f3f3f3">唐装裤</td>
+                            <td bgcolor="#f3f3f3">打底裤</td>
+                            <td bgcolor="#f3f3f3"></td>
+                            <td bgcolor="#f3f3f3"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="xd-btngroup">
+                    <a href="/Wash" class="btn btn-danger btn-sm" style="margin-right:20px">普通下单</a>
+                    <a href="/Cart/OneKey" class="btn btn-danger btn-sm">一键下单</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+﻿@model LazyAtHome.WCF.OrderSystem.Contract.DataContract.SF_OrderInfoDC
+
+<!--报错信息-->
+@Html.Raw(ViewBag.Script)
+
+<div class="pageContent">
+    <form method="post" action="@Url.Action("", "")" id="frmSaveSFOrder" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
+        <div class="pageFormContent" layouth="156">
+            @if (Model != null)
+            {
+                
+            
+                <p>
+                    <label>订单号：</label>
+                    @Html.TextBoxFor(model => model.orderid, new { @readonly = "true" })
+                </p>
+                <p>
+                    <label>运单号：</label>
+                    @Html.TextBoxFor(model => model.mailno, new { @readonly = "true" })
+                </p>
+                <p>
+                    <label>原寄地代码：</label>
+                    @Html.TextBoxFor(model => model.origincode, new { @readonly = "true" })
+                </p>
+                <p>
+                    <label>目的地代码：</label>
+                    @Html.TextBoxFor(model => model.destcode, new { @readonly = "true" })
+                </p>
+                <p>
+                    <label>筛单结果：</label>
+                    @Html.TextBox("filter_result", UIHelper.FormatSFOrderFilterResult(Model.filter_result), new { @readonly = "true" })
+                   
+                </p>
+                <p>
+                    <label>备注：</label>
+                    @Html.TextBox("remark", UIHelper.FormatSFOrderRemark(Model.remark), new { @readonly = "true" })
+                </p>
+                <p>
+                    <label>操作结果：</label>
+                    @Html.TextBox("res_status", UIHelper.FormatSFOrderResStatus(Model.res_status), new { @readonly = "true" })
+                </p>
+            }
+        </div>
+
+        <div class="formBar">
+            <ul>
+                <!--<li><a class="buttonActive" href="javascript:;"><span>保存</span></a></li>-->
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit" id="btnSave">保存</button></div></div></li>
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </form>
+
+</div>
+

@@ -1,0 +1,36 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\xiongzhao1.jpg" /></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、千万避免用手强扭文胸挤水，可轻扭去水后，用毛巾包上，用手挤压，使水分被毛巾吸收；</p> 
+				<p>2、将皱缩处小心平整至原状，将罩杯形状整理好；</p> 
+				<p>3、将文胸放置于阴凉通风处晾干，日晒易使文胸变质、变黄，令其寿命缩短；</p>
+				<p>4、长期保存应尽量减少使用密封袋来保存内衣，因文胸长期封闭容易引起发霉，切忌与樟脑丸等防虫剂放在一起；</p>
+				<p>5、晾的时候在心位处对折，搭在衣架或晾衣绳上，自然下垂，不要让肩带受力，防止肩带弹性变小。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>文胸是最接近身体的衣物，首先要注意清洁，污垢不单意味着不干净，更会影响面料的透气性、吸汗性及柔软性，从而对面料造成损坏。对于一些高级或高价的产品有时只是美观而未必耐用，小心呵护才可以保持它的优点。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\xiongzhao2.jpg" /></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>文胸是最贴身的衣物。一定注意文胸清洁，污垢不单意味着不干净、更会影响文胸面料的透气性能。所以最好是用温水及中性洗剂洗涤，或用冷水或比体温略低（30℃以下）的温水洗涤，切勿使用热水。应以“轻按”的方式手洗，文胸不能过分挤压，以免弄皱。特别是有钢圈的文胸，不要用力扭。可使用一般的中性洗剂或内衣专用的中性洗剂。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

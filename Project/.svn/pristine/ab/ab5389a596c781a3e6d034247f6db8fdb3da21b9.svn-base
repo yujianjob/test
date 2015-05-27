@@ -1,0 +1,135 @@
+﻿@model IList<LazyAtHome.Web.StoreManage.Models.ProductCategory.Category>
+<style type="text/css">
+    ul.rightTools {
+        float: right;
+        display: block;
+    }
+
+        ul.rightTools li {
+            float: left;
+            display: block;
+            margin-left: 5px;
+        }
+</style>
+
+<script>
+
+    function setParams(a) {
+
+        var hasloadproductpage = $("#hdhasloadproductpage").val();
+        if (hasloadproductpage == 1) {
+            //alert("已经加载");
+            //alert($("#hdhasloadproductpage").val());
+
+            var usermpno = $("#usermpno").val();
+            var username = $("#username").val();
+
+            //alert(usermpno);
+            //alert(username);
+            //alert(a.href);
+            a.href += "&usermpno=" + usermpno + "&username=" + username;
+            //alert(a.href);
+            //alert("123456");
+
+        }
+        else {
+            //alert("第一次加载");
+
+            //alert($("#hdhasloadproductpage").val());
+            $("#hdhasloadproductpage").val(1);
+            //alert($("#hdhasloadproductpage").val());
+        }
+
+    }
+
+
+    //$("#categoryselect a").click(function () {
+    //    //var usermpno = $("#usermpno").val();
+    //    //var username = $("#username").val();
+
+    //    //alert(usermpno);
+    //    //alert(username);
+
+    //    var hasloadproductpage = $("#hdhasloadproductpage").val();
+    //    if (hasloadproductpage == 1) {
+    //        alert("已经加载");
+    //        alert($("#hdhasloadproductpage").val());
+
+    //        var usermpno = $("#usermpno").val();
+    //        var username = $("#username").val();
+
+    //        $("#hdusermpno").val(usermpno);
+    //        $("#hdusername").val(username);
+
+
+    //        alert(usermpno);
+    //        alert(username);
+    //        alert($("#categoryselect a").attr("herf"));
+
+    //        alert("123456");
+
+    //    }
+    //    else {
+    //        alert("第一次加载");
+
+    //        alert($("#hdhasloadproductpage").val());
+    //        $("#hdhasloadproductpage").val(1);
+    //        alert($("#hdhasloadproductpage").val());
+    //    }
+    //})
+</script>
+
+<!--报错信息-->
+@Html.Raw(ViewBag.Script)
+
+<div class="pageContent" style="padding:5px">
+    <input type="hidden" id="hdusermpno" name="hdusermpno" value="" />
+    <input type="hidden" id="hdusername" name="hdusername" value="" />
+    <input type="hidden" id="hdhasloadproductpage" name="hdhasloadproductpage" value="0" />
+    <div class="tabs">
+        <div class="tabsHeader">
+            <div class="tabsHeaderContent">
+                <ul>
+                    @foreach (var item in Model)
+                    {
+                        <li><a href="javascript:;"><span>@item.Name</span></a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="tabsContent" id="categoryselect">
+
+            @foreach (var item in Model)
+            {
+                <div>
+
+                    <div layouth="50" style="float:left; display:block; overflow:auto; width:200px; border:solid 1px #CCC; line-height:21px; background:#fff">
+                        <ul class="tree treeFolder">
+                            <li>
+                                <a href="javascript">@item.Name</a>
+                                <ul>
+                                    @foreach (var subitem in item.SubList)
+                                    {
+                                        <li><a href="@Url.Action("SearchProduct","Order")?cid=@subitem.ID&pname=@subitem.PictureS&oid=@ViewData["OrderID"].ToString()" onclick="setParams(this)" target="ajax" rel=@("jbsxBox" + item.ID)>@subitem.Name</a></li>
+                                    }
+
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <div id=@("jbsxBox" + item.ID) class="unitBox" style="margin-left:206px;">
+                        <!--#include virtual="list1.html" -->
+                    </div>
+
+                </div>
+            }
+
+        </div>
+        <div class="tabsFooter">
+            <div class="tabsFooterContent"></div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,5 @@
+E:\workspace\Project\LazyAtHome.WCF.Wash\LazyAtHome.WCF.Wash.Console_Client\bin\Debug\LazyAtHome.WCF.Wash.Console_Client.exe.config
+E:\workspace\Project\LazyAtHome.WCF.Wash\LazyAtHome.WCF.Wash.Console_Client\bin\Debug\LazyAtHome.WCF.Wash.Console_Client.exe
+E:\workspace\Project\LazyAtHome.WCF.Wash\LazyAtHome.WCF.Wash.Console_Client\bin\Debug\LazyAtHome.WCF.Wash.Console_Client.pdb
+E:\workspace\Project\LazyAtHome.WCF.Wash\LazyAtHome.WCF.Wash.Console_Client\obj\Debug\LazyAtHome.WCF.Wash.Console_Client.exe
+E:\workspace\Project\LazyAtHome.WCF.Wash\LazyAtHome.WCF.Wash.Console_Client\obj\Debug\LazyAtHome.WCF.Wash.Console_Client.pdb

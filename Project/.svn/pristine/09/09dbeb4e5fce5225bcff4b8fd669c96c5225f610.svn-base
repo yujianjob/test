@@ -1,0 +1,119 @@
+﻿@model LazyAtHome.WCF.Wash.Contract.DataContract.web.web_Mall_ProductDC
+@{
+    //ViewBag.Title = "懒人卡";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home", new { index = "lazypack" });}
+
+<!--内容-->
+<div id="content">
+    <div id="title">
+        <span><a href="/LazyArtifact">懒人神器&gt;</a>懒人卡</span>
+
+    </div>
+    <div class="luxuryShow">
+        <div class="luxuryShowPic left">
+            <div class="pic"><img src="@Model.Picture" class="cardImg" /></div>
+        </div>
+        <div class="luxuryShowAbout right">
+            <h2>充值卡</h2>
+            <ul class="jg">
+                <li>原价：<span style="text-decoration:line-through">￥<b style="font-size: 20px">@Model.MarketPrice</b></span></li>
+                <li>现价：<span>￥<b>@Model.SalesPrice</b></span></li>
+                <li>
+                    促销信息：
+                    @{
+                        var sale = Model.MarketPrice - Model.SalesPrice;
+                        if (sale > 0)
+                        {
+                            <font>已优惠￥@sale</font>
+                        }
+                    }
+                </li>
+            </ul>
+            <ul class="xx">
+                <li></li>
+                <li></li>
+                <li>
+                    <font>数量：</font>
+                    <dl class="shuliang">
+                        <dt class="jian">-</dt>
+                        <dd><input id="buycount" name="buycount" type="text" value="1" /></dd>
+                        <dt class="jia">+</dt>
+                    </dl>
+                </li>
+            </ul>
+            <p class="font"></p>
+            <dl class="an">
+                <dd><input name="" type="button" value="" onclick="OrderSubmit()" /></dd>
+                <dt></dt>
+            </dl>
+        </div>
+    </div>
+    <div class="contentTitle">注意事项</div>
+    <!--卡介绍 start-->
+    <div class="packageShow_01">
+        <div class="card-pic"><img src="~/Content/images/cardpic.jpg" /></div>
+        <div class="card-txt">
+            <h2>懒人卡介绍</h2>
+            <p>懒人卡是由懒到佳信息技术有限公司发行的可在懒到家官网直接消费的储值卡。消费者可凭此卡所拥有的余额在懒到家官网进行消费支付。为懒人们在消费的时候提供更加便捷的支付方式。同时，此卡还具有以下优势：</p>
+            <p>1、懒人卡绑定懒到家账户，消费更加的安全。<br /> 懒人卡只要一旦跟懒到家账号绑定，就无需再担忧丢失亦或是损失，更加的安全。</p>
+            <p>
+                2、商务馈赠、节日送礼、企业福利的最佳选择<br />
+                在与人交际上送什么？一直是诸多社会人士的苦恼，送礼品不仅麻烦有时候还非常的不方便，亦或是收礼则不喜欢等等，让人着实烦恼，而送懒人卡则化解了不少的尴尬，同时大众的需求也非常高，所以不管是馈赠亲朋好友还是节日送礼亦或是企业福利都不失为一个不错的礼品选择。
+            </p>
+            <p>
+                3、懒人卡彰显时尚身份。<br />
+                跟一般的洗衣消费有所不同，懒到家独特的运营模式更加个性、时尚化，拥有懒人卡无疑彰显独特时尚的品味，是时尚高贵的象征。
+            </p>
+        </div>
+    </div>
+    <!--卡介绍 end-->
+    <!--懒人卡使用说明 start-->
+    <div class="packageShow_02">
+        <div class="card-txt">
+            <h2>懒人卡使用说明</h2>
+            <p>
+                1、客户收到懒人卡，划开懒人卡背面的涂层，获得懒人卡密码；<br />
+                2、客户下单时，在支付页面时候即可使用懒人卡；<br />
+                3、账户中未有绑定的懒人卡，可在结算信息中，输入懒人卡密码，懒人卡余额将会抵扣订单金额；<br />
+                4、账户中已有绑定的懒人卡，可在结算信息中，勾选已绑定的懒人卡，懒人卡余额将会抵扣订单金额；<br />
+                5、为了保证懒人卡的支付安全，您也可以通过设置支付密码保障账户中懒人卡的安全。<br />
+                6、请妥善保管懒人卡密码，如有疑问请拨打懒到家官方客服热线：<span style="color:#f0883f">4008-762-799</span>。
+            </p>
+        </div>
+    </div>
+    <!--懒人卡使用说明 end-->
+</div>
+
+
+@section scripts
+{
+    <script language="javascript" type="text/javascript">
+        var pid = "@Model.ID";
+        $(function () {
+            //右侧选择
+            $('.luxuryShowAbout .xx span').click(function () {
+                $(this).parent().find('span').removeClass('this');
+                $(this).addClass('this');
+            })
+            //右侧数量
+            $('.shuliang .jian').click(function () {
+                var lis = parseInt($('#buycount').attr('value')) - 1;
+                if (lis <= 1) {
+                    var lis = 1;
+                }
+                $('#buycount').attr('value', lis)
+            })
+            $('.shuliang .jia').click(function () {
+                var lis = parseInt($('#buycount').attr('value')) + 1;
+                $('#buycount').attr('value', lis)
+            })
+        })
+        function OrderSubmit() {
+            window.location.href = "/LazyArtifact/Trade/" + pid + "?buycount=" + buycount.value;
+        }
+    </script>
+}

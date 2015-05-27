@@ -1,0 +1,179 @@
+﻿@model LazyAtHome.Web.SFSupport.Models.Order.OrderListModel
+
+@{
+    <script src="@Url.Content("~/Scripts/Order/orderindex.js")" type="text/javascript"></script>
+}
+
+<style type="text/css">
+    .orderList {
+        width: 100%;
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+    }
+
+        .orderList thead {
+            font-size: 12px;
+            height: 20px;
+            line-height: 20px;
+        }
+
+            .orderList thead th {
+                height: 22px;
+                font-weight: normal;
+                background: #f1f1f1 url(headbg.jpg) repeat-x;
+                border-left: 1px solid #ccc;
+            }
+
+        .orderList tbody tr td {
+            font-size: 12px;
+            padding:1px 5px;
+            text-align: center;
+            border-left: 1px solid #ccc;
+            border-top: 1px solid #ccc;
+        }
+</style>
+<script>
+    $(".orderList tbody tr:odd").css("background", "#f6f6f7");
+    $(".orderList tbody tr:even").css("background", "#fff");
+</script>
+
+
+
+<form id="pagerForm" method="post" action="@Url.Action("SearchOrder")">
+    <input type="hidden" name="status" value="@Model.SearchInfo.status">
+    <input type="hidden" name="keywords" value="@Model.SearchInfo.keywords" />
+    <input type="hidden" name="pageNum" value="@Model.SearchInfo.pageNum" />
+    <input type="hidden" name="numPerPage" value="@Model.SearchInfo.numPerPage" />
+    <input type="hidden" name="orderField" value="@Model.SearchInfo.orderField" />
+</form>
+
+<!--报错信息-->
+@Html.Raw(ViewBag.Script)
+
+<!--搜索条-->
+<div class="pageHeader">
+    <form id="searchForm" onsubmit="return navTabSearch(this);" action="@Url.Action("SearchOrder")" method="post" rel="pagerForm">
+        <div class="searchBar">
+            <table class="searchContent">
+                <tr>
+                    <td>
+                        用户名称：
+                        <input type="text" name="username" value="@Model.SearchInfo.UserName" maxlength="15">
+                    </td>
+                    <td>
+                        用户手机号：
+                        <input type="text" name="mpno" value="@Model.SearchInfo.MPNo" maxlength="20" class="digits" alt="请输入数字">
+
+                    </td>
+                    <td>
+                        通知状态：
+                        @Html.DropDownList("ExpressStatus", new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text = "全部", Value = "-1"},
+                            new SelectListItem { Text = "未通知", Value = "0" },
+                            new SelectListItem { Text = "已通知", Value = "1" }},
+                                     "Value", "Text", Model.SearchInfo.ExpressStatus), new { style = "width:80px;" })
+                    </td>
+
+                </tr>
+            </table>
+
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+                    @*<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>*@
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="pageContent">
+    <!--功能按键-->
+    <div class="panelBar">
+        <ul class="toolBar">
+            @*<li><a class="add" href="@Url.Action("EditOrder")" target="navTab" rel="orderedit" title="添加订单"><span>添加</span></a></li>
+                <li><a class="delete" href="@Url.Action("DeleteOrder")?oid={oid}" target="ajaxTodo" title="确定要删除吗?"><span>删除</span></a></li>*@
+            @*<li><a class="edit" href="" target="navTab" rel="orderedit" title="订单详情"><span>查看</span></a></li>
+            <li class="line">line</li>
+            <li><a class="icon" id="export"><span>导出</span></a></li>*@
+            @*<li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targettype="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>*@
+        </ul>
+    </div>
+
+    <!--列表页-->
+    <table class="orderList" border="0" cellpadding="1" cellspacing="1" bgcolor="#ccc" width="100%" layouth="116">
+        <thead>
+            <tr>
+                <th width="2%" align="center"></th>
+                <th width="8%" align="center">懒到家订单号</th>
+                <th width="8%" align="center">用户名称</th>
+                <th width="8%" align="center">用户手机号</th>
+                <th width="20%" align="center">用户地址</th>
+                <th width="5%" align="center">取件信息</th>
+                <th width="8%" align="center">下单时间</th>
+                <th width="8%" align="center">期望收件时间</th>
+                <th width="10%" align="center">通知状态</th>
+                <th align="center">取件单号</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (@Model.OrderList != null)
+            {
+                int no = 1;
+                foreach (var item in @Model.OrderList)
+                {
+                    <tr target="oid" rel="@item.ID">
+                        <td>@(no++)</td>
+                        <td>@item.OrderNumber</td>
+                        <td>@item.UserName</td>
+                        <td>@item.MPNo</td>
+                        <td>@item.Address</td>
+                        <td>衣物</td>
+                        <td>@UIHelper.FormatDate(item.CompleteTime)</td>
+                        <td>@UIHelper.FormatDate(item.ExpectTime)</td>
+                        @if (item.ExpressStatus == 1)
+                        {
+                            //已经通知过
+                            <td>已通知</td>
+                        }
+                        else
+                        {
+                            //未通知过
+                            <td><input type="button" value="通知快递人员" onclick="callsf(@item.ID);" /></td>
+                        }
+                        <td><input type="text" name="" id="@("txt"+ item.ID)"  /> <input type="button" value="提交单号" onclick="updatesfnumber(@item.ID);"  /></td>
+
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+
+    @Html.Hidden("hdSFNumberUrl", @Url.Action("UpdateSFNumber"))
+    @Html.Hidden("hdCallSFUrl", @Url.Action("CallSF"))
+    <!--分页条-->
+    <div class="panelBar">
+        <script type="text/javascript">
+            $(function () {
+                $("#@Model.SearchInfo.numPerPageName").attr("value", "@Model.SearchInfo.numPerPage");
+            });
+        </script>
+        <div class="pages">
+            <span>显示</span>
+            <select class="combox" id="@Model.SearchInfo.numPerPageName" name="@Model.SearchInfo.numPerPageName" onchange="navTabPageBreak({numPerPage:this.value})">
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+            <span>条，共 @Model.SearchInfo.RecCount 条</span>
+        </div>
+
+        <div class="pagination" targettype="navTab" totalcount="@Model.SearchInfo.RecCount" numperpage="@Model.SearchInfo.numPerPage" pagenumshown="@Model.SearchInfo.pageNumShown" currentpage="@Model.SearchInfo.pageNum"></div>
+    </div>
+</div>
+
+

@@ -1,0 +1,32 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\pidai1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>  建议消费者在冬天才戴皮带,夏天或运动后都容易出汗,能不戴就不戴,若真要配戴也要将汗擦干再戴上,以延长皮表带的使用期限。皮带材质繁多,一般可分鳄鱼皮、蜥蜴皮、鸵鸟皮、鲨鱼皮和小牛皮等,不论哪一种材质配戴久了都会产生臭味,因此确实清洗并保持干燥是皮带保养的不二法门。若表带沾湿了则应立刻以布拭干,若有灰尘亦应以布拂去(若是湿布则需于清洁后擦干)。此外若长时间受太阳照射亦会造成表带变质,也是需要注意的地方。</p> 
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>皮带表不要时时配戴,如有两只表以上可以替换最好。皮质需要呼吸,通风的环境可以延长表带的使用寿命,配戴不同的表(带),不仅可以降低人为损伤的风险,亦可使表带获得充分的休息。<br />当然，如果需要清洗，交给懒到家！</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\pidai2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>  皮带穿带时不宜系得过紧，以免变行。不用时要悬于通风的地方保持干燥，可以用专业清洁油护理。 皮带扣的清洁：时间长了皮带扣的五金会变黑或无光泽，可用醋擦洗之后就光洁如新了。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

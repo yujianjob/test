@@ -1,0 +1,26 @@
+﻿@{
+    //ViewBag.Title = "微信服务";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--内容-->
+<!--活动主体内容 start-->
+<div id="activity-main">
+    <div class="message-banner"></div>
+    <!--微信服务1 start-->
+    <div class="message-lev1">
+        <img src="~/Content/images/message-img.jpg" style="margin-top:60px; " />
+        <div class="txt">
+            <img src="~/Content/images/xyty-img.jpg" style="width:174px; height:34px; display:block; clear:both;margin-left:0px;">
+            <p style="padding-top:20px;">
+                微信独有的一键下单和预约下单功能，让下单操作更加方便、快捷。<br />
+                <b>一键下单</b>  客户只需要填写收送地址即可，无需选取产品，快递收货后会有懒到家专门的客服人员联系确认。<br />
+                <b>预约下单</b>  客户在一键下单操作基础上增加预约上门时间，快递人员会按照客户指定的时间上门收货，让客户更好地把控时间。
+            </p>
+        </div>
+    </div>
+    <!--微信服务1 end-->
+</div>

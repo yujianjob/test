@@ -1,0 +1,55 @@
+﻿【摄像头】======================================================
+参考文章：http://blog.csdn.net/zajin/article/details/9288239
+
+//String str1 = "vfw:Logitech USB Video Camera:0";
+//String str2 = "vfw:Microsoft WDM Image Capture (Win32):0";
+
+1:下载并安装JMF2.1.1e，安装后需重启电脑。
+下载链接http://www.oracle.com/technetwork/java/javase/download-142937.html
+下载后的文件：jmf-2_1_1e-windows-i586.exe
+
+2:设置环境变量
+变量名:JMFHOME，变量值:C:\Program Files\JMF2.1.1e
+变量名:CLASSPATH，变量值(追加):;%JMFHOME%\lib\jmf.jar;%JMFHOME%\lib\sound.jar
+
+3:打开安装好了的JMF，在C:\Program Files\JMF2.1.1e\bin目录下打开“jmfregistry.exe”，选择“Capture Devices” 然后按左下角“Detect Capture Devices”按钮，多按几次，直到左边栏中出现“ vfw:Microsoft
+ WDM Image Capture (Win32):0” ，则说明JMF已经注册了摄像头，到此就可以关闭了。
+
+4:创建java工程，依赖的包中添加%JMFHOME%\lib下的5个jar(customizer.jar、jmf.jar、mediaplayer.jar、multiplayer.jar、sound.jar)
+依赖:
+<dependency>
+	<groupId>javax.media</groupId>
+	<artifactId>jmf</artifactId>
+	<version>2.1.1e</version>
+</dependency>
+
+5:运行MediaTest.java
+
+
+【打印机】=======================================================
+添加jnative.jar到本地maven库
+mvn install:install-file -Dfile=./ext_lib/JNative.jar -DgroupId=org.jnative -DartifactId=JNative -Dversion=1.4-RC3 -Dpackaging=jar
+<dependency>
+	<groupId>org.jnative</groupId>
+	<artifactId>JNative</artifactId>
+	<version>1.4-RC3</version>
+</dependency>
+
+【打印机驱动安装】--------
+出库单打印机驱动：面单打印机驱动zebra\PrnInst.exe
+到打印机页面，打印首选项，
+<1>Stocks小菜单，new一个名称001：Darkness:25,Speed:10.1,LabelWidth:10.80,LabelHeight:25，保存
+<2>Options小菜单，Stocks选001
+<3>Advanced Setup小菜单，点选Thermal Direct
+最后：应用，确定
+
+洗涤条码打印机：水洗条码打印机OS-214plus\SeagullDriver_Argox7.3.4_M3.exe
+<1>讲win64或win32(匹配JDK的版本)下的WinPort.dll和Winppla.dll复制到%JAVA_HOME%\bin目录下
+
+
+
+
+
+
+
+

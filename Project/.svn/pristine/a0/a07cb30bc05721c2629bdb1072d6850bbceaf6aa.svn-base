@@ -1,0 +1,34 @@
+﻿	<div class="productDetail model2">
+		<div class="bigpic"><img src="~/Content/images/yundongku.jpg"/></div>
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="txt">
+				<h2></h2>
+				<p>1、若裤子沾染了附着力很强的污渍，应尽快先去渍，再整件洗涤。不宜长时间放置，否则污渍会浸入棉纤维内部与纤维牢固结合，甚至发生化学反应，形成永久性污渍。 </p> 
+				<p>2、棉织物在长期光照下会逐渐氧化、褪色、变脆、强度下降，所以应避免穿着纯绵衣物长时间在阳光暴晒下活动。  </p> 
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt">
+				<h2></h2>
+				<p>洁净的运动裤，穿着舒适，在运动中更显青春活力。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="txt left">
+				<h2></h2>
+				<p>运动裤很容易浸满汗渍，每次运动完之后就要立即清洗，否则汗渍会发出难闻的臭味儿，几天后说不定面料就开始腐烂了。运动时，人体的毛孔张开，衣物上的污渍会通过张大的毛孔侵入人体，对健康造成威胁。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic02.jpg" /></div>
+
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

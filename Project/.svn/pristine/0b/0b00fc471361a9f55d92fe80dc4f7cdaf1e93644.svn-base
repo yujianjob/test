@@ -1,0 +1,37 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\qianjia1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、保持干燥、存放于通风清凉处。</p>
+				<p>2、切忌曝晒、火烤、水洗、锐物撞击和接触化学溶剂。</p>
+				<p>3、钱夹主要缝合时需要胶水制作,胶水遇水容易融化,所以使用钱夹时尽量不要沾到水,雨天需特别注意。</p>
+				<p>4、可使用碧丽珠或同色鞋油进行护理。</p>
+				<p>5、原则上是一个卡袋只能插一张卡,不能勉强插两张卡,会导致卡袋松弛。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>懒到家，让包包清洗不再难。时尚有你，洁净靠我！</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\qianjia2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>清洁钱夹时，需要根据钱夹的材质来选择清洁刷或干净棉布，这样也是为保证钱夹不会因为错误的清洁方法而受到损害。</p>
+                <p>皮革类钱夹如果使用皮革清洁剂擦拭，一般擦眼镜的拭镜布是便宜又好用的好帮手，不会刮坏钱夹，均匀涂抹就能使钱夹恢复光泽，而清洁尼龙材质包与布面包，可以用不滴水的湿布轻轻按压钱夹表面，除了丝、绸及缎面的包款外，可以尝试牙刷沾上牙膏来做局部清洁。</p>	
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

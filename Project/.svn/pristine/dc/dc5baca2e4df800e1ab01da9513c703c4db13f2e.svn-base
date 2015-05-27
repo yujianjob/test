@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{58AD9110-391A-4CEE-B9FE-05E2EF3146CF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LazyAtHome.WCF.WebService.Business</RootNamespace>
+    <AssemblyName>LazyAtHome.WCF.WebService.Business</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LazyAtHome.Core">
+      <HintPath>D:\CommonDLL\LazyAtHome.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="LazyAtHome.Library.Partners">
+      <HintPath>D:\CommonDLL\LazyAtHome.Library.Partners.dll</HintPath>
+    </Reference>
+    <Reference Include="LazyAtHome.WCF.Common.Contract">
+      <HintPath>D:\CommonDLL\LazyAtHome.WCF.Common.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="LazyAtHome.WCF.Express.Contract">
+      <HintPath>D:\CommonDLL\LazyAtHome.WCF.Express.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="LazyAtHome.WCF.OrderSystem.Contract">
+      <HintPath>D:\CommonDLL\LazyAtHome.WCF.OrderSystem.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="LazyAtHome.WCF.Wash.Contract">
+      <HintPath>D:\CommonDLL\LazyAtHome.WCF.Wash.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\CommonDLL\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Business\Common.cs" />
+    <Compile Include="Business\InternalExpress.cs" />
+    <Compile Include="Business\PR.cs" />
+    <Compile Include="Business\QFExpress.cs" />
+    <Compile Include="Business\SFExpress.cs" />
+    <Compile Include="Business\WashOrder.cs" />
+    <Compile Include="Business\WashProduct.cs" />
+    <Compile Include="Portal\BasePortal.cs" />
+    <Compile Include="Portal\InternalExpressPortal.cs" />
+    <Compile Include="Portal\PRPortal.cs" />
+    <Compile Include="Portal\QFExpressPortal.cs" />
+    <Compile Include="Portal\SFExpressPortal.cs" />
+    <Compile Include="Portal\WashOrderPortal.cs" />
+    <Compile Include="Portal\WashProductPortal.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\LazyAtHome.WCF.WebService.Contract\LazyAtHome.WCF.WebService.Contract.csproj">
+      <Project>{d1bc138d-8508-427c-91da-74b8215edfd8}</Project>
+      <Name>LazyAtHome.WCF.WebService.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LazyAtHome.WCF.WebService.DAL\LazyAtHome.WCF.WebService.DAL.csproj">
+      <Project>{d1c35286-d4b6-4005-9a88-0ce4aecea5e6}</Project>
+      <Name>LazyAtHome.WCF.WebService.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LazyAtHome.WCF.WebService.Interface\LazyAtHome.WCF.WebService.Interface.csproj">
+      <Project>{0b0c2c8f-0207-4ce1-ac9e-8eea1c770e2f}</Project>
+      <Name>LazyAtHome.WCF.WebService.Interface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

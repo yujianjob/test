@@ -1,0 +1,35 @@
+﻿	<div class="productDetail model2">
+		<div class="bigpic"><img src="~/Content/images/tangzhuangku.jpg"/></div>
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="txt">
+				<h2></h2>
+				<p>1、唐装不要和其他衣物混在一起洗，单件洗涤效果比较好。洗涤时间也不宜过久，否则长时间浸泡会损坏面料的质地或造成串色。</p> 
+				<p>2、如果唐装污渍较多，质地较好，最好还是到有一定规模的专业洗衣店清洗。 </p> 
+				<p>3、衣服不穿时，要经常拿出来放在阴凉处通通风。 </p> 
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt">
+				<h2></h2>
+				<p>懒到家，让唐装的真丝织锦缎表面光泽自然柔和，色泽均匀，手感平滑轻柔，自然悬垂。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="txt left">
+				<h2></h2>
+				<p>干燥的丝绸互相磨擦时，会发出清脆悦耳的丝鸣声。相对而言干洗设备，真丝和人造丝的织锦缎唐装原则上应以干洗为主。按面料材质决定洗涤方法，洗后进行专业熨烫，可保持真丝唐装特有的挺括和色泽。因建议把品质好的唐装送到专业干洗店清洗。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic02.jpg" /></div>
+
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

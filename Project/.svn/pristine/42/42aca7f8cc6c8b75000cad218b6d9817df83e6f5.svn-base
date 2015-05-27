@@ -1,0 +1,190 @@
+﻿@{
+    ViewBag.Title = "用户中心";
+}
+
+<section>
+    <div class="userCenter">
+        <form>
+            <label><span>用户名</span> <input type="text" id="txtUserName" name="txtUserName" value="@ViewBag.LoginName" /></label>
+            <label><span>手机号</span><input type="text" id="txtMPNo" name="txtMPNo" value="@ViewBag.MPNo" /></label>
+            <div class="verifycode">
+                <span>验证码</span><input type="text" id="txtVCode" name="txtVCode" style="width:40%" />
+                <button id="btnGetCode" name="btnGetCode" class="getVerifyCode-btn" type="button" onclick="VerifyMobile();">获取</button>
+            </div>
+            <label><span style="letter-spacing:.8em">邮箱</span><input type="text" id="txtEmail" name="txtEmail" value="@ViewBag.Email" /></label>
+            <div class="moneybox">
+                <span style="letter-spacing:.8em">余额</span>
+                <span class="price"><font class="red">￥@ViewBag.Money</font></span>
+                <div style="clear:both"></div>
+                <div class="recharge_cont">
+                    <p>
+                        <input id="txtCardCode" name="txtCardCode" type="text" maxlength="19" style="width:70%" style="float:left">
+                        <button id="btnCZ" name="btnCZ" type="button" class="getVerifyCode-btn" style="width:28%;float:right">充值</button>
+                    </p>
+                </div>
+            </div>
+            <button class="saveUserInfo-btn" type="button">保存</button>
+        </form>
+    </div>
+</section>
+
+
+@section scripts
+{
+    <script type="text/javascript">
+        var OldMPNo = "@ViewBag.MPNo";
+        var checkSmsCode = false;
+        var timer = null;
+
+        $(function () {
+            $(".saveUserInfo-btn").click(function () {
+                if (Check()) {
+                    process();
+                    var postData = { "txtLoginName": txtUserName.value.trim(), "txtNickName": "", "txtMPNo": txtMPNo.value, "txtEmail": txtEmail.value, "txtVCode": txtVCode.value };
+
+                    $.ajax({
+                        type: "post",
+                        url: "@Url.Action("User_UpdateInfo", "Member")",
+                        data: postData,
+                        dataType: "json",
+                        success: function (resultJson) {
+                            removeProcess();
+                            if (resultJson.Code == 1) {                                
+                                showPopDiv("用户信息更新成功！");
+                                $("#txtVCode").val("");
+                            }
+                            else {
+                                showPopDiv(resultJson.Msg);
+                            }
+                        },
+                        error: function (msg) {
+                            alert(msg.responseText.toString());
+                        }
+                    });
+                }
+            });
+
+            $("#btnCZ").click(function () {
+                if (!txtCardCode.value.match("^[0-9a-zA-Z-]{16,19}$")) {
+                    showPopDiv("卡密码格式错误");
+                    return false;
+                }
+
+
+                process();
+                var postData = { "CardPass": txtCardCode.value };
+                $.ajax({
+                    type: "post",
+                    url: "/Member/User_RechargeCard",
+                    data: postData,
+                    dataType: "json",
+                    success: function (resultJson) {
+                        removeProcess();
+                        if (resultJson.Code == 1) {
+                            showPopDiv(resultJson.Msg, true);
+                        }
+                        else {
+                            showPopDiv(resultJson.Msg);
+                        }
+                    },
+                    error: function (msg) {
+                        alert(msg.responseText.toString());
+                    }
+
+                });
+            });
+        });
+
+        function Check() {
+            if (!txtUserName.value.match("^[0-9a-zA-Z_]{4,19}$")) {
+                showPopDiv("请输入5-20位英文、数字登录名。");
+                return false;
+            }
+
+            var rtn = CheckMobile(txtMPNo);
+            if (rtn.code == 0) {
+                showPopDiv(rtn.msg);
+                return false;
+            }
+
+            if (OldMPNo != txtMPNo.value.trim()) {
+                if (!checkSmsCode) {
+                    showPopDiv("请验证手机号！");
+                    return false;
+                }
+                else {
+                    if (!txtVCode.value.match("^[0-9]{6}$")) {
+                        showPopDiv("请输入6位验证码。");
+                        return false;
+                    }
+                }
+            }
+
+            if (txtEmail.value.trim() != "") {
+                var rtn = CheckEmail(txtEmail);
+                if (rtn.code == 0) {
+                    showPopDiv(rtn.msg);
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function VerifyMobile() {
+            if (timer != null)
+                return;
+
+            var rtn = CheckMobile(txtMPNo);
+            if (rtn.code == 0) {
+                showPopDiv(rtn.msg);
+                return false;
+            }
+
+            $("#txtVCode").val("");
+            if (OldMPNo == txtMPNo.value.trim()) {
+                showPopDiv("未更换手机号");
+                return false;
+            }
+
+            process();            
+            var postData = { "mpno": txtMPNo.value.trim() };
+            $.ajax({
+                type: "post",
+                url: "/Member/VerifyMobile",
+                data: postData,
+                dataType: "json",
+                success: function (resultJson) {
+                    removeProcess();
+                    if (resultJson.Code == 1) {
+                        showPopDiv("验证码已发送");
+                        checkSmsCode = true;
+                        daojishi();
+                    }
+                    else {
+                        showPopDiv(resultJson.Msg);
+                    }
+                },
+                error: function (msg) {
+                    alert(msg.toString());
+                }
+            });
+        }
+
+        function daojishi() {
+            var i = 60;
+            if (!timer) {
+                $("#btnGetCode").text(i);
+                $("#btnGetCode").css("background", "#adaaaa");
+                timer = setInterval(function () {
+                    i--;
+                    $("#btnGetCode").text(i);
+                    if (i == -1) {
+                        clearInterval(timer);
+                        timer = null;
+                        $("#btnGetCode").css("background", "#4cc7c8").text("获取");
+                    }
+                }, 1000);
+            }
+        }
+    </script>
+}

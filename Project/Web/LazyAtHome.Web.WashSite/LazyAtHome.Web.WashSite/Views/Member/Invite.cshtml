@@ -1,0 +1,151 @@
+﻿@{
+    //ViewBag.Title = "邀请注册";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--内容-->
+<div id="content">
+    @{Html.RenderPartial("_MemberLeftNav");}
+    <div class="my_content right">
+        <div class="my_contentTitle">我的邀请</div>
+        <div class="inviteBanner">
+            <img src="~/Content/Images/invitebanner.jpg" />
+        </div>
+        <p class="addressShare icnList">
+            <span>1.把地址分享到：</span>
+            <div class="bdsharebuttonbox" data-tag="share_1">
+                <a class="bds_tsina" data-cmd="tsina"></a>
+                <a class="bds_tqq" data-cmd="tqq"></a>
+                <a class="bds_weixin" data-cmd="weixin"></a>
+                <a class="bds_douban" data-cmd="douban"></a>
+                <a class="bds_tieba" data-cmd="tieba"></a>
+                <a class="bds_qzone" data-cmd="qzone" href="#"></a>
+                <a class="bds_renren" data-cmd="renren"></a>
+                <a class="bds_kaixin001" data-cmd="kaixin001"></a>
+                <a class="bds_t163" data-cmd="t163"></a>
+                <a class="bds_ty" data-cmd="ty"></a>
+                <a class="bds_more" data-cmd="more" style="font-size:1.2em">更多</a>
+            </div>
+        </p>
+        <p class="addressShare">
+            <span>2.把地址分享到微博/QQ/论坛上:</span>
+            <input id="shareLink" type="text" value="http://www.landaojia.com/Activities/Bossmad?invitecode=@ViewBag.Code" readonly="readonly" /><input id="copyBtn" data-clipboard-target="shareLink" type="button" value="复制链接" />
+        </p>
+        <div class="inviteTips">
+            <span>3.邀请注册奖励:</span>
+            <p>邀请人将上面的邀请链接复制发送给自己的好友，被邀请人点击邀请链接注册懒到家，成功填写手机号码并验证，即邀请成功；</p>
+            <p>用户只要邀请至少5人成功注册懒到家账户，即可获得懒到家赠送的20元现金奖励，20元奖励可以用于购买懒到家所有的产品服务；</p>
+            <p>奖励的现金通过审核后，系统会自动绑定至用户的账户余额中。</p>
+        </div>
+        <div class="inviteRecord">
+            <ul class="inviteSwitch">
+                <li class="active">近三个月邀请记录</li>
+                <li>三个月前邀请记录</li>
+            </ul>
+            <div class="inviteContent">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th width="25%"></th>
+                            <th width="25%">成功邀请</th>
+                            <th width="25%"></th>
+                            <th>奖励金额</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>@ViewBag.Count</td>
+                            <td></td>
+                            <td>￥@ViewBag.Money.ToString("0.00")</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="inviteContent" style="display:none">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th width="25%"></th>
+                            <th width="25%">成功邀请</th>
+                            <th width="25%"></th>
+                            <th>奖励金额</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>@ViewBag.Count</td>
+                            <td></td>
+                            <td>￥@ViewBag.Money.ToString("0.00")</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        @{Html.RenderAction("MoreWash", "Wash");}
+    </div>
+</div>
+@section scripts
+{
+    <script src="/Scripts/ZeroClipboard.min.js"></script>
+    <script src="/Scripts/gundong.js"></script>
+    <script language="javascript" type="text/javascript">
+        $(function () {
+            //左侧导航
+            $('.my_navList dt').click(function () {
+                $(this).parent().find('dd').slideToggle(200);
+                $(this).toggleClass("my_navList_Top");
+            })
+            //切换
+            $('.my_bangdingTitle .li').click(function () {
+                var li = $(this).index();
+                $('.my_bangdingTitle .li').removeClass('this');
+                $(this).addClass('this');
+                $('.my_bangding .my_dingdanBox').hide();
+                $('.my_bangding .my_dingdanBox').eq(li).show();
+            })
+            //滚动
+            var BOX = $('.cartLuxuryList ul');
+            var HHUM = $('.cartLuxuryList li');
+            var LEFT = $('.cartLuxuryZuo');
+            var RIGHT = $('.cartLuxuryYou');
+            var WIDTH = 184;//单个宽度
+            var PLAY = 5000;//自动播放的时间
+            var SPEED = 500;//切换速度
+            var AOUT = true;//是否自动播放
+            IMG(BOX, LEFT, RIGHT, WIDTH, HHUM, PLAY, SPEED, AOUT);
+
+            $('.cartLuxuryList li').hover(function () {
+                $(this).find('.cartLuxuryListImg').addClass('this');
+            }, function () {
+                $(this).find('.cartLuxuryListImg').removeClass('this');
+            })
+
+            window._bd_share_config = {
+                "common": { "bdSnsKey": {}, "bdText": "脏衣服、脏鞋子、脏窗帘永远洗不完求解脱~还好懒到家线上洗衣服务火速来袭，用最少的钱得到最优质的服务，一键下单，坐等顺丰上门收衣，48小时内完成专业洗涤服务，从此不再受洗衣困扰。哈哈，神马干洗店都成浮云了~选择懒到家做精致的懒人~萌萌哒。", "bdMini": "1", "bdMiniList": false, "bdPic": "http://www.landaojia.com/content/images/wbxc-2-2.jpg", "bdStyle": "0", "bdSize": "16", "bdUrl": $("#shareLink").val() },
+                "share": { "tag": "share_1", "bdSize": 24 }
+            }
+            with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion=' + ~(-new Date() / 36e5)];
+
+            var clip = new ZeroClipboard($("#copyBtn"), {
+                moviePath: "/Scripts/ZeroClipboard.swf"
+            });
+
+            clip.on('complete', function (client, args) {
+                alert("复制成功: " + args.text);
+            });
+        })
+
+        $(".inviteSwitch li").each(function (i) {
+            $(this).click(function () {
+                $(".inviteSwitch li").removeClass("active");
+                $(".inviteSwitch li").eq(i).addClass("active");
+                $(".inviteRecord .inviteContent").hide();
+                $(".inviteRecord .inviteContent").eq(i).show();
+            });
+        });
+    </script>
+}

@@ -1,0 +1,51 @@
+﻿@model LazyAtHome.WCF.OrderSystem.Contract.DataContract.Order_OrderDC
+@{
+    ViewBag.Title = "订单详情";
+}
+
+@{decimal totalMoney = 0;}
+<section>
+    <div class="orderDetail">
+        <h2>订单编号：<br><font class="red lg">@Model.OrderNumber</font></h2>
+        <div class="shInfo">
+            <span>收货人信息</span>
+            <p>
+                收货人：@Model.GetAddress.Consignee<br>
+                地址：@Model.GetAddress.Address<br>
+                手机号码：@Model.GetAddress.Mpno<br>
+                下单时间：@Model.Obj_Cdate.Value.ToString()
+            </p>
+        </div>
+        <div class="proInfo">
+            <legend>产品信息：</legend>
+            <table cellpadding="0" cellspacing="0" border="0" class="proListTable">
+                <thead><tr><th width="30%">名称</th><th width="25%">单价</th><th width="20%">数量</th><th width="25%">小计(元)</th></tr></thead>
+                <tbody>
+                    @foreach (LazyAtHome.Web.WeiXin4.Models.ProductItemModel pItem in ViewBag.ProductList)
+                    {
+                        <tr><td width="30%">@pItem.ProductInfo.Name</td><td width="25%">￥@pItem.ProductInfo.Price</td><td width="20%">@(pItem.Count)件</td><td width="25%" class="price">￥@(pItem.ProductInfo.Price * pItem.Count)</td></tr>
+                        totalMoney += pItem.ProductInfo.Price * pItem.Count;
+                    }
+                </tbody>
+            </table>
+            <p>
+                合计：￥@totalMoney<br>
+                @foreach (var amount in Model.AmountList)
+                {
+                    @(amount.Content + "：￥" + @amount.Money)<br />
+                }
+                @foreach (var payment in Model.PaymentList)
+                {
+                    @(UIHelper.ConvertPayMoneyType(payment.PayMoneyType) + "：￥-" + payment.PayMoney)<br />
+                }
+                应付金额：<font class="red lg"><b>￥@(Model.TotalAmount - Model.PayAmount)</b></font>
+            </p>
+        </div>
+        <div class="addModifyGroup">
+            @if ((Model.TotalAmount - Model.PayAmount > 0) && (Model.OrderStatus == 1 || Model.OrderStatus == 2) && Model.Step < 7)
+            {
+                <button class="" type="button" onclick="location.href='/Payment/Show?OrderNum=@(Model.OrderNumber)'">支付</button>
+            }
+        </div>
+    </div>
+</section>

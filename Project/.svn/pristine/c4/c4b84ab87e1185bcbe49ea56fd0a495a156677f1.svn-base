@@ -1,0 +1,511 @@
+﻿@model LazyAtHome.Web.WashSite.Models.User.UserInfo
+@{
+    //ViewBag.Title = "活动订单确认";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--内容-->
+<div id="content">
+    <div id="cartTitle" class="cartTitle">提交订单<img src="~/Content/Images/cartTitle_02.gif" /></div>
+    <div class="cartSubmit">
+        <table width="998" border="0" cellspacing="0" cellpadding="0">
+            <tr class="bt">
+                <td colspan="2" align="left">地址选择</td>
+                <td colspan="4" align="right"><a href="/Member/ReceiptGoods" target="_blank">管理收货地址</a></td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <ul class="dizhi">
+                        @foreach (LazyAtHome.WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC item in ViewBag.AddressList)
+                        {
+                            <li><input id="dizhi" name="dizhi" type="radio" value="@item.ID" @UIHelper.CheckBoxDefault(item.IsDefault) />@item.Consignee<span>-</span>@(item.DistrictName + item.Address)<span>-</span>@item.MPNo</li>
+                        }
+                    </ul>
+                </td>
+            </tr>
+            <tr class="cartListTitle cartSubmitBorderNo">
+                <td align="center"><p class="addDzInput"><input name="dizhi" type="radio" value="" id="addDizhi" /></p></td>
+                <td colspan="5" align="left"><p>添加新地址</p></td>
+            </tr>
+            <tr>
+                <td colspan="6" class="addDizhi">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td align="right"><span>*</span>收货人姓名</td>
+                            <td colspan="3"><input id="txtConsignee" name="txtConsignee" type="text" class="addDizhiText" value="" size="25" maxlength="25" /><span id="msgConsignee" style="padding-left:10px"></span></td>
+                        </tr>
+                        <tr>
+                            <td align="right"><span>*</span>省市区</td>
+                            <td colspan="3">
+                                <select>
+                                    <option selected="selected" value="上海市">上海市</option>
+                                </select>
+                                <select>
+                                    <option selected="selected" value="上海市">上海市</option>
+                                </select>
+                                <select name="txtDistrictID" id="txtDistrictID">
+                                    <option selected="selected" value="310101">黄浦区</option>
+                                    <option value="310104">徐汇区</option>
+                                    <option value="310105">长宁区</option>
+                                    <option value="310106">静安区</option>
+                                    <option value="310107">普陀区</option>
+                                    <option value="310108">闸北区</option>
+                                    <option value="310109">虹口区</option>
+                                    <option value="310110">杨浦区</option>
+                                    <option value="310112">闵行区</option>
+                                    <option value="310113">宝山区</option>
+                                    <option value="310114">嘉定区</option>
+                                    <option value="310115">浦东新区</option>
+                                    <option value="310116">金山区</option>
+                                    <option value="310117">松江区</option>
+                                    <option value="310118">青浦区</option>
+                                    <option value="310120">奉贤区</option>
+                                    <option value="310230">崇明县</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right"><span>*</span>收件地址</td>
+                            <td colspan="3"><input id="txtAddress" name="txtAddress" type="text" class="addDizhiText" size="60" /><span id="msgAddress" style="padding-left:10px"></span></td>
+                        </tr>
+                        <tr>
+                            <td align="right">邮编</td>
+                            <td colspan="3"><input id="txtZipCode" name="txtZipCode" type="text" class="addDizhiText" size="26" /><span id="msgZipCode" style="padding-left:10px"></span></td>
+                        </tr>
+                        <tr>
+                            <td width="90" align="right"><span>*</span>手机号码</td>
+                            <td colspan="3"><input id="txtMPNo" name="txtMPNo" type="text" class="addDizhiText" size="26" /><span id="msgMPNo" style="padding-left:10px"></span></td>
+                        </tr>
+                        <tr>
+                            <td align="right">设为默认</td>
+                            <td colspan="3"> <input id="txtIsDefault" name="txtIsDefault" type="checkbox" class="addDizhiText" size="26" checked="checked" /></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td colspan="3"><input name="" type="button" class="addDizhiButton" onclick="SaveAddress()" /></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="bt">
+                <td colspan="2" align="left">干洗清单</td>
+                <td colspan="4" align="right"><a href="/Cart"><img src="~/Content/Images/fanhui.gif" /></a></td>
+            </tr>
+            <tr class="cartListTitle">
+                <td width="60"><p>&nbsp;</p></td>
+                <td width="95"><p>服务产品</p></td>
+                <td width="468"><p>&nbsp;</p></td>
+                <td width="125" align="center"><p>单价</p></td>
+                <td width="125" align="center"><p>数量</p></td>
+                <td width="125" align="center"><p>小计</p></td>
+            </tr>
+            @foreach (var p in Model.ActiveCart.ProductList)
+            {
+                <tr>
+                    <td>　</td>
+                    <td><a href="#"><img src="@p.ProductInfo.PictureM" class="cartListImg" /></a></td>
+                    <td><a href="#"><h3>@p.ProductInfo.Name</h3>@p.ProductInfo.WebName</a></td>
+                    <td align="center"><b>￥@p.ProductInfo.MarketPrice.ToString("0.00")</b></td>
+                    <td align="center" style="font-size:16px">@p.Count</td>
+                    <td align="center"><b>￥@((p.ProductInfo.MarketPrice * p.Count).ToString("0.00"))</b></td>
+                </tr>
+            }
+            <tr>
+                <td colspan="6" align="right">
+                    <div class="jiage">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td><span>@Model.ActiveCart.TotalCount</span>件商品，总商品金额：</td>
+                                <td width="85">¥@Model.ActiveCart.TotalPrice.ToString("0.00")</td>
+                            </tr>
+                            <tr id="trFreight">
+                                <td>运费：</td>
+                                <td>¥0.00</td>
+                            </tr>
+                            <tr>
+                                <td>活动优惠：</td>
+                                <td>¥-@Model.ActiveCart.SalePrice.ToString("0.00")</td>
+                            </tr>
+                            <tr>
+                                <td>应付总额：</td>
+                                <td><span id="showSubPayMoney">¥@Model.ActiveCart.PayPrice.ToString("0.00")</span></td>
+                                </trid>
+                        </table>
+                    </div>
+                    <div class="yhq">
+                        <ul>
+                            <li>
+                                <span><input id="cbBalance" name="cbBalance" type="checkbox" onclick="ChangePayInfo(this, 1)" />使用余额  (本次使用余额：<span id="showBalance">0.00</span>元 账户可用余额：@(Model.User.Money)元)</span>
+                            </li>
+                            <li>
+                                <p><span>使用优惠券抵消部分总额</span></p>
+                                <dl class="jifen">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td>
+                                                <b>我可以使用的优惠券</b>
+                                                <span style="margin-left:20px;">
+                                                    <select name="useCoupon" id="useCoupon" onchange="ChangePayInfo(this,3)">
+                                                        <option value="0" selected="selected">不使用</option>
+                                                        @if (ViewBag.CouponList != null)
+                                                        {
+                                                            foreach (LazyAtHome.WCF.UserSystem.Contract.DataContract.User_CouponDC item in ViewBag.CouponList)
+                                                            {
+                                                                <option value="@item.ID">@item.Name 有效期:@item.UseEndDate.ToString("yyyy-MM-dd")</option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </dl>
+                            </li>
+                            <li>
+                                <p><span>懒人卡</span></p>
+                                <dl class="jifen">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td colspan="10" style="line-height:14px;"><b>使用懒人卡支付</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="160">请输入您手中懒人卡的密码：</td>
+                                            <td width="80"><input id="pw1" name="pw1" type="text" class="srk" maxlength="4" onkeyup="FuncCheckPass(this)" /></td>
+                                            <td width="8" align="center">-</td>
+                                            <td width="80"><input id="pw2" name="pw2" type="text" class="srk" maxlength="4" onkeyup="FuncCheckPass(this)" /></td>
+                                            <td width="8" align="center">-</td>
+                                            <td width="80"><input id="pw3" name="pw3" type="text" class="srk" maxlength="4" onkeyup="FuncCheckPass(this)" /></td>
+                                            <td width="8" align="center">-</td>
+                                            <td width="80"><input id="pw4" name="pw4" type="text" class="srk" maxlength="4" onkeyup="FuncCheckPass(this)" /></td>
+                                            <td width="56"><input name="" type="button" class="anniu" onclick="FuncBindCard()" /></td>
+                                            <td>密码只包含数字0-9，大写字母A-F</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="10" class="jifenBorder"><b>已绑定的懒人卡：</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="10">
+                                                <div class="jifenBiaoge">
+                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr class="jifenBiaogeTitle">
+                                                            <td>使用</td>
+                                                            <td>卡号</td>
+                                                            <td>面值</td>
+                                                            <td>本次使用</td>
+                                                            <td>余额</td>
+                                                            <td>有效期</td>
+                                                            <td>类型</td>
+                                                        </tr>
+                                                        @foreach (LazyAtHome.WCF.UserSystem.Contract.DataContract.User_CardDC item in ViewBag.CardList)
+                                                        {
+                                                            <tr>
+                                                                <td><input type="checkbox" value="@item.ID" onclick="ChangePayInfo(this, 2)" /></td>
+                                                                <td>@item.Number</td>
+                                                                <td>@item.Money</td>
+                                                                <td id="cu-@item.ID">0.00</td>
+                                                                <td>@item.Balance</td>
+                                                                <td>@item.ExpiryDate.ToShortDateString()</td>
+                                                                <td>懒人卡</td>
+                                                            </tr>
+                                                        }
+
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="10" class="jifenBorder">共使用了<span>0</span>张懒人卡可以优惠<span>0.00</span>元</td>
+                                        </tr>
+                                    </table>
+                                </dl>
+                            </li>
+                            <li>
+                                <p><span>订单备注</span></p>
+                                <dl>
+                                    <dt><textarea id="txtRemark" name="txtRemark" cols="" rows=""></textarea></dt>
+                                </dl>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tijiao">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td>应付总额：<span id="showPayMoney">￥@Model.ActiveCart.PayPrice</span></td>
+                                <td width="155"><input name="" type="submit" value="" onclick="return formSubmit()" /></td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+@section scripts
+{
+    <script language="javascript" type="text/javascript">
+        var payMoney = 0;//应付总额
+        $(function () {
+            radioClick();
+            //优惠券
+            $('.cartSubmit .yhq p').click(function () {
+                $(this).parent().find('dl').slideToggle(200);
+                $(this).toggleClass('this');
+            });
+            ChangePayInfo(null, -1);
+        });
+
+        function FuncCheckPass(obj) {
+            if (!obj.value.match("^[0-9a-fA-F]{1,4}$"))
+                obj.value = obj.value.substr(0, obj.value.length - 1).toUpperCase();
+            else
+                obj.value = obj.value.toUpperCase();
+            if (obj.value.length == 4) {
+                switch (obj.name) {
+                    case "pw1":
+                        pw2.focus();
+                        break;
+                    case "pw2":
+                        pw3.focus();
+                        break;
+                    case "pw3":
+                        pw4.focus();
+                        break;
+                }
+            }
+        }
+
+        function ChangePayInfo(obj, type) {
+
+            var cardid = 0;
+            var opera = 1;
+
+            if (type != -1) {
+                if (obj.checked) {
+                    opera = 1;
+                }
+                else
+                    opera = 0;
+
+                if (type == 2) {
+                    cardid = obj.value;
+                }
+                else if (type == 3)
+                    cardid = useCoupon.value;
+            }
+
+            var postData = { "payType": type, "cardid": cardid, "opera": opera, "source": 1 };
+
+
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("CalcuPayMoney", "Member")",
+                data: postData,
+                dataType: "json",
+                success: ProcessPayChange,
+                error: function (msg) {
+                    alert(msg.toString());
+                }
+            });
+        }
+
+        function ProcessPayChange(resultJson) {
+            if (resultJson != null) {
+                if (resultJson.Code == 1) {
+                    payMoney = resultJson.Pay;
+                    $("#showPayMoney").html("￥" + payMoney.toFixed(2));
+                    $("#showSubPayMoney").html("￥" + payMoney.toFixed(2));
+                    $("#trBalance").remove();
+                    $("#trCardPay").remove();
+                    $("#trCouponPay").remove();
+                    $("#trCharterSale").remove();
+
+                    if (resultJson.Balance == 0) {
+                        $("#showBalance").html("0.00");
+                    }
+                    else {
+                        $("#showBalance").html(resultJson.Balance.toFixed(2));
+                        $("#trFreight").after("<tr id='trBalance'><td>余额支付：</td><td>-¥" + resultJson.Balance.toFixed(2) + "</td></tr>");
+                    }
+
+                    if (resultJson.CardPay != 0) {
+                        $("#trFreight").after("<tr id='trCardPay'><td>懒人卡支付：</td><td>-¥" + resultJson.CardPay.toFixed(2) + "</td></tr>");
+                    }
+
+                    if (resultJson.CouponPay != 0) {
+                        $("#trFreight").after("<tr id='trCouponPay'><td>优惠券抵扣：</td><td>-¥" + resultJson.CouponPay.toFixed(2) + "</td></tr>");
+                    }
+
+                    if (resultJson.CharterSale != 0) {
+                        $("#trFreight").after("<tr id='trCharterSale'><td>创始会员八折优惠：</td><td>-¥" + resultJson.CharterSale.toFixed(2) + "</td></tr>");
+                    }
+
+                    for (var i = 0; i < resultJson.CardList.length; i++) {
+                        $("#cu-" + resultJson.CardList[i].Text).html(resultJson.CardList[i].Value);
+                    }
+                }
+                else {
+                    if (resultJson.Balance != 100)
+                        alert(resultJson.Msg);
+                }
+            }
+        }
+
+        function FuncBindCard() {
+            if (pw1.value.length != 4) {
+                pw1.focus();
+                return false;
+            }
+
+            if (pw2.value.length != 4) {
+                pw2.focus();
+                return false;
+            }
+
+            if (pw3.value.length != 4) {
+                pw3.focus();
+                return false;
+            }
+
+            if (pw4.value.length != 4) {
+                pw4.focus();
+                return false;
+            }
+
+            var sPass = pw1.value + pw2.value + pw3.value + pw4.value;
+            var postData = { "cardPass": sPass };
+
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("User_BindCard", "Member")",
+                data: postData,
+                dataType: "json",
+                success: ProcessCardBind,
+                error: function (msg) {
+                    alert(msg.toString());
+                }
+            });
+        }
+
+        function ProcessCardBind(resultJson) {
+            if (resultJson != null) {
+                if (resultJson.Code == 1) {
+                    $(".jifenBiaogeTitle").after("<tr cardid='" + resultJson.CardID + "'><td><input type='checkbox' value='" + resultJson.CardID + "' onclick='ChangePayInfo(this, 2)' /></td><td>" + resultJson.Number + "</td><td>" + resultJson.Money.toFixed(2) + "</td><td>0</td><td>" + resultJson.Balance.toFixed(2) + "</td><td>" + resultJson.ExpiryDate + "</td><td>" + resultJson.CardType + "</td></tr>");
+                }
+                else {
+                    alert(resultJson.Msg);
+                }
+            }
+        }
+
+        function formSubmit() {
+
+            var addressID = $('input:radio:checked').val();
+            if (addressID == null) {
+                alert("请选择收货地址");
+                return false;
+            }
+
+            var postData = { "address": addressID, "remark": txtRemark.value.trim() };
+
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("SubmitProcess", "Activities")",
+                data: postData,
+                dataType: "json",
+                success: function (resultJson) {
+                    if (resultJson.Code == 1) {
+                        window.location.href = resultJson.TagUrl;
+                    }
+                    else
+                        alert(resultJson.Msg);
+                },
+                error: function (msg) {
+                    alert(msg.toString());
+                }
+            });
+        }
+
+        function SaveAddress() {
+            $("#msgConsignee").html("");
+            $("#msgAddress").html("");
+            $("#msgZipCode").html("");
+            $("#msgMPNo").html("");
+            if (!txtConsignee.value.trim().match("^[\u4E00-\u9FA5A-Za-z0-9 ]+$")) {
+                $("#msgConsignee").html("收件人姓名输入有误，请重新输入");
+                txtConsignee.focus();
+                return false;
+            }
+
+            if (!txtAddress.value.trim().match("^[\u4E00-\u9FA5A-Za-z0-9_]+$")) {
+                $("#msgAddress").html("收件地址输入有误，请重新输入");
+                txtAddress.focus();
+                return false;
+            }
+
+            if (txtZipCode.value.trim() != "")
+                if (!txtZipCode.value.trim().match("^[0-9]{6}$")) {
+                    $("#msgZipCode").html("邮编应为6位数字");
+                    txtZipCode.focus();
+                    return false;
+                }
+
+            if (!$("#txtMPNo").val().match(/^0?(13[0-9]|15[012356789]|18[0-9]|14[57])[0-9]{8}$/)) {
+                $("#msgMPNo").html("手机号码格式不正确！");
+                txtMPNo.focus();
+                return false;
+            }
+
+            var bDefalut = 1;
+            if (!txtIsDefault.checked)
+                bDefalut = 0;
+
+            var postData = { "consignee": txtConsignee.value, "districtID": txtDistrictID.value, "address": txtAddress.value, "mpno": txtMPNo.value, "zipcode": txtZipCode.value, "isdefault": bDefalut };
+
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("User_AddressAdd", "Member")",
+                data: postData,
+                dataType: "json",
+                success: ProcessData,
+                error: function (msg) {
+                    alert(msg.toString());
+                }
+            });
+        }
+
+        function ProcessData(resultJson) {
+            if (resultJson != null) {
+                if (resultJson.Code == 1) {
+                    $(".dizhi").append("<li><input name='dizhi' type='radio' value='" + resultJson.Msg + "' />" + txtConsignee.value + "<span>-</span>上海市市辖区" + $("#txtDistrictID option:selected").text() + txtAddress.value + "<span>-</span>" + txtMPNo.value + "</li>");
+                    $(".dizhi input:last").get(0).checked = true;
+                    $('.addDizhi').hide();
+                    radioClick();
+                    txtConsignee.value = "";
+                    txtDistrictID.selectedIndex = 0;
+                    txtAddress.value = "";
+                    txtMPNo.value = "";
+                    txtZipCode.value = "";
+                    txtIsDefault.checked = true;
+                }
+                else
+                    alert(resultJson.Msg);
+            }
+            //var strData = JSON.stringify(data);
+            //$("#resultbox").val(strData);
+        }
+
+        function radioClick() {
+            $('input[name=dizhi]').click(function () {
+                var att = $(this).attr('id');
+                if (att == 'addDizhi') {
+                    $('.addDizhi').show();
+                } else {
+                    $('.addDizhi').hide();
+                }
+            });
+        }
+    </script>
+}

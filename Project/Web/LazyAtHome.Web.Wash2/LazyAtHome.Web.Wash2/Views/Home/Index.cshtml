@@ -1,0 +1,294 @@
+﻿@{
+    ViewBag.Title = "懒到家生活服务";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>@ViewBag.Title</title>
+    <meta name="keywords" content="@ViewBag.Keywords" />
+    <meta name="description" content="@ViewBag.Description" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="Shortcut icon" href="/img/landaojia.ico" type="image/x-icon" />
+    <link href="/Content/bootstrap.css" rel="stylesheet">
+    <link href="/Content/ldj.css" media="screen" rel="stylesheet">
+    <script src="/Scripts/jquery-2.1.1.js"></script>
+    <script src="/Scripts/judgePlatform.js"></script>
+
+</head>
+<body>
+    @*<div class="how-it-works">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-md-7">
+                    <div class="logo">
+                        <img src="/img/home-logo.png" alt="">
+                    </div>
+                    <h2>足不出户 坐享洁净</h2>
+                    <p>懒是一种生活品质 懒是一种生活态度</p>
+                    <p>
+                        <a class="btn btn-lg btn-primary btn-shadow bs3-link" href="/wash" role="button" onclick="ga('send','event','首页','开始体验','首页_列表');">开始体验</a>
+                    </p>
+                    <span class="hr">◆</span>
+
+                    <div style="margin-top:30px">
+                        <a href="/Member/Login" onclick="ga('send','event','首页','登录','首页_列表');" class="btn btn-danger btn-lg" style="background:#ff586c;margin-right:20px">登录</a>
+                        <a href="/Member/Reg" onclick="ga('send','event','首页','注册','首页_列表');" class="btn btn-danger btn-lg" style="background:#ff586c">注册</a>
+                    </div>
+                </div>
+                <div class="col-md-5 hidden-xs">
+                    <img src="/img/welcome-phone-3.png">
+                </div>
+            </div>
+        </div>
+    </div>*@
+    <style type="text/css">
+
+@@media screen and (max-width:767px){
+	.tabs li{width:48%;height:50px; line-height:50px; text-align:center;}
+		.tabs li:nth-of-type(1){float:left;background:-moz-linear-gradient(top,#b6d731,#98c923);/*Mozilla*/background: -webkit-gradient(linear,center top,center bottom,from(#b6d731), to(#98c923));
+	-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;}
+		.tabs li:nth-of-type(2){float:right;background:-moz-linear-gradient(top,#fea43d,#fe8b3b);/*Mozilla*/background: -webkit-gradient(linear,center top,center bottom,from(#fea43d), to(#fe8b3b));
+	-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;}
+	.app_cont{width:100%;margin:20px auto;height:240px;}
+
+}
+@@media screen and (min-width:767px){
+	#appBox{width:400px;margin:20px auto}
+	.tabs li{width:45%;height:50px; line-height:50px; text-align:center;}
+		.tabs li:nth-of-type(1){float:left;margin-left:0%;display:inline;background:-moz-linear-gradient(top,#b6d731,#98c923);/*Mozilla*/background: -webkit-gradient(linear,center top,center bottom,from(#b6d731), to(#98c923));
+	-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;}
+		.tabs li:nth-of-type(2){float:right;background:-moz-linear-gradient(top,#fea43d,#fe8b3b);/*Mozilla*/background: -webkit-gradient(linear,center top,center bottom,from(#fea43d), to(#fe8b3b));
+	-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;}
+	.app_cont{width:100%;margin-top:20px;height:240px;}
+}
+.how-it-works{
+	padding:1em 0em;
+}
+.tabs {list-style:none;padding:0;margin:0}
+.tabs li:nth-of-type(1) > span{cursor:pointer; display:block; background:url(/img/androidIcn.png) no-repeat 10px center, url(/img/androidIcnarrow.png) no-repeat 90% center}
+.tabs li:nth-of-type(2) > span{cursor:pointer; display:block; background:url(/img/iphoneIcn.png) no-repeat 10px center, url(/img/iphoneIcnarrow.png) no-repeat 90% center}
+
+.how-it-works .logo{margin-top:10px}
+#appBox > img{float:left;width:48%;height:10%}
+    </style>
+
+
+
+    <div class="how-it-works">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-md-7">
+                    <div class="logo">
+                        <img src="/img/home-logo.png" alt="">
+                    </div>
+                    <h2><img src="/img/adtext1.png"></h2>
+                    <p>懒是一种生活品质 懒是一种生活态度</p>
+                    <p>
+                        
+                    </p>
+                    <span class="hr">◆</span>
+                    <h3><img src="/img/download.png"></h3>
+                    <div style="margin-top:20px" id="appBox">
+                        @*<img src="/img/androidIcn.png" style="cursor:pointer">
+                        <img src="/img/iphoneIcn.png" style="cursor:pointer">*@
+                        <ul class="tabs">
+                            <li><span>Android</span></li>
+                            <li><span>iPhone</span></li>
+                        </ul>
+                        <div style="clear:both"></div>
+
+                        <div class="app_cont">
+                            <span class="arrow"></span>
+                            <div id="android_func">
+                                <p class="weixin" style="display:none">方法一：<a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.lazyathome.wash">本地下载</a></p>
+                                @*<p class="weixin" style="display:none">方法一：请点击右上角按钮用浏览器打开</p>*@
+                                <p class="mobile" style="display:none">方法一：<a href="/M/Android">本地下载</a></p>
+                                <p class="pc" style="display:none">方法一：<a href="/M/Android">本地下载</a></p>
+                            </div>
+                            <!--<p><span>方法三：手机扫描二维码下载</span><img src="img/qrcode.png">
+                            <span style="padding-left:50px;display:inline">（或手机浏览器输入<em style="font-size:12px">http://android.dianping.com/m</em><br>下载）</span>
+                            </p>-->
+                        </div>
+                        <div class="app_cont" style="display:none">
+                            <span class="arrow"></span>
+                            <div id="IOS_func">
+                                @*<p>方法一：<a href="javascript:void(0)" ontouchend="window.open('https://itunes.apple.com/cn/app/id923806169?mt=8#')">去appstore下载</a></p>*@
+                                <p class="weixin" style="display:none">方法一：<a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.lazyathome.wash">去appstore下载</a></p>
+                                @*<p class="weixin" style="display:none">方法一：请点击右上角按钮用浏览器打开</p>*@
+                                <p class="mobile" style="display:none">方法一：<a href="https://itunes.apple.com/cn/app/id923806169">去appstore下载</a></p>
+                                <p class="pc" style="display:none">方法一：<a href="https://itunes.apple.com/cn/app/id923806169">去appstore下载</a></p>
+                            </div>
+                            <p><span>方法二：手机扫描二维码下载</span><img src="/img/ios_applink.png"></p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 hidden-xs hidden-sm">
+                    <img src="/img/welcome-phone-3.png">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $("html,body").scrollTop(0);
+        $(".app_cont").hide();
+        var len = $("#appBox > ul li").length;
+        $("#appBox > ul > li").each(function (i) {
+            this.addEventListener("click", function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+
+                if (i == 1) {
+                    $(".app_cont .arrow").css("left", "78%");
+                }
+                else {
+                    $(".app_cont .arrow").css("left", "28%");
+                }
+
+                setTimeout(function () {
+                    $("html,body").animate({ scrollTop: 300 }, 100);
+                    $(".app_cont").hide();
+                    $(".app_cont").eq(i).show();
+                }, 300);
+            }, false);
+        });
+        $(".app_cont").each(function () {
+            this.addEventListener("click", function (e) {
+                e.stopPropagation();
+                //e.preventDefault();
+            }, false);
+        });
+
+        document.body.addEventListener("click", function (e) {
+            //e.stopPropagation();
+            //e.preventDefault();
+            $(".app_cont").hide();
+            $("html,body").scrollTop(0);
+        }, false);
+
+
+
+        var ua = navigator.userAgent.toLowerCase();
+        if (ua.match(/MicroMessenger/i) == "micromessenger") {
+            $(".weixin").show();
+            $(".mobile").hide();
+            $(".pc").hide();
+        }
+        else if (browser.versions.android || browser.versions.iPhone || browser.versions.iPad || browser.versions.ios) {
+            $(".mobile").show();
+            $(".weixin").hide();
+            $(".pc").hide();
+        }
+        else {
+            $(".pc").show();
+            $(".weixin").hide();
+            $(".mobile").hide();
+
+        }
+
+    </script>
+
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?50d822098117c168e76087307f518797";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+
+
+
+
+
+    <style>
+        #popdiv {
+            padding: 0px 0px;
+            border: 1px solid #9c9c9c;
+        }
+
+            #popdiv p {
+                line-height: 22px;
+                padding: 10px;
+            }
+
+            #popdiv > span {
+                width: 100%;
+                height: 25px;
+                line-height: 25px;
+                cursor: pointer;
+                padding-right: 10px;
+                background: #4CC7C8;
+                color: white;
+                text-align: right;
+            }
+    </style>
+    <script>
+        function hidePopdiv() {
+            $("#popdiv").hide();
+        }
+    </script>
+    <div style="position:fixed; width:245px; height:180px; background:white; right:20px; bottom:20px; z-index:1000" id="popdiv">
+        <span style="display:block;float:right" onclick="hidePopdiv();">关闭</span>
+        <div style="clear:both"></div>
+        <p style="display:block; text-indent:25px">
+            懒到家现进行网点整合，新开网点正在急速增长中，如您所在区域无法下单，还望亲耐心等待，我们会尽快开通未覆盖区域，为您带来更为优质的洗衣服务。
+        </p>
+    </div>
+
+
+
+
+
+
+    <!-- Google Tag Manager -->
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-K339PZ"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+            '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-K339PZ');
+    </script>
+
+    @*<script>
+        $("html,body").scrollTop(0);
+        $(".app_cont").hide();
+        $(".app_cont p a,.app_cont").click(function (event) {
+            event.stopPropagation();
+        });
+        var len = $("#appBox > img").length;
+        $("#appBox > img").each(function (i) {
+            $(this).click(function (e) {
+                e.stopPropagation();
+                $("html,body").animate({ scrollTop: 300 }, 100);
+                if (i == 1) {
+                    $(".app_cont .arrow").css("left", "78%");
+                }
+                else {
+                    $(".app_cont .arrow").css("left", "28%");
+                }
+                $(".app_cont").hide();
+                $(".app_cont").eq(i).show();
+            });
+        });
+        $(document).click(function () {
+            $(".app_cont").hide();
+            $("html,body").scrollTop(0);
+        });
+    </script>*@
+</body>
+</html>

@@ -1,0 +1,271 @@
+﻿@model LazyAtHome.Web.SFSupport.Models.RegisterSourceConfig.AccountListModel
+
+<!--报错信息-->
+@Html.Raw(ViewBag.Script)
+
+<!--搜索条-->
+@*<div class="pageHeader">*@
+<div class="pageContent">
+    <form id="searchForm" onsubmit="return navTabSearch(this);" action="@Url.Action("SearchAccount")" method="post">
+
+
+        <div id="search" class="panel">
+            <h1>搜索</h1>
+            <div class="searchBar">
+                <table class="searchContent">
+                    <tr>
+                        <td>
+                            推广编号：
+                            <input type="text" name="internalkey" value="@Model.SearchInfo.InternalKey" />
+                        </td>
+                        <td>创建日期：</td>
+                        <td>
+                            @{
+                                var DateFrom = "";
+                                if (Model.SearchInfo.DateFrom != null)
+                                {
+
+                                    DateFrom = Convert.ToDateTime(Model.SearchInfo.DateFrom).ToString("yyyy-MM-dd");
+                                }
+                                var DateTo = "";
+                                if (Model.SearchInfo.DateTo != null)
+                                {
+
+                                    DateTo = Convert.ToDateTime(Model.SearchInfo.DateTo).ToString("yyyy-MM-dd");
+                                }
+                            }
+
+                            <input type="text" id="txtFrom" name="DateFrom" value="@DateFrom" class="date" />
+                            至
+                            <input type="text" id="txtTo" name="DateTo" value="@DateTo" class="date" />
+                        </td>
+                    </tr>
+                </table>
+                <div class="subBar">
+                    <ul>
+                        <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+                        @*<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>*@
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+
+
+<div class="pageContent">
+    <!--功能按键-->
+    @*<div class="panelBar">
+            <ul class="toolBar">
+                <li><a class="add" href="@Url.Action("EditRegisterSourceConfig")?rid=0" target="navTab" rel="registersourceconfigedit" title="添加推广配置"><span>添加</span></a></li>
+                <li><a class="delete" href="@Url.Action("DeleteRegisterSourceConfig")?rid={rid}" target="ajaxTodo" title="确定要删除吗?"><span>删除</span></a></li>
+                <li><a class="edit" href="@Url.Action("EditRegisterSourceConfig")?rid={rid}" target="navTab" rel="registersourceconfigedit" title="查看推广配置"><span>查看</span></a></li>
+                <li class="line">line</li>
+                <li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targettype="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>
+            </ul>
+        </div>*@
+    @if (@Model.AccountJob != null)
+    {
+        <div id="totaljob" class="panel">
+            <h1>统计汇总</h1>
+            <div>
+                <table class="table" width="100%">
+                    <thead>
+                        <tr>
+                            @*<th width="50" align="center">操作</th>*@
+                            <th width="100" align="center">推广编号</th>
+                            <th width="200" align="center">日期</th>
+                            <th width="100" align="center">工作天数</th>
+                            <th width="100" align="center">粉丝关注数</th>
+                            <th width="100" align="center">取消关注数</th>
+                            <th width="100" align="center">实际关注数</th>
+                            <th width="100" align="center">注册数</th>
+                            <th width="100" align="center">转化率</th>
+                            <th width="100" align="center">是否完成任务</th>
+                            <th width="100" align="center">佣金</th>
+                            <th width="100" align="center">超出部分佣金</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            @*<td><a href="javascript:;"  class="btnEdit" title="查看明细" onclick="showjobdetail()">查看明细</a></td>*@
+                            <td>@Model.AccountJob.InternalKey</td>
+                            <td>@Model.AccountJob.DateRange</td>
+                            <td>@Model.AccountJob.WorkDayCount</td>
+                            <td>@Model.AccountJob.AttentionCount</td>
+                            <td>@Model.AccountJob.RemoveAttentionCount</td>
+                            <td>@Model.AccountJob.ActualAttentionCount</td>
+                            <td>@Model.AccountJob.RegisterCount</td>
+                            <td>@Model.AccountJob.Rate</td>
+                            <td>@Model.AccountJob.IsFinish</td>
+                            <td>@Model.AccountJob.Reward</td>
+                            <td>@Model.AccountJob.RewardAbove</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+    @if (@Model.AccountJobDetailList != null)
+    {
+        <div id="detailjob" class="panel" defh="280">
+            <h1>统计明细</h1>
+            <div>
+                <table class="table" width="100%">
+                    <thead>
+                        <tr>
+                            <th width="100" align="center">推广编号</th>
+                            <th width="200" align="center">日期</th>
+                            <th width="100" align="center">工作天数</th>
+                            <th width="100" align="center">粉丝关注数</th>
+                            <th width="100" align="center">取消关注数</th>
+                            <th width="100" align="center">实际关注数</th>
+                            <th width="100" align="center">注册数</th>
+                            <th width="100" align="center">转化率</th>
+                            <th width="100" align="center">是否完成任务</th>
+                            <th width="100" align="center">佣金</th>
+                            <th width="100" align="center">超出部分佣金</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model.AccountJobDetailList)
+                        {
+
+                            <tr>
+                                <td>@item.InternalKey</td>
+                                <td>@UIHelper.FormatDate(item.Date, 1)</td>
+                                <td>@item.WorkDayCount</td>
+                                <td>@item.AttentionCount</td>
+                                <td>@item.RemoveAttentionCount</td>
+                                <td>@item.ActualAttentionCount</td>
+                                <td>@item.RegisterCount</td>
+                                <td>@item.Rate</td>
+                                <td>@item.IsFinish</td>
+                                <td>@item.Reward</td>
+                                <td>@item.RewardAbove</td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+
+
+    @if (@Model.AccountSF != null)
+    {
+        <div id="totalsf" class="panel">
+            <h1>统计汇总</h1>
+            <div>
+                <table class="table" width="100%">
+                    <thead>
+                        <tr>
+                            <th width="100" align="center">推广编号</th>
+                            <th width="200" align="center">日期</th>
+                            <th width="100" align="center">粉丝关注数</th>
+                            <th width="100" align="center">取消关注数</th>
+                            <th width="100" align="center">实际关注数</th>
+                            <th width="100" align="center">注册数</th>
+                            <th width="100" align="center">转化率</th>
+                            <th width="100" align="center">计算单价</th>
+                            <th width="100" align="center">总额</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td>@Model.AccountSF.InternalKey</td>
+                            <td>@Model.AccountSF.DateRange</td>
+                            <td>@Model.AccountSF.AttentionCount</td>
+                            <td>@Model.AccountSF.RemoveAttentionCount</td>
+                            <td>@Model.AccountSF.ActualAttentionCount</td>
+                            <td>@Model.AccountSF.RegisterCount</td>
+                            <td>@Model.AccountSF.Rate</td>
+                            <td>@Model.AccountSF.Price</td>
+                            <td>@Model.AccountSF.TotalAmount</td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+    @if (@Model.AccountSFDetailList != null)
+    {
+        <div id="detailsf" class="panel" defh="280">
+            <h1>统计明细</h1>
+            <div>
+                <table class="table" width="100%">
+                    <thead>
+                        <tr>
+                            <th width="100" align="center">推广编号</th>
+                            <th width="200" align="center">日期</th>
+                            <th width="100" align="center">粉丝关注数</th>
+                            <th width="100" align="center">取消关注数</th>
+                            <th width="100" align="center">实际关注数</th>
+                            <th width="100" align="center">注册数</th>
+                            <th width="100" align="center">转化率</th>
+                            <th width="100" align="center">计算单价</th>
+                            <th width="100" align="center">总额</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model.AccountSFDetailList)
+                        {
+
+                            <tr>
+                                <td>@item.InternalKey</td>
+                                <td>@UIHelper.FormatDate(item.Date, 1)</td>
+                                <td>@item.AttentionCount</td>
+                                <td>@item.RemoveAttentionCount</td>
+                                <td>@item.ActualAttentionCount</td>
+                                <td>@item.RegisterCount</td>
+                                <td>@item.Rate</td>
+                                <td>@item.Price</td>
+                                <td>@item.TotalAmount</td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+    <!--分页条-->
+    @*<div class="panelBar">
+            <script type="text/javascript">
+                $(function () {
+                    $("#@Model.SearchInfo.numPerPageName").attr("value", "@Model.SearchInfo.numPerPage");
+                });
+            </script>
+            <div class="pages">
+                <span>显示</span>
+                <select class="combox" id="@Model.SearchInfo.numPerPageName" name="@Model.SearchInfo.numPerPageName" onchange="navTabPageBreak({numPerPage:this.value})">
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                </select>
+                <span>条，共 @Model.SearchInfo.RecCount 条</span>
+            </div>
+
+            <div class="pagination" targettype="navTab" totalcount="@Model.SearchInfo.RecCount" numperpage="@Model.SearchInfo.numPerPage" pagenumshown="@Model.SearchInfo.pageNumShown" currentpage="@Model.SearchInfo.pageNum"></div>
+        </div>*@
+</div>
+
+
+

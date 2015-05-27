@@ -1,0 +1,32 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\wenzhang1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>洗净的蚊账，要用塑料袋或布将其叠整齐后包好，单独存放，不要放卫生球，如果和其他衣物混存，卫生球用白纸包好，放在箱柜四角，不要和合成纤维蚊账接触，否则会出现斑渍。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>家庭自行清洗过程中，棉纱帐放在水里会吸水过多，容易乱丝，导致蚊帐变形，而真丝帐洗涤不当，还容易褶皱。懒到家可以帮您有效避免这些顾虑，既能保持蚊帐外形的美观性，又能有效延长蚊帐的使用寿命，更能通过消毒，加香，有效去除蚊子和螨虫。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\wenzhang2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>也许会有人进入这样一个误区，认为蚊帐不是贴身所用，不用经常清洗。其实蚊帐最容易沾空气中的灰尘，尤其是顶部，还会有部分蚊子的尸体，这样积攒到一定量，睡觉时不小心抖动蚊帐，灰尘会从缝隙中洒下，不仅会影响卫生状况，更会严重影响人体的呼吸道健康。尤其是孩子和老人，更应该注重蚊帐的清洁。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

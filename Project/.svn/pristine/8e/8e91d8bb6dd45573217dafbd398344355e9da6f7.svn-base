@@ -1,0 +1,156 @@
+﻿@{
+    ViewBag.Title = "用户注册";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link href="/Content/bootstrap.css" rel="stylesheet">
+    <link href="/Content/ldj.css" media="screen" rel="stylesheet">
+    <script src="/Scripts/jquery-2.1.1.js"></script>
+    <script src="/Scripts/bootstrap.js"></script>
+    <script src="/Scripts/landaojia.js"></script>
+</head>
+<body>
+    <div id="page-content-wrapper reg-page">
+        <div class="page-content">
+            <div class="row reg-row">
+                <div class="col-md-12 full-width">
+                    <img class="centered-logo" src="/img/navbar-logo.png">
+                    <div class="fade-in centered-box">
+                        <form method="post" action="">
+                            <header>
+                                <a class="btn-prev" href="/Member/Login">‹</a>
+                                <h2>用户绑定</h2>
+                            </header>
+                            <section class="reg-content">
+
+                                <div class="input-group">
+                                    <input id="txtMPNo" name="txtMPNo" type="text" placeholder="手机号" class="radius-left b-half">
+                                    <button id="btnSmsCode" name="btnSmsCode" type="button" class="radius-right s-half" onclick="VerifyMobile();">获取验证码</button>
+                                </div>
+                                <div class="input-group">
+                                    <input id="txtCode" name="txtCode" type="text" maxlength="6" placeholder="验证码">
+                                    <p id="msgCode" class="help-block"></p>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input id="cbAgreement" name="cbAgreement" type="checkbox" checked="checked">我已阅读并同意 <a href="#">懒到家服务协议</a>
+                                    </label>
+                                </div>
+                                <div class="input-group">
+                                    <p id="msg" class="help-block"></p>
+                                </div>
+                            </section>
+                            <button type="button" class="btn-lg btn-danger reg-btn" onclick="formSubmit();">立即绑定</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var timer = null;
+
+        $(function () {
+            
+        });
+
+        function formSubmit() {
+            $("#msg").html("");
+            $("#msgCode").html("");
+            if (CheckMobile(txtMPNo, $("#msg")).code == 0) {
+                txtMPNo.focus();
+                return false;
+            }
+
+            if (!txtCode.value.trim().match("^[0-9]{6}$")) {
+                $("#msgCode").html("验证码为6位数字");
+                txtCode.focus();
+                return false;
+            }
+
+            if (!cbAgreement.checked) {
+                $("#msg").html("请勾选我已阅读并同意懒到家服务协议");
+                return false;
+            }
+
+            var postData = { "MPNo": txtMPNo.value.trim(), "vCode": txtCode.value.trim() };
+            $.ajax({
+                type: "post",
+                url: "/Member/MobileBinding",
+                data: postData,
+                dataType: "json",
+                success: ProcessUserReg,
+                error: function (msg) {
+                    $("#msg").html("系统异常，请稍微再试。");
+                }
+            });
+        }
+
+        function ProcessUserReg(resultJson) {
+            if (resultJson != null) {
+                if (resultJson.Code == 1) {
+                    window.location.href = resultJson.Msg;
+                }
+                else {
+                    $("#msg").html(resultJson.Msg);
+                }
+            }
+        }
+
+        function VerifyMobile() {
+            $("#msg").html("");
+            $("#msgCode").html("");
+            if (timer != null)
+                return;
+
+            if (CheckMobile(txtMPNo, $("#msg")).code == 0) {
+                txtMPNo.focus();
+                return false;
+            }
+
+            var postData = { "mpno": txtMPNo.value.trim() };
+
+            $.ajax({
+                type: "post",
+                url: "/Member/VerifyMobile",
+                data: postData,
+                dataType: "json",
+                success: function (resultJson) {
+                    if (resultJson.Code == 1) {
+                        $("#msgCode").html("短信已发送");
+                        daojishi();
+                    }
+                    else {
+                        $("#msgCode").html(resultJson.Msg);
+                    }
+                },
+                error: function (msg) {
+                    $("#msg").html(msg);
+                }
+            });
+        }
+
+        function daojishi() {
+            var i = 60;
+            if (!timer) {
+                $("#btnSmsCode").text(i);
+                timer = setInterval(function () {
+                    i--;
+                    $("#btnSmsCode").text(i);
+                    if (i == -1) {
+                        clearInterval(timer);
+                        timer = null;
+                        $("#btnSmsCode").text("获取验证码");
+                    }
+                }, 1000);
+            }
+        }
+    </script>
+</body>
+</html>

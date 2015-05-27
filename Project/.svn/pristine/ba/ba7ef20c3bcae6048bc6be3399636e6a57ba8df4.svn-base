@@ -1,0 +1,168 @@
+﻿
+@{
+    ViewBag.Title = "用户登录";
+}
+
+<section>
+    <div class="userCenter">
+        <ul class="tabSwicth" style="display:-none">
+            <li class="active">账号登录</li>
+            <li>验证码登录</li>
+        </ul>
+
+        <div class="loginCont" style="clear:both;padding-top:30px">
+            <form>
+                <label><span>用户名</span> <input type="text" id="txtUserName" name="txtUserName" placeholder="用户名/手机/邮箱" /></label>
+                <div style="clear:both"></div>
+                <label><span style="letter-spacing:.8em">密码</span><input type="password" id="txtPass" name="txtPass" /></label>
+                <button class="saveUserInfo-btn" type="button" onclick="UserNameLogin();">提交</button>
+            </form>
+        </div>
+        <div class="loginCont" style="clear:both;padding-top:30px;display:none">
+            <form>
+                <label><span>手机号</span> <input type="text" id="txtMPNo" name="txtMPNo" placeholder="手机号" /></label>
+                <div style="margin-bottom:20px;display:block;overflow:hidden">
+                    <span style="width:25%;height:40px; line-height:40px;float:left;color:#4cc7c8">验证码</span>
+                    <input type="text" id="txtVCode" name="txtVCode" maxlength="6" style="width:42%;float:left;margin-right:3%;display:-none" />
+                    <span style="width:30%; line-height:40px;float:left;color:white;padding:0; text-align:center" class="getVerifyCode-btn" onclick="VerifyMobile();">获取验证码</span>
+                </div>
+                <button class="saveUserInfo-btn" type="button" onclick="MPNoLogin();">提交</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section scripts
+{
+    <script language="javascript" type="text/javascript">
+        var timer = null;
+
+        $(function () {
+            $(".tabSwicth > li").each(function (i) {
+                $(this).click(function () {
+                    $(".tabSwicth > li").removeClass("active");
+                    $(this).addClass("active");
+                    $(".loginCont").hide();
+                    $(".loginCont").eq(i).show();
+                });
+            });
+        });
+
+        function UserNameLogin()
+        {
+            if (!txtUserName.value.trim().match("^[0-9a-zA-Z@@.]{4,30}$")) {
+                showPopDiv("用户账号为4-30位数字、字母");
+                return false;
+            }
+
+            if (!txtPass.value.match("^.{6,20}$")) {
+                showPopDiv("密码为6-20位大小写英文字母、数字");
+                return false;
+            }
+
+            process();
+
+            var postData = { loginName: txtUserName.value.trim(), pass: txtPass.value, vCode: "", loginType: 0 };
+            $.ajax({
+                type: "post",
+                url: "/Member/User_Login",
+                data: postData,
+                dataType: "json",
+                success: ProcessReg,
+                error: function (msg) {
+                    removeProcess();
+                    showPopDiv(msg.toString(), false);
+                }
+            });
+        }
+
+        function MPNoLogin()
+        {
+            var rtn = CheckMobile(txtMPNo);
+            if (rtn.code == 0) {
+                showPopDiv(rtn.msg);
+                return false
+            }
+
+            if (!txtVCode.value.trim().match("^[0-9]{6}$")) {
+                showPopDiv("验证码为6位数字");
+                return false;
+            }
+
+            process();
+            var postData = { loginName: txtMPNo.value.trim(), pass: "", vCode: txtVCode.value.trim(), loginType: 1 };
+            $.ajax({
+                type: "post",
+                url: "/Member/User_Login",
+                data: postData,
+                dataType: "json",
+                success: ProcessReg,
+                error: function (msg) {
+                    removeProcess();
+                    showPopDiv(msg.toString(), false);
+                }
+            });
+        }
+
+        function ProcessReg(resultJson) {
+            removeProcess();
+            if (resultJson != null) {
+                if (resultJson.Code == 1) {
+                    showPopDiv("登录成功", true, null, "/Member");
+                }
+                else {
+                    showPopDiv(resultJson.Msg, false);
+                }
+            }
+        }
+
+        function VerifyMobile() {
+            if (timer != null)
+                return;
+
+            var rtn = CheckMobile(txtMPNo);
+            if (rtn.code == 0) {
+                showPopDiv(rtn.msg);
+                return false
+            }
+
+            var postData = { "mpno": txtMPNo.value.trim() };
+
+            $.ajax({
+                type: "post",
+                url: "/Member/VerifyMobile",
+                data: postData,
+                dataType: "json",
+                success: function (resultJson) {
+                    if (resultJson.Code == 1) {
+                        showPopDiv("短信已发送");
+                        daojishi();
+                    }
+                    else {
+                        showPopDiv(resultJson.Msg);
+                    }
+                },
+                error: function (msg) {
+                    showPopDiv(msg);
+                }
+            });
+        }
+
+        function daojishi() {
+            var i = 60;
+            if (!timer) {
+                $(".getVerifyCode-btn").text(i);
+                $(".getVerifyCode-btn").css("background", "#adaaaa");
+                timer = setInterval(function () {
+                    i--;
+                    $(".getVerifyCode-btn").text(i);
+                    if (i == -1) {
+                        clearInterval(timer);
+                        timer = null;
+                        $(".getVerifyCode-btn").css("background", "#4cc7c8").text("获取");
+                    }
+                }, 1000);
+            }
+        }
+    </script>
+}

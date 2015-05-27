@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/ldj.css" media="screen" rel="stylesheet">
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/judgePlatform.js"></script>
+<script>
+	if(browser.versions.android || browser.versions.iPhone || browser.versions.iPad || browser.versions.ios){
+	document.write("<script type='text/javascript' src='js/iscroll.js'><\/script><script type='text/javascript' src='js/iscrollobj.js'><\/script>");
+	}
+</script>
+<!--[if lt IE 9]>
+    <script src="js/html5.js"></script>
+    <script src="js/respond.min.js"></script>
+<![endif]-->
+<script src="js/landaojia.js"></script>
+</head>
+<body >
+<div class="wrapper">
+  <!--网站侧边导航 start-->
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-brand"> <img src="img/logo.png"> </li>
+      <li> <a class="active" href="洗涤服务.html"> <span class="icon-white-xdfw"></span> <span class="nav-title">洗涤服务</span> </a> </li>
+      <li> <a href="#"> <span class="icon-white-hl"></span> <span class="nav-title">奢侈品护理</span> </a> </li>
+      <li> <a href="懒人神器.html"> <span class="icon-white-lrsq"></span> <span class="nav-title">懒人神器</span> </a> </li>
+      <li> <a href="缤纷活动.html"> <span class="icon-white-bfhd"></span> <span class="nav-title">缤纷活动</span> </a> </li>
+      <li> <a href="我的订单.html"> <span class="icon-white-myorder"></span> <span class="nav-title">我的订单</span> </a> </li>
+      <li> <a href="历史订单.html"> <span class="icon-white-history"></span> <span class="nav-title">历史订单</span> </a> </li>
+      <li> <a href="帮助与反馈.html"> <span class="icon-white-history"></span> <span class="nav-title">帮助与反馈</span> </a> </li>
+      <li> <a href="关于懒到家.html"> <span class="icon-white-about"></span> <span class="nav-title">关于懒到家</span> </a> </li>
+    </ul>
+  </div>
+  <!--网站侧边导航 end-->
+  <div id="page-content-wrapper"> 
+   <!--主体内容头部 start-->
+  	<div class="navbar" role="navigation">
+    	<div class="container-fluid">
+       		<div class="row">
+            	<div class="col-sm-9 col-md-1">
+                    <a id="navbar-logo" data-toggle="offcanvas" class="brand-toggle" onClick="showHideSiderbar();">
+                        <img src="img/navbar-logo.png">
+                    </a>
+                    <h2 class="navbar-brand visible-xs visible-sm" style="float:left;">关于懒到家</h2>
+                    <button type="button" class="visible-xs navbar-toggle collapsed icon-collapsed pull-right" data-toggle="collapse" data-target="#navbar-collapse-1"> 
+                        <img src="img/dropdown-cog-blue.png"> 
+                    </button>
+                </div>
+                <div class="col-sm-7 col-md-7 hidden-sm hidden-xs">
+                	<h2 class="navbar-brand" style="float:left;padding:10px 0 0 0">关于懒到家</h2>
+                    <div style="margin-left:150px;">
+                           <form method="post" action="" class="tsearch">
+                                <input type="text" placeholder="搜索清洗服务">
+                                <button class="icon-search"><img src="img/icon-search.png"></button>
+                            </form>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-md-4 hidden-xs">
+                    <ul class="nav navbar-nav navbar-right">
+                         <li class="dropdown"> 
+                        	 <a class="dropdown-toggle memberCentre" data-toggle="dropdown"> 
+                                <span class="name">会员名</span> 
+                                <span class="icon-member"></span> 
+                             </a>
+                              <ul class="dropdown-menu" id="member-info">
+                                <li><a href="用户中心.html">用户中心</a></li>
+                                <li class="divider"></li>
+                                <li><a href="地址管理.html">地址管理</a></li>
+                                <li><a href="我的懒人卡.html">我的懒人卡</a></li>
+                                <li><a href="我的优惠劵.html">我的优惠劵</a></li>
+                                <li class="divider"></li>
+                                <li><a href="社区中心.html">社区中心</a></li>
+                                <li class="divider"></li>
+                                <li><a>退出</a></li>
+                              </ul>
+                         </li>
+                    	<li class="hidden-sm navbar-question"> <a href="#">我们的服务流程?</a> </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="visible-xs">
+              <div class="collapse navbar-collapse" id="navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-c">
+                  <li><a href="用户中心.html">用户中心</a></li>
+                  <li class="divider"></li>
+                  <li><a href="地址管理.html">地址管理</a></li>
+                  <li><a href="我的懒人卡.html">我的懒人卡</a></li>
+                  <li><a href="我的优惠劵.html">我的优惠劵</a></li>
+                  <li class="divider"></li>
+                  <li><a href="社区中心.html">社区中心</a></li>
+                  <li class="divider"></li>
+                  <li><a>退出</a></li>
+                </ul>
+              </div>
+         </div>
+        <div class="visible-xs visible-sm s-search-bar">
+          <div>
+            <input type="text">
+            <button class="icon-search"><img src="img/icon-search.png"></button>
+          </div>
+        </div>
+    </div>
+   <!--主体内容头部 end-->   
+   <div class="page-content inset">
+    <div class="row">
+        <div class="col-md-7 col-md-offset-1">
+        <div class="about">
+        		<img src="img/navbar-logo.png">
+                <p>懒到家，国内首家干洗生态缔造品牌。通过便捷的线上下单入口、高效品质的物流、全程可视化洗涤中心，48小时内完成收衣、分拣、洗涤、熨烫、质检、配送等一整套标准化服务流程，让用户足不出户即可享受便捷、高效、健康的高品质干洗服务，乐享懒人之福！</p>
+                <p>经过一年多的市场调研、资源整合、平台搭建，懒到家不仅对洗染市场有了更加深入的研究，也对消费者的消费需求有了更精准的把握。懒到家以其便捷的下单操作、专业标准化的洗涤服务、快速高效的物流配送等优势为客户打造全新的洗衣体验。</p>
+                <p>具体而言，懒到家服务主要有以下四大核心优势：</p>
+
+                    <b>一键下单，顺丰取送</b>
+                <p>您可通过懒到家官网、微信公众平台一键下单，方便快捷。为了保证服务质量，我们与顺丰速运强强联合，在您下单1小时内上门收货。突破传统干洗店时间和空间的限制，您可以随时随地下单。让您在家动动手指就可以享受洁净健康的品质生活，坐享懒人之福。
+                </p>
+                <b>标准洗涤，严格质控</b>
+                <p>懒到家，拥有最早实施自动化、电脑化、专业化及系统化的洗衣中央工厂。中央工厂采用世界领先的水洗机和干洗机，我们针对不同材质、不同颜色的衣物分类使用不同设备进行专业化、标准化地清洗。</p>
+                <p>在全程采用绿色洗涤剂的同时，引进世界先进的大型现代隧道消毒设备，对您的衣物进行多角度、全方位的消毒，真正做到让您省心、放心。<br>
+                熨烫方面有世界领先的衬衫机、人像机和裤子压机，熨烫标准统一具有立体感，不仅保持了衣物线条的美观，还能确保不会有收工熨烫痕迹。<br>
+                最后，严格的质控程序，保证衣物洗涤的高品质。</p>
+                <b>全程监控，安全保障</b>
+                <p>中央工厂的视频建工管理系统，从衣物入工厂开始就进入监控。每件衣物经过每一个工艺流程都会被视频详实地记录，工厂运作过程中，将视频数据实时传输给数据库，使一件衣物从工厂的洗涤运作过程，到物流的运送，客户都可以通过懒到家管理后台实时观察到衣物的状态。</p>
+                <b>48小时送达，快速高效</b>
+                <p>与顺丰速运的合作，我们承诺在客户下单1小时内上门收货（客户要求其他时间上门除外）。同时，在顺丰收货48小时内洗好送达，快速高效。</p>
+</div>
+        </div>
+    </div>
+		</div>
+    </div>
+</div>
+</body>
+</html>

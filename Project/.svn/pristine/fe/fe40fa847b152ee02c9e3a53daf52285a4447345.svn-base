@@ -1,0 +1,34 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\taibu1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、初次使用前，可以下水漂洗一遍，这样使用时会更柔软。</p>
+				<p>2、清洗时请轻柔操作，尤其是蕾丝花边，避免因用力过大而扯断花边。</p>
+				<p>3、一般台布耐温60摄氏度，请勿将超过60摄氏度的物件放置在台布上。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>每天香喷喷的饭菜都要摆在台布上，台布如果不干净吃饭的时候会影响到一定的食欲。清新洁净的台布，塑造好妻子、好妈妈。上懒到家，洁净、健康生活每一天。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\taibu2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>台布经常会沾上酒类及饮料污渍，动植物油污渍，菜渍、盐、糖、酱油、烟灰、果汁等污渍，有些还能够用水清洗干净，但是那些油脂性污垢却很难除去，这不仅影响台布本身的美观，而且影响卫生甚至食欲。即使用一些溶剂除去了，但是有些会发生泛黄的现象，使用一些强力去污剂，又可能导致台布烧伤，而清洗不当又将导致细菌残留，细菌很容易通过食物侵入人体，对健康造成极大威胁。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

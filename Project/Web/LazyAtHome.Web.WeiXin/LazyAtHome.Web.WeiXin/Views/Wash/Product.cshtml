@@ -1,0 +1,69 @@
+﻿@model LazyAtHome.Web.WeiXin.Models.ViewModel.ProductViewModel
+
+@{
+    ViewBag.Title = "全部商品";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="product">
+    <div class="product_l">
+        <ul class="periphery clearfix">
+            @foreach (var pClass in Model.ProductClassList)
+            {
+                <li @UIHelper.CaseClassStyle(pClass.ID == Model.SelectClassID)><a href="@Url.Action("Product", new { iclassid = pClass.ID })"><label><img src="@pClass.Picture" /></label><span>@pClass.Name ></span></a></li>
+            }
+        </ul>
+    </div>
+    <div class="product_r">
+        <div class="productList clearfix" style="display:block;">
+            <ul>
+                @foreach (var item in Model.ProductList)
+                {
+                    <li>
+                        <p><span><a href="@Url.Action("ProductDetail", "Wash", new { pid = item.ID })"><img src="@item.PictureS" /></a></span></p>
+                        <h4><a href="@Url.Action("ProductDetail", "Wash", new { pid = item.ID })">@item.Name</a></h4>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="footer foot"><img src="~/images/lan8.jpg" /></div>
+@section scripts
+{
+    @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript" language="javascript">
+        $('.periphery li').hover(function () {
+            var this_index = $(this).index();
+            $('.periphery  li').eq(this_index).addClass('default').siblings().removeClass('default');
+            $('.product_r .productList').eq(this_index).css('display', 'block').siblings().css('display', 'none');
+        });
+        $(window).load(function () {
+            $(window).scrollTop(0);
+            var top_h = $(".product_l ul").offset().top;
+            $(window).scroll(function () {
+                var scroll_t = $(window).scrollTop();
+                if (scroll_t >= top_h) {
+                    $(".product_l ul").css({
+                        'position': 'fixed',
+                        left: 0,
+                        top: 0,
+                        width: '30%'
+                    });
+                } else {
+                    $(".product_l ul").css({
+                        'position': '',
+                        left: 0,
+                        top: 0,
+                        width: '100%'
+                    });
+                }
+                var mt = $(document).height() - scroll_t - $(".product_l ul").height() - 20;
+                if (mt > 0) mt = 0;
+                $(".product_l ul").css({
+                    'marginTop': mt
+                });
+            });
+        });
+    </script>
+}

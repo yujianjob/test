@@ -1,0 +1,243 @@
+﻿@model LazyAtHome.Web.WebManage.Models.Express.ExpOrderModel
+@{
+    <script src="@Url.Content("~/Scripts/Express/exporderedit.js")" type="text/javascript"></script>
+}
+
+<!--报错信息-->
+@Html.Raw(ViewBag.Script)
+
+<div class="pageContent">
+    <form method="post" action="@Url.Action("SaveExpOrder", "Express")" id="frmSaveExpOrder" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
+        <div class="pageFormContent" layouth="56">
+            @{
+                string TransportType = UIHelper.FormatTransportType(Model.ExpOrderInfo.TransportType) + "";
+            }
+
+            <!--基本信息-->
+            <div class="panel">
+                <h1>基本信息</h1>
+                <div>
+                    <div class="unit">
+                        <p>
+                            <label>物流单号：</label>
+                            @Html.TextBoxFor(model => model.ExpOrderInfo.ExpNumber, new { @readonly = "readonly" })
+                        </p>
+                        <p>
+                            <label>外部单号：</label>
+                            @Html.TextBoxFor(model => model.ExpOrderInfo.OutNumber, new { @readonly = "readonly" })
+                        </p>
+                    </div>
+                    <div class="unit">
+                        <p>
+                            <label>邀请码：</label>
+                            @Html.TextBoxFor(model => model.ExpOrderInfo.InviteCode, new { @readonly = "readonly" })
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+
+            <!--物流信息-->
+            <div class="panel">
+                <h1>物流信息</h1>
+                <div>
+
+                    <div>
+                        <dl class="nowrap">
+                            <dt>存衣点：</dt>
+                            <dd>
+                                <input id="ExpOrderInfo_NodeID" name="ExpOrderInfo.NodeID" value="@Model.ExpOrderInfo.NodeID" type="hidden" />
+                                <input id="ExpOrderInfo_NodeName" class="required" name="ExpOrderInfo.NodeName" type="text" lookupgroup="ExpOrderInfo" value="@Model.ExpOrderInfo.NodeName" readonly="readonly" />
+                                <a class="btnLook" href="@Url.Action("NodeView", "Express")?nodetype=1&source=3" lookupgroup="ExpOrderInfo">选择站点</a>
+                                <span class="info">选择站点</span>
+                            </dd>
+                        </dl>
+                    </div>
+
+
+                    <div>
+                        <dl class="nowrap">
+                            @Html.Hidden("hdOPIDSelectUrl", @Url.Action("OperatorView"))
+                            <dt>快递员：</dt>
+                            <dd>
+                                <input id="ExpOrderInfo_OperatorID" name="ExpOrderInfo.OperatorID" value="@Model.ExpOrderInfo.OperatorID" type="hidden" />
+                                <input name="ExpOrderInfo.OperatorName" type="text" lookupgroup="ExpOrderInfo" value="@Model.ExpOrderInfo.OperatorName" readonly="readonly" />
+                                <input id="ExpOrderInfo_OperatorType" name="ExpOrderInfo.OperatorType" value="" type="hidden" />
+                                @{
+    if (Model.ExpOrderInfo.TransportType == 1)
+    {
+        <a id="opidselect" class="btnLook" href="javascript:void(0)" lookupgroup="ExpOrderInfo">选择快递员</a>
+        <span class="info">选择快递员</span>
+    }
+                                }
+
+                            </dd>
+                        </dl>
+                    </div>
+
+
+                    <div class="unit">
+                        @{
+                            if (Model.Type == 0)
+                            {
+                                <div class="buttonActive"><div class="buttonContent"><button type="button" id="btnAllocationExpOrder">@("分配" + TransportType)</button></div></div>
+                                @Html.Hidden("hdAllocationExpOrderUrl", @Url.Action("AllocationExpOrder"))
+                            }
+                            else if (Model.Type == 1 && (Model.ExpOrderInfo.Step == 0 || Model.ExpOrderInfo.Step == 1))
+                            {
+                                <div class="buttonActive"><div class="buttonContent"><button type="button" id="btnAllocationForcedExpOrder">@("强制分配" + TransportType)</button></div></div>
+                                @Html.Hidden("hdAllocationForcedExpOrderUrl", @Url.Action("AllocationForcedExpOrder"))
+
+                                <div class="buttonActive"><div class="buttonContent"><button type="button" id="btnAllocationCancelExpOrder">@("重新自动分配" + TransportType)</button></div></div>
+                                @Html.Hidden("hdAllocationCancelExpOrderUrl", @Url.Action("AllocationCancelExpOrder"))
+                            }
+                        }
+                    </div>
+                    
+
+                    <div>
+                        <dl class="nowrap">
+                            <dt>分配备注：</dt>
+                            <dd>
+                                @Html.TextAreaFor(model => model.ExpOrderInfo.CSRemark, new { cols = "80", rows = "3", @class = "textarea" })
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+            <!--取/送件信息-->
+            <div class="panel">
+                <h1>
+                    @(TransportType + "信息")
+                </h1>
+                <div>
+                    @Html.HiddenFor(model => model.ExpOrderInfo.ID)
+                    @Html.HiddenFor(model => model.ExpOrderInfo.TransportType)
+
+                    <div class="unit">
+                        <p>
+                            <label>客户名称：</label>
+                            @Html.TextBoxFor(model => model.ExpOrderInfo.Contacts, new { @readonly = "readonly" })
+                        </p>
+                        <p>
+                            <label>客户手机：</label>
+                            @Html.TextBoxFor(model => model.ExpOrderInfo.Mpno, new { @maxlength = 50 })
+                        </p>
+
+                    </div>
+
+                    <div class="unit">
+                        <p>
+                            <label>行政区划：</label>
+                            @{Html.RenderAction("Divisions", "Common", new { id = Model.ExpOrderInfo == null || Model.ExpOrderInfo.DistrictID == null ? 0 : Model.ExpOrderInfo.DistrictID, bindName = "BDVIdL" });}
+                        </p>
+                        <p>
+                            <label>客户地址：</label>
+                            @Html.TextBoxFor(model => model.ExpOrderInfo.Address, new { size = "40" })
+                        </p>
+                    </div>
+
+                    <div class="unit">
+                        <p>
+                            <label>物品信息：</label>
+                            @Html.TextBoxFor(model => model.ExpOrderInfo.PackageInfo)
+                        </p>
+                        <p>
+                            <label>物品数量：</label>
+                            @Html.TextBoxFor(model => model.ExpOrderInfo.PackageCount, new { @class = "digits" })
+                        </p>
+
+                    </div>
+
+                    <div class="unit">
+                        <p>
+                            <label>代收货款：</label>
+                            @Html.TextBoxFor(model => model.ExpOrderInfo.ChargeFee, new { @readonly = "readonly" })
+                        </p>
+                        <p>
+                            <label>期望时间：</label>
+                            @Html.TextBoxFor(model => model.ExpOrderInfo.ExpTime, new { @readonly = "readonly" })
+                        </p>
+
+                    </div>
+
+                    @*<div class="unit">
+                        <p>
+                            <label>用户备注：</label>
+                            @Html.TextBoxFor(model => model.ExpOrderInfo.UserRemark, new { size = "40" })
+                        </p>
+                        <p>
+                            <label>客服备注：</label>
+                            @Html.TextBoxFor(model => model.ExpOrderInfo.CSRemark, new { size = "40" })
+                        </p>
+                    </div>*@
+
+
+                    @*<div class="unit">
+                        <div class="buttonActive"><div class="buttonContent"><button type="button" id="btnEditExpOrder">@("修改" + TransportType + "信息")</button></div></div>
+                        @Html.Hidden("hdEditExpOrderUrl", @Url.Action("SaveExpOrder"))
+
+                    </div>*@
+
+                </div>
+            </div>
+
+
+
+            @*@{
+                if (Model.Type == 1)
+                { 
+                    
+                    <div class="panel">
+                        <h1>订单状态</h1>
+                        <div>
+                            <div class="unit">
+                                <p>
+                                    <label>订单状态：</label>
+                                    @Html.DropDownList("ExpOrderInfo_Step", new SelectList(new List<SelectListItem> {
+                                        new SelectListItem { Text="未分配", Value = "0" },
+                                        new SelectListItem { Text="取件中", Value = "1" },
+                                        new SelectListItem { Text="无效订单", Value = "-99" },
+                                        new SelectListItem { Text="取件失败", Value = "-98" },
+                                        new SelectListItem { Text="取件完成", Value = "2" },
+                                        new SelectListItem { Text="中转站", Value = "3" },
+                                        new SelectListItem { Text="送件中", Value = "4" },
+                                        new SelectListItem { Text="送件完成", Value = "90" }},
+                                                 "Value", "Text", Model.ExpOrderInfo.Step))
+                                </p>
+                                <p>
+                                    <label>修改备注：</label>
+                                    <input type="text" id="stepremark" name="stepremark" size="40" />
+                                </p>
+                            </div>
+
+                            <div class="unit">
+                                <div class="buttonActive"><div class="buttonContent"><button type="button" id="btnSetStepExpOrder">修改订单状态</button></div></div>
+                                @Html.Hidden("hdSetStepExpOrderUrl", @Url.Action("SetStepExpOrder"))
+                            </div>
+                        </div>
+                    </div>
+                }
+            }*@
+            
+
+    </div>
+
+
+
+        <div class="formBar">
+            <ul>
+                @*<li><a class="buttonActive" href="javascript:;"><span>保存</span></a></li>*@
+                @*<li><div class="buttonActive"><div class="buttonContent"><button type="submit" id="btnSave">保存</button></div></div></li>*@
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,11 @@
+﻿@model string
+@{
+    //ViewBag.Title = "洗衣小常识";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{
+Html.RenderAction("Nav", "Home");
+Html.RenderPartial("~/Views/Home/Tips/tipsShow-" + Model + ".cshtml");
+}

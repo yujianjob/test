@@ -1,0 +1,183 @@
+﻿@model LazyAtHome.Web.WeiXin.Models.UserInfo
+@{
+    ViewBag.Title = "订单确认";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="yuyue">
+    <div class="yuyue">
+        <div class="yuyue_c">
+            <p>地址信息：</p>
+            <div class="yuyue_c_detail">
+                <div class="yuyue_c_detail_l"><img src="../images/lan20.jpg" /></div>
+                @if (Model.GetAddress != null)
+                {
+                    <div class="yuyue_c_detail_r">
+                        <h4>@Model.GetAddress.Consignee（@Model.GetAddress.MPNo）</h4>
+                        <h4>@Model.GetAddress.DistrictName</h4>
+                        <h4 style="border-bottom:1px solid #ebebeb;">@Model.GetAddress.Address<span><a href="@Url.Action("ModifyAddress", "PersonalCenter", new { aid = Model.GetAddress.ID, flag="get" })"><img src="~/images/lan22.jpg" /></a></span></h4>
+                    </div>
+                }
+                else
+                {
+                    <div class="yuyue_c_detail_r">
+                        <h4>&nbsp;</h4>
+                        <h4><a href="@Url.Action("ModifyAddress", "PersonalCenter", new { flag = "get" })">点击添加收件地址</a></h4>
+                        <h4 style="border-bottom:1px solid #ebebeb;">&nbsp;</h4>
+                    </div>
+                }
+                <div class="clear"></div>
+            </div>
+            <div class="yuyue_c_detail">
+                <div class="yuyue_c_detail_l"><img src="../images/lan21.jpg" /></div>
+                @if (Model.SendAddress != null)
+                {
+                    <div class="yuyue_c_detail_r">
+                        <h4>@Model.SendAddress.Consignee（@Model.SendAddress.MPNo）</h4>
+                        <h4>@Model.SendAddress.DistrictName</h4>
+                        <h4 style="border-bottom:1px solid #ebebeb;">@Model.SendAddress.Address<span><a href="@Url.Action("ModifyAddress", "PersonalCenter", new { aid = Model.SendAddress.ID, flag = "send" })"><img src="~/images/lan22.jpg" /></a></span></h4>
+                    </div>
+                }
+                else
+                {
+                    <div class="yuyue_c_detail_r">
+                        <h4>&nbsp;</h4>
+                        <h4><a href="@Url.Action("ModifyAddress", "PersonalCenter", new { flag = "send" })">点击添加送件地址</a></h4>
+                        <h4 style="border-bottom:1px solid #ebebeb;">&nbsp;</h4>
+                    </div>
+                }
+                <div class="clear"></div>
+            </div>
+        </div>
+        @using (Html.BeginForm("OrderSubmit", "ShoppingCart", FormMethod.Post, new { id = "orderForm" }))
+        {
+            <div class="querendingdan_c">
+                <p style="padding-bottom:6px;">支付方式：在线支付（支付宝）</p>
+                <p style="padding-bottom:5px;"><span style="padding-right:20px; width:50%;">余额：￥@Model.User.UserInfo.Money</span>	<input id="cbUseBalance" name="cbUseBalance" type="checkbox" onchange="PayChange();" /> 使用余额<div class="clear"></div></p>
+                <p>
+                    <span>懒人卡：</span>
+                    <select id="lazycard" name="lazycard" onchange="PayChange();">
+                        <option selected="selected" value="0">不使用懒人卡</option>
+                        @if (Model.User.CardList != null)
+                        {
+                            foreach (var item in Model.User.CardList)
+                            {
+                                <option value="@item.ID" balance="@item.Balance">面额：￥@item.Money,余额：￥@item.Balance</option>
+                            }
+                        }
+                    </select>
+                    <div class="clear"></div>
+                </p>
+                <p style="padding-top:10px">
+                    <span>优惠券：</span>
+                    <select id="lazycoupon" name="lazycoupon" onchange="PayChange();">
+                        <option selected="selected" value="0">不使用</option>
+                        @if (ViewBag.CouponList != null)
+                        {
+                            foreach (LazyAtHome.WCF.UserSystem.Contract.DataContract.User_CouponDC item in ViewBag.CouponList)
+                            {
+                                <option value="@item.ID" balance="@item.FaceValue">@item.Name 有效期:@item.UseEndDate.ToString("MM月dd日")</option>
+                            }
+                        }
+                    </select>
+                    <div class="clear"></div>
+                </p>
+                <input id="UseBalance" name="UseBalance" type="hidden" value="0" />
+                <input id="UseCardVal" name="UseCardVal" type="hidden" value="0" />
+                <input id="UseCouponVal" name="UseCouponVal" type="hidden" value="0" />
+            </div>
+        }
+        <div class="querendingdan_b">
+            <div class="querendingdan_b_t">商品详情</div>
+
+            @foreach (var item in Model.ProductList)
+            {
+                <div class="querendingdan_b_b">
+                    <div class="querendingdan_b_b_l"><img src="@item.ProductInfo.PictureS" /></div>
+                    <div class="querendingdan_b_b_r">
+                        <p>@item.ProductInfo.Name</p>
+                        <h4>数量：@item.Count　价格：<span>￥@(item.ProductInfo.SalesPrice * item.Count)</span></h4>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            }
+            <div id="yingfujine" class="yingfu">应付金额：<span id="showAmount">@Model.TotalPrice</span></div>
+        </div>
+        <div class="guanlidizhi_b"><a href="javascript:void(0)"><img src="../images/lan33.jpg" onclick="$('#orderForm').submit();" /></a></div>
+    </div>
+</div>
+<div class="footer foot"><img src="~/images/lan8.jpg" /></div>
+@section scripts
+{
+    @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript">
+        var ShowMsg = "@ViewBag.Msg";
+        var balance = @Model.User.UserInfo.Money;//余额
+        var amount = @Model.TotalPrice;//应付金额
+        var userLevel = "@Model.User.UserInfo.Level";//会员等级
+
+        $(function () {
+            if (ShowMsg != "")
+                alert(ShowMsg);
+        })
+
+        function PayChange() {
+            var realPrice = amount;
+            $("#showCoupon").remove();
+            $("#showLazyCard").remove();
+            $("#showBalance").remove();
+            $("#showCharter").remove();
+            if (lazycoupon.selectedIndex != 0) {
+                if (realPrice <= 0)
+                    return;
+                var tmpCouponVal = parseInt($("#lazycoupon option:selected").attr("balance"));
+
+                if (realPrice < tmpCouponVal)
+                    tmpCouponVal = realPrice;
+
+                UseCouponVal.value = tmpCouponVal;
+                realPrice -= tmpCouponVal;
+                $("#yingfujine").before("<div id='showCoupon' class='yingfu'>优惠券支付：<span>￥" + tmpCouponVal.toFixed(2) + "</span></div>");
+            }
+
+            if (userLevel=="100")
+            {
+                var tmpCSSale = realPrice * 0.2;
+                realPrice -= tmpCSSale;
+                $("#yingfujine").before("<div id='showCharter' class='yingfu'>创始会员优惠：<span>￥" + tmpCSSale.toFixed(2) + "</span></div>");
+            }
+
+            if (lazycard.selectedIndex != 0) {
+                if (realPrice <= 0)
+                {
+                    lazycard.selectedIndex = 0;
+                    UseCardVal.value = 0;
+                    return;
+                }
+                tmpCardVal = parseInt($("#lazycard option:selected").attr("balance"));
+                if (realPrice < tmpCardVal)
+                    tmpCardVal = realPrice;
+                UseCardVal.value = tmpCardVal;
+                realPrice -= tmpCardVal;
+                $("#yingfujine").before("<div id='showLazyCard' class='yingfu'>懒人卡抵扣：<span>￥" + tmpCardVal.toFixed(2) + "</span></div>");
+            }
+            if (cbUseBalance.checked) {
+                if (realPrice <= 0) {
+                    cbUseBalance.checked = false;
+                    UseBalance.value = 0;
+                    return;
+                }
+
+                var tmpBalanceVal = balance;
+                if (realPrice < balance)
+                    tmpBalanceVal = realPrice;
+
+                realPrice -= tmpBalanceVal;
+                $("#yingfujine").before("<div id='showBalance' class='yingfu'>余额支付：<span>￥" + tmpBalanceVal.toFixed(2) + "</span></div>");
+                UseBalance.value = tmpBalanceVal;
+            }
+
+            $("#showAmount").html("￥" + realPrice.toFixed(2));
+        }
+    </script>
+}

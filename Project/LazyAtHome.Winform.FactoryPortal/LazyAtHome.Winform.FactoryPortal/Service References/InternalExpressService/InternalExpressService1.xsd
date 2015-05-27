@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://192.168.1.201:8100/LazyAtHome/InternalExpressService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" />
+  <xs:import schemaLocation="http://192.168.1.201:8100/LazyAtHome/InternalExpressService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/LazyAtHome.WCF.WebService.Contract.DataContract.PR" />
+  <xs:import schemaLocation="http://192.168.1.201:8100/LazyAtHome/InternalExpressService?xsd=xsd9" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:element name="CreateExpressOrder">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="iOutNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iGetDistrictID" type="xs:int" />
+        <xs:element minOccurs="0" name="iGetAddress" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iGetContacts" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iGetMpno" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iGetExpTime" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="iSendDistrictID" type="xs:int" />
+        <xs:element minOccurs="0" name="iSendAddress" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iSendContacts" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iSendMpno" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iSendExpTime" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="iPackageInfo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iPackageCount" type="xs:int" />
+        <xs:element minOccurs="0" name="iChargeFee" type="xs:decimal" />
+        <xs:element minOccurs="0" name="iUserRemark" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateExpressOrderResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" minOccurs="0" name="CreateExpressOrderResult" nillable="true" type="q1:ReturnEntityOfboolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Exp_Order_Create_SendNumber">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/LazyAtHome.WCF.WebService.Contract.DataContract.PR" minOccurs="0" name="iCredentials" nillable="true" type="q2:LoginCredentials" />
+        <xs:element minOccurs="0" name="iOutNumber" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Exp_Order_Create_SendNumberResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" minOccurs="0" name="Exp_Order_Create_SendNumberResult" nillable="true" type="q3:ReturnEntityOfExp_OrderDCIck9A_SRr" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Exp_Order_UPDATE_Send_ChargeFee">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="iOutNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iChargeFee" type="xs:decimal" />
+        <xs:element minOccurs="0" name="iPackageInfo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iPackageCount" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Exp_Order_UPDATE_Send_ChargeFeeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" minOccurs="0" name="Exp_Order_UPDATE_Send_ChargeFeeResult" nillable="true" type="q4:ReturnEntityOfboolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Exp_Order_Get_ExpectTime_Change">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="iOutNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iExpectTime" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Exp_Order_Get_ExpectTime_ChangeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" minOccurs="0" name="Exp_Order_Get_ExpectTime_ChangeResult" nillable="true" type="q5:ReturnEntityOfboolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Exp_Node_SELECT_List">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/LazyAtHome.WCF.WebService.Contract.DataContract.PR" minOccurs="0" name="iCredentials" nillable="true" type="q6:LoginCredentials" />
+        <xs:element minOccurs="0" name="iDistrictID" nillable="true" type="xs:int" />
+        <xs:element minOccurs="0" name="iName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iType" nillable="true" type="xs:int" />
+        <xs:element minOccurs="0" name="iStartDate" nillable="true" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="iEndDate" nillable="true" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="iPageIndex" type="xs:int" />
+        <xs:element minOccurs="0" name="iPageSize" type="xs:int" />
+        <xs:element minOccurs="0" name="iParentID" nillable="true" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Exp_Node_SELECT_ListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" minOccurs="0" name="Exp_Node_SELECT_ListResult" nillable="true" type="q7:ReturnEntityOfRecordCountEntityOfExp_NodeDCIck9A_SRrbI0Blb6I" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Exp_StorageItem_SELECT_List">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/LazyAtHome.WCF.WebService.Contract.DataContract.PR" minOccurs="0" name="iCredentials" nillable="true" type="q8:LoginCredentials" />
+        <xs:element minOccurs="0" name="iStorageID" nillable="true" type="xs:int" />
+        <xs:element minOccurs="0" name="iNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iOtherNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iItemType" nillable="true" type="xs:int" />
+        <xs:element minOccurs="0" name="iNodeID" nillable="true" type="xs:int" />
+        <xs:element minOccurs="0" name="iLineID" nillable="true" type="xs:int" />
+        <xs:element minOccurs="0" name="iTargetType" nillable="true" type="xs:int" />
+        <xs:element minOccurs="0" name="iStatus" nillable="true" type="xs:int" />
+        <xs:element minOccurs="0" name="iPageIndex" type="xs:int" />
+        <xs:element minOccurs="0" name="iPageSize" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Exp_StorageItem_SELECT_ListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" minOccurs="0" name="Exp_StorageItem_SELECT_ListResult" nillable="true" type="q9:ReturnEntityOfRecordCountEntityOfExp_StorageItemDCIck9A_SRrbI0Blb6I" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Exp_Storage_FactoryTakeLine_Complete">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/LazyAtHome.WCF.WebService.Contract.DataContract.PR" minOccurs="0" name="iCredentials" nillable="true" type="q10:LoginCredentials" />
+        <xs:element minOccurs="0" name="iStorageID" type="xs:int" />
+        <xs:element xmlns:q11="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="iOrderNumberList" nillable="true" type="q11:ArrayOfstring" />
+        <xs:element minOccurs="0" name="iMuser" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Exp_Storage_FactoryTakeLine_CompleteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" minOccurs="0" name="Exp_Storage_FactoryTakeLine_CompleteResult" nillable="true" type="q12:ReturnEntityOfboolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Exp_Storage_FactoryTakeLine_ErrorNumber">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/LazyAtHome.WCF.WebService.Contract.DataContract.PR" minOccurs="0" name="iCredentials" nillable="true" type="q13:LoginCredentials" />
+        <xs:element minOccurs="0" name="iStorageID" type="xs:int" />
+        <xs:element xmlns:q14="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="iOrderNumberList" nillable="true" type="q14:ArrayOfstring" />
+        <xs:element minOccurs="0" name="iMuser" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Exp_Storage_FactoryTakeLine_ErrorNumberResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" minOccurs="0" name="Exp_Storage_FactoryTakeLine_ErrorNumberResult" nillable="true" type="q15:ReturnEntityOfboolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Exp_Storage_FactoryTakeLine_ErrorCount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/LazyAtHome.WCF.WebService.Contract.DataContract.PR" minOccurs="0" name="iCredentials" nillable="true" type="q16:LoginCredentials" />
+        <xs:element minOccurs="0" name="iStorageID" type="xs:int" />
+        <xs:element minOccurs="0" name="iMuser" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Exp_Storage_FactoryTakeLine_ErrorCountResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" minOccurs="0" name="Exp_Storage_FactoryTakeLine_ErrorCountResult" nillable="true" type="q17:ReturnEntityOfboolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

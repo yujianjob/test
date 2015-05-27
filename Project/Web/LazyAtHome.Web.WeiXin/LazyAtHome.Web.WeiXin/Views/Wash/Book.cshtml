@@ -1,0 +1,142 @@
+﻿@model LazyAtHome.Web.WeiXin.Models.UserInfo
+@{
+    ViewBag.Title = "预约下单";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="yuyue">
+    <div class="yuyue">
+        <div class="yuyue_t" style="text-align:center;">
+            <div class="yuyue_t_l">
+                <div class="yincang">
+                    <select id="sDay" name="sDay">
+                        <option selected="selected" value="">收货日期</option>
+                        @if (ViewBag.Day != null)
+                        {
+                            foreach (SelectListItem item in ViewBag.Day)
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="yuyue_t_c">
+                <div class="yuding"><img src="~/images/lan57.jpg" /></div>
+
+            </div>
+            <div class="yuyue_t_r">
+                <div class="yincang">
+                    <select id="sTime" name="sTime">
+                        <option selected="selected" value="">收货时间</option>
+                        @if (ViewBag.Time != null)
+                        {
+                            foreach (SelectListItem item in ViewBag.Time)
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div class="yuyue_c" style="margin-top:10px;">
+            <p>地址信息：</p>
+            <div class="yuyue_c_detail">
+                <div class="yuyue_c_detail_l"><img src="../images/lan20.jpg" /></div>
+                @if (Model.GetAddress != null)
+                {
+                    <div class="yuyue_c_detail_r">
+                        <h4>@Model.GetAddress.Consignee（@Model.GetAddress.MPNo）</h4>
+                        <h4>@Model.GetAddress.DistrictName</h4>
+                        <h4 style="border-bottom:1px solid #ebebeb;">@Model.GetAddress.Address<span><a href="@Url.Action("ModifyAddress", "PersonalCenter", new { aid = Model.GetAddress.ID, flag="get" })"><img src="~/images/lan22.jpg" /></a></span></h4>
+                    </div>
+                }
+                else
+                {
+                    <div class="yuyue_c_detail_r">
+                        <h4>&nbsp;</h4>
+                        <h4><a href="@Url.Action("ModifyAddress", "PersonalCenter", new { flag = "get" })">点击添加收件地址</a></h4>
+                        <h4 style="border-bottom:1px solid #ebebeb;">&nbsp;</h4>
+                    </div>
+                }
+                <div class="clear"></div>
+            </div>
+            <div class="yuyue_c_detail">
+                <div class="yuyue_c_detail_l"><img src="../images/lan21.jpg" /></div>
+                @if (Model.SendAddress != null)
+                {
+                    <div class="yuyue_c_detail_r">
+                        <h4>@Model.SendAddress.Consignee（@Model.SendAddress.MPNo）</h4>
+                        <h4>@Model.SendAddress.DistrictName</h4>
+                        <h4 style="border-bottom:1px solid #ebebeb;">@Model.SendAddress.Address<span><a href="@Url.Action("ModifyAddress", "PersonalCenter", new { aid = Model.SendAddress.ID, flag = "send" })"><img src="~/images/lan22.jpg" /></a></span></h4>
+                    </div>
+                }
+                else
+                {
+                    <div class="yuyue_c_detail_r">
+                        <h4>&nbsp;</h4>
+                        <h4><a href="@Url.Action("ModifyAddress", "PersonalCenter", new { flag = "send" })">点击添加送件地址</a></h4>
+                        <h4 style="border-bottom:1px solid #ebebeb;">&nbsp;</h4>
+                    </div>
+                }
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="yuyue_b">
+            <span>预约下单</span>是指用户填写地址确认一下单后，我们即收到用户的下单，并安排2个小时内上门取件服务，如用户是首次提交订单，我们会在2小时内通过电话确认后，上门取件。
+        </div>
+        <div class="querenyuyue"><a id="tagetUrl" name="tagetUrl" href="javascript:void(0)" onclick="formSubmit()"><img src="~/images/lan23.jpg" /></a></div>
+    </div>
+</div>
+<div class="footer foot"><img src="~/images/lan8.jpg" /></div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jquery")
+
+    <script type="text/javascript">
+        $(function () {
+            sDay.value = "@Model.ReceviceDay";
+            sTime.value = "@Model.ReceviceTime";
+        })
+
+        function formSubmit() {
+            if (sDay.selectedIndex == 0) {
+                alert("请选择预约日期");
+                sDay.focus();
+                return false;
+            }
+            if (sTime.selectedIndex == 0) {
+                alert("请选择预约时间");
+                sTime.focus();
+                return false;
+            }
+
+            var postData = { "day": sDay.value, "time": sTime.value };
+
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("ReceviceTime")",
+                data: postData,
+                dataType: "json",
+                success: ProcessRTime,
+                error: function (msg) {
+                    alert("预约失败，请稍微再试！");
+                }
+            });
+        }
+
+        function ProcessRTime(resultJson) {
+            if (resultJson != null) {
+                if (resultJson.code == 0) {
+                    window.location.href = "@Url.Action("BookSubmit","Wash")";
+                }
+                else {
+                    alert(resultJson.msg);
+                }
+            }
+        }
+    </script>
+}

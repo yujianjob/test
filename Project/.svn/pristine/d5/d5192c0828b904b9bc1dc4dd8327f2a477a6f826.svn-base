@@ -1,0 +1,112 @@
+﻿@model IList<LazyAtHome.WCF.UserSystem.Contract.DataContract.User_CouponDC>
+@{
+    //ViewBag.Title = "我的优惠券";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--内容-->
+<div id="content">
+    @{Html.RenderPartial("_MemberLeftNav");}
+    <div class="my_content right">
+        <div class="my_contentTitle">我的优惠券</div>
+        <div class="height_50"></div>
+        <div class="my_bangding">
+            <div class="my_bangdingTitle">
+                <ul>
+                    <li class="@UIHelper.ShowThis(ViewBag.Status == 1) li"><a href="/Member/MyCoupon?cs=1">未使用</a><span></span><b></b></li>
+                    <li class="@UIHelper.ShowThis(ViewBag.Status == 2) li"><a href="/Member/MyCoupon?cs=2">已使用</a><span></span><b></b></li>
+                    <li class="@UIHelper.ShowThis(ViewBag.Status == -1) li"><a href="/Member/MyCoupon?cs=-1">已过期</a><span></span><b></b></li>
+                    <div class="clear"></div>
+                </ul>
+            </div>
+            <div class="my_dingdanBox" style="display:block">
+                <div class="my_dingdanTitle">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="140" align="center">编号</td>
+                            <td width="140" align="center">类别</td>
+                            <td width="120" align="center">面值</td>
+                            <td width="100" align="center">所需消费金额</td>
+                            @if (ViewBag.Status == 2)
+                            {
+                                <td width="150" align="center">使用时间</td>
+                            }
+                            else
+                            {
+                                <td width="150" align="center">有效期</td>
+                            }
+                            <td align="center">使用限制及来源</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="my_dingdanList">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td width="140" align="center">@item.CouponID</td>
+                                <td width="140" align="center">注册赠送</td>
+                                <td width="120" align="center">￥@item.FaceValue</td>
+                                <td width="100" align="center">￥@item.MinMoney</td>
+                                @if (ViewBag.Status == 2)
+                                {
+                                    <td width="150" align="center">@item.UseDate.Value.ToShortDateString()</td>
+                                }
+                                else
+                                {
+                                    <td width="150" align="center">@item.UseBeginDate.ToShortDateString()至@(item.UseEndDate.ToShortDateString())</td> 
+                                }
+                                <td align="center">全类别使用</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+                <div class="my_dingdanPage"><a href="#">上一页</a><span><a href="#" class="this">1</a></span><a href="#">下一页</a></div>
+            </div>
+        </div>
+        @{Html.RenderAction("MoreWash", "Wash");}
+    </div>
+</div>
+
+
+@section scripts
+{
+    @Scripts.Render("~/Scripts/gundong.js")
+
+    <script language="javascript" type="text/javascript">
+        $(function () {
+            //左侧导航
+            $('.my_navList dt').click(function () {
+                $(this).parent().find('dd').slideToggle(200);
+                $(this).toggleClass("my_navList_Top");
+            })
+            //切换
+            $('.my_bangdingTitle .li').click(function () {
+                var li = $(this).index();
+                $('.my_bangdingTitle .li').removeClass('this');
+                $(this).addClass('this');
+                $('.my_bangding .my_dingdanBox').hide();
+                $('.my_bangding .my_dingdanBox').eq(li).show();
+            })
+            //滚动
+            var BOX = $('.cartLuxuryList ul');
+            var HHUM = $('.cartLuxuryList li');
+            var LEFT = $('.cartLuxuryZuo');
+            var RIGHT = $('.cartLuxuryYou');
+            var WIDTH = 184;//单个宽度
+            var PLAY = 5000;//自动播放的时间
+            var SPEED = 500;//切换速度
+            var AOUT = true;//是否自动播放
+            IMG(BOX, LEFT, RIGHT, WIDTH, HHUM, PLAY, SPEED, AOUT);
+
+            $('.cartLuxuryList li').hover(function () {
+                $(this).find('.cartLuxuryListImg').addClass('this');
+            }, function () {
+                $(this).find('.cartLuxuryListImg').removeClass('this');
+            })
+        })
+    </script>
+}

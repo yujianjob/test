@@ -1,0 +1,74 @@
+﻿@model IList<LazyAtHome.WCF.Wash.Contract.DataContract.web.web_Mall_ProductDC>
+@{
+    ViewBag.Title = "懒人神器";
+}
+
+<div class="page-content inset service-fee">
+    <div class="row" style="padding-top:40px">
+        <div class="col-md-7 col-md-offset-1">
+            <table class="table table-bordered lrsq-tab">
+                <tbody>
+                    <tr>
+                        <td width="20%">关键字</td>
+                        <td>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-info" type="button">搜索</button>
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>产品类型</td>
+                        <td><a href="#" class="all">不限</a><a href="#">懒人卡</a></td>
+                    </tr>
+                    <tr>
+                        <td>价格</td>
+                        <td><a href="#" class="all">不限</a><a href="#">100</a><a href="#">200</a><a href="#">500</a></td>
+                    </tr>
+                    <tr>
+                        <td>类型</td>
+                        <td><a href="#" class="all">不限</a><a href="#">电子卡</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="goods-num">为您搜索到<span>@(ViewBag.List.Length)件</span>商品</p>
+            <h2 class="page-header card-search-bar">
+                <span class="label" style="font-weight:normal">排序</span>
+                <span class="label">默认</span>
+                <span class="label">价格↓</span>
+                <span class="label">销量↑</span>
+            </h2>
+            <div class="card-list">
+                <table class="table table-bordered cardlist">
+                    @foreach (LazyAtHome.WCF.Wash.Contract.DataContract.web.web_Mall_ProductDC item in ViewBag.List)
+                    {
+                        <tr>
+                            <td><a href="#">@item.Name</a></td>
+                            <td>原价:￥@item.MarketPrice</td>
+                            <td>现价：￥@item.SalesPrice</td>
+                            <td><button class="btn btn-sm btn-danger">购买</button></td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div class="page">
+                <ul class="pagination pagination-sm">
+                    <li><a href="#">上一页</a></li>
+                    <li><a href="#" class="active">1</a></li>
+                    <li><a href="#">下一页</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4 hidden-xs hidden-sm">
+            <div class="card-intro">
+                <h4>懒人卡介绍</h4>
+                <img src="/img/cardpic.jpg">
+                <p>懒人卡是由懒到佳信息技术有限公司发行的可在懒到家官网直接消费的储值卡。消费者可凭此卡所拥有的余额在懒到家官网进行消费支付。为懒人们在消费的时候提供更加便捷的支付方式。同时，此卡还具有以下优势：</p>
+                1、懒人卡绑定懒到家账户，消费更加的安全。<br>
+                <p>懒人卡只要一旦跟懒到家账号绑定，就无需再担忧丢失亦或是损失，更加的安全。</p>
+            </div>
+        </div>
+    </div>
+</div>

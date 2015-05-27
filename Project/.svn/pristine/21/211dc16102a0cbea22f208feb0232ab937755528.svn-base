@@ -1,0 +1,92 @@
+﻿@helper ConvertCardLogType(int type)
+{
+    switch (type)
+    {
+        case 1:
+            @(string.Format("绑定"))
+            break;
+        case 2:
+        @(string.Format("解绑"))
+            break;
+        case 3:
+        @(string.Format("消费"))
+            break;
+        case 4:
+        @(string.Format("退单"))
+            break;
+    }
+}
+
+@helper ConvertAmountType(int type)
+{
+    switch (type)
+    {
+        case 0:
+            @(string.Format("系统"))
+            break;
+        case 1:
+        @(string.Format("快递费"))
+            break;
+        case 2:
+        @(string.Format("快递减免"))
+            break;
+        case 3:
+        @(string.Format("优惠券"))
+            break;
+        case 5:
+        @(string.Format("活动优惠"))
+            break;
+        case 99:
+        @(string.Format("人工"))
+            break;
+    }
+}
+
+@helper ConvertPayMoneyType(int type)
+{
+    switch (type)
+    {
+        case 1:
+            @(string.Format("余额"))
+            break;
+        case 2:
+        @(string.Format("懒人卡"))
+            break;
+        case 3:
+        @(string.Format("支付宝"))
+            break;
+        case 4:
+        @(string.Format("腾讯财付通"))
+            break;
+        case 5:
+        @(string.Format("微信支付"))
+            break;
+        case 9:
+        @(string.Format("优惠券"))
+            break;
+    }
+}
+
+@helper ShowThis(bool b)
+{
+    if (b)
+    {
+        @(string.Format("this"))
+    }
+}
+
+@helper ShowActive(bool b)
+{
+    if (b)
+    {
+        @(string.Format("active"))
+    }
+}
+
+@helper ShowAddressActive(bool b)
+{
+    if (b)
+    {
+        @(string.Format("address-active"))
+    }
+}

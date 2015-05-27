@@ -1,0 +1,54 @@
+﻿@model IList<LazyAtHome.Web.WeiXin.Models.ViewModel.OrderViewModel>
+@{
+    ViewBag.Title = "我的订单";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wode">
+    <div class="wode_t">
+        <ul>
+            <li @UIHelper.CaseOrderClassStyle(ViewBag.Status == 800)><a href="@Url.Action("MyOrders", new { status = 800 })">待付款</a></li>
+            <li @UIHelper.CaseOrderClassStyle(ViewBag.Status == 900)><a href="@Url.Action("MyOrders", new { status = 900 })">待收货</a></li>
+            <li @UIHelper.CaseOrderClassStyle(ViewBag.Status == 999)><a href="@Url.Action("MyOrders", new { status = 999 })">已完成</a></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="wode_b" id="con_tui" style="display:block;">
+        <div class="wodedingdan">
+            @foreach (var item in Model)
+            {
+                <div class="woding">
+                    <div class="woding_t">
+                        <span class="order-num">订单号：@item.OrderNum</span>
+                        <span class="showdeail-arrow"><a href="@Url.Action("OrderDetails", new { orderNum = item.OrderNum })">详情 ></a></span>
+                    </div>
+                        @foreach (var product in item.ProductList)
+                    {
+                            <a href="@Url.Action("OrderDetails", new { orderNum = item.OrderNum })" style="display:block;clear:both">
+                                <div class="woding_b">
+                                    <div class="woding_b_l"><img src="@product.ProductInfo.PictureS" /></div>
+                                    <div class="woding_b_r">
+                                        <p>@product.ProductInfo.Name</p>
+                                        <p>@product.ProductInfo.Content</p>
+                                        <p>单价：<span>￥@product.ProductInfo.SalesPrice</span></p>
+                                        <p>数量：<span>@product.Count</span></p>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </a>
+                    }
+                        <div class="fukuan">
+                            <div class="fukuan_l">共计：<span>￥@item.TotalPrice</span></div>
+                            @if (ViewBag.Status == 800)
+                        {
+                                <div class="fukuan_c"><a href="@Url.Action("MyOrdersCannel", new { id = item.ID })"><img src="~/images/lan54.jpg" /></a></div>
+                                <div class="fukuan_r"><a href="@Url.Action("OrderDetails", new { orderNum = item.OrderNum })"><img src="~/images/lan53.jpg" /></a></div>
+                        }
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="footer foot"><img src="~/images/lan8.jpg" /></div>

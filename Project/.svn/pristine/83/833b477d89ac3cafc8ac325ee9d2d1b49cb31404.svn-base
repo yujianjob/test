@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "注册";
+}
+
+<section>
+    <div class="userCenter">
+        <label><span>用户名</span> <input type="text" id="txtUserName" name="txtUserName" placeholder="用户名/手机/邮箱" /></label>
+        <div style="clear:both"></div>
+        <label><span style="letter-spacing:.8em">密码</span><input type="password" id="txtPass" name="txtPass" /></label>
+        <label><span>确认密码</span><input type="password" id="txtPassConfim" name="txtPassConfim" /></label>
+        <button class="saveUserInfo-btn" type="button" onclick="FormSubmit();">提交</button>
+    </div>
+</section>
+
+@section scripts
+{
+    <script language="javascript" type="text/javascript">
+        function FormSubmit(id) {
+
+            if (!txtUserName.value.trim().match("^[0-9a-zA-Z@@.]{6,30}$")) {
+                showPopDiv("用户账号为6-30位数字、字母");
+                return false;
+            }
+
+            if (!txtPass.value.match("^.{6,20}$")) {
+                showPopDiv("请输入6-20位大小写英文字母，符号或数字");
+                return false;
+            }
+
+            if (txtPass.value.trim() != txtPassConfim.value.trim()) {
+                showPopDiv("两次输入的密码不一致");
+                return false;
+            }
+
+            var postData = { loginName: txtUserName.value.trim(), pass: txtPass.value, email: "" };
+            $.ajax({
+                type: "post",
+                url: "/Member/User_Reg",
+                data: postData,
+                dataType: "json",
+                success: ProcessReg,
+                error: function (msg) {
+                    showPopDiv(msg.toString(), false);
+                }
+            });
+        }
+
+        function ProcessReg(resultJson) {
+            if (resultJson != null) {
+                if (resultJson.Code == 1) {
+                    showPopDiv("注册成功", true, null, "/Member");
+                }
+                else {
+                    showPopDiv(resultJson.Msg, false);
+                }
+            }
+        }
+    </script>
+}

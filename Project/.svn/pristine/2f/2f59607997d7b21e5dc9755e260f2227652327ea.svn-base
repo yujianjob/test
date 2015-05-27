@@ -1,0 +1,50 @@
+﻿@model IList<LazyAtHome.WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC>
+@{
+    ViewBag.Title = "地址管理";
+}
+<section>
+    <div class="addManageBox">
+        @foreach (var item in Model)
+        {
+            <div class="addressManage">
+                @if (item.IsDefault == 1)
+                {
+                    <div class="defaultIcn"></div>
+                }
+                @item.Consignee <tel>@item.MPNo</tel><p>@item.Address</p>
+                <div class="addManageGroup"><a class="lf" href="/Address/AddressModify/@item.ID">编辑</a><a class="rt" onclick="DelAddress(@item.ID);">删除</a></div>
+            </div>
+        }
+        <button class="btn" type="button" onclick="window.location.href='/Address/AddressModify'">添加地址</button>
+    </div>
+</section>
+
+@section scripts
+{
+    <script language="javascript" type="text/javascript">
+        function DelAddress(id) {
+            var postData = { "id": id };
+            $.ajax({
+                type: "post",
+                url: "/Address/AddressDel",
+                data: postData,
+                dataType: "json",
+                success: ProcessDelAddress,
+                error: function (msg) {
+                    showPopDiv(msg.toString(), false);
+                }
+            });
+        }
+
+        function ProcessDelAddress(resultJson) {
+            if (resultJson != null) {
+                if (resultJson.Code == 1) {
+                    showPopDiv("删除成功", true);
+                }
+                else {
+                    showPopDiv(resultJson.Msg, false);
+                }
+            }
+        }
+    </script>
+}

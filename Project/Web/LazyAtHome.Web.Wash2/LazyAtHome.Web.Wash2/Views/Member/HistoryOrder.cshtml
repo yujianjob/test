@@ -1,0 +1,73 @@
+﻿@model IList<LazyAtHome.Web.Wash2.Models.OrderViewModel>
+@{
+    //ViewBag.Title = "历史订单";
+}
+
+<div class="page-content inset">
+    <div class="row">
+        <div class="col-md-7 col-md-offset-1">
+            @{
+                if (Model == null)
+                {
+                    <div class="Empty_historyOrder">
+                        <img src="/img/emptyOrderPic.jpg">
+                        <h2>没有历史订单</h2><p>哦哦~~~还没有订单呢，赶快下单去吧！</p>
+                        @*<a href="/wash" class="btn btn-group-lg order-btn">立即去下单</a>*@
+
+                        <div class="xd-btngroup">
+                            <a href="/Wash" class="btn btn-danger btn-lg" style="margin-right:30px">普通下单</a>
+                            <a href="/Cart/OneKey" class="btn btn-danger btn-lg">一键下单</a>
+                        </div>
+
+                    </div>
+                }
+                else
+                { 
+                    foreach (var order in Model)
+                    {
+                        <div class="order-unit">
+                            <div class="history-orderthead">
+                                <span class="visible-lg visible-md visible-sm">订单编号：<br>@order.OrderNum</span>
+                                <span class="visible-xs">订单编号：@order.OrderNum</span>
+                                <span class="visible-lg visible-md visible-sm">提交时间：<br>@order.CreateTime.ToString("yyyy.MM.dd")</span>
+                                <span class="visible-lg visible-md visible-sm">完成时间：<br>2014.04.25</span>
+                                <span class="operate">
+                                    <img src="/img/del-icn.png" style="margin-right:10px;">
+                                    <img src="/img/comment-icn.png">
+                                </span>
+                            </div>
+                            <table border="0" cellspacing="0" cellpadding="0" class="historyorder-tab">
+                                <tr>
+                                    <td>
+                                        <table border="0" cellspacing="0" cellpadding="0" class="order-prolist">
+                                            @foreach (var product in order.ProductList)
+                                            {
+                                                <tr>
+                                                    <td width="30%">@product.ProductInfo.Name</td>
+                                                    <td width="30%">@product.Count 件</td>
+                                                    <td>￥@(product.ProductInfo.Price * product.Count) </td>
+                                                </tr>
+                                            }
+                                        </table>
+                                    </td>
+                                    <td class="total-price">￥@order.TotalPrice</td>
+                                    <td>
+                                        <a href="/Member/OrderDetail?orderNum=@order.OrderNum">订单详情</a><br>
+                                        @*<a href="javascript:void(0)">查看物流</a><br>*@
+                                        @if (order.OrderClass != 2)
+                                        {
+                                            <a href="/Cart/ReOrder?orderNum=@order.OrderNum">再次购买</a>
+                                        }
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    }
+                }
+                
+            }
+
+
+        </div>
+    </div>
+</div>

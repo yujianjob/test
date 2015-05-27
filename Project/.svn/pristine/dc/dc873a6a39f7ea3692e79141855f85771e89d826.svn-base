@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1FA8E3FF-8CF2-473D-A356-448DCEC3CB52}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LazyAtHome.WCF.UserSystem.Business</RootNamespace>
+    <AssemblyName>LazyAtHome.WCF.UserSystem.Business</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LazyAtHome.Core">
+      <HintPath>D:\CommonDLL\LazyAtHome.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="LazyAtHome.WCF.Express.Contract">
+      <HintPath>D:\CommonDLL\LazyAtHome.WCF.Express.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Business\User.cs" />
+    <Compile Include="Business\User_App.cs" />
+    <Compile Include="Business\User_CustomerService.cs" />
+    <Compile Include="Business\User_Web.cs" />
+    <Compile Include="Business\User_Weixin.cs" />
+    <Compile Include="Portal\UserPortal.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\LazyAtHome.WCF.UserSystem.Contract\LazyAtHome.WCF.UserSystem.Contract.csproj">
+      <Project>{b8ccdf9e-04c8-4339-86ab-80ed84dd6fd3}</Project>
+      <Name>LazyAtHome.WCF.UserSystem.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LazyAtHome.WCF.UserSystem.DAL\LazyAtHome.WCF.UserSystem.DAL.csproj">
+      <Project>{e6e23be0-255a-41d8-a6cb-dc4416fff0aa}</Project>
+      <Name>LazyAtHome.WCF.UserSystem.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LazyAtHome.WCF.UserSystem.Interface\LazyAtHome.WCF.UserSystem.Interface.csproj">
+      <Project>{46a9e936-7cb4-4b5b-8a00-4ed79533ad6f}</Project>
+      <Name>LazyAtHome.WCF.UserSystem.Interface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

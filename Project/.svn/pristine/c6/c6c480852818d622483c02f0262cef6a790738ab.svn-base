@@ -1,0 +1,252 @@
+﻿@model LazyAtHome.WCF.OrderSystem.Contract.DataContract.Order_OrderDC
+@{
+    ViewBag.Title = "我的订单";
+}
+@{decimal totalMoney = 0;}
+<div class="page-content inset myorder">
+    <div class="row" style="padding-top:40px">
+        <div class="col-md-7 col-md-offset-1">
+            @if (Model == null)
+            {
+            <!--一键下单start-->
+                <div class="yjxd-container">
+                    <h3><a href="/Cart/OneKey">一键下单</a></h3>
+                    <img src="/img/yjxd-wheel-bg.png">
+                </div><!--一键下单end-->
+            }
+            else
+            {
+                <span style="color:#4cc7c8;font-size:1em">订单号：@Model.OrderNumber</span>
+            <!--缩小后的洗衣篮div-->
+                <div class="relative-div visible-xs visible-sm">
+                    <button class="visible-xs visible-sm btn btn-sm pull-right viewshopcart" onclick="OrderCollpase(this);">查看订单</button>
+                    <div class="shopcart-collapse" style="width:200px;display:none;">
+                        <div class="shopcartList-collapse" style="width:260px;padding:10px;">
+                            <div class="tit">
+                                <span class="pull-left">订单列表</span>
+                                <span class="pull-right"></span>
+                            </div>
+                            <div class="biaot">
+                                <div class="bt pull-left" style="width:50%">订单号</div>
+                                <div class="price pull-left" style="width:20%">价格</div>
+                                <div class="p-num pull-right">操作</div>
+                            </div>
+                            <div class="order">
+                                @foreach (LazyAtHome.WCF.OrderSystem.Contract.DataContract.Order_OrderDC order in ViewBag.OrderList)
+                                {
+                                    <div class="unit">
+                                        <div style="width:60%;float:left">@order.OrderNumber</div>
+                                        <div style="width:25%;float:left"><font color="#e95259">￥@order.TotalAmount</font></div>
+                                        <div style="float:left;width:15%; text-align:center"><a href="/Member/MyOrders?oid=@order.OrderNumber">查看</a></div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!--缩小后的洗衣篮div-->
+                <div class="progress-container">
+                    @{
+
+                switch (Model.Step)
+                {
+                    case 0:
+                        <h3>待审核</h3>
+                        <img src="/img/wheel-bg.png">
+                        break;
+                    case 1:
+                        if (Model.OrderClass == 1)
+                        {
+                            <h3>待支付</h3>
+                        }
+                        else
+                        {
+                            <h3>待取件</h3>
+                        }
+                        <img src="/img/wheel-bg.png">
+                        break;
+                    case 2:
+                    <h3>待取件</h3>
+                    <img src="/img/wheel-bg.png">
+                        break;
+                    case 3:
+                    <h3>送洗中</h3>
+                    <img src="/img/wheel-progress-1.png">
+                        break;
+                    case 4:
+                    <h3>洗涤中</h3>
+                    <img src="/img/wheel-progress-2.png">
+                        break;
+                    case 5:
+                    <h3>出件中</h3>
+                    <img src="/img/wheel-progress-3.png">
+                        break;
+                    case 6:
+                    <h3>送还中</h3>
+                    <img src="/img/wheel-progress-3.png">
+                        break;
+                    case 7:
+                    <h3>洗涤完成</h3>
+                    <img src="/img/wheel-progress-4.png">
+                        break;
+                }
+                    }
+                </div>
+                <p class="btngroup">
+                    @if (Model.OrderStatus == 1 && (Model.TotalAmount - Model.PayAmount > 0))
+                    {
+                        <button class="btn btn-lg btn-info" onclick="window.location.href = '/Cart/Payment?OrderNum=@(Model.OrderNumber)'">付款</button>
+                    }
+                    @if ((Model.OrderClass == 1 && Model.OrderStatus == 1) || (Model.OrderClass == 2 && Model.OrderStatus == 0))
+                    {
+                        <button class="btn btn-lg btn-info" onclick="orderCancel();">取消</button>
+                    }
+                </p>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-6" style="padding-left:15px">
+                        <div class="delivery-box">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2" class="timestatus"><span>@ViewBag.GetTime.ToString("HH:mm")</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="status-delivery-date" colspan="2">@ViewBag.GetTime.ToString("MM月dd日")</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="status-delivery-type">取件</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="progress progress-striped active">
+                                <div id="progress-bar-pickup" class="progress-bar" aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" style="width:25%">
+                                    <span class="sr-only">45% Complete</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <div class="delivery-box">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2" class="timestatus"><span>@ViewBag.SendTime.ToString("HH:mm")</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="status-delivery-date" colspan="2">@ViewBag.SendTime.ToString("MM月dd日")</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="status-delivery-type">送件</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="progress progress-striped active">
+                                <div id="progress-bar-pickup" class="progress-bar" aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" style="width:25%">
+                                    <span class="sr-only">45% Complete</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-detail">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="receive-ifo">
+                                <h2>收货人信息</h2>
+                                <p>
+                                    收货人：@Model.GetAddress.Consignee<br>
+                                    地址：@Model.GetAddress.Address<br>
+                                    手机号码：@Model.GetAddress.Mpno<br>
+                                    电子邮件：@Model.GetAddress.Email
+                                    <br>时间：@Model.Obj_Cdate
+                                </p>
+                            </div>
+                            <div class="proinfo">
+                                <h2>产品信息</h2>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>名称</th>
+                                            <th>单价</th>
+                                            <th>数量</th>
+                                        </tr>
+                                    </thead>
+                                    @foreach (LazyAtHome.Web.WeiXin3.Models.ProductItemModel pItem in ViewBag.ProductList)
+                                    {
+                                        <tr><td>@pItem.ProductInfo.Name</td><td>￥@pItem.ProductInfo.Price</td><td>@(pItem.Count)件</td></tr>
+                                        totalMoney += pItem.ProductInfo.Price * pItem.Count;
+                                    }
+                                </table>
+                            </div>
+                            <p style="text-align:right;padding-right:20px;border-top:1px dashed #ccc;padding-top:20px">
+                                合计：￥@totalMoney<br />
+                                @foreach (var amount in Model.AmountList)
+                                {
+                                    @(amount.Content + "：￥" + @amount.Money)<br />
+                                }
+                                @foreach (var payment in Model.PaymentList)
+                                {
+                                    @(UIHelper.ConvertPayMoneyType(payment.PayMoneyType) + "：￥-" + payment.PayMoney)<br />
+                                }
+                                <b>应付金额:<span class="total-price">￥@(Model.TotalAmount - Model.PayAmount)</span></b>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-md-4 hidden-xs hidden-sm">
+            <div class="myorderList">
+                <div class="tit"> <span class="pull-left">订单列表</span> <span class="pull-right"></span></div>
+                <div class="biaot">
+                    <div class="bt pull-left">订单号</div>
+                    <div class="price pull-left">价格</div>
+                    <div class="p-num pull-right">操作</div>
+                </div>
+                <div class="order">
+                    @if (Model != null)
+                    {
+                        foreach (LazyAtHome.WCF.OrderSystem.Contract.DataContract.Order_OrderDC order in ViewBag.OrderList)
+                        {
+                            <div class="unit">
+                                <div class="lfbt">@order.OrderNumber</div>
+                                <div class="prices"><span class="total-price">￥@order.TotalAmount</span></div>
+                                <div class="act"><a href="/Member/MyOrders?oid=@order.OrderNumber">查看</a></div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script language="javascript" type="text/javascript">
+        function orderCancel() {
+            var postData = { orderID: @(Model==null?0:Model.ID) };
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("OrderCancel", "Cart")",
+                data: postData,
+                dataType: "json",
+                success: ProcessOrderCancel,
+                error: function (msg) {
+                    showPopDiv(msg.responseText, false);
+                }
+            });
+        }
+
+        function ProcessOrderCancel(resultJson) {
+            if (resultJson != null) {
+                if (resultJson.Code == 1) {
+                    showPopDiv("订单取消成功", true, 3000, '/Member/MyOrders');
+                }
+                else {
+                    showPopDiv(resultJson.Msg, false, 3000);
+                }
+            }
+        }
+    </script>
+}

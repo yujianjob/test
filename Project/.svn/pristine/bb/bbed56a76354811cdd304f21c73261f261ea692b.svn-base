@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyAtHome.WCF.OrderSystem.Business", "LazyAtHome.WCF.OrderSystem.Business\LazyAtHome.WCF.OrderSystem.Business.csproj", "{9CDA7B83-D81C-4F48-B175-0CF90C4E8E1E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyAtHome.WCF.OrderSystem.Contract", "LazyAtHome.WCF.OrderSystem.Contract\LazyAtHome.WCF.OrderSystem.Contract.csproj", "{B0137DD5-D682-4B2D-B408-EF5ACAF18F2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyAtHome.WCF.OrderSystem.DAL", "LazyAtHome.WCF.OrderSystem.DAL\LazyAtHome.WCF.OrderSystem.DAL.csproj", "{BFBE1687-EE90-4825-BCA1-C232C8BEBEBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyAtHome.WCF.OrderSystem.Interface", "LazyAtHome.WCF.OrderSystem.Interface\LazyAtHome.WCF.OrderSystem.Interface.csproj", "{89F69195-ABDC-482D-BDA4-D502A528E4BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyAtHome.WCF.OrderSystem.Console_Client", "LazyAtHome.WCF.OrderSystem.Console_Client\LazyAtHome.WCF.OrderSystem.Console_Client.csproj", "{7357C24F-740A-4149-B0D6-BD7A5293C4AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyAtHome.WCF.OrderSystem.Console_Server", "LazyAtHome.WCF.OrderSystem.Console_Server\LazyAtHome.WCF.OrderSystem.Console_Server.csproj", "{7342E44C-69A7-4F70-9D36-E2E623C277F1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9CDA7B83-D81C-4F48-B175-0CF90C4E8E1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CDA7B83-D81C-4F48-B175-0CF90C4E8E1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CDA7B83-D81C-4F48-B175-0CF90C4E8E1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CDA7B83-D81C-4F48-B175-0CF90C4E8E1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0137DD5-D682-4B2D-B408-EF5ACAF18F2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0137DD5-D682-4B2D-B408-EF5ACAF18F2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0137DD5-D682-4B2D-B408-EF5ACAF18F2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0137DD5-D682-4B2D-B408-EF5ACAF18F2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFBE1687-EE90-4825-BCA1-C232C8BEBEBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFBE1687-EE90-4825-BCA1-C232C8BEBEBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFBE1687-EE90-4825-BCA1-C232C8BEBEBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFBE1687-EE90-4825-BCA1-C232C8BEBEBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89F69195-ABDC-482D-BDA4-D502A528E4BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89F69195-ABDC-482D-BDA4-D502A528E4BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89F69195-ABDC-482D-BDA4-D502A528E4BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89F69195-ABDC-482D-BDA4-D502A528E4BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7357C24F-740A-4149-B0D6-BD7A5293C4AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7357C24F-740A-4149-B0D6-BD7A5293C4AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7357C24F-740A-4149-B0D6-BD7A5293C4AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7357C24F-740A-4149-B0D6-BD7A5293C4AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7342E44C-69A7-4F70-9D36-E2E623C277F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7342E44C-69A7-4F70-9D36-E2E623C277F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7342E44C-69A7-4F70-9D36-E2E623C277F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7342E44C-69A7-4F70-9D36-E2E623C277F1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+EndGlobal

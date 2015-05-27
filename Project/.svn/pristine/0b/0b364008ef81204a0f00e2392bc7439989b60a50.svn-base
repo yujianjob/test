@@ -1,0 +1,36 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\xuefangshan1.jpg" /></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、沾上污渍后，请尽快清洗，手洗。切记不能使用用洗衣机来洗涤。</p> 
+				<p>2、在保持正常水温的情况下，请采用专业的洗涤剂洗涤。</p> 
+				<p>3、不同颜色的真丝产品要分开洗涤，以免互相染色。浸泡及漂洗的时间不宜过长，一般浸泡时间在三分钟左右。</p>
+				<p>4、洗涤过程中不能用力搓、刷、揉、拧，也不能用洗衣机甩干。</p>
+				<p>5、晾干过程应采用阴干，不可置于阳光下暴晒，否则会造成丝织物褪色和质地损坏等现象。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>懒到家，为MM们解决心爱衣物的打理难题。让MM们在夏日里，只管尽情美丽，无须担心洗涤。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\xuefangshan2.jpg" /></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>  雪纺衫是各位MM心爱的夏日搭配单品，然而雪纺衫也难打理，如果处理不好，就容易发黄变皱，或者缝合地方被扯破。这些都是平时不注意保养好，而导致雪纺衫的寿命缩短。因此，要掌握正确的保养方法，就可以让自己心爱的衣服穿得更久。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

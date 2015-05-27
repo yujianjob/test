@@ -1,0 +1,33 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\maorongwanju1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>日晒：紫外线可以有效杀死一些看不见的细菌，但是，此方法只适用于颜色比较浅的毛绒玩具，因为面料及材质不同，有的可能会容易褪色。晒的时候应该放在户外，如果阳光透过玻璃照射，是起不到任何杀菌作用的。</p> 
+				<p>消毒：时间长了玩具表面容易滋生细菌，一般的清洗方法已经不能杀灭细菌保持玩具的卫生了，这就需要加入适量的清洁剂进行消毒处理。在消毒和水洗之后的晾干过程中，一定要间歇性的对毛绒玩具进行拍打，使其表面和填充物蓬松柔软，恢复弹性。 </p> 
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>可爱的毛绒玩具肯定充满了您满满的幸福回忆，相信您也不忍心让您的回忆染上灰尘吧！珍藏记忆，让幸福永驻，那就多给您心爱的玩具洗个澡吧！</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\maorongwanju2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>毛绒玩具抱起来舒适，很多人喜欢把它抱在沙发上或床上，容易沾上人体的皮屑、空气中的灰尘，有时候会沾上汗渍，产生异味，很容易繁殖螨虫及一些病菌，为了延长宝贝的使用寿命，永葆青春，它的清洁问题可不容忽视，尤其是给孩子玩的长毛绒玩具，更要频繁清洗，小孩子免疫力比较低，病菌很容易对孩子的健康造成威胁，最好一个月洗一次。</p>			
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

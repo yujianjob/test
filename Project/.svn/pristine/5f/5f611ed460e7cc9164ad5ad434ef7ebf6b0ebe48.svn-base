@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 minutes">
+	<property name="logPath" value="/logs/laundry" />
+	<property name="defaultPattern" value="[%X{userLoggerName}] %date [%thread] %-5level %logger{80} - %msg%n" />
+
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%date [%thread] %-3level %logger{80}:%L - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="laundry-web" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${logPath}/laundry-web/laundry-web.log</File>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${logPath}/laundry-web/laundry-web.log.%d{yyyy-MM-dd}</FileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%date [%thread] %-3level %logger{80}:%L - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="laundry-web-error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${logPath}/laundry-web/laundry-web-error.log</File>
+
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${logPath}/laundry-web/laundry-web-error.log.%d{yyyy-MM-dd}</FileNamePattern>
+			<maxHistory>14</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>${defaultPattern}</pattern>
+		</encoder>
+	</appender>
+
+	<root>
+		<level value="INFO" />
+		<appender-ref ref="console" />
+		<appender-ref ref="laundry-web"></appender-ref>
+		<appender-ref ref="laundry-web-error"></appender-ref>
+	</root>
+
+	<logger name="com.landaojia.washclothes.laundry.web">
+		<level value="INFO" />
+	</logger>
+	
+	<logger name="org.springframework">
+		<level value="INFO" />
+	</logger>
+
+	<logger name="org.hibernate">
+		<level value="INFO" />
+	</logger>
+	
+	<logger name="net.sf.ehcache">
+		<level value="INFO" />
+	</logger>
+
+	<logger name="org.apache">
+		<level value="INFO" />
+	</logger>
+
+	<logger name="com.alibaba.dubbo">
+		<level value="INFO" />
+	</logger>
+
+	<logger name="net.rubyeye.xmemcached">
+		<level value="INFO" />
+	</logger>
+
+	<logger name="com.google.code">
+		<level value="INFO" />
+	</logger>
+
+	<logger name="com.netflix">
+		<level value="INFO" />
+	</logger>
+
+	<logger name="org.dozer">
+		<level value="INFO" />
+	</logger>
+</configuration>

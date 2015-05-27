@@ -1,0 +1,250 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data;
+using System.Data.SqlClient;
+using System.Data.Common;
+
+namespace LazyAtHome.Service.WorkQueue.Service
+{
+    class WorkQueueTask_OrderFinishProcess : TaskServer
+    {
+        /// <summary>
+        /// 第一次下单佣金金额
+        /// </summary>
+        const decimal Const_Commission_FirstTrade = 4m;
+        /// <summary>
+        /// 当面下单佣金金额
+        /// </summary>
+        const decimal Const_Commission_RealTimeTrade = 8m;
+
+        const decimal Const_Commission_LessThan10 = 7m;
+        const decimal Const_Commission_LessThan30 = 6m;
+        const decimal Const_Commission_LessThan60 = 5m;
+
+        string _TypeName = "WorkQueueTask_OrderFinishProcess";
+        public WorkQueueTask_OrderFinishProcess()
+        {
+            SleepTime = 10000;//十秒间隔
+        }
+
+        protected override object GetTask()
+        {
+            DbCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select oo.ID, oo.UserID, oo.OrderNumber, oo.TotalAmount, oo.PayAmount, oo.CommissionStatus, oo.InviteCode, oo.Step3Time, ui.OrderCount, eo.OperatorID, eo.NodeID, eo.TakeTime From Order_Order oo Left Join User_Info ui ON oo.UserID = ui.ID Left Join Exp_Order eo ON oo.OrderNumber = eo.OutNumber and eo.TransportType = 1 Where oo.CommissionStatus = 0 And oo.Step = 7 And oo.OrderStatus = 2";
+            cmd.CommandType = CommandType.Text;
+            DataTable dtList = DataAccess.SqlCommandOperation_DataTable(_TypeName, cmd);
+            if (dtList != null && dtList.Rows.Count > 0)
+                Console.WriteLine(DateTime.Now.ToString() + " 获取未结算订单，数量：" + dtList.Rows.Count);
+            if (dtList.Rows.Count == 0)
+                return null;
+            return dtList;
+        }
+
+        protected override void Process(object oTask)
+        {
+            DataTable dtList = (DataTable)oTask;
+            if (dtList.Rows.Count == 0)
+                return;
+
+            ArrayList arrSqlList = new ArrayList();
+            string strSql = "";
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+
+            foreach (DataRow dr in dtList.Rows)
+            {
+                arrSqlList.Clear();
+                decimal _TotalAddMoney = 0m;
+
+                int _OrderID = (int)dr["ID"];
+                string _UserID = dr["UserID"].ToString();
+                string _OrderNumber = dr["OrderNumber"].ToString();//订单编号
+                decimal _TotalAmount = (decimal)dr["TotalAmount"];//总金额
+                decimal _PayAmount = (decimal)dr["PayAmount"];//已支付金额
+                string _InviteCode = dr["InviteCode"].ToString();//当面下单邀请码
+                int _OrderCount = (int)dr["OrderCount"];//用户已完成订单数量
+                int _OperatorID = (int)dr["OperatorID"];//揽件人
+                int _NodeID = (int)dr["NodeID"];//站点ID
+                DateTime _OperatorTime = (DateTime)dr["TakeTime"];//揽件确认时间
+                DateTime _Step3Time = (DateTime)dr["Step3Time"];//完成揽件时间
+                int _CaptainID = 0;
+                decimal _CaptainMoney = -1m;
+
+                //cmd.CommandText = "Select epa.UserID, Commission From PR_Operator po Left Join Exp_Preson_Account epa ON po.ID = epa.UserID Where NodeID = " + _NodeID + " And RoleID = 2";
+                cmd.CommandText = "Select epa.UserID, epa.Commission From Exp_Node en Left Join Exp_Preson_Account epa ON en.CaptainID = epa.UserID Where en.ID = " + _NodeID;
+                DataTable dtCaptain = DataAccess.SqlCommandOperation_DataTable(_TypeName, cmd);
+                if (dtCaptain != null && dtCaptain.Rows.Count > 0)
+                {
+                    if (dtCaptain.Rows[0]["UserID"] != DBNull.Value)
+                    {
+                        _CaptainID = (int)dtCaptain.Rows[0]["UserID"];
+                        _CaptainMoney = (decimal)dtCaptain.Rows[0]["Commission"];
+                    }
+                }
+
+                if (_OrderCount == 1)
+                {
+                    //第一次下单
+                    var exUserID = GetExpressUserID(_UserID);
+                    if (exUserID != 0)
+                    {
+                        decimal _Commission = 0m;
+                        cmd.CommandText = "Select Commission From Exp_Preson_Account Where UserID = " + exUserID;
+                        _Commission = Convert.ToDecimal(DataAccess.SqlCommandOperation_Scalar(_TypeName, cmd));
+
+                        strSql = "Insert Into Exp_Preson_CommissionLog (UserID, ChangeType, BeforeValue, ChangeValue, AfterValue, CorrelationNo, Obj_Remark) Values ({0}, {1}, {2}, {3}, {4}, '{5}', '{6}')";
+                        strSql = string.Format(strSql, exUserID, 5, _Commission, Const_Commission_FirstTrade, _Commission + Const_Commission_FirstTrade, _OrderNumber, "拓展用户奖励");
+                        arrSqlList.Add(strSql);
+                        strSql = "Update Exp_Preson_Account Set Commission = Commission + " + Const_Commission_FirstTrade + " Where UserID = " + exUserID;
+                        arrSqlList.Add(strSql);
+
+                        if (_CaptainID != 0)
+                        {
+                            strSql = "Insert Into Exp_Preson_CommissionLog (UserID, ChangeType, BeforeValue, ChangeValue, AfterValue, CorrelationNo, Obj_Remark) Values ({0}, {1}, {2}, {3}, {4}, '{5}', '{6}')";
+                            strSql = string.Format(strSql, _CaptainID, 15, _CaptainMoney, 1, _CaptainMoney + 1, _OrderNumber, "队员拓展用户提成");
+                            arrSqlList.Add(strSql);
+                            strSql = "Update Exp_Preson_Account Set Commission = Commission + " + 1 + " Where UserID = " + _CaptainID;
+                            arrSqlList.Add(strSql);
+                            _CaptainMoney += 1;
+                        }
+                    }
+                }
+
+                cmd.CommandText = "Select Commission From Exp_Preson_Account Where UserID = " + _OperatorID;
+                var tmpRtn1 = DataAccess.SqlCommandOperation_Scalar(_TypeName, cmd);
+                if (tmpRtn1 == null)
+                {
+                    OrderProcessFail(_OrderNumber);
+                    continue;
+                }
+                decimal _OperatorMoney = Convert.ToDecimal(tmpRtn1);
+
+                if (!string.IsNullOrWhiteSpace(_InviteCode))
+                {
+                    //当面继续下单处理
+                    strSql = "Insert Into Exp_Preson_CommissionLog (UserID, ChangeType, BeforeValue, ChangeValue, AfterValue, CorrelationNo, Obj_Remark) Values ({0}, {1}, {2}, {3}, {4}, '{5}', '{6}')";
+                    strSql = string.Format(strSql, _OperatorID, 6, _OperatorMoney, Const_Commission_RealTimeTrade, _OperatorMoney + Const_Commission_RealTimeTrade, _OrderNumber, "用户当面下单");
+                    arrSqlList.Add(strSql);
+                    strSql = "Update Exp_Preson_Account Set Commission = Commission + " + Const_Commission_RealTimeTrade + " Where UserID = " + _OperatorID;
+                    arrSqlList.Add(strSql);
+
+                    if (_CaptainID != 0)
+                    {
+                        strSql = "Insert Into Exp_Preson_CommissionLog (UserID, ChangeType, BeforeValue, ChangeValue, AfterValue, CorrelationNo, Obj_Remark) Values ({0}, {1}, {2}, {3}, {4}, '{5}', '{6}')";
+                        strSql = string.Format(strSql, _CaptainID, 16, _CaptainMoney, 3, _CaptainMoney + 3, _OrderNumber, "用户当面下单提成");
+                        arrSqlList.Add(strSql);
+                        strSql = "Update Exp_Preson_Account Set Commission = Commission + " + 3 + " Where UserID = " + _CaptainID;
+                        arrSqlList.Add(strSql);
+                        _CaptainMoney += 3;
+                    }
+                }
+                else
+                {
+                    var FinishGetExpressTime = (_Step3Time - _OperatorTime).TotalMinutes;
+                    decimal tmpAddMoney = 0m;
+                    decimal tmpCaptainMoney = 0m;
+                    int tmpChangeType = 0;
+                    int tmpCaptainChangeType = 0;
+                    if (FinishGetExpressTime <= 10)
+                    {
+                        tmpChangeType = 2;
+                        tmpCaptainChangeType = 12;
+                        tmpAddMoney = Const_Commission_LessThan10;
+                        tmpCaptainMoney = 3m;
+                    }
+                    else if (FinishGetExpressTime < 30)
+                    {
+                        tmpChangeType = 3;
+                        tmpCaptainChangeType = 13;
+                        tmpAddMoney = Const_Commission_LessThan30;
+                        tmpCaptainMoney = 2m;
+                    }
+                    else if (FinishGetExpressTime < 60)
+                    {
+                        tmpChangeType = 4;
+                        tmpCaptainChangeType = 14;
+                        tmpAddMoney = Const_Commission_LessThan60;
+                        tmpCaptainMoney = 1m;
+                    }
+
+                    if (tmpAddMoney > 0)
+                    {
+                        strSql = "Insert Into Exp_Preson_CommissionLog (UserID, ChangeType, BeforeValue, ChangeValue, AfterValue, CorrelationNo, Obj_Remark) Values ({0}, {1}, {2}, {3}, {4}, '{5}', '{6}')";
+                        strSql = string.Format(strSql, _OperatorID, tmpChangeType, _OperatorMoney, tmpAddMoney, _OperatorMoney + tmpAddMoney, _OrderNumber, "完成取件时间:" + (int)FinishGetExpressTime + "分钟");
+                        arrSqlList.Add(strSql);
+                        strSql = "Update Exp_Preson_Account Set Commission = Commission + " + tmpAddMoney + " Where UserID = " + _OperatorID;
+                        arrSqlList.Add(strSql);
+                    }
+
+                    if (_CaptainID != 0)
+                    {
+                        strSql = "Insert Into Exp_Preson_CommissionLog (UserID, ChangeType, BeforeValue, ChangeValue, AfterValue, CorrelationNo, Obj_Remark) Values ({0}, {1}, {2}, {3}, {4}, '{5}', '{6}')";
+                        strSql = string.Format(strSql, _CaptainID, tmpCaptainChangeType, _CaptainMoney, tmpCaptainMoney, _CaptainMoney + tmpCaptainMoney, _OrderNumber, "完成取件提成，时间:" + (int)FinishGetExpressTime + "分钟");
+                        arrSqlList.Add(strSql);
+                        strSql = "Update Exp_Preson_Account Set Commission = Commission + " + tmpCaptainMoney + " Where UserID = " + _CaptainID;
+                        arrSqlList.Add(strSql);
+                    }
+                }
+
+                strSql = "Select ISNULL(SUM(PayMoney), 0) From Order_Payment Where OID = " + _OrderID + " And PayMoneyType = 0 And Obj_Status = 1";
+                cmd.Parameters.Clear();
+                cmd.CommandText = strSql;
+                var tmpPayment = (decimal)DataAccess.SqlCommandOperation_Scalar(_TypeName, cmd);
+                Console.WriteLine("快递员应上缴金额：" + tmpPayment);
+                if (tmpPayment > 0)
+                {
+                    cmd.CommandText = "Select Payment From Exp_Preson_Account Where UserID = " + _OperatorID;
+                    decimal _OperatorPayMent = Convert.ToDecimal(DataAccess.SqlCommandOperation_Scalar(_TypeName, cmd));
+
+                    //计算快递员应上缴金额
+                    strSql = "Update Exp_Preson_Account Set Payment = Payment + " + tmpPayment + " Where UserID = " + _OperatorID;
+                    arrSqlList.Add(strSql);
+                    strSql = "Insert Into Exp_Preson_PaymentLog (UserID, ChangeType, BeforeValue, ChangeValue, AfterValue, CorrelationNo, Obj_Remark) Values ({0}, {1}, {2}, {3}, {4}, '{5}', '{6}')";
+                    strSql = string.Format(strSql, _OperatorID, 1, _OperatorPayMent, tmpPayment, _OperatorPayMent + tmpPayment, _OrderNumber, "");
+                    arrSqlList.Add(strSql);
+                }
+
+                //更新订单结算状态
+                strSql = "Update Order_Order Set CommissionStatus = 1 Where OrderNumber = '" + _OrderNumber + "'";
+                arrSqlList.Add(strSql);
+
+                if (arrSqlList.Count > 0)
+                {
+                    DataAccess.SqlCommandOperation_Transaction(_TypeName, arrSqlList, Core.Enumerate.DataAccessPatterns.Write);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 获取用户的邀请注册快递员ID
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        protected int GetExpressUserID(string userid)
+        {
+            int exUserID = 0;
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select po.ID From User_RegisterLog ur Left Join PR_Operator po ON ur.InviteCode = po.Code Where ur.UserID = '" + userid + "'";
+            cmd.CommandType = CommandType.Text;
+            var _ExpressUserID = DataAccess.SqlCommandOperation_Scalar(_TypeName, cmd);
+            if (_ExpressUserID != DBNull.Value)
+            {
+                exUserID = Convert.ToInt32(_ExpressUserID);
+            }
+            return exUserID;
+        }
+
+        private void OrderProcessFail(string orderNum)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Update Order_Order Set CommissionStatus = 4 Where OrderNumber = '" + orderNum + "'";
+            cmd.CommandType = CommandType.Text;
+            DataAccess.SqlCommandOperation_NonQuery(_TypeName, cmd);
+            Console.WriteLine("订单处理失败：" + orderNum);
+        }
+    }
+}

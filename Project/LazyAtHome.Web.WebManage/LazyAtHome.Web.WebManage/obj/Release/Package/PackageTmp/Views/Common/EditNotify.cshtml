@@ -1,0 +1,160 @@
+﻿@model LazyAtHome.Web.WebManage.Models.Common.NotifyModel
+
+@{
+    <script src="@Url.Content("~/Scripts/Notify/notifyedit.js")" type="text/javascript"></script>
+}
+<!--报错信息-->
+@Html.Raw(ViewBag.Script)
+
+<div class="pageContent">
+    <form method="post" action="@Url.Action("SaveNotify", "Common")" id="frmSaveNotify" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
+        <div class="pageFormContent" layouth="56">
+            <div class="panel">
+                <h1>基本信息</h1>
+                <div>
+                    @Html.HiddenFor(model => model.NotifyInfo.ID)
+
+                    @{
+                        if (!string.IsNullOrEmpty(Model.NotifyInfo.OrderNumber))
+                        {
+                            <div class="unit">
+                                <p>
+                                    <a class="buttonActive" href="@Url.Action("EditOrderByOrderNumber", "Order", new { onumber = Model.NotifyInfo.OrderNumber })" target="navTab" rel="orderedit" title="订单详情"><span>查看订单详情</span></a>
+                                    <a class="buttonActive" href="@Url.Action("ExpOrderIndexByNotify", "Express", new { onumber = Model.NotifyInfo.OrderNumber })" target="navTab" rel="exporderlist" title="物流订单列表"><span>查看物流信息</span></a>
+                                </p>
+                            </div>
+                        }
+                    }
+
+                    
+
+                    <div class="unit">
+                        <p>
+                            <label>事件编号：</label>
+                            @Html.TextBoxFor(model => model.NotifyInfo.EventNumber, new { @readonly = "readonly" })
+                        </p>
+                        <p>
+                            <label>订单编号：</label>
+                            @Html.TextBoxFor(model => model.NotifyInfo.OrderNumber, new { @readonly = "readonly" })
+                            @*<a href="@Url.Action("EditOrderByOrderNumber", "Order", new { onumber = Model.NotifyInfo.OrderNumber })" target="navTab" rel="orderedit" title="订单详情">@Model.NotifyInfo.OrderNumber</a>*@                 
+                        </p>
+                    </div>
+
+                    
+                    <div class="unit">
+                        <dl class="nowrap">
+                            <dt>标题：</dt>
+                            <dd>
+                                @Html.TextAreaFor(model => model.NotifyInfo.Title, new { cols = "80", rows = "2", @class = "textarea" })
+                            </dd>
+                        </dl>
+                    </div>
+
+                    <div>
+                        <dl class="nowrap">
+                            <dt>内容：</dt>
+                            <dd>
+                                @Html.TextAreaFor(model => model.NotifyInfo.Content, new { cols = "80", rows = "3", @class = "textarea" })
+                            </dd>
+                        </dl>
+                    </div>
+
+                    <div class="unit">
+                        <p>
+                            <label>事件等级：</label>
+                            @Html.DropDownListFor(model => model.NotifyInfo.Level, new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text="信息", Value = "2" },
+                            new SelectListItem { Text="通知", Value = "3" },
+                            new SelectListItem { Text="警告", Value = "4" }},
+                            "Value", "Text", Model.NotifyInfo.Level))
+                        </p>
+
+                        <p>
+                            <label>处理人：</label>
+                            @Html.TextBoxFor(model => model.NotifyInfo.PersonnelName, new { @readonly = "readonly" })
+                        </p>
+                        
+                    </div>
+
+                    <div class="unit">
+                        <p>
+                            <label>是否发短信：</label>
+                            @Html.TextBoxFor(model => model.NotifyInfo.IsSms)
+                        </p>
+                        <p>
+                            <label>是否发邮件：</label>
+                            @Html.TextBoxFor(model => model.NotifyInfo.IsEmail)
+                        </p>
+                    </div>
+
+                    
+
+                </div>
+            </div>
+
+            
+            @{
+                if (Model.NotifyInfo.NotifyStatus == 0 || (Model.NotifyInfo.NotifyStatus == 1 && Model.NotifyInfo.RoleID == LazyAtHome.WCF.Common.Contract.DataContract.PR.RoleDC.Role_CustomerService && Model.NotifyInfo.RoleID == ViewBag.RoleID))
+                {
+                    //未处理 或者 处理中并RoleID为客服当前操作员也是客服 展示“我来处理”操作
+                    <div class="panel">
+                        <h1>领取操作</h1>
+                        <div>               
+                            <div class="buttonActive"><div class="buttonContent"><button type="button" id="btnDealNotify">我来处理</button></div></div>
+                            @Html.Hidden("hdDealNotifyUrl", @Url.Action("DealNotify", "Common"))
+                        </div>
+                    </div>
+                    
+                }
+
+            }
+            
+            <div class="panel">
+                <h1>更进操作</h1>
+                <div>
+                    <div>
+                        <dl class="nowrap">
+                            <dt>更进备注：</dt>
+                            <dd>
+                                @Html.TextAreaFor(model => model.NotifyInfo.Result, new { cols = "70", rows = "3", @class = "textarea" })
+                            </dd>
+                        </dl>
+                    </div>
+                    @{
+                        if (Model.NotifyInfo.NotifyStatus == 1 && Model.NotifyInfo.PersonnelID == ViewBag.OperatorID)
+                        {
+                            <div class="buttonActive"><div class="buttonContent"><button type="button" id="btnResultNotify">意见更新</button></div></div>
+                            <div class="buttonActive"><div class="buttonContent"><button type="button" id="btnFinishNotify">处理完成</button></div></div>
+                        }
+                        if (Model.NotifyInfo.NotifyStatus != 2 && Model.NotifyInfo.NotifyStatus != 6)
+                        {
+                            <div class="buttonActive"><div class="buttonContent"><button type="button" id="btnCloseNotify">关闭事件</button></div></div>
+                        }
+                    }
+                    
+                    @Html.Hidden("hdResultNotifyUrl", @Url.Action("ResultNotify", "Common"))
+                    @Html.Hidden("hdFinishNotifyUrl", @Url.Action("FinishNotify", "Common"))
+                </div>
+
+
+            </div>
+            
+        </div>
+
+        <div class="formBar">
+            <ul>
+                <!--<li><a class="buttonActive" href="javascript:;"><span>保存</span></a></li>-->
+                @*<li><div class="buttonActive"><div class="buttonContent"><button type="submit" id="btnSave">保存</button></div></div></li>*@
+                
+                
+                
+                
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>
+
+

@@ -1,0 +1,71 @@
+﻿@model LazyAtHome.Web.WeiXin.Models.UserInfo
+@{
+    ViewBag.Title = "购物车";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.ProductList == null || Model.ProductList.Count == 0)
+{
+    <div class="wode">
+        <div class="tipspic">
+            <img src="~/images/shopcar-tips-pic.jpg" />
+        </div>
+        <div class="join">
+            <a href="@Url.Action("Product","Wash")"><img src="~/images/join-btn.jpg" /></a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="wode">
+        @foreach (var item in Model.ProductList)
+        {
+            <div class="wode_b" style="display:block;">
+                <div class="wodedingdan">
+                    <div class="woding">
+                        <div class="woding_b">
+                            <div class="woding_b_l"><img src="@item.ProductInfo.PictureS" /></div>
+                            <div class="woding_b_r">
+                                <p>@item.ProductInfo.Name</p>
+                                <p>单价：<span>￥@item.ProductInfo.SalesPrice</span></p>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="fukuan1">
+                            <div class="fukuan1_l"><a href="@Url.Action("ProductDel", new { pid = @item.ProductInfo.ID })"><img src="~/images/lan54.jpg" /></a></div>
+                            <div class="fukuan1_c">数量：@item.Count</div>
+                            <div class="fukuan1_r" style="float:right; text-align:right;">共计：<span>￥@(item.ProductInfo.SalesPrice * item.Count)</span></div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="gouwuche" style="overflow:hidden">
+            <p>付款方式：在线付款</p>
+            <div class="jiesuan">
+                <div class="jiesuan_l">总价：<span>￥@Model.TotalPrice</span></div>
+                <div class="jiesuan_r"><a href="@Url.Action("OrderConfirm", "ShoppingCart")" onclick="formSubmit();"><img src="~/images/lan55.jpg" /></a></div>
+                <div class="jiesuan_rr"><a href="@Url.Action("Product","Wash")"><img style="width:100%; height:auto; margin-right:20%" src="~/images/continueshop-btn.jpg" /></a></div>
+
+               <!-- <div class="clear"></div>-->
+            </div>
+        </div>
+    </div>
+}
+
+<div class="footer foot"><img src="~/images/lan8.jpg" /></div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        function formSubmit() {
+            var pCount = "@Model.ProductList.Count";
+            if (pCount == "0") {
+                alert("您尚未选择任何产品");
+                return false;
+            }
+        }
+    </script>
+}

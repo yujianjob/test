@@ -1,0 +1,20 @@
+﻿@model IList<LazyAtHome.WCF.UserSystem.Contract.DataContract.User_CouponDC>
+@{
+    ViewBag.Title = "我的优惠券";
+}
+
+<section>
+    <div class="couponList">
+        @foreach (var item in Model)
+        {
+            <div class="couponUnit">
+                <p>
+                    优惠券名称：<span class="tit">@item.Name</span><br>
+                    过期时间：<span class="tm">@item.UseEndDate.ToShortDateString()</span><br>
+                    优惠券说明：<br>@item.Obj_Remark
+                </p>
+            </div>
+        }
+        <button class="addCoupon_btn" type="button" onclick="window.location.href = '/Member/AddCoupon'">添加优惠券</button>
+    </div>
+</section>

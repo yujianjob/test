@@ -1,0 +1,234 @@
+﻿@{
+    //ViewBag.Title = "注册送礼";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--内容-->
+<div class="prize-container">
+    <div class="prize-content">
+        <div class="title"><span>中奖查询> 注册抢好礼</span></div>
+        <div class="banner"><img src="~/Content/Images/prize-banner.jpg" /></div>
+        <!--促销 start-->
+        <div class="promotion">
+            <div class="ewm"><a href="#"><img src="~/Content/Images/prize-ewm.png" /></a></div>
+            <div class="cashcoupon">
+                <span>注册即送20元现金劵!</span>
+                <a href="#"><img src="~/Content/Images/coupon-img.jpg" /></a>
+            </div>
+            <div class="lazy-artifact">
+                <span style="margin-left:230px;">各种懒人神器免费送!</span>
+                <a href="#"><img src="~/Content/Images/lazy-artifact-img.jpg" /></a>
+            </div>
+            <div class="lazy-card">
+                <span style="margin-top:46px">100元懒人卡随机送!</span>
+                <a href="#"><img src="~/Content/Images/lazy-card-img.jpg" /></a>
+            </div>
+            <div class="ipad">
+                <span style="margin-left:230px;margin-top:46px">终极大奖ipad来啦!</span>
+                <a href="#"><img src="~/Content/Images/ipad-img.jpg" /></a>
+            </div>
+        </div>
+        <!--促销 end-->
+        <!--中奖列表 start-->
+        <div class="prize-list">
+            <div class="title">中奖记录查询</div>
+            <p style="padding:20px 84px; line-height:25px;font-size:14px;">
+                懒人们注意啦！<br />
+                6月6日~6月13日，懒到家首批活动中奖会员已经产生，恭喜以下获奖者。<br />
+                从6月30日起，我们会短信通知所有中奖会员，并由专人电话确认奖品的邮寄地址。确认完毕后，奖品将在一周内寄出，同时以短信通知中奖会员相关快递运单号。<br />
+                小伙伴儿们，赶快来查查自己有没有中奖吧！^_^
+            </p>
+            <table width="840" border="0" cellspacing="0" cellpadding="0" class="prizelist-tabs" align="center">
+                <thead>
+                    <tr>
+                        <th>用户名</th>
+                        <th>奖品名称</th>
+                        <th style="border-right:0px;">中奖时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>185****5430</td>
+                        <td>IPAD AIR</td>
+                        <td>2013-6-13</td>
+                    </tr>
+                    <tr>
+                        <td>150****8345</td>
+                        <td>100元懒人卡</td>
+                        <td>2013-6-13</td>
+                    </tr>
+                    <tr>
+                        <td>185****5430</td>
+                        <td>100元懒人卡</td>
+                        <td>2013-6-13</td>
+                    </tr>
+                    <tr>
+                        <td>135****2579</td>
+                        <td>100元懒人卡</td>
+                        <td>2013-6-12</td>
+                    </tr>
+                    <tr>
+                        <td>139****9080</td>
+                        <td>100元懒人卡</td>
+                        <td>2013-6-12</td>
+                    </tr>
+                    <tr>
+                        <td>133****8181</td>
+                        <td>100元懒人卡</td>
+                        <td>2013-6-11</td>
+                    </tr>
+                    <tr>
+                        <td>135****9761</td>
+                        <td>100元懒人卡</td>
+                        <td>2013-6-11</td>
+                    </tr>
+                    <tr>
+                        <td>138****0295</td>
+                        <td>100元懒人卡</td>
+                        <td>2013-6-10</td>
+                    </tr>
+                    <tr>
+                        <td>139****8677</td>
+                        <td>100元懒人卡</td>
+                        <td>2013-6-10</td>
+                    </tr>
+                    <tr>
+                        <td>135****3335</td>
+                        <td>100元懒人卡</td>
+                        <td>2013-6-9</td>
+                    </tr>
+                    <tr>
+                        <td>135****2144</td>
+                        <td>100元懒人卡</td>
+                        <td>2013-6-9</td>
+                    </tr>
+                    <tr>
+                        <td>136****3903</td>
+                        <td>100元懒人卡</td>
+                        <td>2013-6-8</td>
+                    </tr>
+                    <tr>
+                        <td>135****8117</td>
+                        <td>100元懒人卡</td>
+                        <td>2013-6-8</td>
+                    </tr>
+                    <tr>
+                        <td>133****7230</td>
+                        <td>100元懒人卡</td>
+                        <td>2013-6-7</td>
+                    </tr>
+                    <tr>
+                        <td>130****8778</td>
+                        <td>100元懒人卡</td>
+                        <td>2013-6-7</td>
+                    </tr>
+                    <tr>
+                        <td>158****8610</td>
+                        <td>100元懒人卡</td>
+                        <td>2013-6-6</td>
+                    </tr>
+                    <tr>
+                        <td>136****5474</td>
+                        <td>100元懒人卡</td>
+                        <td>2013-6-6</td>
+                    </tr>
+                    <tr height="19">
+                        <td>131****3753</td>
+                        <td>懒人手机支架</td>
+                        <td>2013-6-13</td>
+                    </tr>
+                    <tr height="19">
+                        <td>150****9681</td>
+                        <td>懒人手机支架</td>
+                        <td>2013-6-13</td>
+                    </tr>
+                    <tr height="19">
+                        <td>186****1990</td>
+                        <td>懒人手机支架</td>
+                        <td>2013-6-12</td>
+                    </tr>
+                    <tr height="19">
+                        <td>186****7193</td>
+                        <td>懒人手机支架</td>
+                        <td>2013-6-12</td>
+                    </tr>
+                    <tr height="19">
+                        <td>139****2743</td>
+                        <td>懒人手机支架</td>
+                        <td>2013-6-11</td>
+                    </tr>
+                    <tr height="19">
+                        <td>158****3117</td>
+                        <td>懒人手机支架</td>
+                        <td>2013-6-11</td>
+                    </tr>
+                    <tr height="19">
+                        <td>138****7777</td>
+                        <td>懒人手机支架</td>
+                        <td>2013-6-10</td>
+                    </tr>
+                    <tr height="19">
+                        <td>136****1078</td>
+                        <td>懒人手机支架</td>
+                        <td>2013-6-10</td>
+                    </tr>
+                    <tr height="19">
+                        <td>136****2621</td>
+                        <td>懒人折衣板</td>
+                        <td>2013-6-9</td>
+                    </tr>
+                    <tr height="19">
+                        <td>136****6912</td>
+                        <td>懒人折衣板</td>
+                        <td>2013-6-9</td>
+                    </tr>
+                    <tr height="19">
+                        <td>189****5889</td>
+                        <td>懒人折衣板</td>
+                        <td>2013-6-8</td>
+                    </tr>
+                    <tr height="19">
+                        <td>135****8385</td>
+                        <td>懒人折衣板</td>
+                        <td>2013-6-8</td>
+                    </tr>
+                    <tr height="19">
+                        <td>136****7889</td>
+                        <td>懒人折衣板</td>
+                        <td>2013-6-7</td>
+                    </tr>
+                    <tr height="19">
+                        <td>136****5474</td>
+                        <td>懒人折衣板</td>
+                        <td>2013-6-7</td>
+                    </tr>
+                    <tr height="19">
+                        <td>131****7706</td>
+                        <td>懒人折衣板</td>
+                        <td>2013-6-6</td>
+                    </tr>
+                    <tr height="19">
+                        <td>138****0662</td>
+                        <td>懒人折衣板</td>
+                        <td>2013-6-6</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="page" style="display:none"><a href="#">上一页</a> <a href="#">下一页</a></div>
+            <p class="prize-tips" style="margin-top:40px">好礼送不停！！只要你<span>注册、绑定</span>就有机会中奖哦！</p>
+        </div>
+        <!--中奖列表 end-->
+    </div>
+</div>
+@section scripts
+{
+    <script type="text/javascript">
+        $(".prizelist-tabs tbody tr:odd").css("background", "#f6f3f3");
+        $(".prizelist-tabs tbody tr").each(function () {
+            $(this).children().eq(2).css("borderRight", "none");
+        });
+    </script>
+}

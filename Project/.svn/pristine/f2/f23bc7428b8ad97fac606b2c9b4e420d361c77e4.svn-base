@@ -1,0 +1,112 @@
+﻿@{
+    //ViewBag.Title = "Activities";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--内容-->
+<div id="content">
+    <div class="activitiesTitle">活动中心</div>
+    <div class="activitiesList">
+        <ul>
+            <li>
+                <div class="activitiesListBox">
+                    <div class="activitiesListBoxTop"></div>
+                    <div class="activitiesListBoxBottom"></div>
+                    <div class="activitiesListBoxPic">
+                        <div class="activitiesListBoxPicWrapper">
+                            <div class="activitiesListBoxPicTitle">活动名称</div>
+                            <div class="activitiesListBoxPicFont">活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍</div>
+                            <div class="activitiesListBoxPicMore"><a href="#">了解详情</a></div>
+                            <div class="activitiesListBoxPicQuan"></div>
+                            <div class="activitiesListBoxPicHei"></div>
+                            <img src="~/Content/Images/pic_19.jpg" width="263" height="262" />
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="activitiesListBox">
+                    <div class="activitiesListBoxTop"></div>
+                    <div class="activitiesListBoxBottom"></div>
+                    <div class="activitiesListBoxPic">
+                        <div class="activitiesListBoxPicWrapper">
+                            <div class="activitiesListBoxPicTitle">活动名称</div>
+                            <div class="activitiesListBoxPicFont">活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍</div>
+                            <div class="activitiesListBoxPicMore"><a href="#">了解详情</a></div>
+                            <div class="activitiesListBoxPicQuan"></div>
+                            <div class="activitiesListBoxPicHei"></div>
+                            <img src="~/Content/Images/pic_19.jpg" width="263" height="262" />
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="activitiesListBox">
+                    <div class="activitiesListBoxTop"></div>
+                    <div class="activitiesListBoxBottom"></div>
+                    <div class="activitiesListBoxPic">
+                        <div class="activitiesListBoxPicWrapper">
+                            <div class="activitiesListBoxPicTitle">活动名称</div>
+                            <div class="activitiesListBoxPicFont">活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍</div>
+                            <div class="activitiesListBoxPicMore"><a href="#">了解详情</a></div>
+                            <div class="activitiesListBoxPicQuan"></div>
+                            <div class="activitiesListBoxPicHei"></div>
+                            <img src="~/Content/Images/pic_19.jpg" width="263" height="262" />
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="activitiesListBox">
+                    <div class="activitiesListBoxTop"></div>
+                    <div class="activitiesListBoxBottom"></div>
+                    <div class="activitiesListBoxPic">
+                        <div class="activitiesListBoxPicWrapper">
+                            <div class="activitiesListBoxPicTitle">活动名称</div>
+                            <div class="activitiesListBoxPicFont">活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍</div>
+                            <div class="activitiesListBoxPicMore"><a href="#">了解详情</a></div>
+                            <div class="activitiesListBoxPicQuan"></div>
+                            <div class="activitiesListBoxPicHei"></div>
+                            <img src="~/Content/Images/pic_19.jpg" width="263" height="262" />
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="activitiesListBox">
+                    <div class="activitiesListBoxTop"></div>
+                    <div class="activitiesListBoxBottom"></div>
+                    <div class="activitiesListBoxPic">
+                        <div class="activitiesListBoxPicWrapper">
+                            <div class="activitiesListBoxPicTitle">活动名称</div>
+                            <div class="activitiesListBoxPicFont">活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍</div>
+                            <div class="activitiesListBoxPicMore"><a href="#">了解详情</a></div>
+                            <div class="activitiesListBoxPicQuan"></div>
+                            <div class="activitiesListBoxPicHei"></div>
+                            <img src="~/Content/Images/pic_19.jpg" width="263" height="262" />
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <div class="clear"></div>
+        </ul>
+    </div>
+</div>
+@section scripts
+{
+    <script language="javascript" type="text/jscript">
+        $(function () {
+            //效果
+            $('.activitiesListBoxPic').hover(function () {
+                $(this).parent().parent('li').addClass('this');
+            }, function () {
+                $('.activitiesList li').removeClass('this');
+            })
+            $(".activitiesList li:odd").addClass('activitiesList_02');
+            $(".activitiesList li:even").addClass('activitiesList_01');
+        });
+    </script>
+}

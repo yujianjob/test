@@ -1,0 +1,930 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2CA72C83-DCDE-4DB4-AF24-317B0F6E901A}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LazyAtHome.Web.WashSite</RootNamespace>
+    <AssemblyName>LazyAtHome.Web.WashSite</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LazyAtHome.Core">
+      <HintPath>D:\CommonDLL\LazyAtHome.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="LazyAtHome.Core.Web">
+      <HintPath>D:\CommonDLL\LazyAtHome.Core.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="LazyAtHome.Library.Pay">
+      <HintPath>D:\CommonDLL\LazyAtHome.Library.Pay.dll</HintPath>
+    </Reference>
+    <Reference Include="LazyAtHome.WCF.Common.Contract">
+      <HintPath>D:\CommonDLL\LazyAtHome.WCF.Common.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="LazyAtHome.WCF.OrderSystem.Contract">
+      <HintPath>D:\CommonDLL\LazyAtHome.WCF.OrderSystem.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="LazyAtHome.WCF.UserSystem.Contract">
+      <HintPath>D:\CommonDLL\LazyAtHome.WCF.UserSystem.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="LazyAtHome.WCF.Wash.Contract">
+      <HintPath>D:\CommonDLL\LazyAtHome.WCF.Wash.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationServer.Caching.Client">
+      <HintPath>D:\CommonDLL\Microsoft.ApplicationServer.Caching.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationServer.Caching.Core">
+      <HintPath>D:\CommonDLL\Microsoft.ApplicationServer.Caching.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.1\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <Private>True</Private>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Code\AppConfig.cs" />
+    <Compile Include="App_Code\NoCacheFilter.cs" />
+    <Compile Include="App_Code\Proxy\CommonProxy.cs" />
+    <Compile Include="App_Code\Proxy\OrderProxy.cs" />
+    <Compile Include="App_Code\Proxy\UserProxycs.cs" />
+    <Compile Include="App_Code\Proxy\WashProxy.cs" />
+    <Compile Include="App_Code\Utilities\LazyAuthorizeAttribute.cs" />
+    <Compile Include="App_Code\UtilityFunc.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ActivitiesController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LazyArtifactController.cs" />
+    <Compile Include="Controllers\LuxuryController.cs" />
+    <Compile Include="Controllers\MemberController.cs" />
+    <Compile Include="Controllers\WashController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Home\ArtifactViewModel.cs" />
+    <Compile Include="Models\Home\NavViewModel.cs" />
+    <Compile Include="Models\User\Cart.cs" />
+    <Compile Include="Models\User\CartProductItem.cs" />
+    <Compile Include="Models\User\UserInfo.cs" />
+    <Compile Include="Models\Wash\OrderViewModel.cs" />
+    <Compile Include="Models\Wash\ProductItem.cs" />
+    <Compile Include="Models\Wash\ProductListViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Css\base.css" />
+    <Content Include="Content\Images\!.gif" />
+    <Content Include="Content\Images\+.gif" />
+    <Content Include="Content\Images\=.gif" />
+    <Content Include="Content\Images\activity-active-bg.jpg" />
+    <Content Include="Content\Images\activity-bg.jpg" />
+    <Content Include="Content\Images\activity_pic21.jpg" />
+    <Content Include="Content\Images\activity_pic22.jpg" />
+    <Content Include="Content\Images\activity_pic23.jpg" />
+    <Content Include="Content\Images\add-icn.jpg" />
+    <Content Include="Content\Images\addDizhi-btn.gif" />
+    <Content Include="Content\Images\advantage-banner.jpg" />
+    <Content Include="Content\Images\advantage-pic1.jpg" />
+    <Content Include="Content\Images\advantage-pic2.jpg" />
+    <Content Include="Content\Images\advantage-pic3.jpg" />
+    <Content Include="Content\Images\advantage-pic4.jpg" />
+    <Content Include="Content\Images\baonuanku.jpg" />
+    <Content Include="Content\Images\baonuanneiyi1.jpg" />
+    <Content Include="Content\Images\baonuanneiyi2.jpg" />
+    <Content Include="Content\Images\beitao1.jpg" />
+    <Content Include="Content\Images\beitao2.jpg" />
+    <Content Include="Content\Images\beixin1.jpg" />
+    <Content Include="Content\Images\beixin2.jpg" />
+    <Content Include="Content\Images\bline2.jpg" />
+    <Content Include="Content\Images\bline3.jpg" />
+    <Content Include="Content\Images\bline_byxj.gif" />
+    <Content Include="Content\Images\bline_jjcx.gif" />
+    <Content Include="Content\Images\bline_xdjq.gif" />
+    <Content Include="Content\Images\byxj-bline.jpg" />
+    <Content Include="Content\Images\byxj_bline2.png" />
+    <Content Include="Content\Images\byxj_bt.gif" />
+    <Content Include="Content\Images\cacel-order.gif" />
+    <Content Include="Content\Images\cancel-btn.jpg" />
+    <Content Include="Content\Images\cancel-btn1.gif" />
+    <Content Include="Content\Images\cansibei1.jpg" />
+    <Content Include="Content\Images\cansibei2.jpg" />
+    <Content Include="Content\Images\cardpic.jpg" />
+    <Content Include="Content\Images\chairpic.png" />
+    <Content Include="Content\Images\changtongxue1.jpg" />
+    <Content Include="Content\Images\changtongxue2.jpg" />
+    <Content Include="Content\Images\charge-btn.gif" />
+    <Content Include="Content\Images\chenshan1.jpg" />
+    <Content Include="Content\Images\chenshan2.jpg" />
+    <Content Include="Content\Images\chongfengku.jpg" />
+    <Content Include="Content\Images\chongfengyi1.jpg" />
+    <Content Include="Content\Images\chongfengyi2.jpg" />
+    <Content Include="Content\Images\chuangdan1.jpg" />
+    <Content Include="Content\Images\chuangdan2.jpg" />
+    <Content Include="Content\Images\chuanglian1.jpg" />
+    <Content Include="Content\Images\chuanglian2.jpg" />
+    <Content Include="Content\Images\chuangru1.jpg" />
+    <Content Include="Content\Images\chuangru2.jpg" />
+    <Content Include="Content\Images\chuangsha1.jpg" />
+    <Content Include="Content\Images\chuangsha2.jpg" />
+    <Content Include="Content\Images\chuangzhao1.jpg" />
+    <Content Include="Content\Images\chuangzhao2.jpg" />
+    <Content Include="Content\Images\claim-btn.jpg" />
+    <Content Include="Content\Images\cloths-img.jpg" />
+    <Content Include="Content\Images\cloths1-img.jpg" />
+    <Content Include="Content\Images\coat.jpg" />
+    <Content Include="Content\Images\continue_select_btn.gif" />
+    <Content Include="Content\Images\coupon-img.jpg" />
+    <Content Include="Content\Images\cpsjt-banner.jpg" />
+    <Content Include="Content\Images\dadiku.jpg" />
+    <Content Include="Content\Images\danjianbao1.jpg" />
+    <Content Include="Content\Images\danjianbao2.jpg" />
+    <Content Include="Content\Images\dayi1.jpg" />
+    <Content Include="Content\Images\dayi2.jpg" />
+    <Content Include="Content\Images\dcwj-icn.jpg" />
+    <Content Include="Content\Images\dengshanxie1.jpg" />
+    <Content Include="Content\Images\dengshanxie2.jpg" />
+    <Content Include="Content\Images\description-img.jpg" />
+    <Content Include="Content\Images\diaodaiqun-pic.jpg" />
+    <Content Include="Content\Images\diaodaiqun.jpg" />
+    <Content Include="Content\Images\diaodaishan1.jpg" />
+    <Content Include="Content\Images\diaodaishan2.jpg" />
+    <Content Include="Content\Images\ditan1.jpg" />
+    <Content Include="Content\Images\ditan2.jpg" />
+    <Content Include="Content\Images\duanku1.jpg" />
+    <Content Include="Content\Images\duanku2.jpg" />
+    <Content Include="Content\Images\duihuan-btn.gif" />
+    <Content Include="Content\Images\dzby-banner.jpg" />
+    <Content Include="Content\Images\equal-icn.jpg" />
+    <Content Include="Content\Images\error-img.gif" />
+    <Content Include="Content\Images\error-img.jpg" />
+    <Content Include="Content\Images\ewm-banner.jpg" />
+    <Content Include="Content\Images\fangfushefu1.jpg" />
+    <Content Include="Content\Images\fangfushefu2.jpg" />
+    <Content Include="Content\Images\favicon.ico" />
+    <Content Include="Content\Images\fengyi1.jpg" />
+    <Content Include="Content\Images\fengyi2.jpg" />
+    <Content Include="Content\Images\finish-btn.jpg" />
+    <Content Include="Content\Images\freecharge.png" />
+    <Content Include="Content\Images\fukuan-btn.gif" />
+    <Content Include="Content\Images\gaogenxie1.jpg" />
+    <Content Include="Content\Images\gaogenxie2.jpg" />
+    <Content Include="Content\Images\gdpic01.jpg" />
+    <Content Include="Content\Images\gdpic02.jpg" />
+    <Content Include="Content\Images\getverify-btn.jpg" />
+    <Content Include="Content\Images\gift-banner.jpg" />
+    <Content Include="Content\Images\gift-pic1.jpg" />
+    <Content Include="Content\Images\gift-pic2.jpg" />
+    <Content Include="Content\Images\gift-pic3.jpg" />
+    <Content Include="Content\Images\gift-pic4.jpg" />
+    <Content Include="Content\Images\goback-btn.jpg" />
+    <Content Include="Content\Images\green-bg.png" />
+    <Content Include="Content\Images\hd1-banner.jpg" />
+    <Content Include="Content\Images\hd2-banner.jpg" />
+    <Content Include="Content\Images\hd3-banner.jpg" />
+    <Content Include="Content\Images\hd4-banner.jpg" />
+    <Content Include="Content\Images\home-btn.jpg" />
+    <Content Include="Content\Images\home-cpsjt-banner.jpg" />
+    <Content Include="Content\Images\home-dzby-banner.jpg" />
+    <Content Include="Content\Images\home-ewm-banner.jpg" />
+    <Content Include="Content\Images\home-hxys-banner.jpg" />
+    <Content Include="Content\Images\home-hyzm-banner.jpg" />
+    <Content Include="Content\Images\home-lpb-banner.jpg" />
+    <Content Include="Content\Images\home-xzxd-banner.jpg" />
+    <Content Include="Content\Images\home-zcsl-banner.jpg" />
+    <Content Include="Content\Images\houbeixiangdian1.jpg" />
+    <Content Include="Content\Images\houbeixiangdian2.jpg" />
+    <Content Include="Content\Images\house-bg.gif" />
+    <Content Include="Content\Images\housew-bg.jpg" />
+    <Content Include="Content\Images\hunsha1.jpg" />
+    <Content Include="Content\Images\hunsha2.jpg" />
+    <Content Include="Content\Images\hxys-banner.jpg" />
+    <Content Include="Content\Images\hyzm-banner.jpg" />
+    <Content Include="Content\Images\hyzm-pic.jpg" />
+    <Content Include="Content\Images\hyzm-pic1.jpg" />
+    <Content Include="Content\Images\hyzm-pic2.jpg" />
+    <Content Include="Content\Images\hyzm-pic3.jpg" />
+    <Content Include="Content\Images\hyzm-pic4.jpg" />
+    <Content Include="Content\Images\hyzm-pic5.jpg" />
+    <Content Include="Content\Images\icn01.jpg" />
+    <Content Include="Content\Images\icn02.jpg" />
+    <Content Include="Content\Images\icn03.jpg" />
+    <Content Include="Content\Images\icn04.jpg" />
+    <Content Include="Content\Images\icn05.jpg" />
+    <Content Include="Content\Images\icn06.jpg" />
+    <Content Include="Content\Images\icn07.jpg" />
+    <Content Include="Content\Images\icn08.jpg" />
+    <Content Include="Content\Images\icn09.jpg" />
+    <Content Include="Content\Images\invitebanner.jpg" />
+    <Content Include="Content\Images\ipad-img.jpg" />
+    <Content Include="Content\Images\ipadpic.jpg" />
+    <Content Include="Content\Images\jia.gif" />
+    <Content Include="Content\Images\deng.gif" />
+    <Content Include="Content\Images\aboutLogo.gif" />
+    <Content Include="Content\Images\aboutNavListBg.gif" />
+    <Content Include="Content\Images\aboutTitle.gif" />
+    <Content Include="Content\Images\activitiesBt.gif" />
+    <Content Include="Content\Images\activitiesQuan.png" />
+    <Content Include="Content\Images\activitiesQuanLan.png" />
+    <Content Include="Content\Images\activitiesTitle.png" />
+    <Content Include="Content\Images\activities_01.gif" />
+    <Content Include="Content\Images\activities_02.gif" />
+    <Content Include="Content\Images\activities_03.gif" />
+    <Content Include="Content\Images\activities_04.gif" />
+    <Content Include="Content\Images\activities_05.gif" />
+    <Content Include="Content\Images\activities_06.gif" />
+    <Content Include="Content\Images\addCart.gif" />
+    <Content Include="Content\Images\banner_01.jpg" />
+    <Content Include="Content\Images\banner_02.jpg" />
+    <Content Include="Content\Images\banner_03.jpg" />
+    <Content Include="Content\Images\baocunshoujianrendizhi.gif" />
+    <Content Include="Content\Images\cart.gif" />
+    <Content Include="Content\Images\cartInput.gif" />
+    <Content Include="Content\Images\cartLuxuryJiantou.gif" />
+    <Content Include="Content\Images\cartPaymentOk.gif" />
+    <Content Include="Content\Images\cartSubmitPic_01.gif" />
+    <Content Include="Content\Images\cartTitle_01.gif" />
+    <Content Include="Content\Images\cartTitle_02.gif" />
+    <Content Include="Content\Images\cartTitle_03.gif" />
+    <Content Include="Content\Images\cartTitle_04.gif" />
+    <Content Include="Content\Images\contentYouListBg.gif" />
+    <Content Include="Content\Images\contentYouListDl.gif" />
+    <Content Include="Content\Images\contentZuoNav.gif" />
+    <Content Include="Content\Images\daDuihao.gif" />
+    <Content Include="Content\Images\dingdanGoumai.gif" />
+    <Content Include="Content\Images\duihao.gif" />
+    <Content Include="Content\Images\duihaoYuan.gif" />
+    <Content Include="Content\Images\erweima.gif" />
+    <Content Include="Content\Images\fanhui.gif" />
+    <Content Include="Content\Images\fenxiang_01.gif" />
+    <Content Include="Content\Images\fenxiang_02.gif" />
+    <Content Include="Content\Images\fenxiang_03.gif" />
+    <Content Include="Content\Images\footerBg.gif" />
+    <Content Include="Content\Images\footerErweima.gif" />
+    <Content Include="Content\Images\goumai.jpg" />
+    <Content Include="Content\Images\homeYouShop.gif" />
+    <Content Include="Content\Images\homeYouShopBg.gif" />
+    <Content Include="Content\Images\homeZuoMemberBg.gif" />
+    <Content Include="Content\Images\homeZuoNavBg.gif" />
+    <Content Include="Content\Images\homeZuoNavQuan_01.gif" />
+    <Content Include="Content\Images\homeZuoNavQuan_02.gif" />
+    <Content Include="Content\Images\homeZuoNavTitle.gif" />
+    <Content Include="Content\Images\jiake1.jpg" />
+    <Content Include="Content\Images\jiake2.jpg" />
+    <Content Include="Content\Images\jiantou_01.jpg" />
+    <Content Include="Content\Images\jiantou_02.jpg" />
+    <Content Include="Content\Images\jiaodian1.jpg" />
+    <Content Include="Content\Images\jiaodian2.jpg" />
+    <Content Include="Content\Images\jjcx_bt.gif" />
+    <Content Include="Content\Images\k00.jpg" />
+    <Content Include="Content\Images\kaodian1.jpg" />
+    <Content Include="Content\Images\kaodian2.jpg" />
+    <Content Include="Content\Images\kuqun.jpg" />
+    <Content Include="Content\Images\laundrytips-pic1.jpg" />
+    <Content Include="Content\Images\laundrytips-pic2.jpg" />
+    <Content Include="Content\Images\laundrytips-pic3.jpg" />
+    <Content Include="Content\Images\laundrytips-pic4.jpg" />
+    <Content Include="Content\Images\lazy-artifact-img.jpg" />
+    <Content Include="Content\Images\lazy-card-img.jpg" />
+    <Content Include="Content\Images\leftarrow.png" />
+    <Content Include="Content\Images\lianyiqun-pic.jpg" />
+    <Content Include="Content\Images\lianyiqun.jpg" />
+    <Content Include="Content\Images\lifu1.jpg" />
+    <Content Include="Content\Images\lifu2.jpg" />
+    <Content Include="Content\Images\lingdai1.jpg" />
+    <Content Include="Content\Images\lingdai2.jpg" />
+    <Content Include="Content\Images\lk100.png" />
+    <Content Include="Content\Images\login-active-bg.png" />
+    <Content Include="Content\Images\loginBg.gif" />
+    <Content Include="Content\Images\login_01.gif" />
+    <Content Include="Content\Images\login_02.gif" />
+    <Content Include="Content\Images\login_03.gif" />
+    <Content Include="Content\Images\login_04.gif" />
+    <Content Include="Content\Images\login_05.gif" />
+    <Content Include="Content\Images\login_06.gif" />
+    <Content Include="Content\Images\login_07.gif" />
+    <Content Include="Content\Images\login_08.gif" />
+    <Content Include="Content\Images\logo.gif" />
+    <Content Include="Content\Images\lpb-banner.jpg" />
+    <Content Include="Content\Images\lpb-pic2.jpg" />
+    <Content Include="Content\Images\lpb-pic3.jpg" />
+    <Content Include="Content\Images\lpb-pic4.jpg" />
+    <Content Include="Content\Images\lpb-pic5.jpg" />
+    <Content Include="Content\Images\luxuryAddCart.gif" />
+    <Content Include="Content\Images\luxuryAn.gif" />
+    <Content Include="Content\Images\luxuryPic_01.gif" />
+    <Content Include="Content\Images\luxuryPic_02.gif" />
+    <Content Include="Content\Images\luxuy-wait-pic.gif" />
+    <Content Include="Content\Images\lvxingxiang1.jpg" />
+    <Content Include="Content\Images\lvxingxiang2.jpg" />
+    <Content Include="Content\Images\mailverify-icn.jpg" />
+    <Content Include="Content\Images\majia1.jpg" />
+    <Content Include="Content\Images\majia2.jpg" />
+    <Content Include="Content\Images\maojin1.jpg" />
+    <Content Include="Content\Images\maojin2.jpg" />
+    <Content Include="Content\Images\maojinbei1.jpg" />
+    <Content Include="Content\Images\maojinbei2.jpg" />
+    <Content Include="Content\Images\maoling1.jpg" />
+    <Content Include="Content\Images\maoling2.jpg" />
+    <Content Include="Content\Images\maorongwanju1.jpg" />
+    <Content Include="Content\Images\maorongwanju2.jpg" />
+    <Content Include="Content\Images\maoyiwaitao1.jpg" />
+    <Content Include="Content\Images\maoyiwaitao2.jpg" />
+    <Content Include="Content\Images\maozi1.jpg" />
+    <Content Include="Content\Images\maozi2.jpg" />
+    <Content Include="Content\Images\message-banner.jpg" />
+    <Content Include="Content\Images\message-img.jpg" />
+    <Content Include="Content\Images\message-pic2.jpg" />
+    <Content Include="Content\Images\message-pic3.jpg" />
+    <Content Include="Content\Images\mianwa1.jpg" />
+    <Content Include="Content\Images\mianwa2.jpg" />
+    <Content Include="Content\Images\mianyi1.jpg" />
+    <Content Include="Content\Images\mianyi2.jpg" />
+    <Content Include="Content\Images\mobileverify-icn.jpg" />
+    <Content Include="Content\Images\more-btn.png" />
+    <Content Include="Content\Images\my_bangdingAnniu.gif" />
+    <Content Include="Content\Images\my_index.gif" />
+    <Content Include="Content\Images\my_navBg.gif" />
+    <Content Include="Content\Images\my_navList_01.gif" />
+    <Content Include="Content\Images\my_navList_02.gif" />
+    <Content Include="Content\Images\my_tishiBg.gif" />
+    <Content Include="Content\Images\navBg.gif" />
+    <Content Include="Content\Images\neiku1.jpg" />
+    <Content Include="Content\Images\neiku2.jpg" />
+    <Content Include="Content\Images\niuzaiku.jpg" />
+    <Content Include="Content\Images\niuzaiyi1.jpg" />
+    <Content Include="Content\Images\niuzaiyi2.jpg" />
+    <Content Include="Content\Images\orange-bg.png" />
+    <Content Include="Content\Images\packageGoumai.gif" />
+    <Content Include="Content\Images\packageShow_01.gif" />
+    <Content Include="Content\Images\packageShow_02.gif" />
+    <Content Include="Content\Images\packageShow_03.gif" />
+    <Content Include="Content\Images\packageShow_04.gif" />
+    <Content Include="Content\Images\packageShow_05.gif" />
+    <Content Include="Content\Images\packageShow_06.gif" />
+    <Content Include="Content\Images\password_01.gif" />
+    <Content Include="Content\Images\password_02.gif" />
+    <Content Include="Content\Images\password_03.gif" />
+    <Content Include="Content\Images\password_04.gif" />
+    <Content Include="Content\Images\payment-icn.jpg" />
+    <Content Include="Content\Images\pdetail-bg.jpg" />
+    <Content Include="Content\Images\pic01.jpg" />
+    <Content Include="Content\Images\pic_01.jpg" />
+    <Content Include="Content\Images\pic_02.jpg" />
+    <Content Include="Content\Images\pic_03.jpg" />
+    <Content Include="Content\Images\pic_04.jpg" />
+    <Content Include="Content\Images\pic_05.jpg" />
+    <Content Include="Content\Images\pic_06.jpg" />
+    <Content Include="Content\Images\pic_07.jpg" />
+    <Content Include="Content\Images\pic_08.jpg" />
+    <Content Include="Content\Images\pic_09.jpg" />
+    <Content Include="Content\Images\pic_10.jpg" />
+    <Content Include="Content\Images\pic_11.jpg" />
+    <Content Include="Content\Images\pic_12.jpg" />
+    <Content Include="Content\Images\pic_13.jpg" />
+    <Content Include="Content\Images\pic_14.jpg" />
+    <Content Include="Content\Images\pic_15.jpg" />
+    <Content Include="Content\Images\pic_16.jpg" />
+    <Content Include="Content\Images\pic_17.jpg" />
+    <Content Include="Content\Images\pic_18.jpg" />
+    <Content Include="Content\Images\pic_19.jpg" />
+    <Content Include="Content\Images\pic_20.jpg" />
+    <Content Include="Content\Images\pic_21.jpg" />
+    <Content Include="Content\Images\pidai1.jpg" />
+    <Content Include="Content\Images\pidai2.jpg" />
+    <Content Include="Content\Images\pijian1.jpg" />
+    <Content Include="Content\Images\pijian2.jpg" />
+    <Content Include="Content\Images\pixie1.jpg" />
+    <Content Include="Content\Images\pixie1.png" />
+    <Content Include="Content\Images\pixie2.jpg" />
+    <Content Include="Content\Images\placeorder-btn.jpg" />
+    <Content Include="Content\Images\prize-b-bg.jpg" />
+    <Content Include="Content\Images\prize-banner.jpg" />
+    <Content Include="Content\Images\prize-ewm.png" />
+    <Content Include="Content\Images\qianjia1.jpg" />
+    <Content Include="Content\Images\qianjia2.jpg" />
+    <Content Include="Content\Images\qinglunbei1.jpg" />
+    <Content Include="Content\Images\qinglunbei2.jpg" />
+    <Content Include="Content\Images\qipao1.jpg" />
+    <Content Include="Content\Images\qipao2.jpg" />
+    <Content Include="Content\Images\qitayinhang.gif" />
+    <Content Include="Content\Images\qq-icn.gif" />
+    <Content Include="Content\Images\qrxd-btn.gif" />
+    <Content Include="Content\Images\qunku-pic.jpg" />
+    <Content Include="Content\Images\qunzi-pic.jpg" />
+    <Content Include="Content\Images\qunzi.jpg" />
+    <Content Include="Content\Images\reg-btn.jpg" />
+    <Content Include="Content\Images\reg_01.gif" />
+    <Content Include="Content\Images\reg_02.gif" />
+    <Content Include="Content\Images\reg_02a.gif" />
+    <Content Include="Content\Images\reg_03.gif" />
+    <Content Include="Content\Images\reg_03a.gif" />
+    <Content Include="Content\Images\reg_04.gif" />
+    <Content Include="Content\Images\reg_05.gif" />
+    <Content Include="Content\Images\reg_06.gif" />
+    <Content Include="Content\Images\reg_07.gif" />
+    <Content Include="Content\Images\reg_08.gif" />
+    <Content Include="Content\Images\reminder-img.jpg" />
+    <Content Include="Content\Images\ren-icn.gif" />
+    <Content Include="Content\Images\ren-icn1.gif" />
+    <Content Include="Content\Images\renpic.jpg" />
+    <Content Include="Content\Images\renren-icn.gif" />
+    <Content Include="Content\Images\rightarrow.png" />
+    <Content Include="Content\Images\s-active-bg.jpg" />
+    <Content Include="Content\Images\s-bg.jpg" />
+    <Content Include="Content\Images\s-cpsjt-pic.jpg" />
+    <Content Include="Content\Images\s-djby-pic.jpg" />
+    <Content Include="Content\Images\s-xwmy-pic.jpg" />
+    <Content Include="Content\Images\safe-icn01.jpg" />
+    <Content Include="Content\Images\searchBg.gif" />
+    <Content Include="Content\Images\settlement-btn.gif" />
+    <Content Include="Content\Images\sfukuan-btn.gif" />
+    <Content Include="Content\Images\shafatao1.jpg" />
+    <Content Include="Content\Images\shafatao2.jpg" />
+    <Content Include="Content\Images\shengqing-btn.jpg" />
+    <Content Include="Content\Images\shoubao1.jpg" />
+    <Content Include="Content\Images\shoubao2.jpg" />
+    <Content Include="Content\Images\shoutao1.jpg" />
+    <Content Include="Content\Images\shoutao2.jpg" />
+    <Content Include="Content\Images\shuangjianbao1.jpg" />
+    <Content Include="Content\Images\shuangjianbao2.jpg" />
+    <Content Include="Content\Images\shuidai1.jpg" />
+    <Content Include="Content\Images\shuidai2.jpg" />
+    <Content Include="Content\Images\shuiku.jpg" />
+    <Content Include="Content\Images\shuiyi1.jpg" />
+    <Content Include="Content\Images\shuiyi2.jpg" />
+    <Content Include="Content\Images\shuzi-icn.jpg" />
+    <Content Include="Content\Images\sijin1.jpg" />
+    <Content Include="Content\Images\sijin2.jpg" />
+    <Content Include="Content\Images\sina-icn.gif" />
+    <Content Include="Content\Images\siwa.jpg" />
+    <Content Include="Content\Images\siwa1.jpg" />
+    <Content Include="Content\Images\siwa2.jpg" />
+    <Content Include="Content\Images\squre-icn.jpg" />
+    <Content Include="Content\Images\summer-pic1.jpg" />
+    <Content Include="Content\Images\summer-pic2.jpg" />
+    <Content Include="Content\Images\taibu1.jpg" />
+    <Content Include="Content\Images\taibu2.jpg" />
+    <Content Include="Content\Images\taiqun1.jpg" />
+    <Content Include="Content\Images\taiqun2.jpg" />
+    <Content Include="Content\Images\tangzhuang1.jpg" />
+    <Content Include="Content\Images\tangzhuang2.jpg" />
+    <Content Include="Content\Images\tangzhuangku.jpg" />
+    <Content Include="Content\Images\tb_01.gif" />
+    <Content Include="Content\Images\tb_02.gif" />
+    <Content Include="Content\Images\tel.gif" />
+    <Content Include="Content\Images\test_pic01.jpg" />
+    <Content Include="Content\Images\test_pic02.jpg" />
+    <Content Include="Content\Images\tijiaodingdan.gif" />
+    <Content Include="Content\Images\tips-arrow.png" />
+    <Content Include="Content\Images\tips-pic2.jpg" />
+    <Content Include="Content\Images\tips1-pic1.jpg" />
+    <Content Include="Content\Images\tips10-pic1.jpg" />
+    <Content Include="Content\Images\tips11-pic1.jpg" />
+    <Content Include="Content\Images\tips2-pic1.jpg" />
+    <Content Include="Content\Images\tips3-pic1.jpg" />
+    <Content Include="Content\Images\tips4-pic1.jpg" />
+    <Content Include="Content\Images\tips5-pic1.jpg" />
+    <Content Include="Content\Images\tips5-pic2.jpg" />
+    <Content Include="Content\Images\tips6-pic1.jpg" />
+    <Content Include="Content\Images\tips6-pic2.jpg" />
+    <Content Include="Content\Images\tips7-pic1.jpg" />
+    <Content Include="Content\Images\tips7-pic2.jpg" />
+    <Content Include="Content\Images\tips8-pic1.jpg" />
+    <Content Include="Content\Images\tips8-pic2.jpg" />
+    <Content Include="Content\Images\tips9-pic1.jpg" />
+    <Content Include="Content\Images\tips9-pic2.jpg" />
+    <Content Include="Content\Images\titleCart.gif" />
+    <Content Include="Content\Images\titleCartRight.gif" />
+    <Content Include="Content\Images\topSanjiao.gif" />
+    <Content Include="Content\Images\Txu1.jpg" />
+    <Content Include="Content\Images\Txu2.jpg" />
+    <Content Include="Content\Images\up-icn.png" />
+    <Content Include="Content\Images\up-icncp.png" />
+    <Content Include="Content\Images\update-img.jpg" />
+    <Content Include="Content\Images\verify-btn.jpg" />
+    <Content Include="Content\Images\wbxc-2-2.jpg" />
+    <Content Include="Content\Images\weijin1.jpg" />
+    <Content Include="Content\Images\weijin2.jpg" />
+    <Content Include="Content\Images\wenzhang1.jpg" />
+    <Content Include="Content\Images\wenzhang2.jpg" />
+    <Content Include="Content\Images\winter-banner.jpg" />
+    <Content Include="Content\Images\winter-maintenance-img.jpg" />
+    <Content Include="Content\Images\winter-pic1.jpg" />
+    <Content Include="Content\Images\winter-pic2.jpg" />
+    <Content Include="Content\Images\wx-icn.gif" />
+    <Content Include="Content\Images\wzjs_pic.gif" />
+    <Content Include="Content\Images\X.gif" />
+    <Content Include="Content\Images\xdjq_bt.gif" />
+    <Content Include="Content\Images\xiayibu.gif" />
+    <Content Include="Content\Images\xiayibu_cheng.gif" />
+    <Content Include="Content\Images\xiku1.jpg" />
+    <Content Include="Content\Images\xiku2.jpg" />
+    <Content Include="Content\Images\xiongzhao1.jpg" />
+    <Content Include="Content\Images\xiongzhao2.jpg" />
+    <Content Include="Content\Images\xiuxianku1.jpg" />
+    <Content Include="Content\Images\xiuxianku2.jpg" />
+    <Content Include="Content\Images\xiuxianxie1.jpg" />
+    <Content Include="Content\Images\xiuxianxie2.jpg" />
+    <Content Include="Content\Images\xizhuang1.jpg" />
+    <Content Include="Content\Images\xizhuang2.jpg" />
+    <Content Include="Content\Images\Xs.gif" />
+    <Content Include="Content\Images\xuedixue1.jpg" />
+    <Content Include="Content\Images\xuedixue2.jpg" />
+    <Content Include="Content\Images\xuefangshan1.jpg" />
+    <Content Include="Content\Images\xuefangshan2.jpg" />
+    <Content Include="Content\Images\xyty-img.jpg" />
+    <Content Include="Content\Images\xzxd-banner.jpg" />
+    <Content Include="Content\Images\yangmaobei1.jpg" />
+    <Content Include="Content\Images\yangmaobei2.jpg" />
+    <Content Include="Content\Images\yangmaoku.jpg" />
+    <Content Include="Content\Images\yangmaoshan1.jpg" />
+    <Content Include="Content\Images\yangmaoshan2.jpg" />
+    <Content Include="Content\Images\yanzhengma.gif" />
+    <Content Include="Content\Images\yaodian1.jpg" />
+    <Content Include="Content\Images\yaodian2.jpg" />
+    <Content Include="Content\Images\yjxd-btn.gif" />
+    <Content Include="Content\Images\yuanDuihao.gif" />
+    <Content Include="Content\Images\yujin1.jpg" />
+    <Content Include="Content\Images\yujin2.jpg" />
+    <Content Include="Content\Images\yulian1.jpg" />
+    <Content Include="Content\Images\yulian2.jpg" />
+    <Content Include="Content\Images\yundongku.jpg" />
+    <Content Include="Content\Images\yundongxie1.jpg" />
+    <Content Include="Content\Images\yundongxie2.jpg" />
+    <Content Include="Content\Images\yundongyi1.jpg" />
+    <Content Include="Content\Images\yundongyi2.jpg" />
+    <Content Include="Content\Images\yupao1.jpg" />
+    <Content Include="Content\Images\yupao2.jpg" />
+    <Content Include="Content\Images\yurongbei1.jpg" />
+    <Content Include="Content\Images\yurongbei2.jpg" />
+    <Content Include="Content\Images\yurongku.jpg" />
+    <Content Include="Content\Images\zcsl-banner.jpg" />
+    <Content Include="Content\Images\zhengzhishan1.jpg" />
+    <Content Include="Content\Images\zhengzhishan2.jpg" />
+    <Content Include="Content\Images\zhentao1.jpg" />
+    <Content Include="Content\Images\zhentao2.jpg" />
+    <Content Include="Content\Images\zhenxin1.jpg" />
+    <Content Include="Content\Images\zhenxin2.jpg" />
+    <Content Include="Content\Images\zhifubao.gif" />
+    <Content Include="Content\Images\zhongku1.jpg" />
+    <Content Include="Content\Images\zhongku2.jpg" />
+    <Content Include="Content\Images\zhongshanzhuang1.jpg" />
+    <Content Include="Content\Images\zhongshanzhuang2.jpg" />
+    <Content Include="Content\Images\zhuce-btn.jpg" />
+    <Content Include="Content\Images\zuodian1.jpg" />
+    <Content Include="Content\Images\zuodian2.jpg" />
+    <Content Include="Content\Images\zuoweitao1.jpg" />
+    <Content Include="Content\Images\zuoweitao2.jpg" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="App_Code\UIHelper.cshtml" />
+    <None Include="Properties\PublishProfiles\LazyAtHome.Web.WashSite.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\comm.js" />
+    <Content Include="Scripts\DD_belatedPNG.js" />
+    <Content Include="Scripts\gundong.js" />
+    <Content Include="Scripts\gundongTop.js" />
+    <Content Include="Scripts\home.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery.lazyload.js" />
+    <Content Include="Scripts\jquery.lazyload.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\smooth.js" />
+    <Content Include="Scripts\ZeroClipboard.js" />
+    <Content Include="Scripts\ZeroClipboard.min.js" />
+    <Content Include="Scripts\ZeroClipboard.swf" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Shared\_Header.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Shared\_Nav.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Wash\Index.cshtml" />
+    <Content Include="Views\Wash\Show.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Wash\Activities.cshtml" />
+    <Content Include="Views\Cart\Payment.cshtml" />
+    <Content Include="Views\Cart\PaymentOk.cshtml" />
+    <Content Include="Views\Cart\Submit.cshtml" />
+    <Content Include="Views\Member\Login.cshtml" />
+    <Content Include="Views\Luxury\Index.cshtml" />
+    <Content Include="Views\Home\Media.cshtml" />
+    <Content Include="Views\Home\MediaShow.cshtml" />
+    <Content Include="Views\Member\MyOrders.cshtml" />
+    <Content Include="Views\Shared\_MemberLeftNav.cshtml" />
+    <Content Include="Views\Member\MyInfo.cshtml" />
+    <Content Include="Views\Member\LazyCard.cshtml" />
+    <Content Include="Views\Home\News.cshtml" />
+    <Content Include="Views\LazyArtifact\Index.cshtml" />
+    <Content Include="Views\LazyArtifact\Show.cshtml" />
+    <Content Include="Views\Member\Password.cshtml" />
+    <Content Include="Views\Member\Password2.cshtml" />
+    <Content Include="Views\Member\Password3.cshtml" />
+    <Content Include="Views\Member\Password4.cshtml" />
+    <Content Include="Views\Member\Reg.cshtml" />
+    <Content Include="Views\Member\Index.cshtml" />
+    <Content Include="Views\Home\_IndexLeftNav.cshtml" />
+    <Content Include="Views\Home\_IndexDayTop.cshtml" />
+    <Content Include="Views\Home\Welcome.cshtml" />
+    <Content Include="Views\Member\fxthh.cshtml" />
+    <Content Include="Views\Member\OrderCancelRecord.cshtml" />
+    <Content Include="Views\Member\Complaint.cshtml" />
+    <Content Include="Views\Member\AccountSafe.cshtml" />
+    <Content Include="Views\Member\Balance.cshtml" />
+    <Content Include="Views\Member\Record.cshtml" />
+    <Content Include="Views\Member\Integral.cshtml" />
+    <Content Include="Views\Member\MyCoupon.cshtml" />
+    <Content Include="Views\Member\ReceiptGoods.cshtml" />
+    <Content Include="Views\Member\Letter.cshtml" />
+    <Content Include="Views\Wash\MoreWashPartial.cshtml" />
+    <Content Include="Views\Activities\Index.cshtml" />
+    <Content Include="Views\Activities\FourPiece.cshtml" />
+    <Content Include="Views\Activities\WinterWear.cshtml" />
+    <Content Include="Views\Activities\Core.cshtml" />
+    <Content Include="Views\Activities\weixin.cshtml" />
+    <Content Include="Views\Activities\SummerWear.cshtml" />
+    <Content Include="Views\Activities\RegGifts.cshtml" />
+    <Content Include="Views\Home\LaundryTips.cshtml" />
+    <Content Include="Views\Home\TipsShow.cshtml" />
+    <Content Include="Views\Home\Tips\tipsShow-01.cshtml" />
+    <Content Include="Views\Home\Tips\tipsShow-02.cshtml" />
+    <Content Include="Views\Home\Tips\tipsShow-03.cshtml" />
+    <Content Include="Views\Home\Tips\tipsShow-04.cshtml" />
+    <Content Include="Views\Home\Tips\tipsShow-05.cshtml" />
+    <Content Include="Views\Home\Tips\tipsShow-06.cshtml" />
+    <Content Include="Views\Home\Tips\tipsShow-07.cshtml" />
+    <Content Include="Views\Home\Tips\tipsShow-08.cshtml" />
+    <Content Include="Views\Home\Tips\tipsShow-09.cshtml" />
+    <Content Include="Views\Home\Tips\tipsShow-10.cshtml" />
+    <Content Include="Views\Home\Tips\tipsShow-11.cshtml" />
+    <Content Include="Views\Home\Job.cshtml" />
+    <Content Include="Views\Shared\_HomeLeftNav.cshtml" />
+    <Content Include="Views\Home\Agreement.cshtml" />
+    <Content Include="Views\Home\Help.cshtml" />
+    <Content Include="Views\Member\OrderDetail.cshtml" />
+    <Content Include="Views\Home\tests.cshtml" />
+    <Content Include="Views\Activities\Submit.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\1.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\10.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\11.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\12.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\13.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\14.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\15.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\16.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\17.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\18.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\19.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\2.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\20.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\21.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\22.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\23.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\24.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\25.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\26.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\27.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\28.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\29.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\3.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\30.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\31.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\32.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\33.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\34.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\35.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\36.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\37.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\38.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\39.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\4.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\40.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\41.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\42.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\43.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\44.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\45.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\46.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\47.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\48.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\49.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\5.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\50.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\51.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\52.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\53.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\54.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\55.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\56.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\57.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\58.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\59.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\6.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\60.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\61.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\62.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\63.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\64.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\65.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\66.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\67.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\68.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\69.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\7.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\70.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\71.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\72.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\73.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\74.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\75.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\76.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\77.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\78.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\79.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\8.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\80.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\81.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\82.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\83.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\84.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\85.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\87.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\88.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\89.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\9.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\90.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\91.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\92.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\93.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\94.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\95.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\96.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\97.cshtml" />
+    <Content Include="Views\Wash\ProductDetail\98.cshtml" />
+    <Content Include="Views\Member\Invite.cshtml" />
+    <Content Include="Views\Activities\Bossmad.cshtml" />
+    <Content Include="Views\Activities\Recruit.cshtml" />
+    <Content Include="Views\Activities\Survey.cshtml" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>10354</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:10354/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

@@ -1,0 +1,32 @@
+﻿<!--内容-->
+<div id="content">
+    <div class="mediaShowTitle"><p><a href="/Home/LaundryTips">小常识列表</a><span>&gt;</span>洗衣小常识</p></div>
+    <div class="mediaShow">
+        <div class="mediaShowBt">
+            <h2>白色衣物染色怎么办？</h2>
+            <p><b>2014.05.12</b>浏览次数：<span>90</span></p>
+            <dl>
+                <dt>分享到：</dt>
+                <dd><a href="#"><img src="~/Content/images/fenxiang_01.gif" /></a></dd>
+                <dd><a href="#"><img src="~/Content/images/fenxiang_02.gif" /></a></dd>
+                <dd><a href="#"><img src="~/Content/images/fenxiang_03.gif" /></a></dd>
+            </dl>
+        </div>
+        <div class="mediaShowContent laundrytips">
+            <p><b>1、洗衣粉+洗洁精</b></p>
+            <p>　　用含阴离子表面活性剂多的洗衣粉和洗洁精1：1加入温水中，浸泡半小时用水进行搓洗，如不整洁，可在放入50度以上水中，加入少量洗衣粉搓洗。</p>
+            <p></p>
+            <img src="~/Content/images/tips1-pic1.jpg" align="center" />
+            <p><b>2、高锰酸钾配醋酸</b></p>
+            <p>　　放入少许高锰酸钾配醋酸溶于水，将衣物放入浸泡10~20分钟后清水，再放入少许醋溶于水浸泡即可。</p>
+            <p></p>
+            <p><b>3、84消毒液</b></p>
+            <p>半缸水对应1/3瓶消毒液，溶解稀释，漂洗大约25分钟即可捞出衣物。</p>
+            <p></p>
+            <img src="~/Content/images/tips-pic2.jpg" />
+            <p><b>4、肥皂水</b></p>
+            <p>有别于普通的肥皂水，需要煮开，然后将染色衣物放入，清水漂过在将刚刚煮开的肥皂水倒入，浸泡十分钟即可。</p>
+        </div>
+        <!-- <div class="pages"><a href="#">上一篇</a><a href="#">下一篇</a></div>-->
+    </div>
+</div>

@@ -1,0 +1,47 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0020)http://author:dsine/ -->
+<html>
+<head>
+	<title>DateXx1日历控件演示页面</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script src="./DateXx1.js" type="text/javascript"></script>
+</head>
+
+<style>
+body{margin:0px;font-size:12px;font-family:宋体;height:2200px;}
+.ttl0{text-align:center;font-size:14px;font-weight:bold;padding:10px 0px 5px 0px;letter-spacing:3px;}
+.tb0{border:0px solid #EEF0F0;margin:0px auto;background-color:#E0E0E8;}
+.tb0 td{height:36px;background-color:#FFF;}
+.tb0 td.lbl{background-color:#DDD;text-align:right;}
+.txt0{height:16px;border:1px solid #BBB;color:blue;}
+
+.dateTimeTxt{height:16px;width:116px;border:1px solid #BBB;font-family:宋体;letter-spacing:-1px;background:#FFF url('./DateXx1.png') no-repeat right bottom;padding-right:15px;}
+.dateTxt{height:16px;width:62px;border:1px solid #BBB;font-family:宋体;letter-spacing:-1px;background:#FFF url('./DateXx1.png') no-repeat right bottom;padding-right:15px;}
+</style>
+
+<script>
+function testEvt( msg ){
+	document.getElementById('msg').innerHTML = document.getElementById('msg').innerHTML + "<br/>" + msg;
+}
+
+function focusDateControl( e, t ){
+	DateXx1.activate( e, t==1? 'yyyy-MM-dd' : 'yyyy-MM-dd HH:mm:ss' );
+}
+</script>
+<body >
+<table class="tb0" cellspacing="1" cellpadding="0">
+	<tr>
+		<td class="lbl" width="100">时间1：</td>
+		<td width="295">
+			<input type="text" class="dateTimeTxt" value="2012-02-28 00:00:00" onmouseover="focusDateControl(event, 2);" /> ~ <input type="text" class="dateTimeTxt" value="2014-09-30 23:59:59" onmouseover="focusDateControl(event, 2);"/>
+		</td>
+		<td class="lbl" width="100">时间2：</td>
+		<td width="185">
+			<input type="text" class="dateTxt" value="2014-08-28" onmouseover="focusDateControl(event, 1);"/> ~ <input type="text" class="dateTxt" value="2014-09-30" onmouseover="focusDateControl(event, 1);"/>
+		</td>
+	</tr>
+</table>
+
+<div id="msg" style="border-top:1px solid #EEE;margin-top:3px;padding-top:3px;"></div>
+</body>
+</html>

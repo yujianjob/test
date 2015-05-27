@@ -1,0 +1,35 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\tangzhuang1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>锦纶缎面等面料的唐装可选择家庭洗涤，请注意以下事项：</p>
+				<p>1、洗涤时水温应控制在30℃至40℃为宜。</p>
+				<p>2、洗涤时应该使用中性洗涤剂（PH值控制在7.5左右），决不能用生肥皂。也不能使用洗衣机或用搓板搓洗，应该用手轻轻搓揉，</p>
+				<p>3、洗涤后要用温水漂洗三次，再过一次酸性水溶液，洗后不用拧干，带水用衣架晾起来，放到通风处自然风干。既不能烘烤，也不能曝晒，熨烫时温度也不能过高。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>懒到家，拥有专业的洗涤设备和国际领先的熨烫技术。让唐装的真丝织锦缎表面光泽自然柔和，色泽均匀，手感平滑轻柔，自然悬垂。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\tangzhuang2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>干燥的丝绸互相磨擦时，会发出清脆悦耳的丝鸣声。相对而言干洗设备，真丝和人造丝的织锦缎唐装原则上应以干洗为主。按面料材质决定洗涤方法，洗后进行专业熨烫，可保持真丝唐装特有的挺括和色泽。因建议把品质好的唐装送到专业干洗店清洗。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

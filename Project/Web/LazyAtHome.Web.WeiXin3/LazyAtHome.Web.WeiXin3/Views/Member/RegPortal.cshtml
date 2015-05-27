@@ -1,0 +1,69 @@
+﻿
+@{
+    //ViewBag.Title = "RegPortal";
+    Layout = null;
+}
+
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <title>注册</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100%;
+            background: url(../img/guidebg.jpg) no-repeat;
+            background-size: cover;
+        }
+
+        .btnGroup {
+            width: 90%;
+            height: 80px;
+            top: 60%;
+            margin-top: -40px;
+            margin-left: -45%;
+            left: 50%;
+            position: absolute;
+        }
+
+            .btnGroup > button {
+                width: 100%;
+                border-radius: 5px;
+                color: white;
+                font-size: 1.4em;
+                font-weight: bold;
+                padding: 15px 0;
+                border: 0px;
+                box-shadow: 0 2px 1px white;
+            }
+
+                .btnGroup > button:nth-of-type(1) {
+                    margin-bottom: 25px;
+                    background: #ea535a;
+                }
+
+                .btnGroup > button:nth-of-type(2) {
+                    background: #39c3c3;
+                }
+    </style>
+</head>
+
+<body>
+    <div class="btnGroup">
+        <button type="button" onclick="window.location.href='/Member/Reg'">注册</button>
+        <button type="button" onclick="window.location.href='/Member/Login'">已有账号登录</button>
+    </div>
+</body>
+</html>
+
+

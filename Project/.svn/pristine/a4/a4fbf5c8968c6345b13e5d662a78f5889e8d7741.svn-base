@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "绑定新卡";
+}
+
+<div class="page-content inset mylanren-card">
+    <div class="row" style="padding-top:40px">
+        <div class="col-md-7 col-md-offset-1">
+            <div class="bindcard-unit">
+                <div class="bindcard-head">
+                    <span>订单编号：<br> 2589658745616987</span>
+                    <span>提交时间：<br> 2014.04.25</span>
+                    <span>完成时间：<br>2014.04.25</span>
+                </div>
+                <table border="0" cellspacing="0" cellpadding="0" class="bingdingcard-tab">
+                    <tbody>
+                        <tr>
+                            <td>100元懒人卡</td>
+                            <td>卡号:5878986758</td>
+                            <td>
+                                <button class="btn btn-danger btn-sm">绑定</button>
+                                <button class="btn btn-danger btn-sm" onclick="showCardCode(this);">生成二维码卡密</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>100元懒人卡</td>
+                            <td>卡号:5878986758</td>
+                            <td>
+                                <button class="btn btn-danger btn-sm">绑定</button>
+                                <button class="btn btn-danger btn-sm" onclick="showCardCode(this);">生成二维码卡密</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script type="text/javascript">
+        function showCardCode(obj) {
+            var str = "<div class='rel-div'>"
+            str += "<div class='ewm-box'>";
+            str += "<img src='img/ewm.jpg'>";
+            str += "<span>二维码通过APP客户端访问二维码快捷绑定懒人卡</span>";
+            str += "</div></div>";
+            $('.rel-div').remove();
+            $(obj).parent().append(str);
+        }
+    </script>
+}

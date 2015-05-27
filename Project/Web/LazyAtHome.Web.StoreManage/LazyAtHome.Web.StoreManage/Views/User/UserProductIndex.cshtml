@@ -1,0 +1,168 @@
+﻿@model LazyAtHome.Web.StoreManage.Models.User.UserProductListModel
+
+<form id="pagerForm" method="post" action="@Url.Action("SearchUserProduct")">
+    <input type="hidden" name="status" value="@Model.SearchInfo.status">
+    <input type="hidden" name="keywords" value="@Model.SearchInfo.keywords" />
+    <input type="hidden" name="pageNum" value="@Model.SearchInfo.pageNum" />
+    <input type="hidden" name="numPerPage" value="@Model.SearchInfo.numPerPage" />
+    <input type="hidden" name="orderField" value="@Model.SearchInfo.orderField" />
+</form>
+
+<!--报错信息-->
+@Html.Raw(ViewBag.Script)
+
+<script>
+    $("#btnSearch").click(function () {
+        var usermpno = $("#usermpno").val();
+        var username = $("#username").val();
+
+        if (usermpno == "" && username == "") {
+            alert("请填写手机号或者归属人");
+            return false;
+        }
+    })
+
+</script>
+
+<!--搜索条-->
+<div class="pageHeader">
+    <form id="searchForm" onsubmit="return navTabSearch(this);" action="@Url.Action("SearchUserProduct")" class="pageForm required-validate" method="post" rel="pagerForm">
+        <div class="searchBar">
+            <table class="searchContent">
+                <tr>
+                    <td>
+                        手机号：<input type="text" id="usermpno" name="usermpno" value="@Model.SearchInfo.UserMPNo" class="required" maxlength="11" />
+                    </td>
+                    <td>
+                        归属人：<input type="text" id="username" name="username" value="@Model.SearchInfo.UserName" maxlength="25" />
+                    </td>
+                    <td>
+                        签收状态：
+                        @Html.DropDownList("UserSignType", new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text = "全部", Value = "-1"},
+                            new SelectListItem { Text = "未签收", Value = "0" },
+                            new SelectListItem { Text = "已签收", Value = "1" }},
+                            "Value", "Text", Model.SearchInfo.UserSignType))
+                    </td>
+                    <td>收衣时间：</td>
+                    <td>
+                        @{
+                            var DateFrom = "";
+                            if (Model.SearchInfo.DateFrom != null)
+                            {
+
+                                DateFrom = Convert.ToDateTime(Model.SearchInfo.DateFrom).ToString("yyyy-MM-dd");
+                            }
+                            var DateTo = "";
+                            if (Model.SearchInfo.DateTo != null)
+                            {
+
+                                DateTo = Convert.ToDateTime(Model.SearchInfo.DateTo).ToString("yyyy-MM-dd");
+                            }
+                        }
+                        <input type="text" id="txtFrom" name="DateFrom" value="@DateFrom"
+                               class="date" style="width: 120px" />
+                        至
+                        <input type="text" id="txtTo" name="DateTo" value="@DateTo"
+                               class="date" style="width: 120px" />
+                    </td>
+                </tr>
+            </table>
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit" id="btnSearch">检索</button></div></div></li>
+                    @*<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>*@
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="pageContent">
+    <!--功能按键-->
+    <div class="panelBar">
+        <ul class="toolBar">
+            <li><a class="add" href="@Url.Action("")" target="navTab" rel="manageredit" title=""><span>添加</span></a></li>
+            <li><a class="delete" href="@Url.Action("")" target="ajaxTodo" title="确定要删除吗?"><span>删除</span></a></li>
+            <li><a class="edit" href="@Url.Action("")" target="navTab" rel="manageredit" title=""><span>编辑</span></a></li>
+            <li class="line">line</li>
+            <li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targettype="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>
+        </ul>
+    </div>
+
+    <!--列表页-->
+    <table class="table" width="100%" layouth="113">
+        <thead>
+            <tr>
+                <th width="20" align="center"></th>
+                <th width="120" align="center">手机号</th>
+                <th width="120" align="center">归属人</th>
+                <th width="100" align="center">物品名</th>
+                <th width="100" align="center">价格</th>
+                <th width="100" align="center">收衣时间</th>
+                <th width="100" align="center">签收状态</th>
+                <th width="100" align="center">签收时间</th>
+                <th width="100" align="center">签收操作</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (@Model.UserProductList != null)
+            {
+                int no = 1;
+                foreach (var item in @Model.UserProductList)
+                {
+                    <tr target="pid" rel="@item.ID">
+                        <td>@(no++)</td>                 
+                        <td>@item.UserMPNo</td>
+                        <td>@item.UserName</td>
+                        <td>@item.Name</td>
+                        <td>@item.Price</td>
+                        <td>@item.Obj_Cdate</td>
+                        <td>@UIHelper.FormatUserSignType(item.UserSignType)</td>                
+                        @if (item.UserSignType == 0)
+                        {
+                            <td></td>
+                            <td><a href="@Url.Action("ProductSign", new { pid = @item.ID, signtype = @item.UserSignType })" target="ajaxTodo" class="btnSelect" title="您确定要签收吗？">签收</a></td>                           
+                        }
+                        else if (item.UserSignType == 1)
+                        {
+                            <td>@item.UserSignTime</td>
+                            <td><a href="@Url.Action("ProductSign", new { pid = @item.ID, signtype = @item.UserSignType })" target="ajaxTodo" class="btnDel" title="您确定要撤销签收吗？">撤销签收</a></td>                           
+                        }
+                        else
+                        { 
+                            <td></td>
+                        }
+
+                        
+                    </tr>
+                }
+            
+            }
+        </tbody>
+    </table>
+
+    <!--分页条-->
+    @*<div class="panelBar">
+        <script type="text/javascript">
+            $(function () {
+                $("#numPerPage").attr("value", "@Model.SearchInfo.numPerPage");
+            });
+        </script>
+        <div class="pages">
+            <span>显示</span>
+            <select class="combox" id="numPerPage" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+            <span>条，共 @Model.SearchInfo.RecCount 条</span>
+        </div>
+
+        <div class="pagination" targettype="navTab" totalcount="@Model.SearchInfo.RecCount" numperpage="@Model.SearchInfo.numPerPage" pagenumshown="@Model.SearchInfo.pageNumShown" currentpage="@Model.SearchInfo.pageNum"></div>
+    </div>*@
+</div>
+

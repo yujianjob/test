@@ -1,0 +1,34 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\qinglunbei1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>以温水溶解后，将衣衫浸入半小时左右即可用手轻轻揉洗，清水过净，为了防止变形褪色，不可拧绞、暴晒，晾干方法与羊毛衫相同。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>精致生活，从睡眠开始！精致睡眠，从洁净卫生的被子开始！被子清洁，交给懒到家！</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\qinglunbei2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、最好用中性洗涤剂（如海鸥洗涤剂）洗涤晴纶的毛线及毛线制品，或中性肥皂，不宜用碱性太强的洗涤剂和肥皂洗涤。</p>
+　	            <p>2、洗涤水温最好在40 ～50 ℃，洗涤时宜轻轻挤压，不要用力搓洗。</p>
+　	            <p>3、过清水时要慢慢加冷水，使水温逐渐降到室温，要漂洗干净，不要让洗涤剂残留于晴纶的毛线及毛线制品上。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

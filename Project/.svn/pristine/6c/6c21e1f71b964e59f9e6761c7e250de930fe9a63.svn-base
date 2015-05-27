@@ -1,0 +1,83 @@
+﻿<!--主体内容头部 start-->
+
+<div class="navbar" role="navigation">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-9 col-md-1">
+                <a id="navbar-logo" data-toggle="offcanvas" class="brand-toggle" onclick="showHideSiderbar();">
+                    <img src="/img/navbar-logo.png">
+                </a>
+                <h2 class="navbar-brand visible-xs visible-sm" style="float:left;">@ViewBag.Title</h2>
+                <button type="button" class="visible-xs navbar-toggle collapsed icon-collapsed pull-right" data-toggle="collapse" data-target="#navbar-collapse-1">
+                    <img src="/img/dropdown-cog.png">
+                </button>
+            </div>
+            <div class="col-sm-7 col-md-7 hidden-sm hidden-xs">
+                <h2 class="navbar-brand" style="float:left;padding:10px 0 0 0">@ViewBag.Title</h2>
+                <div style="margin-left:150px;">
+                    <form method="post" action="/Wash/Search" class="tsearch">
+                        <input name="keyword" type="text" placeholder="搜索清洗服务">
+                        <button type="submit" class="icon-search"><img src="/img/icon-search.png"></button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-3 col-md-4 hidden-xs">
+                <tel><img src="/img/400.png" /></tel>
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <span class="pull-right" style="display:-none">
+                        <a href="/Member/Login" class="btn btn-info" onclick="ga('send', 'event', '主体', '登录', '主体_列表');">登录</a> 
+                        <a href="/Member/Reg" class="btn btn-info" onclick="ga('send', 'event', '主体', '注册', '主体_列表');">注册</a>
+                    </span>
+                }
+                else
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle memberCentre" data-toggle="dropdown">
+                                <span class="name">@User.Identity.Name</span>
+                                <span class="icon-member"></span>
+                            </a>
+                            <ul class="dropdown-menu" id="member-info">
+                                <li><a href="/Member" onclick="ga('send','event','用户中心','用户中心','用户_列表');">用户中心</a></li>
+                                <li class="divider"></li>
+                                <li><a href="/Member/AddressManage" onclick="ga('send', 'event', '用户中心', '地址管理', '用户_列表');">地址管理</a></li>
+                                <li><a href="/Member/MyLazyCards" onclick="ga('send', 'event', '用户中心', '我的懒人卡', '用户_列表');">我的懒人卡</a></li>
+                                <li><a href="/Member/MyCoupons" onclick="ga('send', 'event', '用户中心', '我的优惠劵', '用户_列表');">我的优惠劵</a></li>
+                                <li class="divider"></li>
+                                <li><a href="/Member/ModifyPassword" onclick="ga('send', 'event', '用户中心', '修改密码', '用户_列表');">修改密码</a></li>
+                                <li class="divider"></li>
+                                <li><a href="/Member/CommunityCenter" onclick="ga('send', 'event', '用户中心', '社区中心', '用户_列表');">社区中心</a></li>
+                                <li class="divider"></li>
+                                <li><a href="/Member/User_LogOut" onclick="ga('send', 'event', '用户中心', '退出', '用户_列表');">退出</a></li>
+                            </ul>
+                        </li>
+                        <li class="hidden-sm navbar-question"> <a href="#">我们的服务流程?</a> </li>
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="visible-xs">
+        <div class="collapse navbar-collapse" id="navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-c">
+                <li><a href="/Member" onclick="ga('send','event','用户中心','用户中心','用户_列表');">用户中心</a></li>
+                <li class="divider"></li>
+                <li><a href="/Member/AddressManage" onclick="ga('send', 'event', '用户中心', '地址管理', '用户_列表');">地址管理</a></li>
+                <li><a href="/Member/MyLazyCards" onclick="ga('send', 'event', '用户中心', '我的懒人卡', '用户_列表');">我的懒人卡</a></li>
+                <li><a href="/Member/MyCoupons" onclick="ga('send', 'event', '用户中心', '我的优惠劵', '用户_列表');">我的优惠劵</a></li>
+                <li class="divider"></li>
+                <li><a href="/Member/CommunityCenter" onclick="ga('send', 'event', '用户中心', '社区中心', '用户_列表');">社区中心</a></li>
+                <li class="divider"></li>
+                <li><a href="/Member/User_LogOut" onclick="ga('send', 'event', '用户中心', '退出', '用户_列表');">退出</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="visible-xs visible-sm s-search-bar">
+        <div>
+            <input type="text">
+            <button class="icon-search"><img src="/img/icon-search.png"></button>
+        </div>
+    </div>
+</div>
+<!--主体内容头部 end-->

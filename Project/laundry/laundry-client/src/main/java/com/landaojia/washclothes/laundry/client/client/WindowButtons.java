@@ -1,0 +1,85 @@
+package com.landaojia.washclothes.laundry.client.client;
+
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+
+/**
+ * 3个按钮(最小化、最大化、关闭)
+ * Vertical box with 3 small buttons for window close, minimize and maximize.
+ * @author liuxi
+ */
+public class WindowButtons extends HBox {
+    private Stage stage;
+    private Rectangle2D backupWindowBounds = null;
+    private boolean maximized = false;
+
+    public WindowButtons(final Stage stage, final boolean hideWhenClose) {
+        super(5);
+        this.stage = stage;
+        // create buttons
+        Button minBtn = new Button();
+        minBtn.setId("window-min");
+        minBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                stage.setIconified(true);
+            }
+        });
+        Button maxBtn = new Button();
+        maxBtn.setId("window-max");
+        maxBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                toogleMaximized();
+            }
+        });
+        Button closeBtn = new Button();
+        closeBtn.setId("window-close");
+        closeBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if (hideWhenClose) {
+                    //stage.hide();
+                    stage.toBack();
+                    stage.setIconified(true);
+                } else {
+                    Platform.exit();
+                }
+                System.exit( 0 );
+            }
+        });
+
+        getChildren().addAll(minBtn, maxBtn, closeBtn);
+
+    }
+
+    public void toogleMaximized() {
+        final Screen screen = Screen.getScreensForRectangle(stage.getX(), stage.getY(), 1, 1).get(0);
+        if (maximized) {
+            maximized = false;
+            if (backupWindowBounds != null) {
+                stage.setX(backupWindowBounds.getMinX());
+                stage.setY(backupWindowBounds.getMinY());
+                stage.setWidth(backupWindowBounds.getWidth());
+                stage.setHeight(backupWindowBounds.getHeight());
+            }
+        } else {
+            maximized = true;
+            backupWindowBounds = new Rectangle2D(stage.getX(), stage.getY(), stage.getWidth(), stage.getHeight());
+            stage.setX(screen.getVisualBounds().getMinX());
+            stage.setY(screen.getVisualBounds().getMinY());
+            stage.setWidth(screen.getVisualBounds().getWidth());
+            stage.setHeight(screen.getVisualBounds().getHeight());
+        }
+    }
+
+    public boolean isMaximized() {
+        return maximized;
+    }
+}

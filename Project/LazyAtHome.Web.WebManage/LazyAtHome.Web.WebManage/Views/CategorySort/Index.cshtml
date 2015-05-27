@@ -1,0 +1,67 @@
+﻿@model LazyAtHome.Web.WebManage.Models.CategorySort.CategorySortListModel
+@{
+    <script src="@Url.Content("~/Scripts/Category/categoryedit.js")" type="text/javascript"></script>
+}
+
+<form id="pagerForm" method="post" action="@Url.Action("SearchCategorySort")">
+    <input type="hidden" name="status" value="@Model.SearchInfo.status">
+    <input type="hidden" name="keywords" value="@Model.SearchInfo.keywords" />
+    <input type="hidden" name="pageNum" value="@Model.SearchInfo.pageNum" />
+    <input type="hidden" name="numPerPage" value="@Model.SearchInfo.numPerPage" />
+    <input type="hidden" name="orderField" value="@Model.SearchInfo.orderField" />
+</form>
+
+
+<!--报错信息-->
+@Html.Raw(ViewBag.Script)
+
+
+<!--搜索条-->
+<div class="pageHeader">
+    <form id="searchForm" onsubmit="return navTabSearch(this);" action="@Url.Action("SearchCategorySort")" method="post" rel="pagerForm">
+        <div class="searchBar">
+            <table class="searchContent">
+                <tr>
+                    产品类别：
+                    @{Html.RenderAction("WashClass", "Common", new { pid = Model.SearchInfo == null ? 0 : Model.SearchInfo.ParentClassID, id = Model.SearchInfo == null ? 0 : Model.SearchInfo.ClassID, bindName = "BDVIdL" });}
+                </tr>
+            </table>
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit" id="search">检索</button></div></div></li>
+                    @*<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>*@
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="pageContent sortDrag" id="sortDrag" layouth="100">
+
+
+    @if (Model.CategoryList != null)
+    {
+        foreach (var item in @Model.CategoryList)
+        {
+            <div id="@item.ID" style="border:1px solid #B8D0D6;padding:5px;margin:5px">@item.Name</div>
+        }
+
+    }
+
+</div>
+
+
+
+<div class="formBar">
+    <ul>
+        <!--<li><a class="buttonActive" href="javascript:;"><span>保存</span></a></li>-->
+        <li><div class="buttonActive"><div class="buttonContent"><button type="button" id="btnSave">保存</button></div></div></li>
+        @Html.Hidden("hdCategorySortUrl", @Url.Action("EditCategorySort"))
+        <li>
+            <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+        </li>
+    </ul>
+</div>
+
+

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<!-- Auto Generated with Sencha Architect -->
+<!-- Modifications to this file will be overwritten. -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>kuaidi</title>
+    <script>
+        var Ext = Ext || {};
+        Ext.theme = {
+            name: "Default"
+        };
+		var host="http://192.168.1.190";
+		//var webadd="http://"+host+"/kuaidiphp/location.php";
+    </script>
+    <script src="jquery.js"></script>
+    <script src="sencha-touch-all.js"></script>
+    <link rel="stylesheet" href="sencha-touch.css">
+    <style>
+	 	#mark{position: fixed;z-index: 15;width: 100%;height: 100%;top: 0;left: 0;filter: alpha(opacity=60);opacity: 0.6;overflow: hidden;background-color: #000; }	
+    	.popDiv{width:80%;height:200px; left:50%;z-index:100;margin-left:-40%;top:50%;margin-top:-100px;background:white;position:absolute;border-radius:5px;}
+		.popDiv label{display:block;padding:15px}
+		
+    </style>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="barcodescanner.js"></script>
+    <script type="text/javascript" src="location.js"></script>
+    <script>
+    	$(function(){
+    		document.addEventListener("deviceready",onDeviceReady,false);
+    	});
+    	function onDeviceReady(){
+    	
+    	}
+    </script>
+    
+    <script>
+    	function finishShouYi(){
+    		var id=window.localStorage.getItem("idcache");
+    		//alert(id);
+    		
+    		Ext.ComponentQuery.query('#MainPanel')[0].setActiveItem(4);
+    	}
+		//扫描二维码
+		function scanCode(idNum) {
+			//alert(idNum);
+			window.localStorage.setItem("idcache",idNum);
+		    window.plugins.barcodeScanner.scan(
+		        function(result) {
+		        alert(result.format);
+		        return;
+		        $("#qrcode").val(result.format);
+		        $("#qrcode").attr("readOnly",true);
+		        var len=$("#finishBtn").length;	        
+		        if(len==0){
+		        	$(".orderDetail").append("<button onclick='finishShouYi();' id='finishBtn'>完成</button>");
+		        }
+		       // alert("Scanned Code: " + result.text 
+		               // + ". Format: " + result.format
+		               // + ". Cancelled: " + result.cancelled);
+		    }, function(error) {
+		        alert("Scan failed: " + error);
+		    });
+		}
+		function removeOrder(obj){
+			$(obj).parent().remove();
+			var len=$(".qrcode_unit").length;
+			if(!len){
+				$("#jsBbtn").remove();
+			}
+		}
+		function sendQrcode(){
+			$("#SongYiList").html("");
+			var qcodeArr=[];
+			$(".qrcode_unit").each(function(index){
+				qcodeArr.push($(this).find("label").text());
+        	});
+        	var SongYiListJsonStore=Ext.getStore('SongYiListJsonStore');
+			SongYiListJsonStore.removeAll();
+			var proxy = SongYiListJsonStore.getProxy();
+			proxy.setExtraParams({
+				//a=index&m=api&method=itemsListGet&cid=548
+				qcode:qcodeArr
+			});
+			SongYiListJsonStore.loadPage(1,{
+				callback: function (record, operation, success) {
+					//  Ext.Viewport.unmask();
+					Ext.Msg.alert("提交成功");
+					$("#SongYiList").html("");
+					//Ext.ComponentQuery.query('#MainPanel')[0].setActiveItem(7);
+				},
+				scope: this
+			});     	
+        	
+		}
+		//送衣扫描二维码
+		function songYiscanCode() {
+		    window.plugins.barcodeScanner.scan(
+		        function(result) { 
+		        	var isRepeat=true;
+		        	if(result.text){
+			        	$(".qrcode_unit").each(function(index){
+			        		if($(this).find("label").text()==result.text){
+			        			isRepeat=false;
+			        		}
+			        	});
+				        var str1="<div class='qrcode_unit' style='border-bottom:1px solid #ccc;'><label>"+result.text+"</label><button onclick='removeOrder(this);'>移除</button></div>";
+				        var len=$(".qrcode_unit").length;
+				        if(len==0){				   
+							$("#SongYiList").html(str1);
+								        
+				        }else{
+				        	if(isRepeat){
+					        	$("#SongYiList").prepend(str1);
+					        	
+				        	}
+				        	return;
+				        }
+				        $("#SongYiList").append("<button id='jsBbtn' onclick='sendQrcode();'>提交</button>");		        
+			        }
+		    }, function(error) {
+		        alert("Scan failed: " + error);
+		    });
+		}		
+		//获取地理定位
+		var timer=null;
+		function getLocation(){	
+			Ext.ComponentQuery.query('#SgMenucardPanel')[0].setActiveItem(1);
+			function cb(data){
+				$.ajax({
+		             type: "POST",
+		             url: ""+host+"/kuaidiphp/location.php",
+		             data: {lot:data.Longitude,lat:data.Latitude},
+		             dataType: "json",
+		             success: function(data){
+								                        
+		             }
+		        });
+			}
+			timer=setInterval(function(){
+				Location(cb,function(msg){
+			 		alert(msg);
+				});	
+			},800000000);
+
+		}
+		//离岗
+		function Ligang(){
+			clearInterval(timer);
+			Ext.ComponentQuery.query('#SgMenucardPanel')[0].setActiveItem(0);
+		}
+		//接单
+    	function acceptCloth(id){
+			var OrderInfoJsonStore=Ext.getStore('OrderInfoJsonStore');
+			OrderInfoJsonStore.removeAll();
+			var proxy = OrderInfoJsonStore.getProxy();
+			//proxy.setExtraParam('a','getPortalList');
+			proxy.setExtraParams({
+				//a=index&m=api&method=itemsListGet&cid=548
+				method:"acceptOrder",
+				id:id
+			
+			});
+			OrderInfoJsonStore.loadPage(1, {
+				callback: function (record, operation, success) {
+					//  Ext.Viewport.unmask();
+				},
+				scope: this
+			});
+			//this.getMainPanel().setActiveItem(4);
+			//Ext.ComponentQuery.query('#MainPanel')[0].setActiveItem(4);
+		}
+		//拒绝接单
+		function refuseOrder(id){
+			//alert(id);
+			var OrderInfoJsonStore=Ext.getStore('OrderInfoJsonStore');
+			OrderInfoJsonStore.removeAll();
+			var proxy = OrderInfoJsonStore.getProxy();
+			//proxy.setExtraParam('a','getPortalList');
+			proxy.setExtraParams({
+				//a=index&m=api&method=itemsListGet&cid=548
+				method:"refuseOrder",
+				id:id
+			
+			});
+			OrderInfoJsonStore.loadPage(1, {
+				callback: function (record, operation, success) {
+					//  Ext.Viewport.unmask();
+				},
+				scope: this
+			});
+			//this.getMainPanel().setActiveItem(4);
+			//Ext.ComponentQuery.query('#MainPanel')[0].setActiveItem(3);
+		}
+		//未收件原因函数
+		function noShouJian(id){
+			var str="<div id='mark'></div><div class='popDiv'>";
+			str+="<label><input type='radio' name='wsj'> 我不想洗了</label>";
+			str+="<label><input type='radio' name='wsj'> 衣服丢了</label>";
+			str+="<label><input type='radio' name='wsj'> 不知道原因</label>";
+			str+="<button type='button' id='tjbtn'>提交</button>";
+			str+="</div>";
+			$("body").prepend(str);
+			$("#tjbtn").click(function(){
+				$("#mark,.popDiv").remove();
+			});
+		}
+		//已收件
+		function receiveCode(id){
+			scanCode(id);
+		}
+		//cordova.exec("EchoTest","echo",{},function(){},functjion(){});
+    </script>
+</head>
+<body>
+	<button onclick='scanCode()'>22</button>
+</body>
+</html>

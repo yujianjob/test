@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "分享赢大奖";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--图片banner start-->
+<div class="hd-banner"><a href="#"><img src="~/images/hd2-banner.jpg" /></a></div>
+<!--图片banner end-->
+<!--活动文字 start-->
+<div class="hd-introduce">
+    <p>
+        即日起至6月13日，转发微懒到家“绑定手机送好礼”活动至朋友圈，积“赞”赢好礼，前50个位集满20个“赞”的客户均可获得懒人神器一个（懒人折衣板/手机支架）。前20位集满50个“赞”的客户可获得面值100元的懒人卡一张，与懒人神器二选一。
+    </p>
+    <p>
+        6月3日，活动截止当日，我们还将从所有转发此活动的客户中抽取一位超级幸运星，获得IPAD AIR一部。小伙伴们，还等什么？赶快拿起手机转发吧！<a href="#">立即转发！</a>
+    </p>
+</div>
+<!--活动文字 end-->
+<!--尾部 start-->
+<div class="footer foot"><img src="~/images/lan8.jpg" /></div>
+<!--尾部 end-->
+@section scripts
+{
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/Scripts/iscroll.js")
+    <script type="text/javascript">
+        var t = null;
+        $(function () {
+            var now = 0;
+            var clientw = $(window).width();
+            var clienth = $(window).height();
+            var len = $("#thelist li").size();
+            setBanner(clientw, len);
+
+        });
+        function move(now, len, clientw) {
+            if (now == len) { now = 0 }
+            $("#scroller ul").animate({
+                'marginLeft': -clientw * now + 'px'
+            }, 500);
+            $("#indicator li").removeClass("active");
+            $("#indicator li").eq(now).addClass("active");
+        }
+        function setBanner(clientw, len) {
+            $("#wrapper").css("width", clientw);
+            $("#scroller").css("width", clientw * len);
+            $("#scroller ul li").css("width", clientw);
+        }
+        var myScroll;
+        function loaded() {
+            myScroll = new iScroll('wrapper', {
+                snap: true,
+                momentum: false,
+                hScrollbar: false,
+                onScrollEnd: function () {
+                    document.querySelector('#indicator > li.active').className = '';
+                    document.querySelector('#indicator > li:nth-child(' + (this.currPageX + 1) + ')').className = 'active';
+                }
+            });
+        }
+        document.addEventListener('DOMContentLoaded', loaded, false);
+    </script>
+}

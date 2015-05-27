@@ -1,0 +1,43 @@
+﻿<style type="text/css">
+    ul.rightTools {
+        float: right;
+        display: block;
+    }
+
+        ul.rightTools li {
+            float: left;
+            display: block;
+            margin-left: 5px;
+        }
+</style>
+<div class="pageContent" style="padding:5px">
+
+    <div class="panel" defh="40">
+        <h1>查询</h1>
+        <div>
+            日期:
+            <input type="text" value="" readonly="readonly" class="date" name="dateStart">
+            <span class="limit">-</span>
+            <input type="text" value="" readonly="readonly" class="date" name="dateEnd">
+
+            <p>
+                <label>自定义日期格式：</label>
+                <input type="text" name="date3" class="date" datefmt="%y-%M-%d" readonly="true" />
+                <a class="inputDateButton" href="javascript:;">选择</a>
+
+            </p>
+
+            <ul class="rightTools">
+                <li><a class="button" target="ajax" href="@Url.Action("Stat", "Operator")" rel="jbsxBox"><span>按时间段统计</span></a></li>
+                <li><a class="button" target="ajax" href="" rel="jbsxBox"><span>昨日统计</span></a></li>
+                <li><a class="button" target="ajax" href="" rel="jbsxBox"><span>前三天统计</span></a></li>
+                <li><a class="button" target="ajax" href="" rel="jbsxBox"><span>上月统计</span></a></li>
+
+            </ul>
+        </div>
+    </div>
+
+
+    <div id="jbsxBox" class="unitBox"></div>
+    <div>123</div>
+</div>

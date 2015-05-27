@@ -1,0 +1,32 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\kaodian1.jpg" /></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>部分清洗请您使用以乾布(必要时可软刷),沾少许中性洗衣剂,以重点式清除汚渍,再将其晾乾即可。</p> 
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>注意为避免裁缝以及布料的破裂和眼睛部份脱落请避免使用洗衣机或乾燥机。需要保持抱枕柔软度,可常常在晴天日晒玩偶或抱枕。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\kaodian2.jpg" /></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>这种材料洗涤温度不能太高，涤纶化纤的遇高温会变形的，最好用柔和的洗涤剂，避免强酸强碱即可。</p>				
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

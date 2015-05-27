@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+    <head>
+        <script>
+        (function() {
+    if ("-ms-user-select" in document.documentElement.style && navigator.userAgent.match(/IEMobile\/10\.0/)) {
+        var msViewportStyle = document.createElement("style");
+        msViewportStyle.appendChild(
+            document.createTextNode("@-ms-viewport{width:auto!important}")
+        );
+        document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
+    }
+})();
+</script>
+
+        <title>App Framework Kitchen Sink</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <link rel="stylesheet" type="text/css" href="css/icons.css" />    
+ 
+       <!--   
+     <link rel="stylesheet" type="text/css" href="css/af.ui.css" title="default" />
+  -->
+      <link rel="stylesheet" type="text/css" href="css/main.css"  />
+      <link rel="stylesheet" type="text/css" href="css/appframework.css"  />
+      <link rel="stylesheet" type="text/css" href="css/lists.css"  />
+      <link rel="stylesheet" type="text/css" href="css/forms.css"  />
+      <link rel="stylesheet" type="text/css" href="css/buttons.css"  />        
+      <link rel="stylesheet" type="text/css" href="css/badges.css"  />        
+      <link rel="stylesheet" type="text/css" href="css/grid.css"  />
+
+      <link rel="stylesheet" type="text/css" href="css/android.css"  />
+      <link rel="stylesheet" type="text/css" href="css/win8.css"  />
+      <link rel="stylesheet" type="text/css" href="css/bb.css"  />
+      <link rel="stylesheet" type="text/css" href="css/ios.css"  />
+      <link rel="stylesheet" type="text/css" href="css/ios7.css"  />
+      <link rel="stylesheet" type="text/css" href="css/tizen.css"  />
+        
+      <link rel="stylesheet" type="text/css" href="plugins/css/af.actionsheet.css"  />
+      <link rel="stylesheet" type="text/css" href="plugins/css/af.popup.css"  />
+      <link rel="stylesheet" type="text/css" href="plugins/css/af.scroller.css"  />
+      <link rel="stylesheet" type="text/css" href="plugins/css/af.selectBox.css"  />        
+        
+        <!-- uncomment for intel.xdk apps 
+        <script type="text/javascript" charset="utf-8" src="intelxdk.js"></script>
+        <script type="text/javascript" charset="utf-8" src="xhr.js"></script>
+        -->
+        <script type="text/javascript" charset="utf-8" src="./appframework.js"></script>
+        <!-- include af.desktopBrowsers.js on desktop browsers only -->
+        <script>
+
+            function loadedPanel(what) {
+                //We are going to set the badge as the number of li elements inside the target
+                $.ui.updateBadge("#aflink", $("#af").find("li").length);
+            }
+
+
+            function unloadedPanel(what) {
+                console.log("unloaded " + what.id);
+            }
+
+            if (!((window.DocumentTouch && document instanceof DocumentTouch) || 'ontouchstart' in window)) {
+                var script = document.createElement("script");
+                script.src = "plugins/af.desktopBrowsers.js";
+                var tag = $("head").append(script);
+                //$.os.desktop=true;
+            }
+
+          //  $.feat.nativeTouchScroll=true;
+          
+        </script>        
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.actionsheet.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.css3animate.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.passwordBox.js"></script>          
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.scroller.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.selectBox.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.touchEvents.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.touchLayer.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.popup.js"></script>
+
+        <script type="text/javascript" charset="utf-8" src="./ui/appframework.ui.js"></script>
+        <!-- <script type="text/javascript" charset="utf-8" src="./ui/transitions/all.js"></script> -->
+        <script type="text/javascript" charset="utf-8" src="./ui/transitions/fade.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./ui/transitions/flip.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./ui/transitions/pop.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./ui/transitions/slide.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./ui/transitions/slideDown.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./ui/transitions/slideUp.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.slidemenu.js"></script>
+        
+
+        <script type="text/javascript">
+            /* This function runs once the page is loaded, but intel.xdk is not yet active */
+            //$.ui.animateHeaders=false;
+             var search=document.location.search.toLowerCase().replace("?","");
+             //if(!search)
+            $.ui.useOSThemes=true;
+            if(search.length>0) //Android fix has too many buggy issues on iOS - can't preview with $.os.android
+            {
+
+               $.ui.useOSThemes=true;
+                if(search=="win8")
+                    $.os.ie=true;
+                $.ui.ready(function(){
+                    $("#afui").get(0).className="ios";
+                });
+            }
+            
+            var webRoot = "./";
+            // $.os.android=true;
+            $.ui.autoLaunch = false;
+            //$//.ui.openLinksNewTab = false;
+            //$.ui.splitview=false;
+            
+
+            $(document).ready(function(){
+                  $.ui.launch();
+                  $("#afui").get(0).className="ios";
+
+            });
+            
+            /* This code is used to run as soon as intel.xdk activates */
+            var onDeviceReady = function () {
+                intel.xdk.device.setRotateOrientation("portrait");
+                intel.xdk.device.setAutoRotate(false);
+                webRoot = intel.xdk.webRoot + "";
+                //hide splash screen
+                intel.xdk.device.hideSplashScreen();
+                $.ui.blockPageScroll(); //block the page from scrolling at the header/footer
+            };
+            document.addEventListener("intel.xdk.device.ready", onDeviceReady, false);
+
+            function showHide(obj, objToHide) {
+                var el = $("#" + objToHide)[0];
+
+                if (obj.className == "expanded") {
+                    obj.className = "collapsed";
+                } else {
+                    obj.className = "expanded";
+                }
+                $(el).toggle();
+
+            }
+
+
+            if($.os.android||$.os.ie||search=="android"){
+                $.ui.ready(function(){
+                    $("#main .list").append("<li><a id='toggleAndroidTheme'>Toggle Theme Color</a></li>");
+                    var $el=$("#afui");
+                    $("#toggleAndroidTheme").bind("click",function(e){
+                        if($el.hasClass("light"))
+                            $el.removeClass("light");
+                        else
+                            $el.addClass("light");
+                    });
+                });
+            }                        
+        </script>
+	    <script type="text/javascript" src="cordova.js"></script>
+	    <script type="text/javascript" src="barcodescanner.js"></script>
+	    <script type="text/javascript" src="location.js"></script>
+        <script src="md5.js"></script>
+        <script src="basic.js"></script>
+        <script src="common.js"></script>
+        <script type="text/javascript">
+        	document.addEventListener("deviceready",myDeviceReady,false);
+        	function myDeviceReady(){
+        		document.addEventListener('backbutton', myBackButton, false);
+        	}
+        	function myBackButton(){
+        		var len=$("#OrderTakeList .expnumberUnit").length;
+        		if(len!=0){
+					    $("#afui").popup({
+							title: "",
+							message: "揽件列表有相关信息，您确定不提交吗?",
+							cancelText: "取消",
+							cancelCallback: function () {
+								
+							},
+							doneText: "确定",
+							doneCallback: function () {
+								exitApp();
+							},
+							cancelOnly: false
+						});
+        		}else{
+        			exitApp();
+        		}
+	        	
+        	}
+        	//退出应用
+			function exitApp() {              
+				navigator.app.exitApp();
+			}
+        </script>
+        <style type="text/css">
+        //登录页面
+		.input-group.autoLogin{
+        	background:none!important;
+        }
+        #afui .button{padding:12px}
+        
+        #afui input[type="radio"] + label, #afui input[type="checkbox"] + label {
+			display: inline-block;
+			float: left;
+			padding: 10px 0 0;
+			position: relative;
+			text-align: left;
+			width: 100%;
+			margin-left:20px;
+			display:inline;
+		}
+		#afui .input-group.autoLogin{
+			border:0;
+		}
+		/*上岗页面*/
+		#OperatorOnLine-box a.button{
+			width:100%;
+			height:100px;
+			line-height:100px;
+			vertical-align:middle;
+			display:block;
+			padding:0 12px;
+			margin:50px auto;
+		}
+		/*接单页面*/
+		.acceptOrderList li{overflow:hidden;}
+		.btnGroup .refuse{width:48%;float:left}
+		.btnGroup .accept{width:48%;float:right}
+		/*揽件页面*/
+		#OrderTakeList li{overflow:hidden}
+		.expnumberUnit{margin-top:15px}
+        </style>
+
+</head>
+
+    <body>
+        <div id="afui">
+        	<div id="content">
+            	<!--登录-->
+            	<div id="login_panel" class="panel" data-load="loadLoginPanel" data-unload="unloadLoginPanel">
+                	<div class="formGroupHead">登录</div>
+                    <form>
+                        <input type="text" id="username" placeholder="请输入登录账号" class="">
+                        <input type="password" id="password" placeholder="请输入登录密码">
+                        <div class="input-group autoLogin" style="background:none">
+                        <input id="autoLoginCheck" type="checkbox" value="" name="autoLoginCheck">
+                        <label for="autoLoginCheck" class="">记住用户名和密码</label>
+                        </div>
+                        <a class="button green block" onClick="loginEntrance();">立即登录</a>
+                    </form>
+                </div>
+            	<!--操作列表-->
+            	<div id="OperatorOnLineList_panel" class="panel" data-load="OperatorOnLineListPanel" data-unload="uOperatorOnLineListPanel" data-header="OperatorOnLineList_header">
+					<a class="button block" onClick="OrderWaitTakeList();">接单</a>
+                    <a class="button block" onClick="ShouYi();">收衣</a>
+                    <a class="button block" href="#OrderTake_panel" data-transition="slide">揽件</a>
+                    <a class="button block" href="#SongYiList_panel">送衣</a>
+                    <a class="button" style="width:49%;float:left" onClick="OperatorInfo();">操作员</a>
+                    <a class="button" style="width:49%;float:right" onClick="OperatorOffLine();">离岗</a>
+                </div>
+            	<!--带接单列表-->
+            	<div id="OrderWaitTakeList_panel" class="panel" data-load="loadOrderWaitTakeListPanel" data-unload="uloadOrderWaitTakeListPanel" data-header="OrderWaitTakeList_header">
+					<ul class="list acceptOrderList" id="OrderWaitTakeListUl">
+                    </ul>
+                </div>
+                <!--收衣-->
+            	<div id="ShouYiList_panel" class="panel" data-load="loadShouYiList" data-unload="uloadShouYiList" data-header="ShouYiList_header">
+					<ul class="list acceptOrderList" id="ShouYiList_panelUl">
+                   
+                    </ul>
+                </div> 
+                <!--收衣详情-->
+            	<div id="ShouYiDetail_panel" class="panel" data-load="loadShouYiDetail" data-unload="uloadShouYiDetail" data-header="ShouYiDetail_header">
+                	<div id="ShouYiDetailP">
+                    
+                    </div>
+					<ul class="list acceptOrderList" id="ShouYiDetail_panelUl">
+                   		
+                    </ul>
+                </div>                     
+                <!--操作员-->
+                <div id="OperatorInfo_panel" class="panel" data-load="LoadOperator" data-unload="unLoadOperator" data-header="OperatorInfo_header">
+					<ul class="list" id="OperatorInfoList">
+                    	
+                    </ul>
+                </div>
+                <!--揽件-->
+                <div id="OrderTake_panel" class="panel" data-load="LoadOrderTake" data-unload="unLoadOrderTake" data-header="OrderTake_header" data-footer="OrderTake_footer">
+					<ul class="list" id="OrderTakeList">
+                    	
+                    </ul>
+                </div>
+                <!--送衣列表-->
+                <div id="SongYiList_panel" class="panel" data-load="LoadSongYiList" data-unload="unLoadSongYiList" data-header="SongYiList_header">
+					<ul class="list" id="SongYiList">
+                    	
+                    </ul>
+                </div>
+                <!--送衣详情-->
+                <div id="SongYiDetail_panel" class="panel" data-load="LoadSongYiDetail" data-unload="unLoadSongYiDetail" data-header="SongYiDetail_header" data-footer="SongYiDetail_footer">
+					<ul class="list" id="SongYiDetailUl">
+                    	
+                    </ul>
+                </div>
+                <header id="OrderTake_header">
+                    <a class="button" style="float:left" onClick="$.ui.goBack();">返回</a>
+                    <h1>揽件列表</h1>
+                    <a class="button" style="float:right;" onClick="OrderTakescanCode();">扫描</a>
+                </header>
+                <header id="OperatorInfo_header">
+                    <a class="button" style="float:left" onClick="$.ui.goBack();">返回</a>
+                    <h1>操作员</h1>
+                </header>
+                <header id="OrderWaitTakeList_header">
+                    <a class="button" style="float:left" onClick="$.ui.goBack();">返回</a>
+                    <h1>接单</h1>
+                </header>
+                <header id="ShouYiList_header">
+                    <a class="button" style="float:left" onClick="goBackList();">返回</a>
+                    <h1>收衣列表</h1>
+                </header>
+                <header id="ShouYiDetail_header">
+                    <a class="button" style="float:left" onClick="$.ui.goBack();">返回</a>
+                    <h1>收衣详情</h1>
+                    <a class="button" style="float:right" onClick="scanCode();">扫描</a>
+                </header>
+				<header id="OperatorOnLineList_header">
+                    <a id="userNameLabel_01" class='button'></a>
+                    <a class="button" style="float:right" onClick="exitUser();">注销</a>
+                </header>
+                <header id="SongYiList_header">
+                    <a class="button" style="float:left" onClick="$.ui.goBack();">返回</a>
+                    <h1>送衣列表</h1>                
+                </header>
+                <header id="SongYiDetail_header">
+                    <a class="button" style="float:left" onClick="$.ui.goBack();">返回</a>
+                    <h1>送衣详情</h1>                
+                </header>
+                <footer id="SongYiDetail_footer">
+                	<a class="icon pencil big" onclick="javascript:OrderSendComplete();">已收件</a>
+                </footer>
+                <footer id="OrderTake_footer">
+                	<a class="icon pencil big" onclick="javascript:expnumberSub();">提交</a>
+                </footer>
+                
+            </div>
+        </div>
+
+    </body>
+</html>

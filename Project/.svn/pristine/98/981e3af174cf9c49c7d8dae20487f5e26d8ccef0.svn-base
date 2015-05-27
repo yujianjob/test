@@ -1,0 +1,84 @@
+﻿@model IList<LazyAtHome.WCF.UserSystem.Contract.DataContract.User_CouponDC>
+@{
+    ViewBag.Title = "我的优惠券";
+}
+
+<section>
+    <div class="myCoupon">
+        <div class="CouponBind">
+            <label>
+                <span>优惠券号</span>
+                <input type="text" id="txtCode" name="txtCode">
+            </label>
+            <button class="bindCoupon-btn" onclick="FuncBindCoupon();">绑定</button>
+        </div>
+
+        <div class="couponStatus">
+            <ul class="tabSwitch">
+                <li class="@UIHelper.ShowActive(ViewBag.Status == 1)"><span><a href="/Member/MyCoupons?cs=1">未使用</a></span></li>
+                <li class="@UIHelper.ShowActive(ViewBag.Status == 2)"><span><a href="/Member/MyCoupons?cs=2">已使用</a></span></li>
+                <li class="@UIHelper.ShowActive(ViewBag.Status == -1)"><span><a href="/Member/MyCoupons?cs=-1">已过期</a></span></li>
+            </ul>
+            <div class="couponCont">
+                @foreach (var item in Model)
+                {
+                    <div class="couponUnit">
+                        @if (ViewBag.Status == 1 && (DateTime.Now.AddDays(7) > item.UseEndDate))
+                        {
+                            <div class="defaultIcn"></div>
+                        }
+                        <p>
+                            @item.Name<br>
+                            说明：@item.Obj_Remark<br>
+                            @if (ViewBag.Status == 2)
+                            {
+                                <span>使用时间：<time>@item.UseDate.ToString()</time></span>
+                            }
+                            else
+                            {
+                                 <span>过期时间：<time>@item.UseEndDate.ToShortDateString()</time></span>                                
+                            }                            
+                        </p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts
+{
+    <script language="javascript" type="text/javascript">
+        function FuncBindCoupon() {
+            if (!txtCode.value.trim().match("^[0-9a-zA-Z]{6,16}$")) {
+                txtCode.focus();
+                showPopDiv("优惠券代码格式错误", false);
+                return false;
+            }
+
+            var postData = { "couponPass": txtCode.value.trim() };
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("User_BindCoupon", "Member")",
+                data: postData,
+                dataType: "json",
+                success: ProcessCouponBind,
+                error: function (msg) {
+                    showPopDiv(msg.toString(), false);
+                }
+            });
+        }
+
+        function ProcessCouponBind(resultJson) {
+            if (resultJson != null) {
+                if (resultJson.Code == 1) {
+                    txtCode.value = "";
+                    showPopDiv("绑定成功", true);
+                }
+                else {
+                    showPopDiv(resultJson.Msg, false);
+                }
+            }
+        }
+    </script>
+}

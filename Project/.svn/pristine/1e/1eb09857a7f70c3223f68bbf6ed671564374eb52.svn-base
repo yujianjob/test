@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/LazyAtHome.WCF.OrderSystem.Contract.DataContract" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/LazyAtHome.WCF.OrderSystem.Contract.DataContract" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://192.168.1.201:8100/LazyAtHome/WashOrderService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://192.168.1.201:8100/LazyAtHome/WashOrderService?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" />
+  <xs:complexType name="Order_OrderDC">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" base="q1:EntityBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AmountList" nillable="true" type="tns:ArrayOfOrder_AmountDC" />
+          <xs:element minOccurs="0" name="CSRemark" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Channel" type="xs:int" />
+          <xs:element minOccurs="0" name="ConsigneeAddressList" nillable="true" type="tns:ArrayOfOrder_ConsigneeAddressDC" />
+          <xs:element minOccurs="0" name="ExpectTime" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="ExpressList" nillable="true" type="tns:ArrayOfOrder_ExpressDC" />
+          <xs:element minOccurs="0" name="ID" type="xs:int" />
+          <xs:element minOccurs="0" name="MPNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="OrderClass" type="xs:int" />
+          <xs:element minOccurs="0" name="OrderNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="OrderStatus" type="xs:int" />
+          <xs:element minOccurs="0" name="OrderType" type="xs:int" />
+          <xs:element minOccurs="0" name="PayAmount" type="xs:decimal" />
+          <xs:element minOccurs="0" name="PaymentList" nillable="true" type="tns:ArrayOfOrder_PaymentDC" />
+          <xs:element minOccurs="0" name="ProductList" nillable="true" type="tns:ArrayOfOrder_ProductDC" />
+          <xs:element minOccurs="0" name="RelationID" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="RelationNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Site" type="xs:int" />
+          <xs:element minOccurs="0" name="Step" type="xs:int" />
+          <xs:element minOccurs="0" name="StepList" nillable="true" type="tns:ArrayOfOrder_StepDC" />
+          <xs:element minOccurs="0" name="SystemRemark" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TotalAmount" type="xs:decimal" />
+          <xs:element minOccurs="0" name="UserID" type="ser:guid" />
+          <xs:element minOccurs="0" name="UserRemark" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Order_OrderDC" nillable="true" type="tns:Order_OrderDC" />
+  <xs:complexType name="ArrayOfOrder_AmountDC">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Order_AmountDC" nillable="true" type="tns:Order_AmountDC" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOrder_AmountDC" nillable="true" type="tns:ArrayOfOrder_AmountDC" />
+  <xs:complexType name="Order_AmountDC">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q2="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" base="q2:EntityBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Content" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ID" type="xs:int" />
+          <xs:element minOccurs="0" name="Money" type="xs:decimal" />
+          <xs:element minOccurs="0" name="OID" type="xs:int" />
+          <xs:element minOccurs="0" name="RelationID" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Type" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Order_AmountDC" nillable="true" type="tns:Order_AmountDC" />
+  <xs:complexType name="ArrayOfOrder_ConsigneeAddressDC">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Order_ConsigneeAddressDC" nillable="true" type="tns:Order_ConsigneeAddressDC" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOrder_ConsigneeAddressDC" nillable="true" type="tns:ArrayOfOrder_ConsigneeAddressDC" />
+  <xs:complexType name="Order_ConsigneeAddressDC">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q3="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" base="q3:EntityBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Address" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CityName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Consignee" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DistrictID" type="xs:int" />
+          <xs:element minOccurs="0" name="DistrictName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ID" type="xs:int" />
+          <xs:element minOccurs="0" name="Mpno" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="OID" type="xs:int" />
+          <xs:element minOccurs="0" name="Phone" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ProvinceName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Type" type="xs:int" />
+          <xs:element minOccurs="0" name="ZipCode" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Order_ConsigneeAddressDC" nillable="true" type="tns:Order_ConsigneeAddressDC" />
+  <xs:complexType name="ArrayOfOrder_ExpressDC">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Order_ExpressDC" nillable="true" type="tns:Order_ExpressDC" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOrder_ExpressDC" nillable="true" type="tns:ArrayOfOrder_ExpressDC" />
+  <xs:complexType name="Order_ExpressDC">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q4="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" base="q4:EntityBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Content" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ID" type="xs:int" />
+          <xs:element minOccurs="0" name="OID" type="xs:int" />
+          <xs:element minOccurs="0" name="RelationID" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Type" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Order_ExpressDC" nillable="true" type="tns:Order_ExpressDC" />
+  <xs:complexType name="ArrayOfOrder_PaymentDC">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Order_PaymentDC" nillable="true" type="tns:Order_PaymentDC" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOrder_PaymentDC" nillable="true" type="tns:ArrayOfOrder_PaymentDC" />
+  <xs:complexType name="Order_PaymentDC">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q5="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" base="q5:EntityBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ID" type="xs:int" />
+          <xs:element minOccurs="0" name="OID" type="xs:int" />
+          <xs:element minOccurs="0" name="PayChannel" type="xs:int" />
+          <xs:element minOccurs="0" name="PayDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="PayMoney" type="xs:decimal" />
+          <xs:element minOccurs="0" name="PayMoneyType" type="xs:int" />
+          <xs:element minOccurs="0" name="RelationID" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Order_PaymentDC" nillable="true" type="tns:Order_PaymentDC" />
+  <xs:complexType name="ArrayOfOrder_ProductDC">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Order_ProductDC" nillable="true" type="tns:Order_ProductDC" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOrder_ProductDC" nillable="true" type="tns:ArrayOfOrder_ProductDC" />
+  <xs:complexType name="Order_ProductDC">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q6="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" base="q6:EntityBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Attribute" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ID" type="xs:int" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="OID" type="xs:int" />
+          <xs:element minOccurs="0" name="Price" type="xs:decimal" />
+          <xs:element minOccurs="0" name="ProductID" type="xs:int" />
+          <xs:element minOccurs="0" name="ReturnStatus" type="xs:int" />
+          <xs:element minOccurs="0" name="Type" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Order_ProductDC" nillable="true" type="tns:Order_ProductDC" />
+  <xs:complexType name="ArrayOfOrder_StepDC">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Order_StepDC" nillable="true" type="tns:Order_StepDC" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOrder_StepDC" nillable="true" type="tns:ArrayOfOrder_StepDC" />
+  <xs:complexType name="Order_StepDC">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q7="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" base="q7:EntityBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Content" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ID" type="xs:int" />
+          <xs:element minOccurs="0" name="OID" type="xs:int" />
+          <xs:element minOccurs="0" name="Type" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Order_StepDC" nillable="true" type="tns:Order_StepDC" />
+</xs:schema>

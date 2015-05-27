@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/LazyAtHome.WCF.Wash.Contract.DataContract" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/LazyAtHome.WCF.Wash.Contract.DataContract" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://192.168.1.201:8100/LazyAtHome/WashProductService?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" />
+  <xs:complexType name="ArrayOfWash_ClassDC">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Wash_ClassDC" nillable="true" type="tns:Wash_ClassDC" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWash_ClassDC" nillable="true" type="tns:ArrayOfWash_ClassDC" />
+  <xs:complexType name="Wash_ClassDC">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" base="q1:EntityBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Enable" type="xs:int" />
+          <xs:element minOccurs="0" name="ID" type="xs:int" />
+          <xs:element minOccurs="0" name="IsDefault" type="xs:int" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ParentID" type="xs:int" />
+          <xs:element minOccurs="0" name="PictureL" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PictureM" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PictureS" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Sort" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Wash_ClassDC" nillable="true" type="tns:Wash_ClassDC" />
+  <xs:complexType name="ArrayOfWash_ProductDC">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Wash_ProductDC" nillable="true" type="tns:Wash_ProductDC" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWash_ProductDC" nillable="true" type="tns:ArrayOfWash_ProductDC" />
+  <xs:complexType name="Wash_ProductDC">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q2="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" base="q2:EntityBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AduitDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="AduitOperatorID" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="AttributeList" nillable="true" type="tns:ArrayOfWash_ProductAttributeDC" />
+          <xs:element minOccurs="0" name="CategoryID" type="xs:int" />
+          <xs:element minOccurs="0" name="CategoryName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ClassID" type="xs:int" />
+          <xs:element minOccurs="0" name="ClassName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Comment" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CommitStatus" type="xs:int" />
+          <xs:element minOccurs="0" name="Content" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Group" type="xs:int" />
+          <xs:element minOccurs="0" name="ID" type="xs:int" />
+          <xs:element minOccurs="0" name="Keyword" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MarketPrice" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="OffDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="OffOperatorID" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="OnDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="OnOperatorID" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="ParentClassID" type="xs:int" />
+          <xs:element minOccurs="0" name="ParentClassName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="RecSort" type="xs:int" />
+          <xs:element minOccurs="0" name="SalesPrice" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Site" type="xs:int" />
+          <xs:element minOccurs="0" name="Sort" type="xs:int" />
+          <xs:element minOccurs="0" name="SubmitDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="SubmitOperatorID" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="Type" type="xs:int" />
+          <xs:element minOccurs="0" name="VerifyStatus" type="xs:int" />
+          <xs:element minOccurs="0" name="WebName" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Wash_ProductDC" nillable="true" type="tns:Wash_ProductDC" />
+  <xs:complexType name="ArrayOfWash_ProductAttributeDC">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Wash_ProductAttributeDC" nillable="true" type="tns:Wash_ProductAttributeDC" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWash_ProductAttributeDC" nillable="true" type="tns:ArrayOfWash_ProductAttributeDC" />
+  <xs:complexType name="Wash_ProductAttributeDC">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q3="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" base="q3:EntityBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AttributeID" type="xs:int" />
+          <xs:element minOccurs="0" name="AttributeName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Content" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Default" type="xs:int" />
+          <xs:element minOccurs="0" name="ID" type="xs:int" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ParentAttributeID" type="xs:int" />
+          <xs:element minOccurs="0" name="Price" type="xs:decimal" />
+          <xs:element minOccurs="0" name="ProductID" type="xs:int" />
+          <xs:element minOccurs="0" name="Selected" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Wash_ProductAttributeDC" nillable="true" type="tns:Wash_ProductAttributeDC" />
+</xs:schema>

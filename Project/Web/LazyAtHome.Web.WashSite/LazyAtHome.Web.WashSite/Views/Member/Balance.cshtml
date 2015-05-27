@@ -1,0 +1,96 @@
+﻿@model IList<LazyAtHome.WCF.UserSystem.Contract.DataContract.User_AmountLogDC>
+@{
+    //ViewBag.Title = "账户余额";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--内容-->
+<div id="content">
+    @{Html.RenderPartial("_MemberLeftNav");}
+    <div class="my_content right">
+        <div class="my_contentTitle">账户余额</div>
+        <div class="height_50"></div>
+        <div class="balance-nums">
+            <div class="account-lf">
+                可用余额：<span class="available-balance">￥@ViewBag.Money</span>&nbsp; &nbsp;&nbsp;&nbsp;
+                锁定余额：<span class="lock-balance">￥0</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                帐户状态：<span class="effective">有效</span>
+            </div>
+            <div class="charge-rt"></div>
+        </div>
+        <div class="my_bangding">
+            <div class="my_bangdingTitle">
+                <ul>
+                    <li class="@UIHelper.ShowThis(ViewBag.Type ==1) li"><a href="@Url.Action("Balance", new { type = 1 })">近三个月收支明细</a><span></span><b></b></li>
+                    <li class="@UIHelper.ShowThis(ViewBag.Type ==2) li"><a href="@Url.Action("Balance", new { type = 2 })">三个月前收支明细</a><span></span><b></b></li>
+                    <div class="clear"></div>
+                </ul>
+            </div>
+            <div class="my_dingdanBox" style="display:block">
+                <div class="my_dingdanTitle">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="200" align="center">时间</td>
+                            <td width="150" align="center">存入</td>
+                            <td width="150" align="center">支出</td>
+                            <td>备注</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="my_dingdanList">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td width="200" align="center">@item.Obj_Cdate.Value.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                                <td width="150" align="center"><span class="deposit">@{if (item.BeforeValue < item.AfterValue)
+                                { @("￥" + item.ChangeValue);
+                                }}</span></td>
+                                <td width="150" align="center"><span class="expenditure">@{if (item.BeforeValue > item.AfterValue)
+                                { @("￥" + item.ChangeValue);
+                                }}</span></td>
+                                <td>@item.Content</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+                <div class="my_dingdanPage"><a href="#">上一页</a><span><a href="#" class="this">1</a></span><a href="#">下一页</a></div>
+            </div>
+        </div>
+        @{Html.RenderAction("MoreWash", "Wash");}
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/Scripts/gundong.js")
+
+    <script language="javascript" type="text/javascript">
+        $(function () {
+            //左侧导航
+            $('.my_navList dt').click(function () {
+                $(this).parent().find('dd').slideToggle(200);
+                $(this).toggleClass("my_navList_Top");
+            })
+            //滚动
+            var BOX = $('.cartLuxuryList ul');
+            var HHUM = $('.cartLuxuryList li');
+            var LEFT = $('.cartLuxuryZuo');
+            var RIGHT = $('.cartLuxuryYou');
+            var WIDTH = 184;//单个宽度
+            var PLAY = 5000;//自动播放的时间
+            var SPEED = 500;//切换速度
+            var AOUT = true;//是否自动播放
+            IMG(BOX, LEFT, RIGHT, WIDTH, HHUM, PLAY, SPEED, AOUT);
+
+            $('.cartLuxuryList li').hover(function () {
+                $(this).find('.cartLuxuryListImg').addClass('this');
+            }, function () {
+                $(this).find('.cartLuxuryListImg').removeClass('this');
+            })
+        })
+    </script>
+}

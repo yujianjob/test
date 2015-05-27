@@ -1,0 +1,5 @@
+E:\workspace\Project\LazyAtHome.Core.Solutions\LazyAtHome.Core.Web\bin\Debug\LazyAtHome.Core.Web.dll
+E:\workspace\Project\LazyAtHome.Core.Solutions\LazyAtHome.Core.Web\bin\Debug\LazyAtHome.Core.Web.pdb
+E:\workspace\Project\LazyAtHome.Core.Solutions\LazyAtHome.Core.Web\obj\Debug\LazyAtHome.Core.Web.dll
+E:\workspace\Project\LazyAtHome.Core.Solutions\LazyAtHome.Core.Web\obj\Debug\LazyAtHome.Core.Web.pdb
+E:\workspace\Project\LazyAtHome.Core.Solutions\LazyAtHome.Core.Web\obj\Debug\LazyAtHome.Core.Web.csprojResolveAssemblyReference.cache

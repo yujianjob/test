@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B0F35734-8D87-4A0C-8706-AB91E66D7CEC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LazyAtHome.WCF.Express.Contract</RootNamespace>
+    <AssemblyName>LazyAtHome.WCF.Express.Contract</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LazyAtHome.Core">
+      <HintPath>D:\CommonDLL\LazyAtHome.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="LazyAtHome.Service.WorkQueue.Contract">
+      <HintPath>D:\CommonDLL\LazyAtHome.Service.WorkQueue.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ClientProxy\ApiExpressClient.cs" />
+    <Compile Include="ClientProxy\AppExpressClient.cs" />
+    <Compile Include="ClientProxy\ExpressClient.cs" />
+    <Compile Include="DataContract\BaseModel.cs" />
+    <Compile Include="DataContract\Exp_AreaDC.cs" />
+    <Compile Include="DataContract\Exp_NodeDC.cs" />
+    <Compile Include="DataContract\Exp_OperatorDC.cs" />
+    <Compile Include="DataContract\Exp_OrderDC.cs" />
+    <Compile Include="DataContract\Exp_Preson_AccountDC.cs" />
+    <Compile Include="DataContract\Exp_Preson_CommissionBillDC.cs" />
+    <Compile Include="DataContract\Exp_Preson_CommissionLogDC.cs" />
+    <Compile Include="DataContract\Exp_Preson_PaymentBillDC.cs" />
+    <Compile Include="DataContract\Exp_Preson_PaymentLogDC.cs" />
+    <Compile Include="DataContract\Exp_RoutePushDC.cs" />
+    <Compile Include="DataContract\Exp_StorageDC.cs" />
+    <Compile Include="DataContract\Exp_StorageItemDC.cs" />
+    <Compile Include="DataContract\Exp_StorageLogDC.cs" />
+    <Compile Include="DataContract\RoutePushModel.cs" />
+    <Compile Include="Enumerate\Node.cs" />
+    <Compile Include="Enumerate\Storage.cs" />
+    <Compile Include="InterfaceContract\IApiExpress.cs" />
+    <Compile Include="InterfaceContract\IAppExpress.cs" />
+    <Compile Include="InterfaceContract\IExpress.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

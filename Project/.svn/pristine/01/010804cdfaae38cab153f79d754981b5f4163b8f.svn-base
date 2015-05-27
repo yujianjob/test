@@ -1,0 +1,196 @@
+﻿@model LazyAtHome.Web.WebManage.Models.Export.OrderAlarmListModel
+@{
+    <script src="@Url.Content("~/Scripts/Export/order.js")" type="text/javascript"></script>
+}
+
+<form id="pagerForm" method="post" action="@Url.Action("SearchOrderAlarm")">
+    <input type="hidden" name="status" value="@Model.SearchInfo.status">
+    <input type="hidden" name="keywords" value="@Model.SearchInfo.keywords" />
+    <input type="hidden" name="pageNum" value="@Model.SearchInfo.pageNum" />
+    <input type="hidden" name="numPerPage" value="@Model.SearchInfo.numPerPage" />
+    <input type="hidden" name="orderField" value="@Model.SearchInfo.orderField" />
+</form>
+
+<!--报错信息-->
+@Html.Raw(ViewBag.Script)
+
+<!--搜索条-->
+<div class="pageHeader">
+    <form id="searchForm" onsubmit="return navTabSearch(this);" action="@Url.Action("SearchOrderAlarm")" method="post" rel="pagerForm">
+        <div class="searchBar">
+            <table class="searchContent">
+                <tr>
+                    <td>取件日期</td>
+                    <td>
+                        @{
+                            var DateFrom = "";
+                            if (Model.SearchInfo.DateFrom != null)
+                            {
+
+                                DateFrom = Convert.ToDateTime(Model.SearchInfo.DateFrom).ToString("yyyy-MM-dd");
+                            }
+                            var DateTo = "";
+                            if (Model.SearchInfo.DateTo != null)
+                            {
+
+                                DateTo = Convert.ToDateTime(Model.SearchInfo.DateTo).ToString("yyyy-MM-dd");
+                            }
+                        }
+                        <input type="text" id="OrderAlarmFrom" name="DateFrom" value="@DateFrom"
+                               class="date" style="width: 120px" />
+                        至
+                        <input type="text" id="OrderAlarmTo" name="DateTo" value="@DateTo"
+                               class="date" style="width: 120px" />
+                    </td>
+
+                    <td>
+                        入库超时
+                        @Html.CheckBox("isGetPackage", Model.SearchInfo.isGetPackage)
+                    </td>
+                    <td>
+                        洗涤超时
+                        @Html.CheckBox("isWash", Model.SearchInfo.isWash)
+                    </td>
+                    <td>
+                        送件超时
+                        @Html.CheckBox("isSendPackage", Model.SearchInfo.isSendPackage)
+                    </td>
+                    <td>                     
+                        全程超时
+                        @Html.CheckBox("isAll", Model.SearchInfo.isAll)
+                        @*取件超时<input type="checkbox" id="ckOrderAlarmGet" name="isGetPackage" value="@Model.SearchInfo.isGetPackage" />
+                        洗涤超时<input type="checkbox" id="ckOrderAlarmWash" name="isWash" value="@Model.SearchInfo.isWash" />
+                        送件超时<input type="checkbox" id="ckOrderAlarmSend" name="isSendPackage" value="@Model.SearchInfo.isSendPackage" />
+                        全程超时<input type="checkbox" id="ckOrderAlarmAll" name="isAll" value="@Model.SearchInfo.isAll" />*@
+
+                    </td>
+                </tr>
+            </table>
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+                    @*<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>*@
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+
+@Html.Hidden("hdExportOrderAlarmUrl", @Url.Action("ExportOrderAlarm"))
+
+<div class="pageContent">
+    <!--功能按键-->
+    <div class="panelBar">
+        <ul class="toolBar">
+            @*<li><a class="add" href="@Url.Action("")" target="navTab" rel="" title="添加"><span>添加</span></a></li>
+                <li><a class="delete" href="@Url.Action("")" target="ajaxTodo" title="确定要删除吗?"><span>删除</span></a></li>
+                <li><a class="edit" href="@Url.Action("")" target="navTab"><span>修改</span></a></li>
+                <li class="line">line</li>
+                <li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targettype="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>*@
+            <li><a class="icon" id="exportorderalarm"><span>导出</span></a></li>
+        </ul>
+    </div>
+
+    <!--列表页-->
+    <table class="table" width="1410" layouth="137">
+        <thead>
+            <tr>
+                <th width="10" align="center"></th>
+                <th width="100" align="center">订单号</th>
+                <th width="100" align="center">收件手机</th>
+                <th width="100" align="center">收件人</th>
+                <th width="300" align="center">收件地址</th>
+                <th width="120" align="center">下单日期</th>
+                <th width="120" align="center">预计取件时间</th>
+                <th width="120" align="center">取件时间</th>
+                <th width="120" align="center">入库时间</th>
+                <th width="120" align="center">出库时间</th>
+                <th width="120" align="center">完成时间</th>
+                <th width="80" align="center">周期(时:分)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (@Model.OrderAlarmList != null)
+            {
+                int no = 1;
+                foreach (var item in @Model.OrderAlarmList)
+                {
+                    <tr target="oaid" rel="@item.ID">
+                        <td>@(no++)</td>
+                        <td>@item.OrderNumber</td>
+                        <td>@item.Mpno</td>
+                        <td>@item.Consignee</td>
+                        <td>@item.Address</td>
+                        <td>@UIHelper.FormatDate(item.CompleteTime)</td>
+                        <td>@UIHelper.FormatDate(item.ExpectTime)</td>
+                        <td>@UIHelper.FormatDate(item.StepTime3)</td>
+
+                        @{
+                            if (item.StepTime4Alert)
+                            {
+                                <td style="background: #183152; color:white">@UIHelper.FormatDate(item.StepTime4)</td>
+                            }
+                            else
+                            { 
+                                <td>@UIHelper.FormatDate(item.StepTime4)</td>
+                            }
+                            
+                            if (item.StepTime5Alert)
+                            {
+                                <td style="background: #183152; color: white; ">@UIHelper.FormatDate(item.StepTime5)</td>
+                            }
+                            else
+                            { 
+                                <td>@UIHelper.FormatDate(item.StepTime5)</td>
+                            }
+                            
+                            if (item.StepTime7Alert)
+                            {
+                                <td style="background: #183152; color: white; ">@UIHelper.FormatDate(item.AllFinishTime)</td>
+                            }
+                            else
+                            { 
+                                <td>@UIHelper.FormatDate(item.AllFinishTime)</td>
+                            }
+                        }
+                        
+                        @{
+                            TimeSpan ts = item.AllFinishTime.GetValueOrDefault(DateTime.Now) - item.ExpectTime.GetValueOrDefault(DateTime.Now);
+                            <td>@((ts.Days * 24 + ts.Hours).ToString() + ":" + ts.Minutes.ToString("00"))</td>
+                         }
+                            
+                        
+                        
+
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+    <!--分页条-->
+    <div class="panelBar">
+        <script type="text/javascript">
+            $(function () {
+                $("#@Model.SearchInfo.numPerPageName").attr("value", "@Model.SearchInfo.numPerPage");
+            });
+        </script>
+        <div class="pages">
+            <span>显示</span>
+            <select class="combox" id="@Model.SearchInfo.numPerPageName" name="@Model.SearchInfo.numPerPageName" onchange="navTabPageBreak({numPerPage:this.value})">
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+            <span>条，共 @Model.SearchInfo.RecCount 条</span>
+        </div>
+
+        <div class="pagination" targettype="navTab" totalcount="@Model.SearchInfo.RecCount" numperpage="@Model.SearchInfo.numPerPage" pagenumshown="@Model.SearchInfo.pageNumShown" currentpage="@Model.SearchInfo.pageNum"></div>
+    </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,707 @@
+﻿@model LazyAtHome.Web.WebManage.Models.Order.OrderModel
+@{
+    <script src="@Url.Content("~/Scripts/Order/orderedit.js")" type="text/javascript"></script> 
+    
+    <style>
+            .level-box > .unit {
+                clear: both;
+                padding: 0;
+                height: 24px;
+                width: 100%!important;
+            }
+        
+         
+        .level-box > .unit > span {
+            float: left;
+            width:100px;
+        }
+
+           .level-box > .unit .level-01 {
+                width: 150px;
+                height: 24px;
+                background: url(/Content/themes/default/images/star/star-icn.png) no-repeat;
+                margin-left: 15px;
+                float:left;
+                display: inline;
+                background-position: 0px 0px;
+            }
+            .level-box > .unit .level-02 {
+                width: 150px;
+                height: 24px;
+                background: url(/Content/themes/default/images/star/star-icn.png) no-repeat;
+                margin-left: 15px;
+                float: left;
+                display: inline;
+                background-position: 0px -24px;
+            }
+            .level-box > .unit .level-03 {
+                width: 150px;
+                height: 24px;
+                background: url(/Content/themes/default/images/star/star-icn.png) no-repeat;
+                margin-left: 15px;
+                float: left;
+                display: inline;
+                background-position: 0px -48px;
+            }
+            .level-box > .unit .level-04 {
+                width: 150px;
+                height: 24px;
+                background: url(/Content/themes/default/images/star/star-icn.png) no-repeat;
+                margin-left: 15px;
+                float: left;
+                display: inline;
+                background-position: 0px -72px;
+            }
+            .level-box > .unit .level-05 {
+                width: 150px;
+                height: 24px;
+                background: url(/Content/themes/default/images/star/star-icn.png) no-repeat;
+                margin-left: 15px;
+                float: left;
+                display: inline;
+                background-position: 0px -96px;
+            }
+
+
+</style>
+}
+
+<!--报错信息-->
+@Html.Raw(ViewBag.Script)
+
+<div class="pageContent">
+    <form method="post" action="@Url.Action("", "")" id="frmSaveOrder" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);"> 
+        <div class="pageFormContent" layouth="56">
+            <div class="tabs" currentindex="0" eventtype="click">
+                <div class="tabsHeader">
+                    <div class="tabsHeaderContent">
+                        <ul>
+                            <li><a href="javascript:;"><span>基本信息</span></a></li>
+                            <li><a href="javascript:;"><span>产品详情</span></a></li>
+                            <li><a href="javascript:;"><span>支付优惠详情</span></a></li>
+                            <li><a href="javascript:;"><span>收发货信息</span></a></li>
+                            @*<li><a href="javascript:;"><span>历史订单</span></a></li>*@
+                            <li><a href="javascript:;"><span>物流信息</span></a></li>
+                            @*<li><a href="javascript:;"><span>顺丰操作</span></a></li>*@
+                            <li><a href="javascript:;"><span>进程详情</span></a></li>
+                            <li><a href="javascript:;"><span>评论</span></a></li>
+                            @*<li><a target="ajax" href="@Url.Action("PrivateOrderIndex", "Order", new { UserID = Model.OrderInfo.UserID, MPNo = Model.OrderInfo.MPNo, PrimaryOrderId = Model.OrderInfo.ID})" rel="jbsxBox"><span>订单合并</span></a></li>*@
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="tabsContent" >@*style="height:400px;"*@
+                    <!-- 基本信息-->
+                    <div layouth="95">
+                        @Html.HiddenFor(model => model.OrderInfo.ID)
+                        <p>
+                            <label>订单号：</label>
+                            @Html.TextBoxFor(model => model.OrderInfo.OrderNumber, new { @maxlength = 20, @readonly = "true" })
+                        </p>
+                        <p>
+                            <label>手机号：</label>
+                            @Html.TextBoxFor(model => model.OrderInfo.MPNo, new { @maxlength = 11 })
+                        </p>
+
+                        <p>
+                            <label>取件快递单号：</label>
+                            @Html.TextBoxFor(model => model.OrderInfo.GetExpressNumber)
+                            @*<a href="javascript:void(0)" id="btnGetExpressNumber" class="button"><span>修改</span></a>
+                            @Html.Hidden("hdGetExpressNumberUrl", @Url.Action("EditGetExpressNumber"))*@
+
+                        </p>
+                        <p>
+                            <label>送件快递单号：</label>
+                            @Html.TextBoxFor(model => model.OrderInfo.SendExpressNumber, new { @readonly = "true" })
+                        </p>
+
+
+                        <p>
+                            <label>订单分类：</label>
+                            @Html.DropDownListFor(model => model.OrderInfo.OrderClass, new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text = "个人普通", Value = "1" },
+                            new SelectListItem { Text = "一键下单", Value = "2" },
+                            new SelectListItem { Text = "合作门店", Value = "3" }},
+                            "Value", "Text", Model.OrderInfo.OrderClass), new { style = "width:80px;" })
+                        </p>
+                        <p>
+                            <label>订单类型：</label>
+                            @Html.DropDownListFor(model => model.OrderInfo.OrderType, new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text = "正常", Value = "1" },
+                            new SelectListItem { Text = "分单", Value = "2" },
+                            new SelectListItem { Text = "反洗", Value = "3" },
+                            new SelectListItem { Text = "退单", Value = "6" }},
+                            "Value", "Text", Model.OrderInfo.OrderType), new { style = "width:80px;" })
+                        </p>
+                        <p>
+                            <label>订单状态：</label>
+                            @Html.DropDownListFor(model => model.OrderInfo.OrderStatus, new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text = "创建订单", Value = "1" },
+                            new SelectListItem { Text = "完成订单", Value = "2" },
+                            new SelectListItem { Text = "已退单", Value = "6" },
+                            new SelectListItem { Text = "已拆单", Value = "7" },
+                            new SelectListItem { Text = "用户撤销", Value = "16" },
+                            new SelectListItem { Text = "系统撤销", Value = "32" }},
+                            "Value", "Text", Model.OrderInfo.OrderStatus), new { style = "width:80px;" })
+                        </p>
+                        <p>
+                            <label>下单渠道：</label>
+                            @Html.DropDownListFor(model => model.OrderInfo.Channel, new SelectList(new List<SelectListItem> {
+                           new SelectListItem { Text = "客服", Value = "-1" }, 
+                           new SelectListItem { Text = "网站", Value = "1" },
+                            new SelectListItem { Text = "APP", Value = "2" },
+                            new SelectListItem { Text = "若海", Value = "901" },
+                            new SelectListItem { Text = "当面单", Value = "91" },
+                            new SelectListItem { Text = "微信", Value = "4" }},
+                            "Value", "Text", Model.OrderInfo.Channel), new { style = "width:80px;" })
+                        </p>
+                        <p>
+                            <label>总金额：</label>
+                            @Html.TextBoxFor(model => model.OrderInfo.TotalAmount, new { @class = "number", alt = "请输入数字", style = "width:70px;" })
+
+                        </p>
+                        <p>
+                            <label>已付金额：</label>
+                            @Html.TextBoxFor(model => model.OrderInfo.PayAmount, new { @class = "number", alt = "请输入数字", style = "width:70px;" })
+
+                        </p>
+                        <p>
+                            <label>所属站点：</label>
+                            @Html.DropDownListFor(model => model.OrderInfo.Site, (SelectList)ViewData["Site"], new { style = "width:60px;" })
+                        </p>
+
+                        <P>
+                            <label>进程：</label>
+                            @Html.DropDownListFor(model => model.OrderInfo.Step, new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text = "下单", Value = "1" },
+                            new SelectListItem { Text = "取件中", Value = "2" },
+                            new SelectListItem { Text = "送洗中", Value = "3" },
+                            new SelectListItem { Text = "洗涤中", Value = "4" },
+                            new SelectListItem { Text = "出库中", Value = "5" },
+                            new SelectListItem { Text = "送件中", Value = "6" },
+                            new SelectListItem { Text = "完成", Value = "7" }},
+                                     "Value", "Text", Model.OrderInfo.Step), new { style = "width:80px;" })
+
+                            @{
+                                if (ViewBag.Type == 2)
+                                {
+                                    <a href="@Url.Action("EditOrderStep", "Order")" id="btnEditOrderStep" target="ajaxTodo" title="您确认要修改订单进程吗？" class="button"><span>修改进程</span></a>
+                                    @Html.Hidden("hdEditOrderStepUrl", @Url.Action("EditOrderStep"))
+                                }
+                            }
+                            
+
+
+                        </P>
+
+
+                        <p>
+                            @*@if (Model.OrderInfo.ExpectTime != null)
+                            {
+                                
+                            }*@
+                            <label>期望收件时间：</label>
+                            @Html.TextBoxFor(model => model.OrderInfo.ExpectTime)                           
+                            <a href="javascript:void(0)" id="btnExpectTime" class="button"><span>修改</span></a>
+                            @Html.Hidden("hdExpectTimeUrl", @Url.Action("EditExpectTime"))
+                        </p>
+
+                        @*<p>
+                            <label>支付类型：</label>
+                            @Html.RadioButtonFor(model => model.OrderInfo.PayType, 1)到付
+                            @Html.RadioButtonFor(model => model.OrderInfo.PayType, 2)在线支付
+                        </p>*@
+
+                        <p>
+                            <label>完成订单时间：</label>
+                            @Html.TextBoxFor(model => model.OrderInfo.CompleteTime, new { @readonly = "readonly" })
+                        </p>
+                        <p>
+                            <label>全部完成时间：</label>
+                            @Html.TextBoxFor(model => model.OrderInfo.AllFinishTime, new { @readonly = "readonly" })
+                        </p>
+
+                        <p>
+                            <label>推送快递状态：</label>
+                            @Html.RadioButtonFor(model => model.OrderInfo.ExpressStatus, 0)未推送
+                            @Html.RadioButtonFor(model => model.OrderInfo.ExpressStatus, 1)已推送
+                            @{
+                                if (Model.OrderInfo.OrderStatus == 2 && Model.OrderInfo.ExpressStatus == 0)
+                                {
+                                    <a class="buttonActive" href="@Url.Action("ReCreateExpressOrder")?ordernumber=@Model.OrderInfo.OrderNumber" target="ajaxTodo" title="您确认重新推送快递吗？"><span>重推快递</span></a>
+                                }
+                            }
+                            
+
+                        </p>
+                        <p>
+                            <label>推送物流时间：</label>
+                            @Html.TextBoxFor(model => model.OrderInfo.PushExpressTime, new { @readonly = "readonly" })
+                        </p>
+
+
+                        <p>
+                            <label>取件物流类型：</label>
+                            @Html.DropDownListFor(model => model.OrderInfo.GetExpressType, new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text = "自主物流", Value = "0" },
+                            new SelectListItem { Text = "赛奥递", Value = "1" },
+                             new SelectListItem { Text = "顺丰自取", Value = "2" }},
+                                    "Value", "Text", Model.OrderInfo.GetExpressType), new { style = "width:80px;" })
+
+                            @*<a href="javascript:void(0)" id="btnGetExpressType" class="button"><span>修改</span></a>
+                            @Html.Hidden("hdGetExpressTypeUrl", @Url.Action("EditGetExpressType"))*@
+                        </p>
+
+                        @{
+                            if (Model.OrderInfo.OrderStatus == 2 && Model.OrderInfo.Step < 3)
+                            {
+                                <p>
+                                    <label>收件短信推送：</label>
+                                    <select id="orderSmsType" name="orderSmsType" style="width:80px;">
+                                        <option selected="selected" value="1">顺丰</option>
+                                    </select>
+                                    <a href="javascript:void(0)" id="btnOrderSmsType" class="button"><span>推送</span></a>
+                                    @Html.Hidden("hdSendOrderSmsUrl", @Url.Action("SendOrderSms"))
+                                </p>
+                            }
+                        }
+
+                        <p>
+                            <label>送件类型：</label>
+                            @Html.RadioButtonFor(model => model.OrderInfo.SendType, 1)整单送
+                            @Html.RadioButtonFor(model => model.OrderInfo.SendType, 2)分单送
+                        </p>
+                        <p>
+                            <label>邀请码：</label>
+                            @Html.TextBoxFor(model => model.OrderInfo.InviteCode, new { @readonly = "readonly" })
+                        </p>
+                        <p>
+                            <label>预支付方式：</label>
+                            @Html.TextBox("OrderInfo.PayType", Model.OrderInfo.PayType == 1 ? "余额" : "", new { @readonly = "readonly" })
+                        </p>
+
+                        <div class="unit">
+                            <label>用户备注：</label>
+                            @Html.TextAreaFor(model => model.OrderInfo.UserRemark, new { cols = "70", rows = "3", @class = "textarea" })
+                        </div>
+                        <div class="unit">
+                            <label>客服备注：</label>
+                            @Html.TextAreaFor(model => model.OrderInfo.CSRemark, new { cols = "70", rows = "3", @class = "textarea" })
+                            <div class="buttonActive"><div class="buttonContent"><button type="button" id="btnCSRemark">修改备注</button></div></div>
+                            @Html.Hidden("hdCSRemarkUrl", @Url.Action("EditCSRemark"))
+                        </div>
+
+                        @*<a href="@Url.Action("Refresh", "Order")?oid=@Model.OrderInfo.ID" id="btnRefresh" target="navTab" rel="orderedit" title="订单信息" class="button"><span>订单信息</span></a>*@
+
+                        <p>
+                            @*<div id="pay"><a href="#" class="button"><span>支付详情</span></a></div><input type="hidden" id="payflag" value="1" />
+                <div id="discount"><a href="#" class="button"><span>优惠详情</span></a></div><input type="hidden" id="discountflag" value="1" />*@
+                            @*<a href="#" id="pay" class="button"><span>支付详情</span></a><input type="hidden" id="payflag" value="1" />
+                <a href="#" id="discount" class="button"><span>优惠详情</span></a><input type="hidden" id="discountflag" value="1" />*@
+                        </p>
+                    </div>
+
+                    <!-- 产品详情-->
+                    <div layouth="95">
+                        <!--列表页-->
+                        <div id="productlist">
+                            <table class="table" style="width:70%">
+                                <thead>
+                                    <tr>
+                                        <th width="10" align="center"><input type="checkbox" group="ckwashagain" class="checkboxCtrl"></th>
+                                        <th width="120" align="center">产品名称</th>
+                                        <th width="100" align="center">属性</th>
+                                        <th width="100" align="center">单价</th>
+                                        <th width="100" align="center">工厂编号</th>
+                                        <th width="100" align="center">第三方编号</th>
+                                        <th width="100" align="center">状态</th>
+                                        <th width="100" align="center">进程</th>
+                                        @*<th width="100" align="center">是否可洗</th>*@
+                                        <th width="150" align="center">工厂可洗(点击操作)</th>
+
+                                        @*<th style="width: 260px;">操作</th>*@
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (@Model.OrderInfo.ProductList != null)
+                                    {
+                                        foreach (var item in @Model.OrderInfo.ProductList)
+                                        {
+                                            <tr target="pid" rel="@item.ID">
+                                                <td>
+                                                    @if (item.ReturnStatus == 0)
+                                                    {
+                                                        <input type="checkbox" name="ckwashagain" id="@item.ID">
+                                                    }
+                                                </td>
+                                                <td>@item.Name</td>
+                                                <td>@item.Attribute</td>
+                                                <td>@item.Price</td>
+                                                <td>@item.Code</td>
+                                                <td>@item.OtherCode</td>
+                                                <td>@UIHelper.FormatReturnStatus(item.ReturnStatus)</td>
+                                                <td>@UIHelper.FormatProductStep(item.Step)</td>
+                                                @*<td>@UIHelper.FormatFactoryWash(item.FactoryWash)</td>*@
+                                                <td>
+                                                    @if (item.FactoryWash == 1)
+                                                    {
+                                                        <a href="@Url.Action("EditOrderProductWashStatus", new { oid = @Model.OrderInfo.ID, pid = @item.ID, washstatus = 2 })" target="ajaxTodo" class="btnSelect" title="确定要设置[工厂不可洗涤]吗？">设置工厂不可洗涤</a>
+                                                    }
+                                                    else if (item.FactoryWash == 2)
+                                                    {
+                                                        <a href="@Url.Action("EditOrderProductWashStatus", new { oid = @Model.OrderInfo.ID, pid = @item.ID, washstatus = 1 })" target="ajaxTodo" class="btnDel" title="确定要设置[工厂可以洗涤]吗？">设置工厂可以洗涤</a>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        
+                        <div class="divider"></div>
+                        @Html.Hidden("hdAdjustOrderProductUrl", @Url.Action("AdjustOrderProduct"))
+                        @if (Model.OrderInfo.Step <= 4)
+                        {
+                            if (Model.OrderInfo.OrderClass == 1)
+                            {
+                                <!--普通下单 调整列表页-->
+                                <div>
+                                    <table id="AdjustProductList" class="list nowrap itemDetail" addbutton="调整衣物(重新添加)" width="70%">
+                                        <thead>
+                                            <tr>
+                                                <th type="del" width="60">操作</th>
+                                                <th type="text" id="products.ID" name="products[#index#].ID">ID</th>
+                                                <th type="lookup" id="products.Name" name="products[#index#].Name" lookupgroup="products[#index#]" lookupurl="@Url.Action("SearchProduct", "Order")" fieldclass="required">衣物选择</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                <div class="buttonActive"><div class="buttonContent"><button type="button" id="btnAdjustOrderProduct">保存衣物</button></div></div>
+                               
+                            }
+                            else if (Model.OrderInfo.OrderClass == 2)
+                            {
+                                <div class="buttonActive"><div class="buttonContent"><button type="button" id="btnAdjustOneKeyOrderProduct">重置订单</button></div></div>
+                                
+                            }
+                        }
+                        
+                    </div>
+
+                    <!-- 支付优惠详情-->
+                    <div layouth="95">
+                        <fieldset>
+                            <legend>支付详情</legend>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th width="100" align="center">支付类型</th>
+                                        <th width="100" align="center">支付金额</th>
+                                        <th width="150" align="center">支付时间</th>
+                                        <th width="150" align="center">相关编号</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (@Model.OrderInfo.PaymentList != null)
+                                    {
+                                        foreach (var item in @Model.OrderInfo.PaymentList)
+                                        {
+                                            <tr target="pmid" rel="@item.ID">
+                                                <td align="center">@UIHelper.FormatPayMoneyType(item.PayMoneyType)</td>
+                                                <td align="center">@item.PayMoney</td>
+                                                <td align="center">@item.PayDate</td>
+                                                <td align="center">@item.RelationID</td>
+                                            </tr>
+                                        }
+
+                                    }
+                                </tbody>
+                            </table>
+                        </fieldset>
+                        <fieldset>
+                            <legend>优惠详情</legend>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th width="100" align="center">优惠名称</th>
+                                        <th width="100" align="center">优惠金额</th>
+                                        <th width="150" align="center">编号</th>
+                                        <th width="150" align="center">说明</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (@Model.OrderInfo.AmountList != null)
+                                    {
+                                        foreach (var item in @Model.OrderInfo.AmountList)
+                                        {
+                                            <tr target="pmid" rel="@item.ID">
+                                                <td align="center">@UIHelper.FormatAmountType(item.Type)</td>
+                                                <td align="center">@item.Money</td>
+                                                <td align="center">@item.RelationID</td>
+                                                <td align="center">@item.Content</td>
+                                            </tr>
+                                        }
+
+                                    }
+                                </tbody>
+                            </table>
+                        </fieldset>
+                    </div>
+
+                    <!-- 收发货信息-->
+                    <div layouth="95">
+                        @Html.Hidden("hdEditAddressUrl", @Url.Action("EditAddress"))
+                        @Html.Hidden("hdCheckAddressUrl", @Url.Action("CheckAddress"))
+                        <fieldset>
+                            <legend>取送信息</legend>
+                            @if (Model.OrderInfo.GetAddress != null)
+                            {
+                                @Html.HiddenFor(model => model.OrderInfo.GetAddress.ID)
+                                <div class="unit">
+                                    <label>寄件人：</label>
+                                    @Html.TextBoxFor(model => model.OrderInfo.GetAddress.Consignee, new { @maxlength = 20, @class = "required" })
+                                </div>
+
+                                <div class="unit">
+                                    <label>省市区：</label>
+                                    @{Html.RenderAction("Divisions", "Common", new { id = (Model.OrderInfo.GetAddress == null || Model.OrderInfo.GetAddress.DistrictID == null) ? 0 : Model.OrderInfo.GetAddress.DistrictID, bindName = "getaddressBDVIdL" });}
+                                </div>
+
+                                <div class="unit">
+                                    <label>地址：</label>
+                                    @Html.TextBoxFor(model => model.OrderInfo.GetAddress.Address, new { @maxlength = 50, @class = "required", size = "50" })
+                                </div>
+
+                                <div class="unit">
+                                    <label>手机：</label>
+                                    @Html.TextBoxFor(model => model.OrderInfo.GetAddress.Mpno, new { @maxlength = 11, @class = "required" })
+                                </div>
+
+                                <div class="unit">
+                                    <label>固话：</label>
+                                    @Html.TextBoxFor(model => model.OrderInfo.GetAddress.Phone, new { @maxlength = 20 })
+                                </div>
+                                <div class="unit">
+                                    <div class="buttonActive"><div class="buttonContent"><button type="button" id="btnEditGetAddress">修改取件信息</button></div></div>
+
+                                </div>
+
+                            }
+                        </fieldset>
+
+
+                        @*<fieldset>
+                            <legend>送件信息</legend>
+                            @if (Model.OrderInfo.SendAddress != null)
+                            {
+                                @Html.HiddenFor(model => model.OrderInfo.SendAddress.ID)
+                                <div class="unti">
+                                    <label>寄件人：</label>
+                                    @Html.TextBoxFor(model => model.OrderInfo.SendAddress.Consignee, new { @maxlength = 20, @class = "required" })
+                                </div>
+                                <div class="unit">
+                                    <label>省市区：</label>
+                                    <input id="txtSendAddressDivisionUrl" type="hidden" value="@Url.Action("DivisionsGet", "Common")" />
+                                    @{Html.RenderAction("Divisions", "Common", new { id = (Model.OrderInfo.SendAddress == null || Model.OrderInfo.SendAddress.DistrictID == null) ? 0 : Model.OrderInfo.SendAddress.DistrictID, bindName = "sendaddressBDVIdL", DivisionsL1Name = "SendAddressddlDivisionL1", DivisionsL2Name = "SendAddressddlDivisionL2", DivisionsL3Name = "SendAddressddlDivisionL3" });}
+                                </div>
+
+                                <div class="unit">
+                                    <label>地址：</label>
+                                    @Html.TextBoxFor(model => model.OrderInfo.SendAddress.Address, new { @maxlength = 50, @class = "required", size = "50" })
+                                </div>
+
+                                <div class="unit">
+                                    <label>手机：</label>
+                                    @Html.TextBoxFor(model => model.OrderInfo.SendAddress.Mpno, new { @maxlength = 11, @class = "required" })
+                                </div>
+
+                                <div class="unit">
+                                    <label>固话：</label>
+                                    @Html.TextBoxFor(model => model.OrderInfo.SendAddress.Phone, new { @maxlength = 20 })
+                                </div>
+                                <div class="unit">
+                                    <div class="buttonActive"><div class="buttonContent"><button type="button" id="btnEditSendAddress">修改送件信息</button></div></div>
+
+                                </div>
+                            }
+
+                        </fieldset>*@
+                    </div>
+
+                    <!-- 历史订单-->
+
+                    <!-- 物流信息-->
+                    <div layouth="95">
+                        <table class="table" width="100%">
+                            <thead>
+                                <tr>
+                                    <th width="10" align="center"></th>
+                                    <th width="100" align="center">编号</th>
+                                    <th width="100" align="center">物流类型</th>
+                                    <th width="150" align="center">物流编号</th>
+                                    <th width="150" align="center">物流数据</th>
+                                    <th width="100" align="center"></th>
+                                    @*<th style="width: 260px;">操作</th>*@
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.OrderInfo != null && Model.OrderInfo.ExpressList != null)
+                                {
+                                    int no = 1;
+                                    foreach (var item in @Model.OrderInfo.ExpressList)
+                                    {
+                                        <tr target="eid" rel="@item.ID">
+                                            <td>@(no++)</td>
+                                            <td>@item.ID</td>
+                                            <td>@UIHelper.FormatExpressType(item.Type)</td>
+                                            <td>@item.Code</td>
+                                            <td>@item.Content</td>
+                                            <td>@UIHelper.FormatDate(item.Obj_Cdate)</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <!-- 进程详情-->
+                    <div layouth="95">
+                        <table class="table" width="100%">
+                            <thead>
+                                <tr>
+                                    <th width="10" align="center"></th>
+                                    <th width="100" align="center">类型</th>
+                                    <th width="100" align="center">内容</th>
+                                    <th width="150" align="center">时间</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.OrderInfo != null && Model.OrderInfo.StepList != null)
+                                {
+                                    int no = 1;
+                                    foreach (var item in @Model.OrderInfo.StepList)
+                                    {
+                                        <tr target="eid" rel="@item.ID">
+                                            <td>@(no++)</td>
+                                            <td>@item.Type</td>
+                                            <td>@item.Content</td>
+                                            <td>@UIHelper.FormatDate(item.Obj_Cdate)</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                    
+                    <!-- 顺丰操作-->
+
+                    <!-- 评论-->
+                    <div class="level-box">
+                        @{
+                            if (@Model.OrderInfo.Feedback != null)
+                            {
+                                <div class="unit">
+                                        <span>快递响应：</span>
+                                        <div class="@("level-" + Model.OrderInfo.Feedback.Score1.ToString("00"))"></div>
+
+                                </div>
+                                <div class="unit">
+                                         <span>客服态度：</span>
+                                        <div class="@("level-" + Model.OrderInfo.Feedback.Score2.ToString("00"))"></div>
+
+</div>
+                                <div class="unit">
+                                        <span>快递态度：</span>
+                                        <div class="@("level-" + Model.OrderInfo.Feedback.Score3.ToString("00"))"></div>
+
+                                </div>
+                                <div class="unit">
+                                        <span>洗涤效果：</span>
+                                        <div class="@("level-" + Model.OrderInfo.Feedback.Score4.ToString("00"))"></div>
+                                </div>
+                                <div class="unit">
+                                    <span>用户建议：</span>
+                                    @Html.TextAreaFor(model => model.OrderInfo.Feedback.Content1, new { cols = "40", rows = "3", @class = "textarea" })
+
+                                </div>
+                            }
+                        }
+
+
+                    </div>
+
+                    <!-- 订单合并-->
+                    @*<div layouth="95">
+
+                        <div id="jbsxBox" class="unitBox">
+                            
+                        </div>
+
+
+                    </div>*@
+
+                </div>
+                <div class="tabsFooter">
+                    <div class="tabsFooterContent"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="formBar">
+            <ul>
+                <!--<li><a class="buttonActive" href="javascript:;"><span>保存</span></a></li>-->
+                @*<li><div class="buttonActive"><div class="buttonContent"><button type="submit" id="btnSave">保存</button></div></div></li>*@
+                <!-- 审核-->
+                @if (Model.OrderInfo.OrderStatus == 0)
+                {
+                    @*<li><div class="buttonActive"><div class="buttonContent"><button type="button" id="btnAuditSuccess">审核通过</button></div></div></li>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="button" id="btnAuditFailure">审核拒绝</button></div></div></li>
+                    @Html.Hidden("hdAuditOrderUrl", @Url.Action("AuditOrder"))*@
+                    
+                    <li><a class="buttonActive" href="@Url.Action("AuditOrder")?oid=@Model.OrderInfo.ID&flag=true" target="ajaxTodo" title="确认要审核通过订单吗？"><span>审核通过</span></a></li>
+                    <li><a class="buttonActive" href="@Url.Action("AuditOrder")?oid=@Model.OrderInfo.ID&flag=false" target="ajaxTodo" title="确认要审核拒绝订单吗？"><span>审核拒绝</span></a></li>
+                }
+                
+                
+                <!--取消-->
+                @if (Model.OrderInfo.OrderStatus == 1)
+                {
+                    <li><a class="buttonActive" href="@Url.Action("CancelOrder")?oid=@Model.OrderInfo.ID" target="ajaxTodo" title="确认要取消订单吗？"><span>取消订单</span></a></li>
+                }
+                
+                <!--退单-->
+                @if (Model.OrderInfo.OrderStatus == 2)
+                {
+                    @*<li><div class="buttonActive"><div class="buttonContent"><button type="button" id="btnRepay">退单</button></div></div></li>
+                    @Html.Hidden("hdOrderRepayUrl", @Url.Action("RepayOrder"))*@
+                    <li><a class="buttonActive" href="@Url.Action("RepayOrder")?oid=@Model.OrderInfo.ID&omunber=@Model.OrderInfo.OrderNumber" target="ajaxTodo" title="确认要退单吗？"><span>退单</span></a></li>
+                    
+                    
+                }
+
+                <!--反洗-->
+                @if (Model.OrderInfo.Step == 7 && (Model.OrderInfo.OrderClass == 1 || Model.OrderInfo.OrderClass == 2) && Model.OrderInfo.OrderStatus == 2)
+                {
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="button" id="btnWashAgain">反洗</button></div></div></li>
+                    @Html.Hidden("hdWashAgainUrl", @Url.Action("WashAgain"))
+                    
+                }
+
+                <!-- 关闭 -->
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">关闭</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>

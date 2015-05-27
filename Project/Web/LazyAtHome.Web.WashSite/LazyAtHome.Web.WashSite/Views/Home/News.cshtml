@@ -1,0 +1,87 @@
+﻿@{
+    //ViewBag.Title = "新闻中心";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--内容-->
+<div id="content">
+    <div class="newsTitle">新闻中心</div>
+    <div class="newsBox">
+        <div class="newsPic left">
+            <div class="newsPicJt"><img src="~/Content/Images/jiantou_01.jpg" class="newsPicTop" /></div>
+            <div class="newsPicBox">
+                <ul>
+                    <li><a href="#"><img src="~/Content/Images/pic_18.jpg" width="244" height="162" /></a></li>
+                    <li><a href="#"><img src="~/Content/Images/pic_18.jpg" width="244" height="162" /></a></li>
+                    <li><a href="#"><img src="~/Content/Images/pic_18.jpg" width="244" height="162" /></a></li>
+                    <li><a href="#"><img src="~/Content/Images/pic_18.jpg" width="244" height="162" /></a></li>
+                    <li><a href="#"><img src="~/Content/Images/pic_18.jpg" width="244" height="162" /></a></li>
+                </ul>
+            </div>
+            <div class="newsPicJt"><img src="~/Content/Images/jiantou_02.jpg" class="newsPicBottom" /></div>
+        </div>
+        <div class="newsList right">
+            <ul>
+                <li>
+                    <h2><a href="newsShow.html">给为梦想和家庭打拼的自己多份呵护为什么要洗西服</a></h2>
+                    <div class="newsListFont">身着洁净有型的西服可在商务会议谈判等严肃场合塑造你沉稳身着洁净有型的西服可在商务会议谈判等严肃场合塑造你沉稳身着洁净有型的西服可在商务会议谈判等严肃场合塑造你沉稳、干练的气质…</div>
+                    <span class="time">2014-05-04</span>
+                    <span class="a"><a href="newsShow.html">详细内容</a></span>
+                </li>
+                <li>
+                    <h2><a href="newsShow.html">给为梦想和家庭打拼的自己多份呵护为什么要洗西服</a></h2>
+                    <div class="newsListFont">身着洁净有型的西服身着洁净有型的西服可在商务会议谈判等严肃场合塑造你沉稳身着洁净有型的西服可在商务会议谈判等严肃场合塑造你沉稳可在商务会议谈判等严肃场合塑造你沉稳、干练的气质…</div>
+                    <span class="time">2014-05-04</span>
+                    <span class="a"><a href="newsShow.html">详细内容</a></span>
+                </li>
+                <li>
+                    <h2><a href="newsShow.html">给为梦想和家庭打拼的自己多份呵护为什么要洗西服</a></h2>
+                    <div class="newsListFont">身着洁净有型的西身着洁净有型的西服可在商务会议谈判等严肃场合塑造你沉稳身着洁净有型的西服可在商务会议谈判等严肃场合塑造你沉稳服可在商务会议谈判等严肃场合塑造你沉稳、干练的气质…</div>
+                    <span class="time">2014-05-04</span>
+                    <span class="a"><a href="newsShow.html">详细内容</a></span>
+                </li>
+                <li>
+                    <h2><a href="newsShow.html">给为梦想和家庭打拼的自己多份呵护为什么要洗西服</a></h2>
+                    <div class="newsListFont">身着洁净有型的西身着洁净有型的西服可在商务会议谈判等严肃场合塑造你沉稳身着洁净有型的西服可在商务会议谈判等严肃场合塑造你沉稳服可在商务会议谈判等严肃场合塑造你沉稳、干练的气质…</div>
+                    <span class="time">2014-05-04</span>
+                    <span class="a"><a href="newsShow.html">详细内容</a></span>
+                </li>
+                <li>
+                    <h2><a href="newsShow.html">给为梦想和家庭打拼的自己多份呵护为什么要洗西服</a></h2>
+                    <div class="newsListFont">身着洁净有型的西身着洁净有型的西服可在商务会议谈判等严肃场合塑造你沉稳身着洁净有型的西服可在商务会议谈判等严肃场合塑造你沉稳服可在商务会议谈判等严肃场合塑造你沉稳、干练的气质…</div>
+                    <span class="time">2014-05-04</span>
+                    <span class="a"><a href="newsShow.html">详细内容</a></span>
+                </li>
+                <li>
+                    <h2><a href="newsShow.html">给为梦想和家庭打拼的自己多份呵护为什么要洗西服</a></h2>
+                    <div class="newsListFont">身着洁净有型的西身着洁净有型的西服可在商务会议谈判等严肃场合塑造你沉稳身着洁净有型的西服可在商务会议谈判等严肃场合塑造你沉稳服可在商务会议谈判等严肃场合塑造你沉稳、干练的气质…</div>
+                    <span class="time">2014-05-04</span>
+                    <span class="a"><a href="newsShow.html">详细内容</a></span>
+                </li>
+            </ul>
+            <div class="page" style="text-align:center;">上一页<span><a href="#" class="this">1</a><a href="#">2</a><a href="#">3</a></span>下一页</div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    @Scripts.Render("~/Scripts/gundongTop.js")
+    <script language="javascript" type="text/javascript">
+        $(function () {
+            var BOX = $('.newsPicBox ul');
+            var HHUM = $('.newsPicBox li');
+            var LEFT = $(".newsPicTop");
+            var RIGHT = $(".newsPicBottom");
+            var WIDTH = 170;//单个宽度
+            var PLAY = 5000;//自动播放的时间
+            var SPEED = 500;//切换速度
+            var AOUT = true;//是否自动播放
+            IMG(BOX, LEFT, RIGHT, WIDTH, HHUM, PLAY, SPEED, AOUT);
+        })
+    </script>
+}

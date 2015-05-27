@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "用户中心";
+}
+
+<section>
+    <div class="userCenter">
+        <form>
+            <label><span>用户名</span> <input type="text" name="" /></label>
+            <label><span style="letter-spacing:.8em">昵称</span> <input type="text" name="" /></label>
+            <label><span>手机号</span><input type="text" name="" /></label>
+            <label>
+                <span>验证码</span><input type="text" name="" style="width:40%" />
+                <button class="getVerifyCode-btn" type="button">获取</button>
+            </label>
+            <label><span style="letter-spacing:.8em">邮箱</span><input type="text" name="" /></label>
+            <label><span style="letter-spacing:.8em">余额</span><span class="price"><font class="red">￥25.00</font></span></label>
+            <button class="saveUserInfo-btn" type="button" onclick="showPopDiv('用户不存在');">保存</button>
+        </form>
+    </div>
+</section>

@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "添加优惠券";
+}
+
+<section>
+    <div class="coupleBind">
+        <label><input type="text" id="txtCode" name="txtCode" placeholder="优惠券密码" /></label>
+        <div class="verifycodeBox">
+            <input type="text" id="txtVCode" name="txtVCode" maxlength="5" placeholder="验证码" />
+            <img id="vCodeImg" src="/Base/getvalidatecode" onclick="RefVCodeImg();">
+        </div>
+        <button class="btn1" type="button" onclick="FuncBindCoupon();">确认绑定</button>
+    </div>
+</section>
+
+@section scripts
+{
+    <script language="javascript" type="text/javascript">
+        $(function () {
+        });
+
+        function FuncBindCoupon() {
+            if (!txtCode.value.trim().match("^[0-9a-zA-Z]{6,16}$")) {
+                txtCode.focus();
+                showPopDiv("优惠券代码格式错误", false);
+                return false;
+            }
+
+            process();
+            var postData = { "couponPass": txtCode.value.trim(), vCode: txtVCode.value.trim() };
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("User_BindCoupon", "Member")",
+                data: postData,
+                dataType: "json",
+                success: ProcessCouponBind,
+                error: function (msg) {
+                    showPopDiv(msg.toString(), false);
+                }
+            });
+        }
+
+        function ProcessCouponBind(resultJson) {
+            removeProcess();
+            if (resultJson != null) {
+                if (resultJson.Code == 1) {
+                    $("#txtCode").val("");
+                    $("#couponList").append("<option value='" + resultJson.CouponID + "'>" + resultJson.CouponName + " 有效期:" + resultJson.CouponDate + "</option>");
+                    $("#couponList").val(resultJson.CouponID);
+                    showPopDiv("绑定成功", true, null, '/Member/MyCoupons');
+                }
+                else {
+                    showPopDiv(resultJson.Msg, false);
+                }
+            }
+        }
+
+        function RefVCodeImg()
+        {
+            $("#vCodeImg").attr("src", "/Base/getvalidatecode?time=" + (new Date()).getTime());
+        }
+    </script>
+}

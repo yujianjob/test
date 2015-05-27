@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+
+namespace LazyAtHome.Web.StoreManage
+{
+    /// <summary>
+    /// 基础控制器
+    /// </summary>
+    public class BaseController : Controller
+    {
+
+	}
+}

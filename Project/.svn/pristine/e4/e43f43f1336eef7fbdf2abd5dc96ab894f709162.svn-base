@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "APP下载";
+}
+
+<section>
+    <div class="logo">
+        <img src="/img/logo.png">
+        <span>懒到家洗衣</span>
+    </div>
+    <div class="appList">
+        <span>请点击下载与手机系统相匹配的App</span>
+        <ul>
+            <li>
+                <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.lazyathome.wash"><img src="/img/androidIcn.png"><span>Android</span></a>
+            </li>
+            <li>
+                <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.lazyathome.wash"><img src="/img/iosIcn.png"><span>ios</span></a>
+            </li>
+        </ul>
+    </div>
+</section>

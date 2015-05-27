@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="3b0c89cd-b142-4ad2-a526-870bc662fd40" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://192.168.1.201:8100/LazyAtHome/WashProductService" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="WashProductService.xsd" MetadataType="Schema" ID="9b328b63-38f7-44f3-a9ac-4bfe46b6d20f" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/WashProductService?xsd=xsd5" />
+    <MetadataFile FileName="WashProductService1.xsd" MetadataType="Schema" ID="affca788-f900-429a-a72f-f2d019d97195" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/WashProductService?xsd=xsd8" />
+    <MetadataFile FileName="WashProductService2.xsd" MetadataType="Schema" ID="8c97f8f3-c646-453a-98dd-b263cf89166c" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/WashProductService?xsd=xsd0" />
+    <MetadataFile FileName="WashProductService3.xsd" MetadataType="Schema" ID="c948e9ae-c0be-4b49-be04-dd7f0d355758" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/WashProductService?xsd=xsd3" />
+    <MetadataFile FileName="WashProductService4.xsd" MetadataType="Schema" ID="067f2544-8cfc-4396-a023-28873747c26d" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/WashProductService?xsd=xsd4" />
+    <MetadataFile FileName="WashProductService5.xsd" MetadataType="Schema" ID="9739fc1f-e421-41cc-b4d4-ca33d630dd96" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/WashProductService?xsd=xsd7" />
+    <MetadataFile FileName="WashProductService6.xsd" MetadataType="Schema" ID="8f2440f7-2474-4083-83ec-2fef4428594c" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/WashProductService?xsd=xsd6" />
+    <MetadataFile FileName="WashProductService7.xsd" MetadataType="Schema" ID="7f5303a4-caa4-43c7-a629-2ec4618fb70f" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/WashProductService?xsd=xsd1" />
+    <MetadataFile FileName="WashProductService8.xsd" MetadataType="Schema" ID="d16e837c-f09b-45cf-abbe-4f1e6c1958ea" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/WashProductService?xsd=xsd2" />
+    <MetadataFile FileName="WashProductService.disco" MetadataType="Disco" ID="82ce164e-9989-4704-b4d2-f32078081f11" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/WashProductService?disco" />
+    <MetadataFile FileName="WashProductPortal.wsdl" MetadataType="Wsdl" ID="292cd33e-3c56-469e-b5a5-f903ef109d69" SourceId="1" SourceUrl="http://192.168.1.201:8100/LazyAtHome/WashProductService?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

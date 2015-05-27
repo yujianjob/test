@@ -1,0 +1,162 @@
+﻿@{
+    ViewBag.Title = "一键下单";
+}
+
+<div class="page-content inset yjxd-order-confirm">
+    <div class="row" style="padding-top:40px">
+        <div class="col-md-7 col-md-offset-1">
+            <form class="form-horizontal" role="form">
+                <div class="form-group" style="margin-bottom:15px">
+                    <label for="" class="col-sm-2 col-lg-2 col-xs-12 control-label">取件地址</label>
+                    <div class="col-sm-8 col-lg-8 col-xs-12">
+                        <select id="selGetAddress" style="width:100%" onclick="AddCheck(this)">
+                            @foreach (LazyAtHome.WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC item in ViewBag.AddressList)
+                            {
+                                if (item.IsDefault == 1)
+                                {
+                                    <option value="@item.ID" selected="selected">@(item.DistrictName + item.Address)</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.ID">@(item.DistrictName + item.Address)</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    @*<div class="col-sm-2 col-lg-2 col-xs-4" style="padding-left:0">
+                        <button type="button" class="btn addDizhi" onclick="window.location.href='/Member/AddressModify'">新增</button>
+                    </div>*@
+                </div>
+                <div class="form-group" style="margin-bottom:15px">
+                    <label for="" class="col-sm-2 col-lg-2 col-xs-12 control-label">送件地址</label>
+                    <div class="col-sm-8 col-lg-8 col-xs-12">
+                        <select id="selSendAddress" style="width:100%" onclick="AddCheck(this)">
+                            @foreach (LazyAtHome.WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC item in ViewBag.AddressList)
+                            {
+                                if (item.IsDefault == 1)
+                                {
+                                    <option value="@item.ID" selected="selected">@(item.DistrictName + item.Address)</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.ID">@(item.DistrictName + item.Address)</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom:15px">
+                    <label for="" class="col-sm-2 control-label">收衣日期</label>
+                    <div class="col-sm-10">
+                        <div class="row" style="padding:0 0 0 15px;">
+                            <div class="col-xs-5 col-sm-5" style="padding-left:0px;padding-right:0">
+                                <input class="" readonly="readonly" type="text" id="timeDay" name="timeDay" value="@(DateTime.Now.Hour>=17?DateTime.Now.AddDays(1).ToShortDateString():DateTime.Now.ToShortDateString())" onfocus="WdatePicker({position:{right:0,top:-20}})" style="width:100%; background:white url(img/glyphicons-halflings.png) no-repeat 96% center;padding:0.7em 2.1em 0.7em 1em;font-size:.9em" />
+                            </div>
+                            <div class="col-xs-3 col-sm-3" style="padding-left:0px;padding-right:0">
+                                <select id="timeHour" name="timeHour" style="width:100%">
+                                    @{
+                                        var currHour = DateTime.Now.Hour;
+                                        currHour += 2;
+                                        if (currHour < 10 || currHour >= 19)
+                                        {
+                                            currHour = 10;
+                                        }
+
+                                        for (int i = currHour; i < 19; i++)
+                                        {
+                                            <option value="@i">@(i)时</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-xs-4 col-sm-4" style="padding-left:0px;">
+                                <select id="timeMin" name="timeMin" style="width:100%">
+                                    <option value="0" selected>00分</option>
+                                    <option value="30">30分</option>
+                                </select>
+                            </div>
+                            <div class="help-block" style="clear:both;padding:5px 0 0 5px">上门收衣时间为早上10时至晚上19时，超出此时间段的，将安排在第二天进行收衣。</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom:15px">
+                    <label for="" class="col-sm-2 control-label">支付方式</label>
+                    <div class="col-sm-10">
+                        货到付款
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom:15px">
+                    <label for="" class="col-sm-2 control-label">备注</label>
+                    <div class="col-sm-10">
+                        <textarea id="txtReamrk" name="txtReamrk"></textarea>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom:15px">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="button" onclick="formsubmit();" class="btn btn-success btn-lg pull-right">确认下单</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="/Scripts/WdatePicker.js"></script>
+
+    <script language="javascript" type="text/javascript">
+        $(function () {
+            
+            //ChangePayInfo(null, -1);
+        });
+
+        function AddCheck(obj)
+        {
+            if (obj.length == 0)
+                window.location.href = "/Member/AddressModify";
+        }
+
+        function Check() {
+            
+        }
+
+        function formsubmit() {            
+            if (selGetAddress.value == "") {
+                alert("请选择或新增取件地址");
+                return false;
+            }
+
+            if (selSendAddress.value == "") {
+                alert("请选择或新增送件地址");
+                return false;
+            }
+
+            var etime = timeDay.value.trim();
+            if (etime == "") {
+                var myDate = new Date();
+                etime = myDate.getFullYear() + "/" + myDate.getMonth() + "/" + myDate.getDay();
+            }
+            etime = etime + " " + timeHour.value + ":" + timeMin.value + ":00";
+            var postData = { getAddressID: selGetAddress.value, sendAddreddID: selSendAddress.value, exceptTime: etime, remark: txtReamrk.value };
+            $.ajax({
+                type: "post",
+                url: "/Cart/OneKeySubmit",
+                data: postData,
+                dataType: "json",
+                success: function (resultJson) {
+                    if (resultJson != null) {
+                        if (resultJson.Code == 1) {
+                            showPopDiv("订单已经提交", true, null, "/Member/MyOrders");
+                        }
+                        else
+                            alert(resultJson.Msg);
+                    }
+                },
+                error: function (msg) {
+                    alert(msg.toString());
+                }
+            });
+        }
+    </script>
+}

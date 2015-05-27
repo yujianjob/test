@@ -1,0 +1,106 @@
+﻿
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>无标题文档</title>
+    <script src="js/jquery.js"></script>
+    <link href="style/ldj.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <!--引导-->
+    <div class="mask"></div>
+    <img src="img/guide.png" id="guide" style="position:absolute; z-index:1000;width:70%;height:auto;left:40px;top:40px;">
+    <!--引导end-->
+
+    <section>
+        <div class="sider">
+            <div id="navWrapper">
+                <div>
+                    <div class="memberName"><span><img src="img/ren.jpg" style="margin-bottom:-5px"> 13524698745</span></div>
+                    <ul>
+                        <li><a href="我的订单.html" class="Order">我的订单</a></li>
+                        <li><a href="我的钱包.html" class="Wallet"><span>我的钱包</span>  <span>余额,券</span></a></li>
+                        <li><a href="地址管理.html" class="Address">地址管理</a></li>
+                        <li><a href="洗涤服务.html" class="WashioService">洗涤服务</a></li>
+                        <li><a href="/" class="Activities">缤纷活动</a></li>
+                        <li><a href="/" class="downloadApp">下载客户端</a></li>
+                    </ul>
+                </div>
+            </div>
+            <span class="loginOut"><a href="/">退出登录</a></span>
+        </div>
+        <div class="banner">
+            <img src="img/banner.gif">
+            <span onclick="toggleSiderNav();"></span>
+        </div>
+        <div class="washio">
+            <div class="washioBox">
+                <div class="dw">
+                    <div id="">
+                        <label><input type="text" placeholder="用户名"></label>
+                        <div class="clear" style="padding-top:15px">
+                            <textarea></textarea>
+                            <button type="button" class="dwBtn">定位</button>
+                        </div>
+                    </div>
+                    <!--                    <div class="select">
+                                            <select><option>333</option></select>
+                                        </div>-->
+                </div>
+                <div class="yue">
+                    <span>余额:<font class="red">￥100.00</font></span><span>使用余额</span><input type="checkbox">
+                </div>
+                <div class="useCoupon">
+                    <div class="select"><select><option>不使用优惠券</option></select></div>
+                </div>
+                <div class="selDate">
+                    <div class="select"><select><option>12月08日</option></select></div>
+                    <div class="select"><select><option>19</option></select></div>
+                    <div class="select"><select><option>15</option></select></div>
+                </div>
+                <div style="clear:both"></div>
+                <span style="padding-top:10px;display:block;line-height:22px;color:#676767"><b>备注:</b>此文章由网友【Wind哥】提供首先非常感谢网友-Wind的分享,最近很多Jquery学堂群里面的网友问有p.net实现</span>
+            </div>
+
+            <div class="orderBtn">
+                <button  type="button" class="btn" onclick="loading();">确认下单</button>
+            </div>
+        </div>
+    </section>
+    <script src="js/iscroll.js"></script>
+    <script type="text/javascript">
+        var scrollNav;
+        function loaded() {
+            scrollNav = new iScroll('navWrapper',{"vScrollbar":false,scrollbarClass: '',checkDOMChanges: true});
+        }
+        document.addEventListener('DOMContentLoaded', loaded, false);
+    </script>
+    <script src="js/pop.js"></script>
+    <script>
+        function preventD(e){ e.preventDefault(); }
+        function toggleSiderNav(){
+            $(".sider").animate({left:0},300,function(){
+                $("body").prepend("<span class='close1' onclick='closeSider();'>×</span>");
+            });
+            $("body").prepend("<div class='processmask'></div>");
+            document.addEventListener('touchmove',preventD, false);
+        }
+        function closeSider(){
+            $(".close1").remove();
+            $(".processmask").remove();
+            $(".sider").animate({left:'-80%'},300,function(){
+            });
+            document.removeEventListener('touchmove', preventD, false);
+        }
+        setTimeout(function(){
+            $(".mask,#guide").remove();
+        },2000);
+        //showPopDiv("示提示示提示示提示提示提示示提示提示提示示提示提示提示示提示提示提示示提示提示提示示提示提示提示提");
+    </script>
+</body>
+</html>

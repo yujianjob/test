@@ -1,0 +1,446 @@
+﻿@{
+    //ViewBag.Title = "用户注册";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="Shortcut icon" href="/img/landaojia.ico" type="image/x-icon" />
+    <link href="/Content/bootstrap.css" rel="stylesheet">
+    <link href="/Content/ldj.css" media="screen" rel="stylesheet">
+    <script src="/Scripts/jquery-2.1.1.js"></script>
+    <script src="/Scripts/bootstrap.js"></script>
+    <script src="/Scripts/landaojia.js"></script>
+</head>
+<body>
+    <div id="page-content-wrapper reg-page">
+        <img class="blue-bg" src="/img/bg-large.jpg">
+        <div class="page-content">
+            <div class="row reg-row">
+                <div class="col-md-12 full-width" style="padding:0">
+                    <img class="centered-logo" src="/img/home-logo.png">
+                    <div class="fade-in centered-box" style="background:none;">
+                        <form method="post" action="">
+                            <header>
+                                <a class="btn-prev" href="/Member/Login">‹</a>
+                                <h2>用户注册</h2>
+                            </header>
+                            <section class="reg-content" style="padding-top:0px">
+
+                                <div class="input-group">
+                                    <input id="txtUserName" name="txtUserName" type="text" maxlength="30" onchange="CheckAccount();" placeholder="账号：手机号">
+                                    <p id="msgUserName" class="help-block"></p>
+                                </div>
+                                <div class="input-group">
+                                    <input id="txtPass" name="txtPass" type="password" placeholder="密码">
+                                    <p id="msgPass" class="help-block"></p>
+                                </div>
+                                <div class="input-group">
+                                    <input id="txtPassConfim" name="txtPassConfim" type="password" placeholder="确认密码">
+                                    <p id="msgPassConfirm" class="help-block"></p>
+                                </div>
+
+                                <div class="MPNo">
+                                    <div class="input-group">
+                                        <div style="width:320px;display:block;margin:0 auto">
+
+                                            <input id="txtValiCode" name="txtValiCode" type="text" placeholder="图像验证码" class="radius-left b-half verifyCode">
+                                            <button type="button" class="radius-right s-half imgVertify"><img id="imgValiCode" src="@Url.Action("GetValidateCode", "Base") " alt=" " width=" 76" height="24" /></button>
+                                            <input type="hidden" value="@Url.Action("GetValidateCode", "Base")" id="ValidateCodeUrl" />
+                                            <p id="msgValiCode" class="help-block"></p>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <div style="width:320px;display:block;margin:0 auto">
+                                            <input id="txtCode" name="txtCode" type="text" maxlength="6" placeholder="短信验证码" class="radius-left b-half verifyCode">
+                                            <button id="btnSmsCode" name="btnSmsCode" type="button" class="radius-right s-half msgVertify" onclick="VerifyMobile();">获取验证码</button>
+                                            <p id="msgCode" class="help-block"></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--邀请码 -->
+                                <div class="input-group">
+                                    <input id="txtInviteCode" name="txtInviteCode" type="text" maxlength="10" onchange="CheckInviteCode();" placeholder="邀请码：没有可不填">
+                                    <p id="msgInviteCode" class="help-block"></p>
+                                </div>
+
+                                <div class="checkbox agree">
+                                    <label>
+                                        <input id="cbAgreement" name="cbAgreement" type="checkbox" checked="checked">我已阅读并同意 <a href="UserAgreement" style="color:white">《懒到家服务协议》</a>
+                                    </label>
+                                </div>
+                                
+                            </section>
+                            <p id="msg" class="help-block"></p>
+                            <button type="button" class="btn-lg btn-danger reg-btn" onclick="formSubmit();">立即注册</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <script type="text/javascript">
+    var usertype = 0;
+    var bo = true;
+    var usercheck = -1;
+    //var icodecheck = -1;
+    var timer = null;
+
+    $(function () {
+        //update by  yfyang 2014-12-01
+        //配合新系统网站调整 注册必须以手机号 故需要把短信验证码去掉
+        //$(".MPNo").hide();
+    });
+
+    //add by  yfyang 2014-12-01
+    //配合新系统网站调整 增加邀请码
+    function CheckInviteCode() {
+        $("#msgInviteCode").html("");
+        if ($("#txtInviteCode").val() != "") {
+        //if (txtInviteCode.value != "") {
+            if (!$("#txtInviteCode").val().match("^[0-9a-zA-Z_]{4,10}$")) {
+            //if (!txtInviteCode.value.match("^[0-9a-zA-Z_]{4,10}$")) {
+                $("#msgInviteCode").html("请输入4-10位大小写英文字母或数字");
+                $("#txtInviteCode").focus();
+                //txtInviteCode.focus();
+                return false;
+            }
+        }
+        
+        @*var postData = { "InviteCode": txtInviteCode.value.trim() };
+        $.ajax({
+            type: "post",
+            url: "@Url.Action("User_InviteCode_Check")",
+            data: postData,
+            dataType: "json",
+            success: function (resultJson) {
+                if (resultJson != null) {
+                    if (resultJson.Code == 1) {
+                        icodecheck = 1;
+                    }
+                    else {
+                        icodecheck = 0;
+                        $("#msgInviteCode").html(resultJson.Msg);
+                    }
+                }
+            },
+            error: function (msg) {
+                $("#msg").html("系统异常，请稍微再试。");
+            }
+        });*@
+        return true;
+
+    }
+
+    function CheckValue() {
+        if (!$("#txtPass").val().match("^.{6,20}$")) {
+        //if (!txtPass.value.match("^.{6,20}$")) {
+            $("#msgPass").html("请输入6-20位大小写英文字母，符号或数字");
+            $("#txtPass").focus();
+            //txtPass.focus();
+            return false;
+        }
+        if ($("#txtPass").val().trim() != $("#txtPassConfim").val().trim()) {
+        //if (txtPass.value.trim() != txtPassConfim.value.trim()) {
+            $("#msgPassConfirm").html("两次输入的密码不一致");
+            $("#txtPassConfim").focus();
+            //txtPassConfim.focus();
+            return false;
+        }
+    }
+
+    function formSubmit() {
+        if (usercheck == -1) {
+            //$("#msgUserName").html("用户账号为6-30位数字、字母");
+            $("#msgUserName").html("用户账号为4-30位数字、字母");
+            return false;
+        }
+        if (usercheck != 1) {
+            return false;
+        }
+
+        //if (icodecheck != 1) {
+        //    return false;
+        //}
+
+        ClearMsg();
+
+        if (!$("#txtPass").val().match("^.{6,20}$")) {
+            //if (!txtPass.value.match("^.{6,20}$")) {
+            $("#msgPass").html("请输入6-20位大小写英文字母，符号或数字");
+            $("#txtPass").focus();
+            //txtPass.focus();
+            return false;
+        }
+        if ($("#txtPass").val().trim() != $("#txtPassConfim").val().trim()) {
+            //if (txtPass.value.trim() != txtPassConfim.value.trim()) {
+            $("#msgPassConfirm").html("两次输入的密码不一致");
+            $("#txtPassConfim").focus();
+            //txtPassConfim.focus();
+            return false;
+        }
+
+        if (usertype == 2) {
+            if (!$("#txtCode").val().trim().match("^[0-9]{6}$")) {
+            //if (!txtCode.value.trim().match("^[0-9]{6}$")) {
+                $("#msgCode").html("短信验证码为6位数字");
+                $("#txtCode").focus();
+                //txtCode.focus();
+                return false;
+            }
+        }
+        
+        //add by  yfyang 2014-12-01
+        //配合新系统网站调整 增加邀请码
+        if ($("#txtInviteCode").val() != "") {
+        //if (txtInviteCode.value != "") {
+            if (!$("#txtInviteCode").val().match("^[0-9a-zA-Z_]{4,10}$")) {
+            //if (!txtInviteCode.value.match("^[0-9a-zA-Z_]{4,10}$")) {
+                $("#msgInviteCode").html("请输入4-10位大小写英文字母或数字");
+                $("#txtInviteCode").focus();
+                //txtInviteCode.focus();
+                return false;
+            }
+        }
+        
+        
+        
+        var flag = document.getElementById("cbAgreement").checked
+        if (!flag) {
+        //if (!cbAgreement.checked) {
+            $("#msg").html("请勾选我已阅读并同意懒到家服务协议");
+            return false;
+        }
+
+        var postData = { "user": $("#txtUserName").val().trim(), "pass": $("#txtPass").val().trim(), "type": usertype, "vcode": $("#txtCode").val().trim(), "icode": $("#txtInviteCode").val().trim() };
+        //var postData = { "user": txtUserName.value.trim(), "pass": txtPass.value.trim(), "type": usertype, "vcode": txtCode.value.trim(), "icode": txtInviteCode.value.trim() };
+        $.ajax({
+            type: "post",
+            url: "/Member/User_Reg",
+            data: postData,
+            dataType: "json",
+            success: ProcessUserReg,
+            error: function (msg) {
+                $("#Msg").html("系统异常，请稍后再试。");
+            }
+        });
+    }
+
+    function ProcessUserReg(resultJson) {
+        if (resultJson != null) {
+            if (resultJson.Code == 1) {
+                window.location.href = "/Wash?SuccessfulReg=1";
+            }
+            else {
+                $("#msg").html(resultJson.Msg);
+                if (resultJson.Code == 5) {
+                    if (usertype == 2) {
+                        //txtCode.value = "";
+                        $("#txtCode").val("");
+                        $("#msgCode").html("短信验证码不正确");
+                    }
+                }
+            }
+        }
+    }
+
+    function ClearMsg() {
+        $("#msgUserName").html("");
+        $("#msgPass").html("");
+        $("#msgPassConfirm").html("");
+        $("#msgMPNo").html("");
+        $("#msgCode").html("");
+        $("#msgValiCode").html("");
+        //add by  yfyang 2014-12-01
+        //配合新系统网站调整 增加邀请码
+        $("#msgInviteCode").html("");
+    }
+
+    function CheckAccount() {
+        ClearMsg();
+        usertype = 0;
+        usercheck = 0;
+        //update by  yfyang 2014-12-01
+        //配合新系统网站调整 注册必须以手机号 故需要把短信验证码去掉
+        //$(".MPNo").hide();
+
+        //if (!txtUserName.value.trim().match("^[0-9a-zA-Z@@.]{4,30}$")) {
+        //    $("#msgUserName").html("用户账号为4-30位数字、字母");
+        //    txtUserName.focus();
+        //    return false;
+        //}
+
+        //if (txtUserName.value.indexOf("@@") != -1) {
+        //    var checkEmailRtn = CheckEmail(txtUserName, $("#msgUserName"));
+        //    if (checkEmailRtn.code == 1)
+        //        usertype = 3;
+        //    else
+        //        return false;
+        //}
+        if (usertype == 0) {
+            //var checkMobileRtn = CheckMobile(txtUserName);
+            var checkMobileRtn = CheckMobile($("#txtUserName"));
+            if (checkMobileRtn.code == "1") {
+                usertype = 2;
+                //update by  yfyang 2014-12-01
+                //配合新系统网站调整 注册必须以手机号 故需要把短信验证码去掉
+                //$(".MPNo").show();
+            }
+            else {
+                //update by  yfyang 2014-12-01
+                //配合新系统网站调整 不是手机号 不允许注册
+                //usertype = 1;
+                $("#msgUserName").html("手机号格式不正确");
+                return false;
+            }
+                
+        }
+        var postData = { "user": $("#txtUserName").val().trim(), "type": usertype };
+        //var postData = { "user": txtUserName.value.trim(), "type": usertype };
+        $.ajax({
+            type: "post",
+            url: "@Url.Action("User_Exist_Check")",
+                data: postData,
+                dataType: "json",
+                success: function (resultJson) {
+                    if (resultJson != null) {
+                        if (resultJson.Code == 1) {
+                            usercheck = 1;
+                        }
+                        else {
+                            usercheck = 0;
+                            $("#msgUserName").html(resultJson.Msg);
+                        }
+                    }
+                },
+                error: function (msg) {
+                    $("#msg").html("系统异常，请稍微再试。");
+                }
+            });
+            return true;
+        }
+
+        function getVerifyCode(obj) {
+            if (bo) {
+                var i = 60;
+                $(obj).text(i);
+                $(obj).css("background", "#adaaaa");
+                var timer = setInterval(function () {
+                    if (i <= 0) {
+                        clearInterval(timer);
+                        timer = null;
+                        $(obj).css("background", "#a62424").text("获取验证");
+                        bo = true;
+                    } else {
+                        i--;
+                        $(obj).text(i);
+                        $(obj).css("background", "#adaaaa");
+                        bo = false;
+                    }
+                }, 1000);
+            }
+        }
+
+        function VerifyMobile() {
+            if (timer != null)
+                return;
+            if (usercheck != 1)
+                return;
+            ClearMsg();
+            if ($("#txtValiCode").val() == "") {
+            //if (txtValiCode.value == "") {
+                $("#msgValiCode").html("请输入右边的图像验证码");
+                return;
+            }
+            var postData = { "mpno": $("#txtUserName").val().trim(), "valicode": $("#txtValiCode").val() };
+            //var postData = { "mpno": txtUserName.value.trim(), "valicode": txtValiCode.value };
+
+            $.ajax({
+                type: "post",
+                url: "/Member/VerifyMobile",
+                data: postData,
+                dataType: "json",
+                success: function (resultJson) {
+                    if (resultJson.Code == 1) {
+                        $("#msgCode").html("短信验证码已发送");
+                        daojishi();
+
+                        //图像验证码刷新
+                        $("#imgValiCode").click();
+                        $("#txtValiCode").val("");
+                    }
+                    else {
+                        $("#msgCode").html(resultJson.Msg);
+                    }
+                },
+                error: function (msg) {
+                    $("#msg").html(msg);
+                }
+            });
+        }
+
+        function daojishi() {
+            var i = 60;
+            if (!timer) {
+                $("#btnSmsCode").text(i);
+                timer = setInterval(function () {
+                    i--;
+                    $("#btnSmsCode").text(i);
+                    $("#btnSmsCode").css("cursor","default");
+                    if (i == -1) {
+                        $("#btnSmsCode").css("cursor", "pointer");
+                        clearInterval(timer);
+                        timer = null;
+                        $("#btnSmsCode").text("获取验证码");
+                    }
+                }, 1000);
+            }
+        }
+        
+
+        $("#imgValiCode").bind("click", function () {
+            this.src = $("#ValidateCodeUrl").val() + "?time=" + (new Date()).getTime();
+        });
+        
+    </script>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?50d822098117c168e76087307f518797";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    <!-- Google Tag Manager -->
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-K339PZ"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+            '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-K339PZ');
+    </script>
+</body>
+</html>

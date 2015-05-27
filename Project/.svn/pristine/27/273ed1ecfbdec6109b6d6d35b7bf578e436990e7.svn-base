@@ -1,0 +1,40 @@
+﻿<div id="topBox"></div>
+<div id="header">
+    <div class="top">
+        <div class="topFont left">
+            您好<span>@User.Identity.Name</span>，欢迎光临懒到家！　
+            @if (@User.Identity.IsAuthenticated)
+            {
+                <a href="@Url.Action("Loginout", "Member")">注销</a>
+            }
+            else
+            {
+                <a href="@Url.Action("Login","Member")">登陆</a><a href="@Url.Action("Reg","Member")">注册</a>
+            }            
+        </div>
+        <div class="topNav right">
+            <ul>
+                <li><a href="/Member/MyOrders">我的账户</a></li>
+                <li><a href="/Home/Help">帮助中心</a></li>
+                <li class="cart"><a href="@Url.Action("Index","Cart")">购物车</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="header">
+        <div class="logo left"><a href="/"><img src="~/Content/Images/logo.gif" /></a></div>
+        <div class="search left">
+            <form id="seachSubmit" action="/Wash/Search" method="post">
+                <div class="searchCity left">
+                    <input name="city" type="text" value="上海" id="city" />
+                    <ul>
+                        <li><a href="javascript:">上海</a></li>
+                    </ul>
+                </div>
+                <div class="searchText left"><input id="keyword" name="keyword" type="text" value="" /></div>
+                <div class="searchSubmit left"><input name="" type="submit" value="" onclick="return WashSearch();" /></div>
+            </form>
+        </div>
+        <div class="tel right"><img src="~/Content/Images/tel.gif" /></div>
+        <div class="clear"></div>
+    </div>
+</div>

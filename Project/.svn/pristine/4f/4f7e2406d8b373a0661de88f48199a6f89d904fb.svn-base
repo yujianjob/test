@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ProductGroups>
+  <ProductGroup name="请选择" value="0"></ProductGroup>
+  <ProductGroup name="窗品组合" value="1"></ProductGroup>
+  <ProductGroup name="夏装组合" value="2"></ProductGroup>
+  <ProductGroup name="牛仔系列" value="3"></ProductGroup>
+  <ProductGroup name="睡衣组合" value="4"></ProductGroup>
+  <ProductGroup name="唐装组合" value="5"></ProductGroup>
+  <ProductGroup name="家居系列" value="6"></ProductGroup>
+  <ProductGroup name="保暖系列" value="7"></ProductGroup>
+  <ProductGroup name="休闲系列" value="8"></ProductGroup>
+  <ProductGroup name="羽绒系列" value="9"></ProductGroup>
+  <ProductGroup name="运动系列" value="10"></ProductGroup>
+  <ProductGroup name="衣物配饰" value="11"></ProductGroup>
+  <ProductGroup name="裙子系列" value="12"></ProductGroup>
+  <ProductGroup name="婚礼组合" value="13"></ProductGroup>
+  <ProductGroup name="职业套装" value="14"></ProductGroup>
+  <ProductGroup name="户外系列" value="15"></ProductGroup>
+  <ProductGroup name="内衣系列" value="16"></ProductGroup>
+  <ProductGroup name="床上四件套" value="17"></ProductGroup>
+  <ProductGroup name="床品系列" value="18"></ProductGroup>
+  <ProductGroup name="卫浴组合" value="19"></ProductGroup>
+  <ProductGroup name="女性配饰" value="20"></ProductGroup>
+  <ProductGroup name="普通车饰" value="21"></ProductGroup>
+  <ProductGroup name="皮质车饰" value="22"></ProductGroup>
+</ProductGroups>
+
+

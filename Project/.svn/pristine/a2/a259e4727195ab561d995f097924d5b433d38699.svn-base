@@ -1,0 +1,32 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\cansibei1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>不可接受日晒，因为蚕丝蛋白会因紫外线影响而变质，使纤维脆化而缩短寿命。如有潮湿的情形，放置于通风良好的阴凉处自然风干即可。每周将蚕丝被大力抖动，使被胎的内部纤维恢复弹性。定期放置于通风处吹风干燥，或用早晨、午后较微弱的阳光曝晒保养，也可以延长使用的寿命。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>精致生活，从睡眠开始！精致睡眠，从洁净卫生的被子开始！被子清洁，交给懒到家！</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\cansibei2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>不可水洗，不可干洗，如果有脏污的地方，用清水擦拭脏污的部位即可。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

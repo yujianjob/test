@@ -1,0 +1,33 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\beixin1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、夏天的背心不能用洗衣机洗，最好用温水轻柔； </p> 
+				<p>2、紧身的背心更不能用洗衣机甩干，会把原本紧致的衣物洗的松散，没有紧身的感觉。</p> 
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>幸福就是让心爱的衣服荡涤尘埃，还有一种洁净如新的期待……懒到家满足您的心愿，让您心爱的衣物洁净如新。 </p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\beixin2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>  夏天工字背心舒适清凉，但是易吸收汗渍和尘污；所以，夏天洗衣要更注重消毒杀菌、保型。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

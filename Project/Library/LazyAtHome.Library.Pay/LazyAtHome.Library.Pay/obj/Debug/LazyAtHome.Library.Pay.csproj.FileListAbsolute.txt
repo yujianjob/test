@@ -1,0 +1,4 @@
+E:\workspace\Project\Library\LazyAtHome.Library.Pay\LazyAtHome.Library.Pay\bin\Debug\LazyAtHome.Library.Pay.dll
+E:\workspace\Project\Library\LazyAtHome.Library.Pay\LazyAtHome.Library.Pay\bin\Debug\LazyAtHome.Library.Pay.pdb
+E:\workspace\Project\Library\LazyAtHome.Library.Pay\LazyAtHome.Library.Pay\obj\Debug\LazyAtHome.Library.Pay.dll
+E:\workspace\Project\Library\LazyAtHome.Library.Pay\LazyAtHome.Library.Pay\obj\Debug\LazyAtHome.Library.Pay.pdb

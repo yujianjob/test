@@ -1,0 +1,56 @@
+﻿
+@{
+    //ViewBag.Title = "订单支付";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--内容-->
+<div id="content">
+    <div id="cartTitle" class="cartTitle">支付订单<img src="~/Content/Images/cartTitle_03.gif" /></div>
+    <div class="cartPayment">
+        <dl class="left">
+            <dt>订单提交成功，请您尽快付款！</dt>
+            <dd>请您在提交订单后<span>24小时</span>内完成支付，否则订单会自动取消。</dd>
+        </dl>
+        <ul class="right"><img src="~/Content/Images/erweima.gif" /></ul>
+    </div>
+    <div class="height_50"></div>
+    <div class="contentLuxury">
+        <div class="contentLuxuryTitle">第三方支付</div>
+        <div class="cartPaymentBox">
+            <form action="@Url.Action("Alipay", "Cart", new { OrderNum = ViewBag.OrderNum })" method="post">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="20"><input name="" type="radio" value="" checked="checked" /></td>
+                        <td width="155"><img src="~/Content/Images/zhifubao.gif" /></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input name="" type="submit" class="submit" value="" /></td>
+                        <td><input name="" type="button" class="button" /></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <div class="cartPaymentFont">完成支付后，您可以：<a href="/Member/MyOrders">查看订单详情</a></div>
+    <div class="cartPaymentAbout">
+        <h2>支付遇到问题：</h2>
+        <dl>
+            <dt>1.没有支付宝，怎么用银行卡充值？</dt>
+            <dd>答：储蓄卡用户可以使用支付宝网银支付功能，无需支付宝帐号即可进行支付。</dd>
+            <dt>2.没有支付宝，怎么用银行卡充值？</dt>
+            <dd>答：储蓄卡用户可以使用支付宝网银支付功能，无需支付宝帐号即可进行支付。</dd>
+            <dt>3.没有支付宝，怎么用银行卡充值？</dt>
+            <dd>答：储蓄卡用户可以使用支付宝网银支付功能，无需支付宝帐号即可进行支付。</dd>
+            <dt>4.没有支付宝，怎么用银行卡充值？</dt>
+            <dd>答：储蓄卡用户可以使用支付宝网银支付功能，无需支付宝帐号即可进行支付。</dd>
+        </dl>
+    </div>
+</div>

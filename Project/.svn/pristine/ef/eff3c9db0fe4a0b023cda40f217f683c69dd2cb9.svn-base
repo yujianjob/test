@@ -1,0 +1,32 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\yurongbei1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>一般两星期左右筋放置于通风爽处阴干即可达到干燥的效果,不要在烈日下暴晒,或是在被胎上覆盖被单再晾晒。平时若湿气较重时可以平铺在床上,用除湿机除湿即可。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>精致生活，从睡眠开始！精致睡眠，从洁净卫生的被子开始！被子清洁，交给懒到家！</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\yurongbei2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>一般建议一年干洗一次，不能水洗和频繁暴晒，只需要在通风处晾晒一两个小时即可。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

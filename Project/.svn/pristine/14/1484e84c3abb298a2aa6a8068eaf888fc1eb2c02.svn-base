@@ -1,0 +1,32 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\yangmaobei1.jpg" /></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>间隔一周左右在避阳处定时晾干。以上午十时至下午三时阴凉为最佳，正反各晾2小时即可。存储前在避阳处晾4-5小时，可去味除菌待被子放凉后再折叠。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>精致生活，从睡眠开始！精致睡眠，从洁净卫生的被子开始！被子清洁，交给懒到家！</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\yangmaobei2.jpg" /></div>
+			<div class="txt right">
+				<h2></h2>
+				<p> 不可水洗，不可漂白，不可熨烫，可以送到干洗店干洗，不能阳光暴晒。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

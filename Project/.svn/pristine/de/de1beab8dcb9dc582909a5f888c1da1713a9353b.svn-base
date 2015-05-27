@@ -1,0 +1,36 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\dengshanxie1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、使用专用鞋类清洁剂刷洗整双鞋子。</p>
+				<p>2、干燥：将鞋子置于通风干燥场所晾干，请勿将鞋子放置于超过摄氏48度的环境中。</p>
+				<p>3、水密处理：待鞋子完全乾燥后，在鞋子车缝线处以专业水密胶作水密及水封处理。</p>
+				<p>4、防水处理：以专业防水鞋膏涂抹鞋子的皮面，视鞋子的皮革软硬决定涂抹的次数， 加有GORE-TEX 布料的登山鞋，最好再喷上一层可透气性防水喷剂。 </p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>穿上战靴，调整又一座山峰。</p>
+                <p>凯旋归来，别忘了给一起出征的战靴来一次全方位护理，懒到家，做您身边的护理专家！</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\dengshanxie2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>对于喜欢户外活动的人来说户外鞋是很重要的，所以穿过后的保养也成了重中之重。登山鞋需要每次活动后马上进行清洁保养，这样才能更为耐用。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

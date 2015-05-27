@@ -1,0 +1,94 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>用户登录</title>
+    <link href="@Url.Content("~/Content/themes/css/login.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/Jquery/jquery-1.7.2.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Login/login.js")" type="text/javascript"></script>
+</head>
+<body onkeypress="doEnterKey();">
+    <div id="login">
+        <div id="login_header">
+            <h1 class="login_logo">
+                <a href=""><img src="~/Content/themes/default/images/login_logo.gif" /></a>
+            </h1>
+            <div class="login_headerContent">
+                <div class="navList">
+                    <ul>
+                        <li><a href="#">设为首页</a></li>
+                        <li><a href="#">反馈</a></li>
+                        <li><a href="#" target="_blank">帮助</a></li>
+                    </ul>
+                </div>
+                <h2 class="login_title"><img src="~/Content/themes/default/images/login_title.png" /></h2>
+            </div>
+        </div>
+        <div id="login_content">
+            <div class="loginForm">
+                @*<form action="index.html">*@
+                <p>
+                    <label>商户号：</label>
+                    <input type="text" id="storecode" name="storecode" size="20" class="login_input" value="st0001" />
+                </p>
+                <p>
+                    <label>用户名号：</label>
+                    <input type="text" id="username" name="username" size="20" class="login_input" value="admin" />
+                </p>
+                <p>
+                    <label>密码：</label>
+                    <input type="password" id="password" name="password" size="20" class="login_input" value="12345678" />
+                </p>
+                <p>
+                    <label>验证码：</label>
+                    <input class="code" type="text" id="userauthcode" name="userauthcode" size="5" />
+                    <span><img id="valiCode" style="cursor: pointer" src="@Url.Action("GetValidateCode", "Home") " alt=" " width=" 75" height="24" /></span>
+                </p>
+
+                @*<p>
+                        <label></label>
+                        <label class="login_input" style="color:red;"  id="TxtErrorMsg"></label>
+                    </p>*@
+
+
+
+                <div class="login_bar">
+                    @*<input class="sub" type="submit" value=" " />*@
+                    <input type="button" class="sub" id="IbtnEnter" name="IbtnEnter" />
+                </div>
+
+                <p>
+                    <label></label>
+                    <label class="login_input" style="color:red; width :200px" id="TxtErrorMsg"></label>
+                </p>
+                @*</form>*@
+            </div>
+            <div class="login_banner"><img src="~/Content/themes/default/images/login_banner.jpg" /></div>
+            <div class="login_main">
+                <ul class="helpList">
+                    <li><a href="#">这家伙懒到家了</a></li>
+                    <li><a href="#"></a></li>
+                    <li><a href="#"></a></li>
+                    <li><a href="#"></a></li>
+                </ul>
+                <div class="login_inner">
+                    <p>这家伙懒到家了</p>
+                    <p></p>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <div id="login_footer">
+            Copyright &copy; 2014 www.landaojia.com Inc. All Rights Reserved.
+        </div>
+    </div>
+    <input type="hidden" value="@Url.Action("LoginUser","Home")" id="LoginUrl" />
+    <input type="hidden" value="@Url.Action("Index","Home")" id="SystemMainUrl" />
+    <input type="hidden" value="@Url.Action("GetValidateCode", "Home")" id="ValidateCodeUrl" />
+</body>
+</html>

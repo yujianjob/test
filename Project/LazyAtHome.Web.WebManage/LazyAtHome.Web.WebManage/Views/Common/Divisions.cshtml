@@ -1,0 +1,20 @@
+﻿@model LazyAtHome.Web.WebManage.Models.Common.DivisionsModel
+@{
+    <script src="@Url.Content("~/Scripts/Common/Division.js")" type="text/javascript"></script>
+}
+<input id="txtDivisionUrl" type="hidden" value="@Url.Action("DivisionsGet", "Common")" />
+
+@{
+    //控件名称前缀
+    string bindName = ViewBag.BindName ?? "BDVIdL";
+    //拼凑控件名称
+    var BDVIdl1 = string.Format("{0}1", bindName);
+    var BDVIdl2 = string.Format("{0}2", bindName);
+    var BDVIdl3 = string.Format("{0}3", bindName);
+    //绑定控件
+    @Html.DropDownList(BDVIdl1, new SelectList(Model.DivisionsL1, "ID", "Name", Model == null ? -1 : Convert.ToInt32(Model.Data.ID.ToString().PadRight(6, '0').Substring(0, 2).PadRight(6, '0'))), new { id = Model.DivisionsL1Name, @class = "ddlstyle" })
+    @Html.DropDownList(BDVIdl2, new SelectList(Model.DivisionsL2, "ID", "Name", Model == null ? -1 : Convert.ToInt32(Model.Data.ID.ToString().PadRight(6, '0').Substring(0, 4).PadRight(6, '0'))), new { id = Model.DivisionsL2Name, @class = "ddlstyle" })
+    @Html.DropDownList(BDVIdl3, new SelectList(Model.DivisionsL3, "ID", "Name", Model == null ? -1 : Model.Data.ID), new { id = Model.DivisionsL3Name, @class = "ddlstyle" })
+}
+
+

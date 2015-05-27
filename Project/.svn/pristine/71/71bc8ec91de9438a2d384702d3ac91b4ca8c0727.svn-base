@@ -1,0 +1,159 @@
+﻿@{
+    ViewBag.Title = "洗涤服务";
+}
+
+<section>
+    <div class="xdfw">
+        <ul class="tabSwitch">
+            @foreach (LazyAtHome.WCF.Wash.Contract.DataContract.web.web_Wash_ClassDC item in ViewBag.WashClass)
+            {
+                <li classid="@item.ID"><span>@item.Name</span></li>
+            }
+        </ul>
+        <div class="list">
+        </div>
+    </div>
+
+    <footer>
+        <span class="shopcart" ontouchend="viewShopcartDetail(event);">
+            <img src="/img/shopcartIcn.png"> <span id="tc">(2)</span>
+        </span>
+        <span class="jiesuan"><a href="javascript:void(0)" onclick="formSubmit();">去结算</a></span>
+    </footer>
+
+    <!--弹出购物车列表 start-->
+    <div class="shopcartList">
+        <div class="shopcartbox">
+            <div class="tit" style="display:-none">
+                <span class="lf">洗衣篮</span>
+                <span class="rt"><a href="#" onclick="ClearCart();">清除</a></span>
+            </div>
+            <div class="biaot" style="display:-none">
+                <div class="bt lf">服务产品</div>
+                <div class="p-num rt">数量</div>
+            </div>
+
+            <div class="gwlist" id="gwlistWraper" ontouchmove="_docPrevent(event);" ontouchend="_docRemovePrevent(event);">
+                <div class="gwlist-cont">
+                </div>
+            </div>
+            <div class="tfoot">
+                <span class="total-price">总计 <font class="red"><b>￥120.00</b></font></span>
+            </div>
+        </div>
+    </div>
+    <!--弹出购物车列表 end-->
+</section>
+
+@section scripts
+{
+    <script type="text/javascript">
+        var totalCount = 0;
+        $(function () {
+            $(".tabSwitch li").each(function () {
+                $(this).click(function () {
+                    $(".tabSwitch li").removeClass("active");
+                    $(this).addClass("active");
+                    Show($(this).attr("classid"));
+                });
+            });
+            $(".tabSwitch li").eq(0).click();
+            AddToCart(0, null, null);
+        });
+        function Show(id) {
+            process();
+            var postData = { classid: id };
+            $.ajax({
+                type: "post",
+                url: "/Wash/ClassShow",
+                data: postData,
+                dataType: "json",
+                success: function (resultJson) {
+                    removeProcess();
+                    if (resultJson != null) {
+                        if (resultJson.code == 1) {
+                            $(".list").html(resultJson.msg);
+                        }
+                        else
+                            alert(resultJson.msg);
+                    }
+                },
+                error: function (msg) {
+                    $("#msg").html("服务器异常，请稍微再试！");
+                }
+            });
+        }
+
+        function AddToCart(pid, opear, e, source) {
+            if (e != null)
+                e.preventDefault();
+            if (opear == null)
+                opear = true;
+
+            var postData = { pid: pid, opearFlag: opear };
+            $.ajax({
+                type: "post",
+                url: "/Cart/jsAddToCart",
+                data: postData,
+                dataType: "json",
+                success: function (resultJson) {
+                    if (resultJson != null) {
+                        if (resultJson.Code == 1) {
+                            $(".gwlist-cont").html(resultJson.Content);
+                            totalCount = resultJson.TotalCount;
+                            $("#tc").html("(" + totalCount + ")");
+                            $(".total-price").html("总计 <font class='red'><b>￥" + resultJson.TotalPrice.toFixed(2) + "</b></font>");
+                            if (resultJson.Content == "") {
+                                $(".estimator").show();
+                                $(".full-shopcart").hide();
+                            }
+                            else {
+                                $(".full-shopcart").show();
+                                $(".estimator").hide();
+                            }
+                            if (pid != 0 && source)
+                                showPopDiv("已加入购物车", false, 1000, null);
+                        }
+                        else
+                            alert(resultJson.Msg);
+                    }
+                },
+                error: function (msg) {
+                    $("#msg").html("服务器异常，请稍微再试！");
+                }
+            });
+        }
+
+        function formSubmit() {
+            if (totalCount == 0) {
+                showPopDiv("尚未添加任何产品");
+                return false;
+            }
+            window.location.href = "/Cart/OrderConfirm";
+        }
+
+        function ClearCart() {
+            $.ajax({
+                type: "post",
+                url: "/Cart/jsCartClear",
+                dataType: "json",
+                success: function (resultJson) {
+                    if (resultJson != null) {
+                        if (resultJson.Code == 1) {
+                            $(".gwlist-cont").html("");
+                            totalCount = 0;
+                            $("#tc").html(totalCount);
+                            $(".total-price").html("总计 <font class='red'><b>￥0.00</b></font>");
+                            viewShopcartDetail(event);
+                        }
+                        else
+                            alert(resultJson.Msg);
+                    }
+                },
+                error: function (msg) {
+                    $("#msg").html("服务器异常，请稍微再试！");
+                }
+            });
+        }
+    </script>
+}

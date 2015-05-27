@@ -1,0 +1,1263 @@
+﻿@*通用 时间转换 FormatType 1:yyyy-MM-dd 2:yyyy-MM-dd HH:mm 3:yyyy-MM-dd HH:mm:ss*@
+@helper FormatDate(DateTime? date, int FormatType = 2)
+{
+    string DateString = string.Empty;
+    if (date != null)
+    {
+        if (FormatType == 1)
+        {
+            DateString = String.Format("{0:yyyy-MM-dd}", date);
+        }
+        else if (FormatType == 2)
+        {
+            DateString = String.Format("{0:yyyy-MM-dd HH:mm}", date);
+        }
+        else if (FormatType == 3)
+        {
+            DateString = String.Format("{0:yyyy-MM-dd HH:mm:ss}", date);
+        }
+        else if (FormatType == 4)
+        {
+            DateString = String.Format("{0:yy-MM-dd HH:mm}", date);
+        }
+    }
+    @(string.Format(DateString));
+}
+
+@*通用  交易冻结状态转换*@
+@helper FormatAccountStatus(int AccountStatus)
+{
+    string rtn = string.Empty;
+    switch (AccountStatus)
+    {
+        case 1:
+            rtn = "正常";
+            break;
+        case 2:
+            rtn = "冻结";
+            break;
+        default:
+            rtn = "未知：" + AccountStatus;
+            break;
+    }
+    @(string.Format(rtn));
+}
+
+
+@*通用  用户状态转换*@
+@helper FormatUserStatus(int UserStatus)
+{
+    string rtn = string.Empty;
+    switch (UserStatus)
+    {
+        case 1:
+            rtn = "正常";
+            break;
+        case 2:
+            rtn = "锁定";
+            break;
+        case 6:
+            rtn = "注销";
+            break;
+        default:
+            rtn = "未知：" + UserStatus;
+            break;
+    }
+    @(string.Format(rtn));
+}
+
+
+@*通用  注册来源转换*@
+@helper FormatRegistSource(int RegistSource)
+{
+    string rtn = string.Empty;
+    switch (RegistSource)
+    {
+        case -1:
+            rtn = "客服";
+            break;
+        case 1:
+            rtn = "网站";
+            break;
+        case 2:
+            rtn = "APP";
+            break;
+        case 3:
+            rtn = "新浪微博";
+            break;
+        case 4:
+            rtn = "微信";
+            break;
+        case 6:
+            rtn = "短信";
+            break;
+        case 90:
+            rtn = "合作门店";
+            break;
+        case 91:
+            rtn = "当面单";
+            break;
+        case 901:
+            rtn = "若海";
+            break;
+            
+        default:
+            rtn = "未知：" + RegistSource;
+            break;
+    }
+    @(string.Format(rtn));
+}
+
+@*通用  是否预定义转换*@
+@helper FormatIsDefault(int IsDefault)
+{
+    string rtn = string.Empty;
+    switch (IsDefault)
+    {
+        case 1:
+            rtn = "预定义";
+            break;
+        case 0:
+            rtn = "可修改";
+            break;
+        default:
+            rtn = "未知：" + IsDefault;
+            break;
+    }
+    @(string.Format(rtn));
+}
+
+@*通用 启用状态转义 *@
+@helper FormatEnable(int Enable)
+{
+    string rtn = string.Empty;
+    switch (Enable)
+    {
+        case 1:
+            rtn = "启用";
+            break;
+        case 0:
+            rtn = "禁用";
+            break;
+        default:
+            rtn = "未知：" + Enable;
+            break;
+    }
+    @(string.Format(rtn));
+}
+
+@*通用 销售状态转义 *@
+@helper FormatCommitStatus(int CommitStatus)
+{
+    string rtn = string.Empty;
+    switch (CommitStatus)
+    {
+        case 0:
+            rtn = "未上线";
+            break;
+        case 1:
+            rtn = "已上线";
+            break;
+        case 2:
+            rtn = "已下线";
+            break;
+        default:
+            rtn = "未知：" + CommitStatus;
+            break;
+    }
+    @(string.Format(rtn));
+}
+
+@*通用 运价类型转义  *@
+@helper FormatProductType(int ProductType)
+{
+    string rtn = string.Empty;
+    switch (ProductType)
+    {
+        case 1:
+            rtn = "普通";
+            break;
+        case 2:
+            rtn = "活动";
+            break;
+        default:
+            rtn = "未知：" + ProductType;
+            break;
+    }
+    @(string.Format(rtn));
+}
+
+@*通用 订单状态转义  *@
+@helper FormatOrderStatus(int OrderStatus)
+{
+    string rtn = string.Empty;
+    switch (OrderStatus)
+    {
+        case 0:
+            rtn = "未审核订单";
+            break;
+        case 1:
+            rtn = "创建订单";
+            break;
+        case 2:
+            rtn = "完成订单";
+            break;
+        case 6:
+            rtn = "已退单";
+            break;
+        case 7:
+            rtn = "已拆单";
+            break;
+        case 16:
+            rtn = "用户撤销";
+            break;
+        case 32:
+            rtn = "系统撤销";
+            break;
+        default:
+            rtn = "未知：" + OrderStatus;
+            break;
+    }
+    @(string.Format(rtn));
+}
+
+@*通用 支付状态转义  *@
+@helper FormatPayStatus(int PayStatus)
+{
+    string rtn = string.Empty;
+    switch (PayStatus)
+    {
+        case 0:
+            rtn = "未支付";
+            break;
+        case 1:
+            rtn = "已支付";
+            break;
+        default:
+            rtn = "未知：" + PayStatus;
+            break;
+    }
+    @(string.Format(rtn));
+}
+
+@*通用 订单类型转义  *@
+@helper FormatOrderType(int OrderType)
+{
+    string rtn = string.Empty;
+    switch (OrderType)
+    {
+        case 1:
+            rtn = "正常";
+            break;
+        case 2:
+            rtn = "分单";
+            break;
+        case 3:
+            rtn = "反洗";
+            break;
+        case 6:
+            rtn = "退单";
+            break;
+        default:
+            rtn = "未知：" + OrderType;
+            break;
+    }
+    @(string.Format(rtn));
+}
+
+
+@*通用 订单进度转义  *@
+@helper FormatOrderStep(int? OrderStep)
+{
+    string rtn = string.Empty;
+    switch (OrderStep)
+    {
+        case 1:
+            rtn = "下单";
+            break;
+        case 2:
+            rtn = "取件中";
+            break;
+        case 3:
+            rtn = "送洗中";
+            break;
+        case 4:
+            rtn = "洗涤中";
+            break;
+        case 5:
+            rtn = "出库中";
+            break;
+        case 6:
+            rtn = "送件中";
+            break;
+        case 7:
+            rtn = "完成";
+            break;
+        default:
+            rtn = "未知：" + OrderStep;
+            break;
+    }
+    @(string.Format(rtn));
+}
+
+@*通用 订单产品转义  *@
+@helper FormatReturnStatus(int ReturnStatus)
+{
+    string rtn = string.Empty;
+    switch (ReturnStatus)
+    {
+        case 0:
+            rtn = "正常";
+            break;
+        case 1:
+            rtn = "已反洗";
+            break;
+
+        default:
+            rtn = "未知：" + ReturnStatus;
+            break;
+    }
+    @(string.Format(rtn));
+}
+
+
+@*通用 衣物进程  *@
+@helper FormatProductStep(int ProductStep)
+{
+    string rtn = string.Empty;
+    switch (ProductStep)
+    {
+        case 0:
+            rtn = "";
+            break;
+        case 5:
+            rtn = "已出库";
+            break;
+
+        default:
+            rtn = "未知：" + ProductStep;
+            break;
+    }
+    @(string.Format(rtn));
+}
+
+@*通用 订单分类转义  *@
+@helper FormatOrderClass(int OrderClass)
+{
+    string rtn = string.Empty;
+    switch (OrderClass)
+    {
+        case 1:
+            rtn = "个人普通";
+            break;
+        case 2:
+            rtn = "一键下单";
+            break;
+        case 3:
+            rtn = "合作门店";
+            break;
+        case 4:
+            rtn = "奢侈品";
+            break;
+        case 5:
+            rtn = "商城";
+            break;
+
+        default:
+            rtn = "未知：" + OrderClass;
+            break;
+    }
+    @(string.Format(rtn));
+}
+
+@*通用 账号级别转义  *@
+@helper FormatIsAdmin(int IsAdmin)
+{
+    string rtn = string.Empty;
+    switch (IsAdmin)
+    {
+        case 0:
+            rtn = "normal";
+            break;
+        case 1:
+            rtn = "admin";
+            break;
+
+        default:
+            rtn = "unknow：" + IsAdmin;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+
+@*通用 日志类型转义  *@
+@helper FormatLogType(int Type)
+{
+    string rtn = string.Empty;
+    switch (Type)
+    {
+        case 1001:
+            rtn = "产品运价";
+            break;
+        case 1002:
+            rtn = "活动";
+            break;         
+        case 2001:
+            rtn = "订单";
+            break;
+        case 2002:
+            rtn = "合作门店订单";
+            break;
+        case 2003:
+            rtn = "工厂订单";
+            break;
+        case 3001:
+            rtn = "合作门店";
+            break;
+        
+            
+        case 5001:
+            rtn = "用户";
+            break;
+        case 5002:
+            rtn = "用户签收";
+            break;
+        case 6001:
+            rtn = "短信";
+            break;
+        case 7001:
+            rtn = "网站";
+            break;
+        case 8001:
+            rtn = "物流";
+            break;
+        case 9001:
+            rtn = "管理员";
+            break;
+        case 9002:
+            rtn = "B端账户管理";
+            break;
+
+        default:
+            rtn = "未知：" + Type;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+
+@*通用 短信发送类型转义  *@
+@helper FormatSendStatus(int SendStatus)
+{
+    string rtn = string.Empty;
+    switch (SendStatus)
+    {
+        case 0:
+            rtn = "未发送";
+            break;
+        case 1:
+            rtn = "待发送";
+            break;
+        case 2:
+            rtn = "已发送";
+            break;
+
+        case -1:
+            rtn = "余额不足";
+            break;
+        case -2:
+            rtn = "帐号或密码错误";
+            break;
+        case -3:
+            rtn = "连接服务商失败";
+            break;
+        case -4:
+            rtn = "超时";
+            break;
+        case -5:
+            rtn = "其他错误";
+            break;
+        case -6:
+            rtn = "短信内容为空";
+            break;
+        case -7:
+            rtn = "目标号码为空";
+            break;
+        case -8:
+            rtn = "用户通道设置不对，需要设置三个通道";
+            break;
+        case -9:
+            rtn = "捕获未知异常";
+            break;
+        case -10:
+            rtn = "超过最大定时时间限制";
+            break;
+        case -11:
+            rtn = "目标号码在黑名单里";
+            break;
+        case -12:
+            rtn = "消息内容包含禁用词语";
+            break;
+        case -13:
+            rtn = "没有权限使用该网关";
+            break;
+        case -14:
+            rtn = "找不到对应的ChannelID";
+            break;
+        case -15:
+            rtn = "个性化号码数量和内容数量不一致";
+            break;
+        case -17:
+            rtn = "没有提交权限";
+            break;
+        case -18:
+            rtn = "提交参数名称不正确或确实参数";
+            break;
+        case -19:
+            rtn = "必须为POST提交";
+            break;
+        case -20:
+            rtn = "超速提交";
+            break;
+        case -1001:
+            rtn = "重试失败";
+            break;
+        case -1002:
+            rtn = "每日超限";
+            break;
+        case -1003:
+            rtn = "黑名单中";
+            break;
+        case -9999:
+            rtn = "系统错误";
+            break;
+            
+        default:
+            rtn = "未知：" + SendStatus;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+
+
+@*通用 礼品类型转义  *@
+@helper FormatGiftType(int GiftType)
+{
+    string rtn = string.Empty;
+    switch (GiftType)
+    {
+        case 1:
+            rtn = "懒人卡";
+            break;
+        case 99:
+            rtn = "其他礼品";
+            break;
+
+        default:
+            rtn = "未知：" + GiftType;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+@*通用 礼品类别转义  *@
+@helper FormatGiftClass(int GiftClass)
+{
+    string rtn = string.Empty;
+    switch (GiftClass)
+    {
+        case 1:
+            rtn = "实物卡";
+            break;
+        case 2:
+            rtn = "电子卡";
+            break;
+        case 99:
+            rtn = "其他礼品";
+            break;
+
+        default:
+            rtn = "未知：" + GiftClass;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+
+@*通用 顺丰订单筛单结果转义  *@
+@helper FormatSFOrderFilterResult(int filter_result)
+{
+    string rtn = string.Empty;
+    switch (filter_result)
+    {
+        case 1:
+            rtn = "人工确认";
+            break;
+        case 2:
+            rtn = "可收派";
+            break;
+        case 3:
+            rtn = "不可以收派";
+            break;
+
+        default:
+            rtn = "未知：" + filter_result;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+
+@*通用 顺丰订单备注转义  *@
+@helper FormatSFOrderRemark(string remark)
+{
+    string rtn = string.Empty;
+    switch (remark)
+    {
+        case "1":
+            rtn = "收方超范围";
+            break;
+        case "2":
+            rtn = "派方超范围";
+            break;
+        case "3":
+            rtn = "其他原因";
+            break;
+
+        default:
+            rtn = "未知：" + remark;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+@*通用 顺丰订单操作结果转义  *@
+@helper FormatSFOrderResStatus(int res_status)
+{
+    string rtn = string.Empty;
+    switch (res_status)
+    {
+        case 1:
+            rtn = "订单号与运单不匹配";
+            break;
+        case 2:
+            rtn = "成功";
+            break;
+        default:
+            rtn = "未知：" + res_status;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+
+@*通用 物流类型转义  *@
+@helper FormatExpressType(int ExpressType)
+{
+    string rtn = string.Empty;
+    switch (ExpressType)
+    {
+        case 1:
+            rtn = "取件";
+            break;
+        case 2:
+            rtn = "送件";
+            break;
+        default:
+            rtn = "未知：" + ExpressType;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+
+@*通用 支付类型转义  *@
+@helper FormatPayMoneyType(int PayMoneyType)
+{
+    string rtn = string.Empty;
+    switch (PayMoneyType)
+    {
+        case 0:
+            rtn = "现金";
+            break;
+        case 1:
+            rtn = "余额";
+            break;
+        case 2:
+            rtn = "懒人卡";
+            break;
+        case 3:
+            rtn = "支付宝";
+            break;
+        case 4:
+            rtn = "腾讯财付通";
+            break;
+        case 5:
+            rtn = "微信支付";
+            break;
+        case 9:
+            rtn = "优惠券";
+            break;
+        case 100:
+            rtn = "客服调整";
+            break;
+        default:
+            rtn = "未知：" + PayMoneyType;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+
+@*通用 优惠类型转义  *@
+@helper FormatAmountType(int AmountType)
+{
+    string rtn = string.Empty;
+    switch (AmountType)
+    {
+        case 0:
+            rtn = "系统";
+            break;
+        case 1:
+            rtn = "快递费";
+            break;
+        case 2:
+            rtn = "快递费减免";
+            break;
+        case 5:
+            rtn = "活动";
+            break;
+        case 99:
+            rtn = "人工";
+            break;
+        default:
+            rtn = "未知：" + AmountType;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+@*通用 优惠券使用类别转义  *@
+@helper FormatCouponUseClass(int UseClass)
+{
+    string rtn = string.Empty;
+    switch (UseClass)
+    {
+        case 0:
+            rtn = "全类别使用";
+            break;
+        case 1:
+            rtn = "部分类使用";
+            break;
+        default:
+            rtn = "未知：" + UseClass;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+@*通用 优惠券使用类型转义  *@
+@helper FormatCouponUseType(int UseType)
+{
+    string rtn = string.Empty;
+    switch (UseType)
+    {
+        case 1:
+            rtn = "一次使用一张不与其他混用";
+            break;
+        default:
+            rtn = "未知：" + UseType;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+//FormatCouponStatus
+@*通用 优惠券持券状态转义  *@
+@helper FormatCouponStatus(int CouponStatus, DateTime UseEndDate)
+{
+    string rtn = string.Empty;
+
+    if (CouponStatus == 1 && UseEndDate < System.DateTime.Now)
+    {
+        rtn = "已过期";
+    }
+    else
+    { 
+        switch (CouponStatus)
+        {
+            case 1:
+                rtn = "正常持有";
+                break;
+            case 2:
+                rtn = "已使用";
+                break;
+            case 3:
+                rtn = "已删除";
+                break;
+            default:
+                rtn = "未知：" + CouponStatus;
+                break;
+        }
+    }
+    @(string.Format(rtn));
+}
+
+
+@*通用 优惠券使用类型转义  *@
+@helper FormatQuestionType(int QuestionType)
+{
+    string rtn = string.Empty;
+    switch (QuestionType)
+    {
+        case 1:
+            rtn = "单选题";
+            break;
+        case 2:
+            rtn = "多选题";
+            break;
+        case 3:
+            rtn = "问答题";
+            break;
+        default:
+            rtn = "未知：" + QuestionType;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+
+@*通用 优惠券使用类型转义  *@
+@helper FormatRegisterSourceConfigType(int RegisterSourceConfigType)
+{
+    string rtn = string.Empty;
+    switch (RegisterSourceConfigType)
+    {
+        case 1:
+            rtn = "兼职";
+            break;
+        case 2:
+            rtn = "顺丰";
+            break;
+        default:
+            rtn = "未知：" + RegisterSourceConfigType;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+@*通用 物流订单类型转义  *@
+@helper FormatTransportType(int TransportType)
+{
+    string rtn = string.Empty;
+    switch (TransportType)
+    {
+        case 1:
+            rtn = "取件";
+            break;
+        case 2:
+            rtn = "送件";
+            break;
+        default:
+            rtn = "未知：" + TransportType;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+
+@*通用 快递员类型转义  *@
+@helper FormatExpOperatorType(int ExpOperatorType)
+{
+    string rtn = string.Empty;
+    switch (ExpOperatorType)
+    {
+        case 1:
+            rtn = "快递员";
+            break;
+        case 2:
+            rtn = "装车员";
+            break;
+        default:
+            rtn = "未知：" + ExpOperatorType;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+
+@*通用 物流订单状态类型转义  *@
+@helper FormatExpOrderStep(int ExpOrderStep)
+{
+    string rtn = string.Empty;
+    switch (ExpOrderStep)
+    {
+        case -2:
+            rtn = "退单";
+            break;
+        case 0:
+            rtn = "未分配";
+            break;
+        case 1:
+            rtn = "取件中";
+            break;
+        case 2:
+            rtn = "取件完成";
+            break;
+        case 3:
+            rtn = "中转站";
+            break;
+        case 4:
+            rtn = "送件中";
+            break;
+        case 90:
+            rtn = "送件完成";
+            break;
+        case -99:
+            rtn = "无效订单";
+            break;
+        case -98:
+            rtn = "取件失败";
+            break;
+        default:
+            rtn = "未知：" + ExpOrderStep;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+
+@*通用 物流系统分发状态类型转义  *@
+@helper FormatExpOrderAllotStatus(int ExpOrderAllotStatus)
+{
+    string rtn = string.Empty;
+    switch (ExpOrderAllotStatus)
+    {
+
+        case 0:
+            rtn = "未处理";
+            break;
+        case 1:
+            rtn = "已分配";
+            break;
+        case 2:
+            rtn = "分配失败";
+            break;
+
+        default:
+            rtn = "未知：" + ExpOrderAllotStatus;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+
+@*通用 物流系统分发状态类型转义  *@
+@helper FormatFactoryWash(int FactoryWash)
+{
+    string rtn = string.Empty;
+    switch (FactoryWash)
+    {
+
+        case 1:
+            rtn = "可洗";
+            break;
+        case 2:
+            rtn = "不可洗";
+            break;
+
+        default:
+            rtn = "未知：" + FactoryWash;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+@*通用 仓库类型转义  *@
+@helper FormatStorageType(int StorageType)
+{
+    string rtn = string.Empty;
+    switch (StorageType)
+    {
+
+        case 0:
+            rtn = "系统";
+            break;
+        case 1:
+            rtn = "站点";
+            break;
+        case 2:
+            rtn = "干线";
+            break;
+        case 3:
+            rtn = "工厂";
+            break;
+
+        default:
+            rtn = "未知：" + StorageType;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+
+@*通用 物品类型转义  *@
+@helper FormatStorageItemType(int StorageItemType)
+{
+    string rtn = string.Empty;
+    switch (StorageItemType)
+    {
+        case 1:
+            rtn = "包裹";
+            break;
+        case 2:
+            rtn = "衣物";
+            break;
+
+        default:
+            rtn = "未知：" + StorageItemType;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+
+@*通用 物品去向类型转义  *@
+@helper FormatStorageItemTargeType(int StorageItemTargeType)
+{
+    string rtn = string.Empty;
+    switch (StorageItemTargeType)
+    {
+        case 0:
+            rtn = "";
+            break;
+        case 1:
+            rtn = "送站点";
+            break;
+        case 2:
+            rtn = "送干线";
+            break;
+        case 3:
+            rtn = "送工厂";
+            break;
+        case 4:
+            rtn = "待分拣";
+            break;
+        case 5:
+            rtn = "送洗";
+            break;
+        case 6:
+            rtn = "工厂打包";
+            break;
+        case 7:
+            rtn = "工厂出库";
+            break;
+        case 8:
+            rtn = "送用户";
+            break;
+        default:
+            rtn = "未知：" + StorageItemTargeType;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+
+@*通用 物品状态类型转义  *@
+@helper FormatStorageItemStatus(int StorageItemStatus)
+{
+    string rtn = string.Empty;
+    switch (StorageItemStatus)
+    {
+        case 1:
+            rtn = "正常";
+            break;
+        case 2:
+            rtn = "挂起";
+            break;
+
+        default:
+            rtn = "未知：" + StorageItemStatus;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+
+@*通用 出入库类型转义  *@
+@helper FormatStorageLogType(int StorageLogType)
+{
+    string rtn = string.Empty;
+    switch (StorageLogType)
+    {
+
+        case 1:
+            rtn = "出库";
+            break;
+        case 2:
+            rtn = "入库";
+            break;
+
+        default:
+            rtn = "未知：" + StorageLogType;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+
+@*通用 站点类型转义  *@
+@helper FormatNodeType(int NodeType)
+{
+    string rtn = string.Empty;
+    switch (NodeType)
+    {
+
+        case 1:
+            rtn = "站点";
+            break;
+        case 2:
+            rtn = "干线";
+            break;
+        case 3:
+            rtn = "工厂";
+            break;
+
+        default:
+            rtn = "未知：" + NodeType;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+
+@*通用 管理员类型转义  *@
+@helper FormatOperatorType(int OperatorType)
+{
+    string rtn = string.Empty;
+    switch (OperatorType)
+    {
+
+        case 1:
+            rtn = "后台";
+            break;
+        case 2:
+            rtn = "工厂";
+            break;
+        case 3:
+            rtn = "站点";
+            break;
+        case 4:
+            rtn = "干线";
+            break;
+        default:
+            rtn = "未知：" + OperatorType;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+
+
+@*通用 消息级别类型转义  *@
+@helper FormatNotifyLevel(int NotifyLevel)
+{
+    string rtn = string.Empty;
+    switch (NotifyLevel)
+    {
+
+        case 2:
+            rtn = "信息";
+            break;
+        case 3:
+            rtn = "通知";
+            break;
+        case 4:
+            rtn = "警告";
+            break;
+        default:
+            rtn = "未知：" + NotifyLevel;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+@*通用 消息处理类型转义  *@
+@helper FormatNotifyStatus(int NotifyStatus)
+{
+    string rtn = string.Empty;
+    switch (NotifyStatus)
+    {
+        case 0:
+            rtn = "未处理";
+            break;
+        case 1:
+            rtn = "处理中";
+            break;
+        case 2:
+            rtn = "处理完成";
+            break;
+        case 6:
+            rtn = "关闭";
+            break;
+        default:
+            rtn = "未知：" + NotifyStatus;
+            break;
+    }
+
+    @(string.Format(rtn));
+}
+
+
+@*通用 账单结算类型转义  *@
+@helper FormatBillStatus(int BillStatus)
+{
+    string rtn = string.Empty;
+    switch (BillStatus)
+    {
+        case 0:
+            rtn = "未结算";
+            break;
+        case 1:
+            rtn = "部分结算";
+            break;
+        case 2:
+            rtn = "已结算";
+            break;
+        default:
+            rtn = "未知：" + BillStatus;
+            break;
+    }
+
+    @(string.Format(rtn));
+}

@@ -1,0 +1,24 @@
+﻿<!--内容-->
+<div id="content">
+     <div class="mediaShowTitle"><p><a href="/Home/LaundryTips">小常识列表</a><span>&gt;</span>洗衣小常识</p></div>
+     <div class="mediaShow">
+     	  <div class="mediaShowBt">
+          	   <h2>怎样清洗衣物上的果汁？</h2>
+               <p><b>2014.05.12</b>浏览次数：<span>90</span></p>
+               <dl>
+                  <dt>分享到：</dt>
+                  <dd><a href="#"><img src="~/Content/images/fenxiang_01.gif" /></a></dd>
+                  <dd><a href="#"><img src="~/Content/images/fenxiang_02.gif" /></a></dd>
+                  <dd><a href="#"><img src="~/Content/images/fenxiang_03.gif" /></a></dd>
+               </dl>
+          </div>
+          <div class="mediaShowContent laundrytips">
+          	   <p>如果衣物不慎沾上果汁，那么先用食盐涂抹于污渍处，然后再用水把它浸湿，用肥皂水轻轻的搓揉，最后漂洗干净即可，也可采用淀粉敷在存在果汁污渍处，然后待放一小时后，再轻轻的刷洗，如果是沾染上不多的果汁可以在污渍的地方滴上几滴食用的醋，然后再轻轻的搓揉几次，然后再用清楚洗净即可。</p>
+			   <img src="~/Content/images/tips11-pic1.jpg" />
+			   <p></p>
+			   <p>如果还存在一定的痕迹的话，可以用冲淡氨水洗，然后再用洗涤剂洗，如果是白色棉织品还可以使用5%的氯酸漂白，然后投洗干净即可</p>
+			   <p></p>
+          </div>
+         <!-- <div class="pages"><a href="#">上一篇</a><a href="#">下一篇</a></div>-->
+     </div>
+</div>

@@ -1,0 +1,108 @@
+﻿@model LazyAtHome.WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC
+@{
+    ViewBag.Title = "地址编辑";
+}
+
+<section>
+    <div class="addressModify">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td colspan="2"><input type="text" id="txtConsignee" name="txtConsignee" value="@Model.Consignee" placeholder="用户名"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="text" id="txtMPNo" name="txtMPNo" value="@Model.MPNo" placeholder="手机号"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="70%">
+                                <textarea id="txtAddress" name="txtAddress" placeholder="取送地址" style="width:95%">@Model.Address</textarea>
+                                <div class="select" style="display:none"><select></select></div>
+                            </td>
+                            <td><button class="dwBtn" onclick="GetLocation();">定位</button></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @if (Model.IsDefault != 1)
+                    {
+                        <input type="checkbox" id="txtIsDefault" name="txtIsDefault" />
+                    }
+                    else
+                    {
+                        <input type="checkbox" id="txtIsDefault" name="txtIsDefault" checked="checked" />
+                    }
+                    <span style="float:left;margin-left:15px;padding-top:2px;color:#676767">设为默认地址</span>
+                </td>
+            </tr>
+        </table>
+        <button class="btn" type="button" onclick="SaveAddress();">保存</button>
+    </div>
+</section>
+
+@section scripts
+{
+    <script type="text/javascript">
+        var aid = "@Model.ID";
+        $(function () {
+            if (aid == "0")
+                GetLocation();
+        });
+
+        function Check() {
+            $("#msgInfo").html("");
+
+            if (!txtConsignee.value.trim().match("^[\u4E00-\u9FA5A-Za-z0-9 ]+$")) {
+                showPopDiv("收件人姓名格式不正确");
+                return false;
+            }
+
+            if (!txtAddress.value.trim().match("^[\u4E00-\u9FA5A-Za-z0-9_ -]+$")) {
+                showPopDiv("地址格式不正确");
+                return false;
+            }
+
+            if (!$("#txtMPNo").val().match(/^0?(13[0-9]|15[012356789]|18[0-9]|14[57])[0-9]{8}$/)) {
+                showPopDiv("手机号码格式不正确！");
+                return false;
+            }
+            return true;
+        }
+
+        function SaveAddress() {
+            if (Check()) {
+                var bDefalut = 1;
+                if (!txtIsDefault.checked)
+                    bDefalut = 0;
+
+                process();
+                var postData = { "id": aid, "consignee": txtConsignee.value, "districtID": 0, "address": txtAddress.value, "mpno": txtMPNo.value, "isdefault": bDefalut };
+                $.ajax({
+                    type: "post",
+                    url: "/Address/User_AddressUpdate",
+                    data: postData,
+                    dataType: "json",
+                    success: ProcessData,
+                    error: function (msg) {
+                        removeProcess();
+                        showPopDiv(msg.toString());
+                    }
+                });
+            }
+        }
+
+        function ProcessData(resultJson) {
+            removeProcess();
+            if (resultJson != null) {
+                if (resultJson.Code == 1) {
+                    window.location.href = resultJson.CallBack;
+                }
+                else
+                    showPopDiv(resultJson.Msg);
+            }
+        }
+    </script>
+}

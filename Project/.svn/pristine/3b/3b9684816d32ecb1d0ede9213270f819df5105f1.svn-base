@@ -1,0 +1,109 @@
+﻿@model LazyAtHome.WCF.OrderSystem.Contract.DataContract.Order_OrderDC
+@{
+    ViewBag.Title = "订单详情";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="myorder">
+    <!--订单详情 start-->
+    <div class="order-detail">
+        <h2>订单详情</h2>
+        <table border="0" cellspacing="0" cellpadding="0" class="order-table">
+            <tr>
+                <td width="60px">订单号</td>
+                <td colspan="2" style="border-bottom:1px dashed #dcdcdc">@Model.OrderNumber</td>
+            </tr>
+            <tr>
+                <td>下单时间</td>
+                <td colspan="2" style="border-bottom:1px dashed #dcdcdc">@Model.Obj_Cdate.Value.ToString("yyyy.MM.dd    HH:mm")</td>
+            </tr>
+            <tr>
+                @if (Model.PayStatus == 0)
+                {
+                    <td>应付金额</td>
+                    <td valign="middle"><em style="color: #eb2d47; font-weight: bold">￥@(Model.TotalAmount - Model.PayAmount)</em></td>
+                    <td><a href="@Url.Action("Alipay", "ShoppingCart", new { OrderNum = Model.OrderNumber })"><img src="~/images/payment-btn.jpg" class="payment-btn" /></a></td>
+                }
+                else
+                {
+                    <td>订单状态</td>
+                    <td valign="middle">已付款</td>
+                    <td></td>
+                }
+            </tr>
+        </table>
+    </div>
+    <!--订单详情 end-->
+    <!--商品详情 start-->
+    <div class="goods-detail">
+        <h2>商品详情</h2>
+        @{
+            var pList = Model.ProductList.GroupBy(p => p.Name);
+            foreach (var item in pList)
+            {
+                var pItem = item.First();
+                <div class="goods-unit">
+                    <div class="pic"><img src="@pItem.PictureS" /></div>
+                    <div class="goods-txt">
+                        @pItem.Name<br />数量:@item.Count()&nbsp;&nbsp;&nbsp;价格:￥@(pItem.Price * item.Count())
+                    </div>
+                </div>
+            }
+        }
+        <div class="order-totalprice">订单总额:<em class="price">￥@Model.TotalAmount</em></div>
+    </div>
+    <!--商品详情 end-->
+    <!--支付信息 start-->
+    <div class="payment-info">
+        <h2>支付信息</h2>
+        <table border="0" cellspacing="0" cellpadding="0" class="payment-tabs">
+            @foreach (var amount in Model.AmountList)
+            {
+                <tr>
+                    <td>@amount.Content</td>
+                    <td align="right">￥@amount.Money</td>
+                </tr>
+            }
+            @foreach (var payment in Model.PaymentList)
+            {
+                <tr>
+                    <td>@UIHelper.ConvertPayMoneyType(payment.PayMoneyType)支付</td>
+                    <td align="right">￥-@payment.PayMoney</td>
+                </tr>
+            }
+
+            <tr>
+                <td>合计支付</td>
+                <td align="right"><span class="totel-price"><em>￥@Model.PayAmount</em></span></td>
+            </tr>
+        </table>
+
+    </div>
+    <!--支付信息 end-->
+    <!--地址信息 start-->
+    <div class="address-info">
+        <h2>地址信息</h2>
+        <div class="address-unit">
+            <div class="shou-icn"><img src="~/images/lan20.jpg" /></div>
+            <div class="address-txt">
+                @Model.GetAddress.Consignee（@Model.GetAddress.Mpno）<br />@Model.GetAddress.Address
+            </div>
+        </div>
+        <div class="address-unit">
+            <div class="shou-icn"><img src="~/images/lan21.jpg" /></div>
+            <div class="address-txt">
+                @Model.SendAddress.Consignee（@Model.SendAddress.Mpno）<br />@Model.SendAddress.Address
+            </div>
+        </div>
+    </div>
+    <!--地址信息 end-->
+    <!--订单备注 start-->
+    <div class="order-remarks">
+        <h2>订单备注</h2>
+        <p>@Model.UserRemark</p>
+    </div>
+    <!--订单备注 end-->
+</div>
+<!--订单详情 end-->
+<!--尾部 start-->
+<div class="footer foot"><img src="~/images/lan8.jpg" /></div>

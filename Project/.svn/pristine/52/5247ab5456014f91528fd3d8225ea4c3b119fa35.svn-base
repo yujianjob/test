@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://192.168.1.201:8100/LazyAtHome/InternalExpressService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" />
+  <xs:import schemaLocation="http://192.168.1.201:8100/LazyAtHome/InternalExpressService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/LazyAtHome.WCF.WebService.Contract.DataContract.PR" />
+  <xs:element name="CreateExpressOrder">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="iOutNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iGetDistrictID" type="xs:int" />
+        <xs:element minOccurs="0" name="iGetAddress" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iGetContacts" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iGetMpno" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iGetExpTime" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="iSendDistrictID" type="xs:int" />
+        <xs:element minOccurs="0" name="iSendAddress" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iSendContacts" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iSendMpno" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iSendExpTime" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="iPackageInfo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iPackageCount" type="xs:int" />
+        <xs:element minOccurs="0" name="iChargeFee" type="xs:decimal" />
+        <xs:element minOccurs="0" name="iUserRemark" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateExpressOrderResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" minOccurs="0" name="CreateExpressOrderResult" nillable="true" type="q1:ReturnEntityOfboolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Exp_Order_Create_SendNumber">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/LazyAtHome.WCF.WebService.Contract.DataContract.PR" minOccurs="0" name="iCredentials" nillable="true" type="q2:LoginCredentials" />
+        <xs:element minOccurs="0" name="iOutNumber" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Exp_Order_Create_SendNumberResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" minOccurs="0" name="Exp_Order_Create_SendNumberResult" nillable="true" type="q3:ReturnEntityOfExp_OrderDCIck9A_SRr" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Exp_Order_UPDATE_Send_ChargeFee">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="iOutNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iChargeFee" type="xs:decimal" />
+        <xs:element minOccurs="0" name="iPackageInfo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iPackageCount" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Exp_Order_UPDATE_Send_ChargeFeeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/LazyAtHome.Core.Infrastructure.WCF" minOccurs="0" name="Exp_Order_UPDATE_Send_ChargeFeeResult" nillable="true" type="q4:ReturnEntityOfboolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

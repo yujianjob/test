@@ -1,0 +1,545 @@
+//用户登录
+function loadLoginPanel(){
+	$.ui.toggleHeaderMenu();
+	$.ui.toggleNavMenu();
+	if(getItem("remberUserPass")==1 && getItem("userId")){
+		$("#username").val(getItem("username"));
+		$("#password").val(getItem("password"));
+		$("#autoLoginCheck").attr("checked",true);
+	}else{
+		$("#username,#password").val("");
+	}
+
+
+	$("#autoLoginCheck").click(function(){
+		if($(this).attr('checked')=='true'){
+			setItem("remberUserPass","0");
+			$(this).attr("checked",false);
+		}else{
+			setItem("remberUserPass","1");
+			$(this).attr("checked",true);
+		}
+	});
+	
+}
+//点击登录按钮执行的函数
+function loginEntrance(){
+	var username=$("#username").val();
+	var password=$("#password").val();
+	var ts=getTs();
+	var str=actid+username+password+version+ts;
+	str=str.toUpperCase();
+	var hash=hex_md5(str);
+	hash=hash.toUpperCase();
+	hash=hash+Key;
+	hash=hex_md5(hash);
+	hash=hash.toUpperCase();
+	var vkey=hash;
+	var postData = {"actid":actid,"username": username, "password": password,"version":version,"ts":ts, "vkey": vkey };
+	
+	
+	$.ajax({
+		type: "post",
+		url: host+"/login",
+		data: postData,
+		dataType: "json",
+		success: function(data){
+			if(data.code==-1){//用户不存在
+				showPopup("登录失败，请重新输入");
+			}
+			if(data.code==0){//用户存在
+				if(data.user.type==1){
+					$.ui.loadContent("OperatorOnLine.html",false,false,"slide");
+				}
+				if(data.user.type==2){//跟车
+					
+				}
+				setItem("username",username);
+				setItem("password",password);
+				setItem("userId",data.user.id);
+				setItem("userName",data.user.name);
+				setItem("userType",data.user.type);
+				setItem("userMpno",data.user.mpno);
+			}
+		},
+		error: function (msg) {
+	
+		}
+	 });
+}
+//注销用户
+function exitUser(){
+	window.localStorage.clear();
+	$.ui.loadContent("login_panel",false,false,"slide");
+}
+//上岗
+function OperatorOnline(){
+	var operatorid=getItem("userId");
+	var ts=getTs();
+	var str=actid+operatorid+version+ts;
+	str=str.toUpperCase();
+	var hash=hex_md5(str);
+	hash=hash.toUpperCase();
+	hash=hash+Key;
+	hash=hex_md5(hash);
+	hash=hash.toUpperCase();
+	var vkey=hash;
+	//alert(actid+"--"+operatorid);
+	var postData = {"actid":actid,"operatorid":operatorid,"version":version,"ts":ts,"vkey": vkey };
+	$.ajax({
+		type: "post",
+		url: host+"/OperatorOnLine",
+		data: postData,
+		dataType: "json",
+		success: function(data){
+			//alert(data.code);
+			if(data.code==0){
+				$.ui.loadContent("OperatorOnLineList_panel",false,false,"slide");
+			}else{
+				showPopup("上岗失败!");
+			}
+		},
+		error: function (msg) {
+	
+		}
+	 });
+}
+//离岗
+function OperatorOffLine(){
+	var operatorid=getItem("userId");
+	var ts=getTs();
+	var str=actid+operatorid+version+ts;
+	str=str.toUpperCase();
+	var hash=hex_md5(str);
+	hash=hash.toUpperCase();
+	hash=hash+Key;
+	hash=hex_md5(hash);
+	hash=hash.toUpperCase();
+	var vkey=hash;
+	//alert(actid+"--"+operatorid);
+	var postData = {"actid":actid,"operatorid":operatorid,"version":version,"ts":ts,"vkey": vkey };
+	$.ajax({
+		type: "post",
+		url: host+"/OperatorOffLine",
+		data: postData,
+		dataType: "json",
+		success: function(data){
+			if(data.code==0){
+				$.ui.loadContent("OperatorOnLine.html",false,false,"slide");
+			}
+		},
+		error: function (msg) {
+	
+		}
+	 });
+}
+//操作菜单选项列表函数
+function OperatorOnLineListPanel(){
+	$("#userNameLabel_01").html(getItem("userName"));
+	$.ui.toggleNavMenu();
+}
+//离开操作菜单选项列表函数
+function uOperatorOnLineListPanel(){
+	
+}
+//操作员panel加载时执行函数
+function LoadOperator(){
+	var str="";
+	str+="<li>姓名:"+getItem('userName')+"</li>";
+	str+="<li>手机:"+getItem('userMpno')+"</li>";
+	$("#OperatorInfoList").html(str);
+	$.ui.toggleNavMenu();
+}
+//操作员panel离开时执行函数
+function unLoadOperator(){
+	
+}
+//点击操作员按钮执行的函数
+function OperatorInfo(){
+	$.ui.loadContent("OperatorInfo_panel",false,false,"slide");
+}
+//待收件列表
+function OrderWaitTakeList(){
+	$.ui.loadContent("OrderWaitTakeList_panel",false,false,"slide");
+}
+//待接单panel加载时执行函数
+function loadOrderWaitTakeListPanel(){
+	var operatorid=getItem("userId");
+	var ts=getTs();
+	var str=actid+operatorid+version+ts;
+	str=str.toUpperCase();
+	var hash=hex_md5(str);
+	hash=hash.toUpperCase();
+	hash=hash+Key;
+	hash=hex_md5(hash);
+	hash=hash.toUpperCase();
+	var vkey=hash;
+	var postData = {"actid":actid,"operatorid":operatorid,"version":version,"ts":ts,"vkey": vkey };
+	$.ajax({
+		type: "post",
+		url: host+"/OrderWaitAccept",
+		data: postData,
+		dataType: "json",
+		success: function(data){
+			if(data.code==0){
+				var str="";
+				var jsonData=data.list;
+				for(var i=0;i<jsonData.length;i++){
+					str+="<li onclick=''>姓名:"+jsonData[i].name+"<br>手机:"+jsonData[i].mpno+"<br>地址:"+jsonData[i].address+"<div class='btnGroup'><a class='button refuse' onclick='refuseOrder(this,"+jsonData[i].id+");'>拒绝</a><a class='button accept' onclick='OrderAccept(this,"+jsonData[i].id+");'>接收</a></div></li>";
+				}
+				$("#OrderWaitTakeListUl").html(str);
+			}
+		},
+		error: function (msg) {
+	
+		}
+	 });
+	 $.ui.toggleNavMenu();
+}
+//接收订单函数
+function OrderAccept(obj,orderid){
+	var operatorid=getItem('userId');
+	var ts=getTs();
+	var str=actid+orderid+operatorid+version+ts;
+	str=str.toUpperCase();
+	var hash=hex_md5(str);
+	hash=hash.toUpperCase();
+	hash=hash+Key;
+	hash=hex_md5(hash);
+	hash=hash.toUpperCase();
+	var vkey=hash;
+	var postData = {"actid":actid,"orderid":orderid,"operatorid":operatorid,"version":version,"ts":ts,"vkey": vkey };
+	$.ajax({
+		type: "post",
+		url: host+"/OrderAccept",
+		data: postData,
+		dataType: "json",
+		success: function(data){
+			if(data.code==0){
+				$(obj).parent().parent().remove();
+			}
+		},
+		error: function (msg) {
+	
+		}
+	 });
+}
+//拒绝接单函数
+function refuseOrder(obj,orderid){
+	showPopup2(obj,orderid);
+}
+function showPopup2(obj,orderid) {
+	$("#afui").popup({
+		title: "",
+		message: "您确定要拒绝吗?",
+		cancelText: "取消",
+		cancelCallback: function () {
+			
+		},
+		doneText: "确定",
+		doneCallback: function () {
+				var operatorid=getItem('userId');
+				var ts=getTs();
+				var str=actid+orderid+operatorid+version+ts;
+				str=str.toUpperCase();
+				var hash=hex_md5(str);
+				hash=hash.toUpperCase();
+				hash=hash+Key;
+				hash=hex_md5(hash);
+				hash=hash.toUpperCase();
+				var vkey=hash;
+				var postData = {"actid":actid,"orderid":orderid,"operatorid":operatorid,"version":version,"ts":ts,"vkey": vkey };
+				$.ajax({
+					type: "post",
+					url: host+"/OrderUnAccept",
+					data: postData,
+					dataType: "json",
+					success: function(data){
+						if(data.code==0){
+							$(obj).parent().parent().remove();
+							//showPopup3();
+						}
+					},
+					error: function (msg) {
+				
+					}
+				 });
+		},
+		cancelOnly: false
+	});
+}
+//待接单panel离开时执行函数
+function uloadOrderWaitTakeListPanel(){
+	
+}
+//收衣函数
+function ShouYi(){
+	$.ui.loadContent("ShouYiList_panel",false,false,"slide");
+}
+function loadShouYiList(){
+	var operatorid=getItem('userId');
+	var ts=getTs();
+	var str=actid+operatorid+version+ts;
+	str=str.toUpperCase();
+	var hash=hex_md5(str);
+	hash=hash.toUpperCase();
+	hash=hash+Key;
+	hash=hex_md5(hash);
+	hash=hash.toUpperCase();
+	var vkey=hash;
+	var postData = {"actid":actid,"operatorid":operatorid,"version":version,"ts":ts,"vkey": vkey };
+	$.ajax({
+		type: "post",
+		url: host+"/OrderWaitTakeList",
+		data: postData,
+		dataType: "json",
+		success: function(data){
+			if(data.code==0){
+				var str="";
+				var jsonData=data.list;
+				for(var i=0;i<jsonData.length;i++){
+					
+					str+='<li onclick="ShouYiDetail(\''+jsonData[i].id+'\',\''+jsonData[i].name+'\',\''+jsonData[i].mpno+'\',\''+jsonData[i].address+'\',\''+jsonData[i].count+'\')">姓名:'+jsonData[i].name+'<br>手机:'+jsonData[i].mpno+'<br>地址:'+jsonData[i].address+'</li>';
+				}
+				$("#ShouYiList_panelUl").html(str);
+			}
+		},
+		error: function (msg) {
+	
+		}
+	 });
+	$.ui.toggleNavMenu();
+}
+//收衣详情
+function ShouYiDetail(orderid,name,mpno,address,ordercount){
+	setItem("orderid",orderid);
+	setItem("ordername",name);
+	setItem("ordermpno",mpno);
+	setItem("orderaddress",address);
+	setItem("ordercount",ordercount);
+	$.ui.loadContent("ShouYiDetail_panel",false,false,"slide");
+	//alert(orderid+"-"+name+"-"+mpno+"-"+address);
+}
+function loadShouYiDetail(){
+	//ShouYiDetail
+	var ordername=getItem("ordername");
+	var ordermpno=getItem("ordermpno");
+	var orderaddress=getItem("orderaddress");
+	var ordercount=getItem("ordercount");
+	var str="<p>姓名："+ordername+"<br>电话："+ordermpno+"<br>地址："+orderaddress+"<br></p>";
+	str+="<p>物流单号:<br><input type='text' style='width:60%;float:left' id='expnumber'><a class='button' style='width:35%;float:right;margin:0' onclick='Sdshu();'>手动输入</a></p>";
+	str+="<p style='clear:both'>产品总数:"+ordercount+"</p>";
+	str+="<a class='button' style='width:49%;float:left' href='tel:4008762799'>联系客服</a>";
+	str+="<a class='button' style='width:49%;float:right' onClick='OrderTakeComplete();'>已收件</a>";
+	$("#ShouYiDetailP").html(str);
+	$.ui.toggleNavMenu();
+}
+function Sdshu(){
+	$("#expnumber").removeAttr("readonly");
+}
+function OrderTakeComplete(){
+	var expnumber=$("#expnumber").val();
+	if(expnumber==""){
+		showPopup("物流单号不能为空，请输入");
+	}else{
+		var orderid=getItem('orderid');
+		var operatorid=getItem('userId');
+		var ts=getTs();
+		var str=actid+orderid+expnumber+operatorid+version+ts;
+		str=str.toUpperCase();
+		var hash=hex_md5(str);
+		hash=hash.toUpperCase();
+		hash=hash+Key;
+		hash=hex_md5(hash);
+		hash=hash.toUpperCase();
+		var vkey=hash;
+		var postData = {"actid":actid,"orderid":orderid,"expnumber":expnumber,"operatorid":operatorid,"version":version,"ts":ts,"vkey": vkey };
+		$.ajax({
+			type: "post",
+			url: host+"/OrderTakeComplete",
+			data: postData,
+			dataType: "json",
+			success: function(data){
+				if(data.code==0){
+					$.ui.loadContent("ShouYiList_panel",false,false,"slide");
+				}
+			},
+			error: function (msg) {
+		
+			}
+		 });		
+	}
+}
+function goBackList(){
+	$.ui.loadContent("OperatorOnLineList_panel",false,false,"slide");
+}
+
+//收衣扫描
+function scanCode() {
+    window.plugins.barcodeScanner.scan(
+    function(result) {
+        $("#expnumber").val(result.text);
+        $("#expnumber").attr("readonly","readonly");
+    }, function(error) {
+        alert("Scan failed: " + error);
+    });
+}
+//揽件扫描
+function OrderTakescanCode() {
+    window.plugins.barcodeScanner.scan(
+    function(result) {
+    	if(result.cancelled!=true){
+    		for(var i=0;i<$("#OrderTakeList .expnumberUnit div span").length;i++){
+    			var expnumberNum=$("#OrderTakeList .expnumberUnit div span").eq(i).text();
+    			if(expnumberNum==result.text){
+    				return;
+    			}
+    		}
+	    	var str="";
+	    	str+="<li class='expnumberUnit'><div style='float:left;width:70%;'>物流单号:<span>"+result.text+"</span></div><a class='button' style='width:25%;float:right' onclick='delExpnumber(this);'>删除</a></li>";
+	    	$("#OrderTakeList").prepend(str);
+    	}
+    	//alert(result.text);
+    	//OrderTakeList
+        //$("#expnumber").val(result.text);
+        //$("#expnumber").attr("readonly","readonly");
+    }, function(error) {
+        alert("Scan failed: " + error);
+    });
+}
+function expnumberSub(){
+	var len=$("#OrderTakeList .expnumberUnit").length;
+	if(len==0){
+		showPopup("提交物流单号失败");
+	}else{
+		var operatorid=getItem('userId');
+		var ts=getTs();
+		var str="";
+		var expnumber="";
+		var expnumberArr=[];
+	    for(var i=0;i<$("#OrderTakeList .expnumberUnit div span").length;i++){
+			var expnumberNum=$("#OrderTakeList .expnumberUnit div span").eq(i).text();
+			expnumber+=expnumberNum;
+			expnumberArr.push(expnumberNum);
+		}
+		str=actid+expnumber+operatorid+version+ts;
+		str=str.toUpperCase();
+		var hash=hex_md5(str);
+		hash=hash.toUpperCase();
+		hash=hash+Key;
+		hash=hex_md5(hash);
+		hash=hash.toUpperCase();
+		var vkey=hash;
+		var postData = {"actid":actid,"expnumberlist":expnumberArr,"operatorid":operatorid,"version":version,"ts":ts,"vkey": vkey };
+		$.ajax({
+			type: "post",
+			url: host+"/OrderTakeSend",
+			data: postData,
+			dataType: "json",
+			success: function(data){
+				if(data.code==0){
+					showPopup("提交物流单号成功!");
+					$("#OrderTakeList .expnumberUnit").remove();
+				}
+			},
+			error: function (msg) {
+				alert("mistakes");
+			}
+		 });
+	}
+}
+function delExpnumber(obj){
+	$(obj).parent().remove();
+}
+function showMask(text) {
+    $.ui.showMask(text);
+    window.setTimeout(function () {
+        $.ui.hideMask();
+    }, 2000);
+}
+//送衣列表函数
+function LoadSongYiList(){
+	var operatorid=getItem('userId');
+	var ts=getTs();
+	str=actid+operatorid+version+ts;
+	str=str.toUpperCase();
+	var hash=hex_md5(str);
+	hash=hash.toUpperCase();
+	hash=hash+Key;
+	hash=hex_md5(hash);
+	hash=hash.toUpperCase();
+	var vkey=hash;
+	var postData = {"actid":actid,"operatorid":operatorid,"version":version,"ts":ts,"vkey": vkey };
+	$.ajax({
+		type: "post",
+		url: host+"/OrderWaitSendList",
+		data: postData,
+		dataType: "json",
+		success: function(data){
+			if(data.code==0){
+				var str1="";
+				var jsonData=data.list;
+				for(var i=0;i<jsonData.length;i++){
+					
+					str1+='<li onclick="SongYiDetail(\''+jsonData[i].id+'\',\''+jsonData[i].name+'\',\''+jsonData[i].mpno+'\',\''+jsonData[i].address+'\',\''+jsonData[i].expnumber+'\',\''+jsonData[i].count+'\')">姓名:'+jsonData[i].name+'<br>手机:'+jsonData[i].mpno+'<br>地址:'+jsonData[i].address+'</li>';
+				}
+				$("#SongYiList").html(str1);
+			}
+		},
+		error: function (msg) {
+			alert("mistakes");
+		}
+	 });
+	 $.ui.toggleNavMenu();
+}
+
+//送衣详情
+function SongYiDetail(SongYiid,SongYiname,SongYimpno,SongYiaddress,SongYiexpnumber,SongYiordercount){
+	//alert(SongYiid+"--"+SongYiname+"--"+SongYimpno+"--"+SongYiaddress+"--"+SongYiexpnumber+"--"+SongYiordercount);
+	setItem("SongYiid",SongYiid);
+	setItem("SongYiname",SongYiname);
+	setItem("SongYimpno",SongYimpno);
+	setItem("SongYiaddress",SongYiaddress);
+	setItem("SongYiexpnumber",SongYiexpnumber);
+	setItem("SongYiordercount",SongYiordercount);
+	$.ui.loadContent("SongYiDetail_panel",false,false,"slide");
+}
+//送衣详情panel加载时执行的函数
+function LoadSongYiDetail(){
+	//alert();
+	var str="<p>姓名:"+getItem('SongYiname')+"<br>电话:"+getItem('SongYimpno')+"<br>地址:"+getItem('SongYiaddress')+"<br>物流单号:"+getItem('SongYiexpnumber')+"<br>产品总数:"+getItem('SongYiordercount')+"</p>";
+	$("#SongYiDetailUl").html(str);
+}
+function OrderSendComplete(){
+	var orderid=getItem('SongYiid');
+	var operatorid=getItem('userId');
+	var ts=getTs();
+	str=actid+orderid+operatorid+version+ts;
+	str=str.toUpperCase();
+	var hash=hex_md5(str);
+	hash=hash.toUpperCase();
+	hash=hash+Key;
+	hash=hex_md5(hash);
+	hash=hash.toUpperCase();
+	var vkey=hash;
+	var postData = {"actid":actid,"orderid":orderid,"operatorid":operatorid,"version":version,"ts":ts,"vkey": vkey };
+	$.ajax({
+		type: "post",
+		url: host+"/OrderSendComplete",
+		data: postData,
+		dataType: "json",
+		success: function(data){
+			if(data.code==0){
+				showPopup("收件成功");
+			}else{
+				showPopup("收件失败");
+			}
+			
+		},
+		error: function (msg) {
+			alert("mistakes");
+		}
+	 });
+}
+                   
+

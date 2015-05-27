@@ -1,0 +1,9 @@
+E:\workspace\Project\LazyAtHome.Winform.FactoryPortal\AutoUpdater\bin\Debug\AutoUpdater.exe
+E:\workspace\Project\LazyAtHome.Winform.FactoryPortal\AutoUpdater\bin\Debug\AutoUpdater.pdb
+E:\workspace\Project\LazyAtHome.Winform.FactoryPortal\AutoUpdater\obj\Debug\AutoUpdater.csprojResolveAssemblyReference.cache
+E:\workspace\Project\LazyAtHome.Winform.FactoryPortal\AutoUpdater\obj\Debug\Iyond.Utility.DownloadConfirm.resources
+E:\workspace\Project\LazyAtHome.Winform.FactoryPortal\AutoUpdater\obj\Debug\Iyond.Utility.DownloadProgress.resources
+E:\workspace\Project\LazyAtHome.Winform.FactoryPortal\AutoUpdater\obj\Debug\AutoUpdater.Properties.Resources.resources
+E:\workspace\Project\LazyAtHome.Winform.FactoryPortal\AutoUpdater\obj\Debug\AutoUpdater.csproj.GenerateResource.Cache
+E:\workspace\Project\LazyAtHome.Winform.FactoryPortal\AutoUpdater\obj\Debug\AutoUpdater.exe
+E:\workspace\Project\LazyAtHome.Winform.FactoryPortal\AutoUpdater\obj\Debug\AutoUpdater.pdb

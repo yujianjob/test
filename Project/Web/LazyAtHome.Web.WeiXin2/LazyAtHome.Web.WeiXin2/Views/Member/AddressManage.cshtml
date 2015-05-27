@@ -1,0 +1,54 @@
+﻿@model IList<LazyAtHome.WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC>
+@{
+    ViewBag.Title = "地址管理";
+}
+
+<div class="page-content inset">
+    <div class="row" style="padding-top:40px">
+        <div class="col-md-7 col-md-offset-1">
+            <div class="list-group add-manage">
+                @foreach (var item in Model)
+                {
+                    <div class="@UIHelper.ShowAddressActive(item.IsDefault==1) list-group-item">
+                        <div class="badge"><a href="/Member/AddressModify/@item.ID">编辑 ></a><br><br><a href="#" onclick="DelAddress(@item.ID);"><span>删除 ></span></a></div>
+                        <address>
+                            @(item.DistrictName + " " + item.Address)
+                        </address>
+                        <p><span>@item.Consignee</span>@item.MPNo</p>
+                    </div>
+                }
+            </div>
+            <a href="/Member/AddressModify"><button class="btn btn-danger btn-lg pull-right save-btn" style="border-radius:5px;padding-top:6px;padding-bottom:6px">添加新地址</button></a>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script language="javascript" type="text/javascript">
+        function DelAddress(id) {
+            var postData = { "id": id };
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("AddressDel", "Member")",
+                data: postData,
+                dataType: "json",
+                success: ProcessDelAddress,
+                error: function (msg) {
+                    showPopDiv(msg.toString(), false);
+                }
+            });
+        }
+
+        function ProcessDelAddress(resultJson) {
+            if (resultJson != null) {
+                if (resultJson.Code == 1) {
+                    showPopDiv("删除成功", true);
+                }
+                else {
+                    showPopDiv(resultJson.Msg, false);
+                }
+            }
+        }
+    </script>
+}

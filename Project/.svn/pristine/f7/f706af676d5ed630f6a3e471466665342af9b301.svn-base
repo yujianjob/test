@@ -1,0 +1,231 @@
+﻿@{
+    ViewBag.Title = "特惠活动";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--图片切换 start-->
+<div class="hdbanner">
+    <div id="wrapper">
+        <div id="scroller">
+            <ul id="thelist">
+                <li>
+                    <a href="#">
+                        <img src="/Images/hd5-banner.jpg" />
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="clr"></div>
+</div>
+<!--图片切换 end-->
+<!--现金送不停活动 start-->
+<div class="hd-introduce">
+    <div class="reccashBox">
+        <!--首页 start-->
+        <div class="reccash-unit">
+            @if (ViewBag.IsUser == 1)
+            {
+                <div class="btns"><a href="javascript:void(0);" onclick="showLaren();"><img src="/Images/songcash-btn.jpg" /></a></div>                
+            }
+            else
+            {
+                <div class="btns"><a href="javascript:void(0);" onclick="showLaren();"><img src="/Images/reccash-btn.jpg" /></a></div>
+            }
+            <p style="text-indent:0px">
+                <span>【参与步骤】</span><br />
+                1、关注懒到家官方微信号：<span class="wxName">懒到家</span>。<br />
+                2、进入个人中心，绑定手机号码即可获得5元现金券。<br />
+                3、点击“热门推荐”-->“我要领现金”进入活动首页，有机会再获得20元现金。
+            </p>
+        </div>
+        <!--首页 end-->
+        <!--活动规则 start-->
+        <div class="reccash-unit" style="display:none">
+            <p style="text-indent:0px">
+                <span>【活动规则】</span><br />
+                1、成功关注懒到家微信的用户并绑定手机号码，均可获得懒到家5元现金奖励;<br />
+                2、用户领取体验金的同时，可以召集5个好友来拿现金，当领取人数达到5人时，系统自动赠送20元体验金，体验金以账户余额的形式自动打入用户账户中；
+            </p>
+            <p style="text-indent:0px">
+                <span>【活动说明】</span><br />
+                1、活动时间：7月8日-7月31日。<br />
+                逾期系统会自动关闭领取人数未达到特定人数的体验金赠送，这部分体验金的赠送和领取失败。<br />
+                2、法律许可范围内懒到家保留本次活动的最终解释权。<br />
+                3、如有问题请联系懒到家官方客服：<br /><em style="color:#7ecef4">4008-762-799</em>。
+            </p>
+            @if (ViewBag.IsUser == 1)
+            {
+                <div class="btns"><a href="javascript:void(0);" onclick="showLaren();"><img src="/Images/songcash-btn.jpg" /></a></div>
+            }
+            else
+            {
+                <div class="btns"><a href="javascript:void(0);" onclick="showLaren();"><img src="/Images/reccash-btn.jpg" /></a></div>
+            }
+        </div>
+        <!--活动规则 end-->
+        <!--领取进度 start-->
+        <div class="reccash-unit" style="display:none">
+            <div class="receivecash">
+                <div class="cont">
+                    <div class="receiveStatus">
+                        <ul>
+                            <li class="cashNum"><span>5</span>元现金</li>
+                            <li><img src="/Images/moneypic.jpg" /></li>
+                            <li style="text-align:right">
+                                @if (ViewBag.IsGet)
+                                {
+                                    <span class="status">已领取</span>
+                                }
+                                else
+                                {
+                                    <span class="status">未领取</span><br /><a href="/PersonalCenter/MobileBindShow">绑定领取 >></a>
+                                }
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="process-box">
+                        <div class="ct">
+                            <p style="text-indent:0px; padding:0 0 10px 0; margin:0">已有<em style="color:red">@ViewBag.Count</em>位小伙伴成功领取现金券<br />还差<em style="color:red">@(ViewBag.Count > 5 ? 0 : 5 - ViewBag.Count)</em>位,继续努力哦!</p>
+                            <span class="cash">20元现金</span>
+                            <span class="nums"><em>3</em>/5</span>
+                            <div class="process-bar">
+                                <div class="unit"></div>
+                                <div class="unit"></div>
+                                <div class="unit"></div>
+                                <div class="unit"></div>
+                                <div class="circle-box circle01"></div>
+                                <div class="circle-box circle02"></div>
+                                <div class="circle-box circle03"></div>
+                                <div class="circle-box circle04"></div>
+                                <div class="circle-box circle05"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--领取进度 end-->
+        <!--继续拉人 start-->
+        <div class="findren" style="display:none">
+            <h2 style="padding-top:0px;">20元现金冲击中</h2>
+            <span class="tips">需要5位小伙伴一起参与</span>
+            <ul class="differNum">
+                <li><span>目前还差<i>@(ViewBag.Count > 5 ? 0 : 5 - ViewBag.Count)</i>位</span></li>
+            </ul>
+            <div class="btns"><img src="/Images/laren-btn.jpg" onclick="setMark();" /></div>
+        </div>
+        <!--继续拉人 end-->
+        <ul class="reccashNav">
+            <li class="home"><a href="javascript:void(0);" class="active">首页</a></li>
+            <li class="rule"><a href="javascript:void(0);">活动规则</a></li>
+            <li class="progress"><a href="javascript:void(0);">领取进度</a></li>
+            <span class="line"></span>
+            <span class="line" style="left:66%"></span>
+        </ul>
+    </div>
+</div>
+<!--现金送不停活动 end-->
+<!--尾部 start-->
+<div class="footer foot"><img src="/Images/lan8.jpg" /></div>
+<!--尾部 end-->
+@section scripts
+{
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/Scripts/iscroll.js")
+    @Scripts.Render("/Scripts/weixinShare.js?v=2014070901")
+    <script type="text/javascript">
+        var myScroll, iNow = 0;
+        var isUser = "@ViewBag.IsUser";
+        var isReg = "@ViewBag.IsGet";
+        (function main_loaded() {
+            var count = document.getElementById("thelist").getElementsByTagName("img").length;
+            for (i = 0; i < count; i++) {
+                document.getElementById("thelist").getElementsByTagName("img").item(i).style.cssText = " width:" + document.body.clientWidth + "px";
+            }
+            document.getElementById("scroller").style.cssText = " width:" + document.body.clientWidth * count + "px";
+            Share("@ViewBag.Code");
+        })();
+        $(window).load(function () {
+            var h = $(".hdbanner").height();
+            $(".prev").css("top", (h - 50) / 2);
+            $(".next").css("top", (h - 50) / 2);
+            if (iNow == 0) { $(".prev").hide() }
+            var h = $(".reccashNav").height();
+            $(".reccashBox").css({ "paddingBottom": h + 10 });
+        });
+        $(".reccashNav li").each(function (i) {
+            $(this).click(function () {
+                $(".reccashNav li").css({ "color": "#333", "fontWeight": "normal" });
+                $(".reccashNav li a").removeClass("active").css({ "color": "#333", "fontWeight": "normal" });
+                $(this).children("a").css({ "color": "green", "fontWeight": "bolder" });
+                $(".reccash-unit").hide();
+                $(".reccash-unit").eq(i).show();
+                $(".findren").hide();
+            });
+        });
+        //获取金额函数
+        setProcess(@ViewBag.Count);
+        function setProcess(num) {
+            $(".process-box .nums em").text(num);
+            switch (num) {
+                case 1:
+                    break;
+                case 2:
+                    setCirclebar(num);
+                    break;
+                case 3:
+                    setCirclebar(num);
+                    break;
+                case 4:
+                    setCirclebar(num);
+                    break;
+                case 5:
+                    setCirclebar(num);
+                    break;
+            }
+        }
+        function setCirclebar(num) {
+            for (var i = 0; i < (num - 1) ; i++) {
+                $(".process-bar .unit").eq(i).css("background", "#e15757");
+            }
+        }
+        function showLaren() {
+            if (isUser == "1") {
+                if (isReg == "True") {
+                    $(".reccash-unit").hide();
+                    $(".findren").show();
+                    var h = $(window).height();
+                    $(window).scrollTop(h);
+                }
+                else
+                    window.location.href = "/PersonalCenter/MobileBindShow";
+            }
+            else
+                window.location.href = "http://mp.weixin.qq.com/s?__biz=MzA4MjYwNzAwNg==&mid=200250752&idx=1&sn=ea5dbd8cdc5cde20fb0a711ee40f10c7#rd";
+        }
+        function setMark() {
+            var str = "<div id='mark'></div>";
+            str += "<div class='popDiv'><img src='/images/curvearrow.png'><p>点击右上角【发送给朋友】<br>【分享到朋友圈】<br>拉上小伙伴一起领现金</p></div>";
+            $("body").append(str);
+            $("#mark,.popDiv").click(function () {
+                $("#mark,.popDiv").remove();
+            });
+            var pos = getPos();
+            setPos(pos[0], pos[1], pos[2], pos[3]);
+            function getPos() {
+                var clientW = $(window).width();
+                var clientH = $(window).height();
+                var scrollT = $(document).scrollTop();
+                var scrollL = $(document).scrollLeft();
+                var posArr = [clientW, clientH, scrollT, scrollL];
+                return posArr;
+            }
+            function setPos(clientW, clientH, scrollT, scrollL) {
+                var l = parseInt((clientW - $(".popDiv").width()) / 2 + scrollL);
+                var t = 0;
+                $(".popDiv").css({ left: l, top: t });
+            }
+        }
+    </script>
+}

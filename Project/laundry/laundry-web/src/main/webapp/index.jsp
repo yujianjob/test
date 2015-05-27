@@ -1,0 +1,1 @@
+<jsp:forward page="${request.contextPath}/main/toMain.do" />

@@ -1,0 +1,272 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace LazyAtHome.Web.WeiXin4.Controllers
+{
+    public class CartController : BaseController
+    {
+        [NoCacheFilter]
+        public ActionResult OneKey()
+        {
+            ViewBag.IsLogin = 0;
+            if (CheckLoginCook())
+            {
+                ViewBag.IsLogin = 1;
+                var user = GetUserInfo();
+                if (user.User != null)
+                {
+                    var rtn = App_Code.Proxy.UserProxycs.Select_UserAddress(user.User.UserInfo.ID);
+                    if (rtn.Success)
+                    {
+                        ViewBag.AddressList = rtn.OBJ;
+                    }
+
+                    var rtnCouponList = App_Code.Proxy.UserProxycs.User_Coupon_SELECT_List(user.User.UserInfo.ID, null, null, WCF.UserSystem.Contract.Enumerate.CouponStatus.Normal, null, null, 1, 20);
+                    if (rtnCouponList.Success)
+                    {
+                        ViewBag.CouponList = rtnCouponList.OBJ.ReturnList;
+                    }
+
+                    ViewBag.UserMoney = user.User.UserInfo.Money;
+                    ViewBag.UserMPNo = user.User.UserInfo.MPNo;
+                }
+            }
+            else
+            {
+                ViewBag.UserMoney = 0;
+                ViewBag.UserMPNo = "";
+            }
+
+            return View();
+        }
+
+        public ActionResult ProductList()
+        {
+            var rtn = WCF.Wash.Contract.ClientProxy.web_ProductClient.Cache_web_Wash_Class_Second_SELECT_List();
+            ViewBag.WashClass = rtn.OBJ;
+            return View();
+        }
+
+        public JsonResult ClassShow(int classid)
+        {
+            int Code = 0;
+            string Msg = "";
+
+            var rtn = WCF.Wash.Contract.ClientProxy.web_ProductClient.Cache_web_Wash_Category_SELECT_List(classid, AppConfig.SiteID);
+            if (rtn.Success)
+            {
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+                foreach (var item in rtn.OBJ)
+                {
+                    foreach (var detail in item.ProductList)
+                    {
+                        sb.Append("<div class=\"unit\"><span class=\"bt\">" + detail.Name + "</span>");
+                        if (detail.MarketPrice != detail.SalesPrice)
+                            sb.Append("<span class=\"price\"><s>￥" + detail.MarketPrice + "</s> <font class=\"green\">￥" + detail.SalesPrice + "</font></span></div>");
+                        else
+                            sb.Append("<span class=\"price\"><s></s> <font>￥" + detail.MarketPrice + "</font></span></div>");
+                    }
+                }
+                Code = 1;
+                Msg = sb.ToString();
+            }
+            return Json(new { code = Code, msg = Msg });
+        }
+
+        public ActionResult MyOrders()
+        {
+            var user = GetUserInfo();
+            if (user.User == null || !CheckLoginCook())
+            {
+                HttpContext.Cache[AppConfig.Cache_CallbackUrl + _UserOpenID] = Request.Url.ToString();
+                return RedirectToAction("MobileBindingShow", "Member");
+            }
+
+            IList<WCF.OrderSystem.Contract.DataContract.Order_OrderDC> xList = null;
+
+            var rtn = App_Code.Proxy.OrderProxy.Order_SELECT_List(user.User.UserInfo.ID, null, null, null, 1, 10);
+            if (rtn.Success)
+                xList = rtn.OBJ.ReturnList;
+            if (xList == null)
+                xList = new List<WCF.OrderSystem.Contract.DataContract.Order_OrderDC>();
+
+            return View(xList);
+        }
+
+        public ActionResult OrderDetail(string orderNum)
+        {
+            var user = GetUserInfo();
+            if (user.User == null || !CheckLoginCook())
+            {
+                HttpContext.Cache[AppConfig.Cache_CallbackUrl + _UserOpenID] = Request.Url.ToString();
+                return RedirectToAction("MobileBindingShow", "Cart");
+            }
+
+            WCF.OrderSystem.Contract.DataContract.Order_OrderDC ShowOrder = null;
+
+
+            var orderRtn = App_Code.Proxy.OrderProxy.Select_OrderEntity(orderNum, true, true, true, true, true, false);
+            if (orderRtn.Success)
+            {
+                ShowOrder = orderRtn.OBJ;
+
+                IList<Models.ProductItemModel> piList = new List<Models.ProductItemModel>();
+                if (ShowOrder.ProductList != null)
+                {
+                    var plist = ShowOrder.ProductList.GroupBy(p => p.ProductID);
+                    foreach (var product in plist)
+                    {
+                        Models.ProductItemModel pi = new Models.ProductItemModel();
+                        var pDC = product.First();
+                        pi.ProductInfo = pDC;
+                        pi.Count = product.Count();
+                        piList.Add(pi);
+                    }
+                }
+                ViewBag.ProductList = piList;
+            }
+            else
+            {
+                return Content(orderRtn.Message);
+            }
+
+            return View(ShowOrder);
+        }
+
+        public JsonResult OneKeyFirstSubmit(string username, string mpno, string address, DateTime? exceptTime, string remark, int? couponid, int? balance)
+        {
+            int code = 0;
+            string rtnMsg = "";
+
+            DateTime minDate = new DateTime(2015, 2, 10);
+            DateTime maxDate = new DateTime(2015, 4, 1);
+
+            if (DateTime.Now > minDate && DateTime.Now < maxDate)
+            {
+                code = -10;
+                rtnMsg = "您所在的站点维护升级中，近期将开通，敬请期待。";
+                return Json(new { Code = code, Msg = rtnMsg });
+            }
+
+            int bUseBalance = 0;
+            if (balance.HasValue && balance.Value != 0)
+                bUseBalance = 1;
+
+            var user = GetUserInfo();
+            if (user.User != null)
+            {
+                code = 1;
+
+                WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC item = new WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC();
+                item.UserID = user.User.UserInfo.ID;
+                item.Consignee = username;
+                item.DistrictID = 0;
+                item.Address = address;
+                item.MPNo = mpno;
+                item.IsDefault = 1;
+
+                var addressRtn = App_Code.Proxy.UserProxycs.User_ConsigneeAddress_ADD(item);
+                if (addressRtn.Success)
+                {
+                    WCF.OrderSystem.Contract.DataContract.Order_ConsigneeAddressDC orderAddress = new WCF.OrderSystem.Contract.DataContract.Order_ConsigneeAddressDC();
+                    orderAddress.Consignee = username;
+                    orderAddress.Mpno = mpno;
+                    orderAddress.Address = address;
+                    orderAddress.CityName = "";
+                    orderAddress.ProvinceName = "";
+                    orderAddress.DistrictID = 0;
+
+                    var orderRTN = App_Code.Proxy.OrderProxy.Order_Onekey_Create(_UserOpenID, 1, WCF.OrderSystem.Contract.Enumerate.Channel.Weixin, orderAddress, orderAddress, exceptTime, remark, couponid, bUseBalance);
+                    if (!orderRTN.Success)
+                    {
+                        code = orderRTN.Code;
+                        rtnMsg = orderRTN.Message;
+                    }
+                    else
+                    {
+                        code = 1;
+                        rtnMsg = "一键下单完成";
+                    }
+                }
+                else
+                {
+                    code = 0;
+                    rtnMsg = "添加用户地址失败";
+                    App_Code.UtilityFunc.Add("添加用户地址失败：" + addressRtn.Message);
+                }
+            }
+            else
+            {
+                code = -1;
+                rtnMsg = "订单提交失败";
+                App_Code.UtilityFunc.Add("订单提交失败，用户不存在，openid:" + _UserOpenID);
+            }
+
+            return Json(new { Code = code, Msg = rtnMsg });
+        }
+
+        public JsonResult OneKeySubmit(int AddressID, DateTime? exceptTime, string remark, int? couponid, int? balance)
+        {
+            int code = 0;
+            string msg = "";
+
+            DateTime minDate = new DateTime(2015, 2, 10);
+            DateTime maxDate = new DateTime(2015, 4, 1);
+
+            if (DateTime.Now > minDate && DateTime.Now < maxDate)
+            {
+                code = -10;
+                msg = "您所在的站点维护升级中，近期将开通，敬请期待。";
+                return Json(new { Code = code, Msg = msg });
+            }
+
+            int bUseBalance = 0;
+            if (balance.HasValue && balance.Value != 0)
+                bUseBalance = 1;
+
+            var user = GetUserInfo();
+            WCF.UserSystem.Contract.DataContract.User_ConsigneeAddressDC SelectAddress = null;
+
+            var rtn = App_Code.Proxy.UserProxycs.User_ConsigneeAddress_SELECT_Entity(AddressID);
+            if (rtn.Success)
+                SelectAddress = rtn.OBJ;
+
+
+            if (SelectAddress == null)
+            {
+                code = -1;
+                msg = "请添加取送地址";
+            }
+
+            if (ViewBag.Msg != null)
+                return Json(new { Code = code, Msg = msg });
+
+            WCF.OrderSystem.Contract.DataContract.Order_ConsigneeAddressDC OrderAddress = new WCF.OrderSystem.Contract.DataContract.Order_ConsigneeAddressDC();
+            OrderAddress.Consignee = SelectAddress.Consignee;
+            OrderAddress.Mpno = SelectAddress.MPNo;
+            OrderAddress.Address = SelectAddress.Address;
+            OrderAddress.CityName = SelectAddress.CityName;
+            OrderAddress.ProvinceName = SelectAddress.ProvinceName;
+            OrderAddress.DistrictID = SelectAddress.DistrictID;
+
+            var orderRTN = App_Code.Proxy.OrderProxy.Order_Onekey_Create(_UserOpenID, 1, WCF.OrderSystem.Contract.Enumerate.Channel.Weixin, OrderAddress, OrderAddress, exceptTime, remark, couponid, bUseBalance);
+            if (!orderRTN.Success)
+            {
+                code = orderRTN.Code;
+                msg = orderRTN.Message;
+            }
+            else
+            {
+                code = 1;
+                msg = "一键下单完成";
+            }
+
+            return Json(new { Code = code, Msg = msg });
+            //return RedirectToAction("PaymentOk", "Cart", new { orderNum = orderRTN.OBJ.OrderNumber });
+        }
+	}
+}

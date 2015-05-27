@@ -1,0 +1,103 @@
+﻿@{
+    //ViewBag.Title = "老板疯了";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--内容-->
+<!--活动主体内容 start-->
+<div id="activity-main">
+    <span class="title">活动中心</span>
+    <div class="lpb-banner"></div>
+    <div style="width:938px; height:284px; margin:50px auto"><img src="/Content/Images/lpb-pic5.jpg" /></div>
+    <!--注册送礼1 start-->
+    <div class="lpb-lev1" style="height:350px">
+        <div class="txt">
+            <p style="font-size:16px">懒人们注意了！懒人们注意了！懒到家自7月8号正式上线啦，即日起至7月31日，三大惊喜等着大家。老板连老婆本都不要了。你！还！在！等！神马？</p>
+            <p style="font-size:13px; line-height:20px">数量有限，送完截止哦！<br />活动时间：7月8号-7月31日</p>
+        </div>
+        <img src="~/Content/Images/ipadpic.jpg" style="width:416px; height:346px;position:absolute; right:50px; top:0px" />
+    </div>
+    <!--注册送礼1 end-->
+    <!--注册送礼2 start-->
+    <div class="lpb-lev2">
+        <img src="~/Content/Images/lpb-pic2.jpg" />
+        <div class="txt">
+            <p>
+                <b>注册即送5元现金券</b><br />
+                &nbsp;&nbsp;&nbsp;&nbsp;成功注册懒到家会员，即送5元现金券，注册即送，机不可失！面对这样的机会无动于衷，你家人造吗？！赶紧注册抢现金！
+            </p>
+            <a href="/Member/Reg"><img src="~/Content/Images/zhuce-btn.jpg" style="width:166px; height:43px; margin:40px 0 0 0" /></a>
+        </div>
+    </div>
+    <!--注册送礼2 end-->
+    <!--注册送3礼 start-->
+    <div class="lpb-lev1" style="margin:10px auto 50px auto; padding-bottom:35px; overflow:hidden">
+        <div class="txt" style="margin-top:70px;">
+            <p style="text-indent:0;padding-left:40px;">
+                <b>ipad Air 等你来拿！</b><br />
+                &nbsp;&nbsp;&nbsp;&nbsp;活动期间，我们每天会从新注册的会员当中抽取5名幸运者获赠懒人神器一个（懒人手机支架/懒人折衣板）。<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;活动截止日当天，我们还会从所有新注册的会员当中抽取5名和1名会员，分别赠送面值100元的懒人卡和IPAD AIR 一部。
+            </p>
+        </div>
+        <img src="~/Content/Images/lpb-pic3.jpg" style="width:224px; height:238px" />
+    </div>
+    <!--注册送礼3 end-->
+    <!--注册送礼4 start-->
+    <div class="lpb-lev2" style="margin:-30px auto 0 auto">
+        <img src="~/Content/Images/lpb-pic4.jpg" style="width:184px; height:201px;" />
+        <div class="txt">
+            <p>
+                <b>邀请注册得现金！</b><br />
+                &nbsp;&nbsp;&nbsp;&nbsp;注册成功后，只要再邀请5位小伙伴儿成功注册懒到家，我们将再赠送20元现金，邀请成功后，20元现金会立即打入您的账户余额。不要犹豫，赶紧邀请您的小伙伴一起来领现金吧！
+            </p>
+        </div>
+    </div>
+    <!--注册送礼4 end-->
+    <div class="share">
+        <p class="addressShare icnList">
+            <span>1.把地址分享到：</span>
+            <div class="bdsharebuttonbox" data-tag="share_1">
+                <a class="bds_tsina" data-cmd="tsina"></a>
+                <a class="bds_tqq" data-cmd="tqq"></a>
+                <a class="bds_weixin" data-cmd="weixin"></a>
+                <a class="bds_douban" data-cmd="douban"></a>
+                <a class="bds_tieba" data-cmd="tieba"></a>
+                <a class="bds_qzone" data-cmd="qzone" href="#"></a>
+                <a class="bds_renren" data-cmd="renren"></a>
+                <a class="bds_kaixin001" data-cmd="kaixin001"></a>
+                <a class="bds_t163" data-cmd="t163"></a>
+                <a class="bds_ty" data-cmd="ty"></a>
+                <a class="bds_more" data-cmd="more" style="font-size:1.2em">更多</a>
+            </div>
+        </p>
+        <p class="addressShare">
+            <span>2.把地址分享到微博/QQ/论坛上:</span>
+            <input id="shareLink" type="text" value="http://www.landaojia.com/Activities/Bossmad?invitecode=@ViewBag.Code" readonly="readonly" /><input id="copyBtn" data-clipboard-target="shareLink" type="button" value="复制链接" />
+        </p>
+    </div>
+</div>
+<!--活动主体内容 end-->
+@section scripts
+{
+    <script src="/Scripts/ZeroClipboard.min.js"></script>
+    <script language="javascript" type="text/javascript">
+        $(function () {
+            window._bd_share_config = {
+                "common": { "bdSnsKey": {}, "bdText": "脏衣服、脏鞋子、脏窗帘永远洗不完求解脱~还好懒到家线上洗衣服务火速来袭，用最少的钱得到最优质的服务，一键下单，坐等顺丰上门收衣，48小时内完成专业洗涤服务，从此不再受洗衣困扰。哈哈，神马干洗店都成浮云了~选择懒到家做精致的懒人~萌萌哒。", "bdMini": "1", "bdMiniList": false, "bdPic": "http://www.landaojia.com/content/images/wbxc-2-2.jpg", "bdStyle": "0", "bdSize": "16", "bdUrl": $("#shareLink").val() },
+                "share": { "tag": "share_1", "bdSize": 24 }
+            }
+            with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion=' + ~(-new Date() / 36e5)];
+
+            var clip = new ZeroClipboard($("#copyBtn"), {
+                moviePath: "/Scripts/ZeroClipboard.swf"
+            });
+
+            clip.on('complete', function (client, args) {
+                alert("复制成功: " + args.text);
+            });
+        })
+    </script>
+}

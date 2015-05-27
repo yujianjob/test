@@ -1,0 +1,1030 @@
+﻿using LazyAtHome.Core.Infrastructure.WCF;
+using LazyAtHome.WCF.Common.Contract.DataContract.PR;
+using LazyAtHome.WCF.Common.Contract.Enumerate;
+using LazyAtHome.WCF.Express.Contract.DataContract;
+using LazyAtHome.WCF.Express.Contract.Enumerate;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LazyAtHome.WCF.Express.Business.Business
+{
+    public class AppExpress
+    {
+        private LazyAtHome.WCF.Express.Interface.IDAL.IExpressDAL expressDAL;
+        private LazyAtHome.WCF.Express.Interface.IDAL.IAppExpressDAL appExpressDAL;
+
+        public AppExpress()
+        {
+            if (expressDAL == null)
+                expressDAL = new LazyAtHome.WCF.Express.DAL.ExpressDAL();
+            if (appExpressDAL == null)
+                appExpressDAL = new LazyAtHome.WCF.Express.DAL.AppExpressDAL();
+        }
+
+        static AppExpress _AppExpress;
+
+        public static AppExpress Instance
+        {
+            get
+            {
+                if (_AppExpress == null)
+                {
+                    _AppExpress = new AppExpress();
+                }
+                return _AppExpress;
+            }
+        }
+
+        /// <summary>
+        /// 待接列表
+        /// </summary>
+        /// <param name="iOperatorID"></param>
+        /// <returns></returns>
+        public ReturnEntity<IList<Exp_OrderDC>> Exp_Order_SELECT_WaitAccept(int iOperatorID)
+        {
+            var list = appExpressDAL.Exp_Order_SELECT_WaitAccept(iOperatorID);
+
+            return new ReturnEntity<IList<Exp_OrderDC>>(list);
+        }
+
+        //接单
+        public ReturnEntity<bool> Exp_Order_Accept(int iOrderID, int iOperatorID)
+        {
+            var oper = expressDAL.PR_Operator_SELECT_BYID(iOperatorID);
+
+            if (oper == null)
+            {
+                return new ReturnEntity<bool>(-1, "操作员不存在");
+            }
+
+            var order = expressDAL.Exp_Order_SELECT_Entity(iOrderID);
+            if (order == null)
+            {
+                return new ReturnEntity<bool>(-1, "订单不存在");
+            }
+            if (order.Step != 0)
+            {
+                return new ReturnEntity<bool>(-1, "订单已分配他人");
+            }
+
+            var rtn = appExpressDAL.Exp_Order_Accept(order.ID, order.OutNumber, iOperatorID, oper.NodeID);
+
+            return new ReturnEntity<bool>(rtn);
+        }
+
+        //拒接单
+        public ReturnEntity<bool> Exp_Order_UnAccept(int iOrderID, int iOperatorID)
+        {
+            var order = expressDAL.Exp_Order_SELECT_Entity(iOrderID);
+            if (order == null)
+            {
+                return new ReturnEntity<bool>(-1, "订单不存在");
+            }
+
+            var rtn = appExpressDAL.Exp_Order_UnAccept(iOrderID, iOperatorID);
+
+            //此单无人接单
+            if (rtn == -1)
+            {
+                var oper = expressDAL.PR_Operator_SELECT_BYID(iOperatorID);
+
+                if (oper != null)
+                {
+                    //通知客服
+                    CommonExpress.NotifySend(order.OutNumber, RoleDC.Role_CustomerService, 0, 0, "订单全部全部拒接",
+                     "站点:" + oper.NodeName + " 取件员:" + oper.Name, (int)NotifyLevel.Warning4, false, false, 0);
+                }
+                else
+                {
+                    //通知客服
+                    CommonExpress.NotifySend(order.OutNumber, RoleDC.Role_CustomerService, 0, 0, "订单全部全部拒接",
+                     "", (int)NotifyLevel.Warning4, false, false, 0);
+                }
+            }
+
+            return new ReturnEntity<bool>(true);
+        }
+
+        //待收件列表
+        public ReturnEntity<IList<Exp_OrderDC>> Exp_Order_SELECT_WaitTake(int iOperatorID)
+        {
+            var list = appExpressDAL.Exp_Order_SELECT_WaitTake(iOperatorID);
+
+            return new ReturnEntity<IList<Exp_OrderDC>>(list);
+        }
+
+        //收件完成
+        public ReturnEntity<bool> Exp_Order_TakeComplete(int iOrderID, string iExpNumber, int iOperatorID)
+        {
+            //if (expressDAL.Exp_Order_Exists_ExpNumber(iExpNumber))
+            //{
+            //    return new ReturnEntity<bool>(-1, "物流单号重复");
+            //}
+            var oper = expressDAL.PR_Operator_SELECT_BYID(iOperatorID);
+            if (oper == null)
+            {
+                return new ReturnEntity<bool>(-1, "操作员不存在");
+            }
+
+            var order = expressDAL.Exp_Order_SELECT_Entity(iOrderID);
+            if (order == null)
+            {
+                return new ReturnEntity<bool>(-1, "物流单不存在");
+            }
+
+            var rtn = appExpressDAL.Exp_Order_TakeComplete(iOrderID, iExpNumber, iOperatorID);
+            if (!rtn)
+            {
+                return new ReturnEntity<bool>(-1, "收件完成失败");
+            }
+
+            //推送库存
+            var storageIn = expressDAL.Exp_StorageItem_In(
+                order.OutNumber, iExpNumber, oper.StorageID, 1, "订单包裹", null, iOperatorID, 2, iOperatorID, "收件");
+            if (storageIn <= 0)
+            {
+                return new ReturnEntity<bool>(-1, "入库失败" + storageIn);
+            }
+
+            //推送订单
+            expressDAL.Exp_RoutePush_ADD(new Exp_RoutePushDC()
+            {
+                ExpNumber = iExpNumber,
+                OutNumber = order.OutNumber,
+                OpCode = "21",
+                RouteInfo = "取件成功",
+            });
+
+            return new ReturnEntity<bool>(rtn);
+        }
+
+        //收件失败
+        public ReturnEntity<bool> Exp_Order_TakeFail(int iOrderID, int iOperatorID, string iFailReason, DateTime? iChangeTime)
+        {
+            var order = expressDAL.Exp_Order_SELECT_Entity(iOrderID);
+            if (order == null)
+            {
+                return new ReturnEntity<bool>(-1, "订单不存在");
+            }
+
+            if (iChangeTime.HasValue)
+            {
+                if ((iChangeTime.Value - DateTime.Now).TotalMinutes < 60)
+                {
+                    return new ReturnEntity<bool>(-1, "修改时间应大于1小时以上");
+                }
+
+                //修改时间
+                var rtn = expressDAL.Exp_Order_Get_ExpectTime_Change(order.ID, iChangeTime.Value);
+
+                if (rtn)
+                {
+                    expressDAL.Exp_RoutePush_ADD(new Exp_RoutePushDC()
+                    {
+                        ExpNumber = order.ExpNumber,
+                        OutNumber = order.OutNumber,
+                        OpCode = "1000",
+                        RouteInfo = order.ExpTime.ToString("yyyy-MM-dd HH:mm:ss") + " 修改取件时间",
+                        Remark = iChangeTime.Value.ToString("yyyy-MM-dd HH:mm:ss"),
+                    });
+                }
+
+                return new ReturnEntity<bool>(rtn);
+            }
+            else
+            {
+                var oper = expressDAL.PR_Operator_SELECT_BYID(iOperatorID);
+                if (oper == null)
+                {
+                    return new ReturnEntity<bool>(-1, "用户错误");
+                }
+
+                //通知客服
+                CommonExpress.NotifySend(order.OutNumber, RoleDC.Role_CustomerService, 0, 0, "订单取件失败",
+                 "取件失败,原因:" + iFailReason + " 站点:" + oper.NodeName + " 取件员:" + oper.Name, (int)NotifyLevel.Notification3, false, false, 0);
+
+                //订单失败
+                return new ReturnEntity<bool>(appExpressDAL.Exp_Order_TakeFail(iOrderID, iOperatorID, iFailReason));
+            }
+        }
+
+        //扫描揽件
+        public ReturnEntity<bool> Exp_Order_TakeSend(IList<string> iCodeList, int iOperatorID)
+        {
+            if (iCodeList == null)
+            {
+                return new ReturnEntity<bool>(true);
+            }
+
+            foreach (var code in iCodeList)
+            {
+                var storageItemListRtn = expressDAL.Exp_StorageItem_SELECT_List(null, null, code,
+                (int)StorageItemType.Clothing, null, null, (int)StorageTargetType.ToUser, null, 1, 2);
+                if (storageItemListRtn == null || storageItemListRtn.RecordCount != 1 || storageItemListRtn.ReturnList == null)
+                {
+                    return new ReturnEntity<bool>(-1, code + " 编号不存在");
+                }
+
+                var item = storageItemListRtn.ReturnList.First();
+                if (item == null)
+                {
+                    return new ReturnEntity<bool>(-1, code + " 编号不存在");
+                }
+
+                if (!appExpressDAL.Exp_Order_TakeSend(storageItemListRtn.ReturnList.First().Number, iOperatorID))
+                {
+                    return new ReturnEntity<bool>(-1, code + " 揽件失败");
+                }
+            }
+
+            return new ReturnEntity<bool>(true);
+        }
+
+        //待送件列表
+        public ReturnEntity<IList<Exp_OrderDC>> Exp_Order_SELECT_WaitSend(int iOperatorID)
+        {
+            var list = appExpressDAL.Exp_Order_SELECT_WaitSend(iOperatorID);
+
+            return new ReturnEntity<IList<Exp_OrderDC>>(list);
+        }
+
+        //待收件详情
+        public ReturnEntity<Exp_OrderDC> Exp_Order_SELECT_WaitSend_Detail(int iOrderID, int iOperatorID)
+        {
+            var order = expressDAL.Exp_Order_SELECT_Entity(iOrderID);
+            if (order == null)
+            {
+                return new ReturnEntity<Exp_OrderDC>(-1, "订单不存在");
+            }
+
+            var storageItemListRtn = expressDAL.Exp_StorageItem_SELECT_List(null, order.OutNumber, null,
+                   (int)StorageItemType.Clothing, null, null, null, null, 1, 50);
+            if (storageItemListRtn != null)
+            {
+                order.StorageItemList = new List<Exp_StorageItemDC>();
+
+                int completeCount = 0;
+
+                order.SendCount = 0;
+
+                foreach (var item in storageItemListRtn.ReturnList)
+                {
+                    //其他库
+                    if (item.StorageID != 4)
+                    {
+                        //送用户
+                        if (item.TargetType == (int)StorageTargetType.ToUser)
+                        {
+                            order.StorageItemList.Add(item);
+                            order.SendCount += 1;
+                        }
+                        //在路上
+                        else
+                        {
+
+                        }
+                    }
+                    //送件完成库
+                    else
+                    {
+                        completeCount++;
+                    }
+                }
+
+                //这次没有送完,金额不收
+                if (order.SendCount + completeCount != storageItemListRtn.RecordCount)
+                {
+                    order.ChargeFee = 0;
+                }
+
+                return new ReturnEntity<Exp_OrderDC>(order);
+            }
+            else
+            {
+                return new ReturnEntity<Exp_OrderDC>(-1, "库存物品不存在");
+            }
+
+
+        }
+
+        //送件完成
+        public ReturnEntity<bool> Exp_Order_SendComplete(int iOrderID, int iOperatorID)
+        {
+            var expOrder = expressDAL.Exp_Order_SELECT_Entity(iOrderID);
+            if (expOrder == null)
+            {
+                return new ReturnEntity<bool>(-1, "订单不存在");
+            }
+            var oper = expressDAL.PR_Operator_SELECT_BYID(iOperatorID);
+            if (oper == null)
+            {
+                return new ReturnEntity<bool>(-1, "操作员不存在");
+            }
+            if (oper.NodeType != (int)NodeType.Site)
+            {
+                return new ReturnEntity<bool>(-1, "用户非站点帐号");
+            }
+            var storageList = expressDAL.Exp_StorageItem_SELECT_List(oper.StorageID,
+                    expOrder.OutNumber, null, (int)StorageItemType.Clothing, null, null,
+                    (int)StorageTargetType.ToUser, 1, 1, int.MaxValue);
+            //if (storageList == null || storageList.ReturnList == null || storageList.ReturnList.Count == 0)
+            //{
+            //    return new ReturnEntity<bool>(-1, "库存不存在");
+            //}
+            foreach (var item in storageList.ReturnList)
+            {
+                //出到完成库
+                var ioRtn = expressDAL.Exp_StorageItem_IO(item.ID, item.StorageID, (int)SystemStorage.SendComplete,
+                        (int)StorageTargetType.None, false, iOperatorID);
+                if (ioRtn <= 0)
+                {
+                    return new ReturnEntity<bool>(-1, "订单产品入库错误");
+                }
+            }
+
+            //再次读取一次,判断是否全部送完
+            storageList = expressDAL.Exp_StorageItem_SELECT_List(null,
+                    expOrder.OutNumber, null, (int)StorageItemType.Clothing, null, null,
+                    null, null, 1, int.MaxValue);
+            if (storageList == null || storageList.ReturnList == null || storageList.ReturnList.Count == 0)
+            {
+                return new ReturnEntity<bool>(-1, "库存不存在");
+            }
+            foreach (var item in storageList.ReturnList)
+            {
+                if (item.StorageID != (int)SystemStorage.SendComplete)
+                {
+                    Console.WriteLine("此次送件完成,用户还有衣物未送达 " + expOrder.OutNumber);
+                    //有不在完成库里的,订单没有完成
+                    return new ReturnEntity<bool>(true);
+                }
+            }
+
+            var rtn = appExpressDAL.Exp_Order_SendComplete(iOrderID, iOperatorID);
+
+            var order = expressDAL.Exp_Order_SELECT_Entity(iOrderID);
+            if (order != null)
+            {
+                expressDAL.Exp_RoutePush_ADD(new Exp_RoutePushDC()
+                {
+                    ExpNumber = order.ExpNumber,
+                    OutNumber = order.OutNumber,
+                    OpCode = "80",
+                    RouteInfo = "送件完成,用户已签收",
+                });
+            }
+
+            Console.WriteLine("全部送件完成 " + expOrder.OutNumber);
+            return new ReturnEntity<bool>(rtn);
+        }
+
+        //干线揽站点包裹数量
+        public ReturnEntity<string> Exp_Storage_LineTakeSite_Count(int iSiteID, int iOperatorID)
+        {
+            //获取站点名称
+            var node = expressDAL.Exp_Node_SELECT_Entity(iSiteID);
+            if (node == null)
+            {
+                return new ReturnEntity<string>(-1, "站点不存在");
+            }
+
+            //获取站点出库数量
+            var storageList = expressDAL.Exp_StorageItem_SELECT_List(node.StorageID,
+                null, null, (int)StorageItemType.Package, null, null, (int)StorageTargetType.ToLine, 1, 1, 1);
+            if (storageList == null)
+            {
+                return new ReturnEntity<string>(-1, "获取数量错误");
+            }
+
+            return new ReturnEntity<string>(string.Format("{0}_{1}", node.Name, storageList.RecordCount));
+        }
+
+        //干线揽站点包裹
+        public ReturnEntity<bool> Exp_Storage_LineTakeSite(string iExpnumberList, int iSiteID, int iOperatorID)
+        {
+            var oper = expressDAL.PR_Operator_SELECT_BYID(iOperatorID);
+            if (oper == null)
+            {
+                return new ReturnEntity<bool>(-1, "用户错误");
+            }
+            if (oper.NodeType != (int)NodeType.Line)
+            {
+                return new ReturnEntity<bool>(-1, "用户非干线帐号");
+            }
+
+            var site = expressDAL.Exp_Node_SELECT_Entity(iSiteID);
+            if (site == null)
+            {
+                return new ReturnEntity<bool>(-1, "站点不存在");
+            }
+
+            foreach (var expnumber in iExpnumberList.Split(','))
+            {
+                var storageList = expressDAL.Exp_StorageItem_SELECT_List(null,
+                  null, expnumber, (int)StorageItemType.Package, null, null, null, 1, 1, 2);
+                if (storageList == null || storageList.ReturnList == null || storageList.ReturnList.Count == 0)
+                {
+                    return new ReturnEntity<bool>(-1, expnumber + "库存不存在");
+                }
+                //else if (storageList.ReturnList.Count > 1)
+                //{
+                //    return new ReturnEntity<bool>(-1, expnumber + "库存错误");
+                //}
+
+                var storageItem = storageList.ReturnList.First();
+                if (storageItem == null)
+                {
+                    return new ReturnEntity<bool>(-1, expnumber + "库存错误");
+                }
+                if (storageItem.StorageID == oper.StorageID)
+                {
+                    //包裹已经在干线了
+                    return new ReturnEntity<bool>(true);
+                }
+                if (storageItem.StorageID != site.StorageID)
+                {
+                    //包裹不在这个站点
+                    return new ReturnEntity<bool>(-1, expnumber + "物品不在该站点");
+                }
+
+                //判断类型
+                if (storageItem.Status != 1)
+                {
+                    return new ReturnEntity<bool>(-1, expnumber + "库存产品挂起中");
+                }
+
+                var ioRtn = expressDAL.Exp_StorageItem_IO(storageItem.ID, storageItem.StorageID, oper.StorageID,
+                   (int)StorageTargetType.ToFactory, false, iOperatorID);
+                if (ioRtn <= 0)
+                {
+                    return new ReturnEntity<bool>(-1, expnumber + "订单产品入库错误");
+                }
+            }
+            return new ReturnEntity<bool>(true);
+        }
+
+        //工厂揽干线数量
+        public ReturnEntity<string> Exp_Storage_FactoryTakeLine_Count(int iOperatorID)
+        {
+            //查站点,查站点工厂,查数量
+
+            var oper = expressDAL.PR_Operator_SELECT_BYID(iOperatorID);
+            if (oper == null)
+            {
+                return new ReturnEntity<string>(-1, "用户错误");
+            }
+            if (oper.NodeType != (int)NodeType.Line)
+            {
+                return new ReturnEntity<string>(-1, "用户非干线帐号");
+            }
+
+            var line = expressDAL.Exp_Node_SELECT_Entity(oper.NodeID);
+            if (line == null)
+            {
+                return new ReturnEntity<string>(-1, "干线不存在");
+            }
+            //获取干线上级(工厂)
+            var factory = expressDAL.Exp_Node_SELECT_Entity(line.ParentID);
+            if (factory == null)
+            {
+                return new ReturnEntity<string>(-1, "工厂不存在");
+            }
+
+            //获取站点出库数量
+            var storageList = expressDAL.Exp_StorageItem_SELECT_List(oper.StorageID,
+                null, null, (int)StorageItemType.Package, null, null, (int)StorageTargetType.ToFactory, 1, 1, 1);
+            if (storageList == null)
+            {
+                return new ReturnEntity<string>(-1, "获取数量错误");
+            }
+
+            return new ReturnEntity<string>(string.Format("{0}_{1}", factory.Name, storageList.RecordCount));
+        }
+
+        //工厂揽干线完成
+        public ReturnEntity<bool> Exp_Storage_FactoryTakeLine_Complete(int iOperatorID)
+        {
+
+            var oper = expressDAL.PR_Operator_SELECT_BYID(iOperatorID);
+            if (oper == null)
+            {
+                return new ReturnEntity<bool>(-1, "用户错误");
+            }
+            if (oper.NodeType != (int)NodeType.Line)
+            {
+                return new ReturnEntity<bool>(-1, "用户非干线帐号");
+            }
+
+            var line = expressDAL.Exp_Node_SELECT_Entity(oper.NodeID);
+            if (line == null)
+            {
+                return new ReturnEntity<bool>(-1, "干线不存在");
+            }
+            //获取干线上级(工厂)
+            var factory = expressDAL.Exp_Node_SELECT_Entity(line.ParentID);
+            if (factory == null)
+            {
+                return new ReturnEntity<bool>(-1, "工厂不存在");
+            }
+
+            //获取站点出库数量
+            var storageList = expressDAL.Exp_StorageItem_SELECT_List(oper.StorageID,
+                null, null, (int)StorageItemType.Package, null, null, (int)StorageTargetType.ToFactory, 1, 1, int.MaxValue);
+            if (storageList == null)
+            {
+                return new ReturnEntity<bool>(-1, "获取数量错误");
+            }
+
+            foreach (var item in storageList.ReturnList)
+            {
+                var ioRtn = expressDAL.Exp_StorageItem_IO(item.ID, item.StorageID, factory.StorageID,
+              (int)StorageTargetType.ToCheck, false, iOperatorID);
+                if (ioRtn <= 0)
+                {
+                    return new ReturnEntity<bool>(-1, "包裹入工厂错误");
+                }
+            }
+
+            return new ReturnEntity<bool>(true);
+        }
+
+        //干线揽工厂数量
+        public ReturnEntity<string> Exp_Storage_LineTakeFactory_Count(int iOperatorID)
+        {
+            //查站点,查站点工厂,查数量
+            var oper = expressDAL.PR_Operator_SELECT_BYID(iOperatorID);
+            if (oper == null)
+            {
+                return new ReturnEntity<string>(-1, "用户错误");
+            }
+            if (oper.NodeType != (int)NodeType.Line)
+            {
+                return new ReturnEntity<string>(-1, "用户非干线帐号");
+            }
+
+            var line = expressDAL.Exp_Node_SELECT_Entity(oper.NodeID);
+            if (line == null)
+            {
+                return new ReturnEntity<string>(-1, "干线不存在");
+            }
+
+            //获取干线上级(工厂)
+            var factory = expressDAL.Exp_Node_SELECT_Entity(line.ParentID);
+            if (factory == null)
+            {
+                return new ReturnEntity<string>(-1, "工厂不存在");
+            }
+
+            //获取站点出库数量
+            var storageList = expressDAL.Exp_StorageItem_SELECT_List(factory.StorageID,
+                null, null, (int)StorageItemType.Clothing, null, line.ID, (int)StorageTargetType.FactoryOut, 1, 1, 1);
+            if (storageList == null)
+            {
+                return new ReturnEntity<string>(-1, "获取数量错误");
+            }
+
+            return new ReturnEntity<string>(string.Format("{0}_{1}", factory.Name, storageList.RecordCount));
+        }
+
+        //干线揽工厂衣服
+        public ReturnEntity<bool> Exp_Storage_LineTakeFactory(string iCode, int iOperatorID)
+        {
+            var oper = expressDAL.PR_Operator_SELECT_BYID(iOperatorID);
+            if (oper == null)
+            {
+                return new ReturnEntity<bool>(-1, "用户错误");
+            }
+            if (oper.NodeType != (int)NodeType.Line)
+            {
+                return new ReturnEntity<bool>(-1, "用户非干线帐号");
+            }
+            var line = expressDAL.Exp_Node_SELECT_Entity(oper.NodeID);
+            if (line == null)
+            {
+                return new ReturnEntity<bool>(-1, "干线不存在");
+            }
+
+            //获取干线上级(工厂)
+            var factory = expressDAL.Exp_Node_SELECT_Entity(line.ParentID);
+            if (factory == null)
+            {
+                return new ReturnEntity<bool>(-1, "工厂不存在");
+            }
+
+            var storageList = expressDAL.Exp_StorageItem_SELECT_List(null,
+                null, iCode, (int)StorageItemType.Clothing, null, null, null, 1, 1, 2);
+            if (storageList == null || storageList.ReturnList == null || storageList.ReturnList.Count == 0)
+            {
+                return new ReturnEntity<bool>(-1, "面单号错误");
+            }
+            else if (storageList.ReturnList.Count > 1)
+            {
+                return new ReturnEntity<bool>(-1, "面单号错误1");
+            }
+            var storageItem = storageList.ReturnList.First();
+            if (storageItem == null)
+            {
+                return new ReturnEntity<bool>(-1, "面单号错误2");
+            }
+
+            if (storageItem.StorageID == (int)SystemStorage.SendComplete)
+            {
+                return new ReturnEntity<bool>(-1, "订单产品已送件完成");
+            }
+
+            if (storageItem.StorageID == line.StorageID)
+            {
+                //物品已在干线中
+                return new ReturnEntity<bool>(true);
+            }
+
+            //
+            storageList = expressDAL.Exp_StorageItem_SELECT_List(factory.StorageID,
+                null, iCode, (int)StorageItemType.Clothing, null, line.ID, (int)StorageTargetType.FactoryOut, 1, 1, 2);
+            if (storageList == null || storageList.ReturnList == null || storageList.ReturnList.Count == 0)
+            {
+                return new ReturnEntity<bool>(-1, "面单号错误");
+            }
+            else if (storageList.ReturnList.Count > 1)
+            {
+                return new ReturnEntity<bool>(-1, "面单号错误1");
+            }
+
+            storageItem = storageList.ReturnList.First();
+            if (storageItem == null)
+            {
+                return new ReturnEntity<bool>(-1, "面单号错误2");
+            }
+
+            //入干线库
+            var ioRtn = expressDAL.Exp_StorageItem_IO(storageItem.ID, storageItem.StorageID, line.StorageID,
+            (int)StorageTargetType.ToSite, false, iOperatorID);
+            if (ioRtn <= 0)
+            {
+                return new ReturnEntity<bool>(-1, "包裹入干线错误");
+            }
+
+            return new ReturnEntity<bool>(true);
+        }
+
+        //站点揽干线数量
+        public ReturnEntity<string> Exp_Storage_SiteTakeLine_Count(int iOperatorID)
+        {
+            var oper = expressDAL.PR_Operator_SELECT_BYID(iOperatorID);
+            if (oper == null)
+            {
+                return new ReturnEntity<string>(-1, "用户错误");
+            }
+
+            var node = expressDAL.Exp_Node_SELECT_Entity(oper.NodeID);
+            if (node == null)
+            {
+                return new ReturnEntity<string>(-1, "站点不存在");
+            }
+
+            //获取干线上级(干线)
+            var line = expressDAL.Exp_Node_SELECT_Entity(node.ParentID);
+            if (line == null)
+            {
+                return new ReturnEntity<string>(-1, "站点不存在");
+            }
+
+            //获取干线出库数量
+            var storageList = expressDAL.Exp_StorageItem_SELECT_List(line.StorageID,
+                null, null, (int)StorageItemType.Clothing, oper.NodeID, null, (int)StorageTargetType.ToSite, 1, 1, 1);
+            if (storageList == null)
+            {
+                return new ReturnEntity<string>(-1, "获取数量错误");
+            }
+
+            return new ReturnEntity<string>(string.Format("{0}_{1}", line.Name, storageList.RecordCount));
+        }
+
+        //站点揽干线衣服
+        public ReturnEntity<bool> Exp_Storage_SiteTakeLine(string iCode, int iOperatorID)
+        {
+            var oper = expressDAL.PR_Operator_SELECT_BYID(iOperatorID);
+            if (oper == null)
+            {
+                return new ReturnEntity<bool>(-1, "操作员不存在");
+            }
+            if (oper.NodeType != (int)NodeType.Site)
+            {
+                return new ReturnEntity<bool>(-1, "用户非站点帐号");
+            }
+
+            var storageList = expressDAL.Exp_StorageItem_SELECT_List(null, null, iCode, (int)StorageItemType.Clothing, null, null, null, null, 1, 2);
+            if (storageList == null || storageList.ReturnList == null || storageList.ReturnList.Count == 0)
+            {
+                return new ReturnEntity<bool>(-1, "面单号错误");
+            }
+            else if (storageList.ReturnList.Count > 1)
+            {
+                return new ReturnEntity<bool>(-1, "面单号错误");
+            }
+
+            var storageItem = storageList.ReturnList.First();
+            if (storageItem == null)
+            {
+                return new ReturnEntity<bool>(-1, "面单错误");
+            }
+
+            if (storageItem.StorageID == oper.StorageID)
+            {
+                //物品已经在站点了
+                return new ReturnEntity<bool>(true);
+            }
+
+            if (storageItem.StorageType != (int)StorageType.Line)
+            {
+                //return new ReturnEntity<bool>(-1, "库存产品不在干线,直接进入站点送件");
+                Console.WriteLine("!!!!!!!!!!!!!!!!库存产品不在干线,直接进入站点送件!!!!!!!!!!!!!!!");
+            }
+
+            if (storageItem.StorageID == (int)SystemStorage.SendComplete)
+            {
+                return new ReturnEntity<bool>(-1, "订单产品已送件完成");
+            }
+
+            //入库到站点
+            var ioRtn = expressDAL.Exp_StorageItem_IO(storageItem.ID, storageItem.StorageID, oper.StorageID,
+                (int)StorageTargetType.ToUser, false, iOperatorID);
+            if (ioRtn <= 0)
+            {
+                return new ReturnEntity<bool>(-1, "订单产品入站点错误");
+            }
+            //完成提交
+            return new ReturnEntity<bool>(true);
+        }
+
+        /// <summary>
+        /// 电话联系用户
+        /// </summary>
+        /// <param name="iOrderID"></param>
+        /// <param name="iStatus"></param>
+        /// <param name="iCallTime"></param>
+        /// <param name="iSecond"></param>
+        /// <param name="iMuser"></param>
+        /// <returns></returns>
+        public ReturnEntity<bool> Exp_Order_UPDATE_CallUser(int iOrderID, int iStatus, DateTime iCallTime, int iSecond, int iMuser)
+        {
+            var order = expressDAL.Exp_Order_SELECT_Entity(iOrderID);
+            if (order == null)
+            {
+                return new ReturnEntity<bool>(-1, "订单不存在");
+            }
+            var rtn = appExpressDAL.Exp_Order_UPDATE_CallUser(iOrderID, iStatus, iCallTime, iSecond, iMuser);
+            if (rtn)
+            {
+                //原来没有打过电话
+                if (order.CallUserStatus == 0)
+                {
+                    if (order.TakeTime.HasValue)
+                    {
+                        //电话奖励
+                        CommonExpress.NotifySend(order.OutNumber, 0, iMuser, 9001, "5分钟内联系用户",
+                         "联系时间:" + DateTime.Now.ToShortTimeString() + " 时长:" + iSecond + " 秒",
+                         (int)NotifyLevel.Notification3, false, false, 2);
+                    }
+                }
+            }
+
+            return new ReturnEntity<bool>(rtn);
+        }
+
+        /// <summary>
+        /// 获取干线下的站点
+        /// </summary>
+        /// <param name="iLineID"></param>
+        /// <returns></returns>
+        public ReturnEntity<IList<Exp_NodeDC>> Exp_Node_LineSite(int iLineID)
+        {
+            var rtn = appExpressDAL.Exp_Node_LineSite(iLineID);
+
+            return new ReturnEntity<IList<Exp_NodeDC>>(rtn);
+        }
+
+        /// <summary>
+        /// 站点入库异常
+        /// </summary>
+        /// <param name="iOperatorID"></param>
+        /// <returns></returns>
+        public ReturnEntity<bool> Exp_Storage_SiteTakeLine_FailNotify(int iOperatorID)
+        {
+            var oper = expressDAL.PR_Operator_SELECT_BYID(iOperatorID);
+            if (oper == null)
+            {
+                return new ReturnEntity<bool>(-1, "用户错误");
+            }
+
+            var node = expressDAL.Exp_Node_SELECT_Entity(oper.NodeID);
+            if (node == null)
+            {
+                return new ReturnEntity<bool>(-1, "站点不存在");
+            }
+
+            //获取干线上级(干线)
+            var line = expressDAL.Exp_Node_SELECT_Entity(node.ParentID);
+            if (line == null)
+            {
+                return new ReturnEntity<bool>(-1, "站点不存在");
+            }
+
+            //获取干线出库数量
+            var storageList = expressDAL.Exp_StorageItem_SELECT_List(line.StorageID,
+                null, null, (int)StorageItemType.Clothing, null, null, (int)StorageTargetType.ToSite, 1, 1, 1);
+            if (storageList == null)
+            {
+                return new ReturnEntity<bool>(-1, "获取库存数量错误");
+            }
+
+            if (storageList.RecordCount > 0)
+            {
+                var lineOper = expressDAL.PR_Operator_SELECT_BYID(line.ManagerID);
+                if (lineOper == null)
+                {
+                    //客服
+                    CommonExpress.NotifySend(null, RoleDC.Role_CustomerService, 0, 0, "干线送站点数量异常",
+                     "!!!!!干线负责人不存在!!!!!干线:" + line.Name + " 送站点:" + node.Name + " 未完成,剩余 " + storageList.RecordCount + " 件未完成",
+                     (int)NotifyLevel.Notification3, false, false, 0);
+                }
+                else
+                {
+                    //干线负责人
+                    CommonExpress.NotifySend(null, lineOper.RoleID, lineOper.ID, 0, "干线送站点数量异常",
+                     "干线:" + line.Name + " 送站点:" + node.Name + " 未完成,剩余 " + storageList.RecordCount + " 件未完成",
+                     (int)NotifyLevel.Notification3, false, false, 0);
+                }
+            }
+
+            return new ReturnEntity<bool>(true);
+        }
+
+        /// <summary>
+        /// 干线取站点件异常
+        /// </summary>
+        /// <param name="iSiteID"></param>
+        /// <param name="iOperatorID"></param>
+        /// <returns></returns>
+        public ReturnEntity<bool> Exp_Storage_LineTakeSite_FailNotify(int iSiteID, int iOperatorID)
+        {
+            //获取站点名称
+            var node = expressDAL.Exp_Node_SELECT_Entity(iSiteID);
+            if (node == null)
+            {
+                return new ReturnEntity<bool>(-1, "站点不存在");
+            }
+
+            var oper = expressDAL.PR_Operator_SELECT_BYID(iOperatorID);
+            if (oper == null)
+            {
+                return new ReturnEntity<bool>(-1, "用户错误");
+            }
+            //获取站点出库数量
+            var storageList = expressDAL.Exp_StorageItem_SELECT_List(node.StorageID,
+                null, null, (int)StorageItemType.Package, null, null, (int)StorageTargetType.ToLine, 1, 1, 1);
+            if (storageList == null)
+            {
+                return new ReturnEntity<bool>(-1, "获取库存数量错误");
+            }
+
+            if (storageList.RecordCount > 0)
+            {
+                var lineOper = expressDAL.PR_Operator_SELECT_BYID(node.ManagerID);
+                if (lineOper == null)
+                {
+                    //客服
+                    CommonExpress.NotifySend(null, RoleDC.Role_CustomerService, 0, 0, "干线取站点数量异常",
+                     "!!!!!站点负责人不存在!!!!!站点:" + node.Name + " 送干线:" + oper.NodeName + " 未完成,剩余 " + storageList.RecordCount + " 包未完成",
+                     (int)NotifyLevel.Notification3, false, false, 0);
+                }
+                else
+                {
+                    //站点负责人
+                    CommonExpress.NotifySend(null, lineOper.RoleID, lineOper.ID, 0, "干线取站点数量异常",
+                     "站点:" + node.Name + " 送干线:" + oper.NodeName + " 未完成,剩余 " + storageList.RecordCount + " 包未完成",
+                     (int)NotifyLevel.Notification3, false, false, 0);
+                }
+            }
+
+            return new ReturnEntity<bool>(true);
+        }
+
+        /// <summary>
+        /// 干线取工厂件异常
+        /// </summary>
+        /// <param name="iOperatorID"></param>
+        /// <returns></returns>
+        public ReturnEntity<bool> Exp_Storage_LineTakeFactory_FailNotify(int iOperatorID)
+        {
+            //查干线,查站点工厂,查数量
+            var oper = expressDAL.PR_Operator_SELECT_BYID(iOperatorID);
+            if (oper == null)
+            {
+                return new ReturnEntity<bool>(-1, "用户错误");
+            }
+            if (oper.NodeType != (int)NodeType.Line)
+            {
+                return new ReturnEntity<bool>(-1, "用户非干线帐号");
+            }
+
+            var line = expressDAL.Exp_Node_SELECT_Entity(oper.NodeID);
+            if (line == null)
+            {
+                return new ReturnEntity<bool>(-1, "干线不存在");
+            }
+
+            //获取干线上级(工厂)
+            var factory = expressDAL.Exp_Node_SELECT_Entity(line.ParentID);
+            if (factory == null)
+            {
+                return new ReturnEntity<bool>(-1, "工厂不存在");
+            }
+
+            //获取工厂出库数量
+            var storageList = expressDAL.Exp_StorageItem_SELECT_List(factory.StorageID,
+                null, null, (int)StorageItemType.Clothing, null, line.ID, (int)StorageTargetType.FactoryOut, 1, 1, 1);
+            if (storageList == null)
+            {
+                return new ReturnEntity<bool>(-1, "获取库存数量错误");
+            }
+
+            if (storageList.RecordCount > 0)
+            {
+                var factoryOper = expressDAL.PR_Operator_SELECT_BYID(factory.ManagerID);
+                if (factoryOper == null)
+                {
+                    //客服
+                    CommonExpress.NotifySend(null, RoleDC.Role_CustomerService, 0, 0, "干线取工厂数量异常",
+                     "!!!!!工厂负责人不存在!!!!!工厂:" + factory.Name + " 送干线:" + line.Name + " 未完成,剩余 " + storageList.RecordCount + " 件未完成",
+                     (int)NotifyLevel.Notification3, false, false, 0);
+                }
+                else
+                {
+                    //工厂负责人
+                    CommonExpress.NotifySend(null, factoryOper.RoleID, factoryOper.ID, 0, "干线取工厂数量异常",
+                     "工厂:" + factory.Name + " 送干线:" + line.Name + " 未完成,剩余 " + storageList.RecordCount + " 件未完成",
+                     (int)NotifyLevel.Notification3, false, false, 0);
+                }
+            }
+
+            return new ReturnEntity<bool>(true);
+        }
+
+        //站点收件日志
+        public ReturnEntity<RecordCountEntity<Exp_OrderDC>> Exp_Order_SELECT_SiteTakeUser_Log(int iOperatorID,
+            int? iType,
+            DateTime iStartDate, DateTime iEndDate, int iPageIndex, int iPageSize)
+        {
+            //return new ReturnEntity<RecordCountEntity<Exp_OrderDC>>(new RecordCountEntity<Exp_OrderDC>() { RecordCount = 0, ReturnList = new List<Exp_OrderDC>() });
+            var rtn = expressDAL.Exp_Order_SELECT_List_Log(1, 1, iOperatorID, null, iType, iStartDate, iEndDate, iPageIndex, iPageSize);
+
+            return new ReturnEntity<RecordCountEntity<Exp_OrderDC>>(rtn);
+        }
+
+        //站点取干线日志 按入库时间搜
+        public ReturnEntity<RecordCountEntity<Exp_OrderDC>> Exp_Order_SELECT_SiteTakeLine_Log(int iOperatorID,
+            int? iType,
+            DateTime iStartDate, DateTime iEndDate, int iPageIndex, int iPageSize)
+        {
+            var rtn = expressDAL.Exp_Order_SELECT_List_Log(7, 2, iOperatorID, null, iType, iStartDate, iEndDate, iPageIndex, iPageSize);
+
+            return new ReturnEntity<RecordCountEntity<Exp_OrderDC>>(rtn);
+        }
+
+        //干线取站点日志
+        public ReturnEntity<RecordCountEntity<Exp_OrderDC>> Exp_Order_SELECT_LineTakeSite_Log(int iOperatorID,
+            int? iType,
+            DateTime iStartDate, DateTime iEndDate, int iPageIndex, int iPageSize)
+        {
+            var oper = expressDAL.PR_Operator_SELECT_BYID(iOperatorID);
+            if (oper == null)
+            {
+                return new ReturnEntity<RecordCountEntity<Exp_OrderDC>>(-1, "用户错误");
+            }
+
+            var rtn = expressDAL.Exp_Order_SELECT_List_Log(2, 1, null, oper.NodeID, iType, iStartDate, iEndDate, iPageIndex, iPageSize);
+
+            return new ReturnEntity<RecordCountEntity<Exp_OrderDC>>(rtn);
+        }
+
+        //干线取工厂日志
+        public ReturnEntity<RecordCountEntity<Exp_OrderDC>> Exp_Order_SELECT_LineFactory_Log(int iOperatorID,
+            int? iType,
+            DateTime iStartDate, DateTime iEndDate, int iPageIndex, int iPageSize)
+        {
+            var oper = expressDAL.PR_Operator_SELECT_BYID(iOperatorID);
+            if (oper == null)
+            {
+                return new ReturnEntity<RecordCountEntity<Exp_OrderDC>>(-1, "用户错误");
+            }
+
+            var rtn = expressDAL.Exp_Order_SELECT_List_Log(6, 2, null, oper.NodeID, iType, iStartDate, iEndDate, iPageIndex, iPageSize);
+
+            return new ReturnEntity<RecordCountEntity<Exp_OrderDC>>(rtn);
+        }
+    }
+}

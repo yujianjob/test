@@ -1,0 +1,135 @@
+﻿@{
+    //ViewBag.Title = "我的积分";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--内容-->
+<div id="content">
+    @{Html.RenderPartial("_MemberLeftNav");}
+    <div class="my_content right">
+        <div class="my_contentTitle">我的积分</div>
+        <div class="height_50"></div>
+        <div class="balance-nums">
+            <div class="account-lf">
+                您当前的积分：<span class="lock-balance">0</span>
+            </div>
+        </div>
+        <div class="my_bangding">
+            <div class="my_bangdingTitle">
+                <ul>
+                    <li class="this li">积分记录<span></span><b></b></li>
+                    <li class="li">积分换券<span></span><b></b></li>
+                    <div class="clear"></div>
+                </ul>
+            </div>
+            <div class="my_dingdanBox" style="display:block">
+                <p class="integral-sel">
+                    <select>
+                        <option>最近三个月积分记录</option>
+                        <option>三个月前积分记录</option>
+                    </select>
+                </p>
+                <div class="my_dingdanTitle">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="150" align="center">日期</td>
+                            <td width="140" align="center">获取积分</td>
+                            <td width="140" align="center">消耗积分 </td>
+                            <td align="center">详细说明</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="my_dingdanList">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    </table>
+                </div>
+                <div class="my_dingdanPage"><a href="#">上一页</a><span><a href="#" class="this">1</a></span><a href="#">下一页</a></div>
+                <p class="tips">
+                    <strong>积分获取及使用常见问题</strong><br />
+                    1. 您兑换的购物券为电子券，有效期为一年，自成功兑换之日起计算。<br />
+                    2. 京东购物券仅限本ID使用，不能折算为现金、也不能再次兑换为积分。<br />
+                    3. 10元京券需要铜牌以上会员级别兑换，20元京券需要银牌以上会员级别兑换，50元京券需要金牌以上会员级别兑换，100元京券需要钻石以上会员级别兑换。<br />
+                    4. 每日至多换取三张优惠券。<br />
+                    5.积分可直接换购电子书，积分和人民币比例为10:1。用积分兑换电子书，需全额用积分支付，不支持与其他支付方式混合使用。
+                </p>
+
+            </div>
+            <div class="my_dingdanBox">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="sel-jf-tabs">
+                    <tr>
+                        <td><input type="radio" /> 10元京券(需100积分)</td>
+                        <td><input type="radio" /> 20元京券(需200积分)</td>
+                        <td><input type="radio" /> 50元京券(需500积分)</td>
+                        <td><input type="radio" /> 100元京券(需1000积分)</td>
+                        <td><img src="~/Content/images/duihuan-btn.gif" /></td>
+                    </tr>
+                </table>
+                <div class="my_dingdanTitle">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="150" align="center">申请兑换时间</td>
+                            <td width="140" align="center">兑换京券面值</td>
+                            <td width="140" align="center">消耗积分 </td>
+                            <td align="center">状态</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="my_dingdanList">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="150" align="center">7922015-05-25</td>
+                            <td width="140" align="center">25</td>
+                            <td width="140" align="center">12</td>
+                            <td align="center">这里是文字</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="my_dingdanPage"><a href="#">上一页</a><span><a href="#" class="this">1</a><a href="#">2</a></span><a href="#">下一页</a></div>
+                <p class="tips">
+                    <strong>积分获取及使用常见问题</strong><br />
+                    1. 您兑换的购物券为电子券，有效期为一年，自成功兑换之日起计算。<br />
+                    2. 京东购物券仅限本ID使用，不能折算为现金、也不能再次兑换为积分。<br />
+                    3. 10元京券需要铜牌以上会员级别兑换，20元京券需要银牌以上会员级别兑换，50元京券需要金牌以上会员级别兑换，100元京券需要钻石以上会员级别兑换。<br />
+                    4. 每日至多换取三张优惠券。<br />
+                    5.积分可直接换购电子书，积分和人民币比例为10:1。用积分兑换电子书，需全额用积分支付，不支持与其他支付方式混合使用。
+                </p>
+
+            </div>
+        </div>
+        @{Html.RenderAction("MoreWash", "Wash");}
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/Scripts/gundong.js")
+
+    <script language="javascript" type="text/javascript">
+        $(function () {
+            //左侧导航
+            $('.my_navList dt').click(function () {
+                $(this).parent().find('dd').slideToggle(200);
+                $(this).toggleClass("my_navList_Top");
+            })
+            //滚动
+            var BOX = $('.cartLuxuryList ul');
+            var HHUM = $('.cartLuxuryList li');
+            var LEFT = $('.cartLuxuryZuo');
+            var RIGHT = $('.cartLuxuryYou');
+            var WIDTH = 184;//单个宽度
+            var PLAY = 5000;//自动播放的时间
+            var SPEED = 500;//切换速度
+            var AOUT = true;//是否自动播放
+            IMG(BOX, LEFT, RIGHT, WIDTH, HHUM, PLAY, SPEED, AOUT);
+
+            $('.cartLuxuryList li').hover(function () {
+                $(this).find('.cartLuxuryListImg').addClass('this');
+            }, function () {
+                $(this).find('.cartLuxuryListImg').removeClass('this');
+            })
+        })
+    </script>
+}

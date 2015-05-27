@@ -1,0 +1,188 @@
+﻿@model LazyAtHome.Web.WebManage.Models.Express.ExpOrderListModel
+
+<form id="pagerForm" method="post" action="@Url.Action("SearchExpOrder")">
+    <input type="hidden" name="status" value="@Model.SearchInfo.status">
+    <input type="hidden" name="keywords" value="@Model.SearchInfo.keywords" />
+    <input type="hidden" name="pageNum" value="@Model.SearchInfo.pageNum" />
+    <input type="hidden" name="numPerPage" value="@Model.SearchInfo.numPerPage" />
+    <input type="hidden" name="orderField" value="@Model.SearchInfo.orderField" />
+</form>
+
+<!--报错信息-->
+@Html.Raw(ViewBag.Script)
+
+<!--搜索条-->
+<div class="pageHeader">
+    <form id="searchForm" onsubmit="return navTabSearch(this);" action="@Url.Action("SearchExpOrder")" method="post" rel="pagerForm">
+        <div class="searchBar">
+            <table class="searchContent">
+                <tr>
+                    <td>
+                        物流单号：<input type="text" name="expnumber" value="@Model.SearchInfo.ExpNumber" maxlength="20" />
+                    </td>
+                    <td>
+                        外部单号：<input type="text" name="outnumber" value="@Model.SearchInfo.OutNumber" maxlength="20" />
+                    </td>
+                    <td>
+                        物流类型：
+                        @Html.DropDownList("TransportType", new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text="全部", Value="-1"},
+                            new SelectListItem { Text="取件", Value = "1" },
+                            new SelectListItem { Text="送件", Value = "2" }},
+                            "Value", "Text", Model.SearchInfo.TransportType))
+                    </td>
+                    
+                    
+                    <td>
+                        创建日期：
+                        @{
+                            var DateFrom = "";
+                            if (Model.SearchInfo.DateFrom != null)
+                            {
+
+                                DateFrom = Convert.ToDateTime(Model.SearchInfo.DateFrom).ToString("yyyy-MM-dd");
+                            }
+                            var DateTo = "";
+                            if (Model.SearchInfo.DateTo != null)
+                            {
+
+                                DateTo = Convert.ToDateTime(Model.SearchInfo.DateTo).ToString("yyyy-MM-dd");
+                            }
+                        }
+
+                        <input type="text" id="txtFrom" name="DateFrom" value="@DateFrom" class="date" />
+                        至
+                        <input type="text" id="txtTo" name="DateTo" value="@DateTo" class="date" />
+                    </td>
+                </tr>
+                <tr>
+                    
+                    <td>
+                        客户名称：<input type="text" name="contacts" value="@Model.SearchInfo.Contacts" maxlength="20" />
+                    </td>
+                    <td>
+                        客户手机：<input type="text" name="mpno" value="@Model.SearchInfo.Mpno" maxlength="20" />
+                    </td>
+
+                    <td>
+                        物流状态：
+                        @Html.DropDownList("Step", new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Text="全部", Value="-1"},
+                            new SelectListItem { Text="未分配", Value = "0" },
+                            new SelectListItem { Text="取件中", Value = "1" },
+                            new SelectListItem { Text="无效订单", Value = "-99" },
+                            new SelectListItem { Text="取件失败", Value = "-98" },
+                            new SelectListItem { Text="取件完成", Value = "2" },
+                            new SelectListItem { Text="中转站", Value = "3" },
+                            new SelectListItem { Text="送件中", Value = "4" },
+                            new SelectListItem { Text="送件完成", Value = "90" }},
+                                     "Value", "Text", Model.SearchInfo.Step))
+                    </td>
+
+                    <td>
+                        客户地址： <input type="text" name="address" value="@Model.SearchInfo.Address" maxlength="20" />
+                        承运人： <input type="text" name="filter" value="@Model.SearchInfo.Filter" maxlength="20" />
+                    </td>
+                </tr>
+            </table>
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+                    @*<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>*@
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="pageContent">
+    <!--功能按键-->
+    <div class="panelBar">
+        <ul class="toolBar">
+            @*<li><a class="add" href="@Url.Action("")" target="navTab" rel="exporderedit" title="添加"><span>添加</span></a></li>*@
+            @*<li><a class="delete" href="@Url.Action("DeleteActivity")?aid={aid}" target="ajaxTodo" title="确定要删除吗?"><span>删除</span></a></li>*@
+            <li><a class="edit" href="@Url.Action("EditExpOrder")?oid={oid}&type=1" target="navTab" rel="exporderedit" title="物流订单"><span>查看</span></a></li>
+            <li class="line">line</li>
+            @*<li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targettype="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>*@
+        </ul>
+    </div>
+
+    <!--列表页-->
+    <table class="table" width="1800" layouth="163">
+        <thead>
+            <tr>
+                <th width="20" align="center"></th>
+                <th width="120" align="center">物流单号</th>
+                <th width="120" align="center">外部单号</th>
+                <th width="150" align="center">客户名称</th>
+                <th width="90" align="center">客户手机</th>
+                <th width="350" align="center">客户地址</th>
+                <th width="50" align="center">类型</th>
+                <th width="120" align="center">点位名称</th>
+                <th width="60" align="center">揽件人</th>
+                <th width="60" align="center">进程</th>
+                <th width="200" align="center">进程备注</th>
+                <th width="60" align="center">系统分发</th>
+                <th width="200" align="center">系统备注</th>
+                <th width="110" align="center">揽件时间</th>
+                <th width="110" align="center">完成时间</th>
+                <th width="110" align="center">预计收件时间</th>
+                
+                @*<th width="110" align="center">创建时间</th>*@
+            </tr>
+        </thead>
+        <tbody>
+            @if (@Model.ExpOrderList != null)
+            {
+                int no = 1;
+                foreach (var item in @Model.ExpOrderList)
+                {
+                    <tr target="oid" rel="@item.ID">
+                        <td>@(no++)</td>
+                        <td>@item.ExpNumber</td>
+                        <td>@item.OutNumber</td>
+                        <td>@item.Contacts</td>
+                        <td>@item.Mpno</td>
+                        <td>@item.Address</td>
+                        <td>@UIHelper.FormatTransportType(item.TransportType)</td>
+                        @*<td>@item.NodeName</td>*@
+                        <td><a href="@Url.Action("EditExpNode", "Express", new { nid = item.NodeID })" target="navTab" rel="nodeedit" title="站点详情">@item.NodeName</a></td>
+                        <td>@item.OperatorName</td>
+                        <td>@UIHelper.FormatExpOrderStep(item.Step)</td>
+                        <td>@item.StepRemark</td>
+                        <td>@UIHelper.FormatExpOrderAllotStatus(item.AllotStatus)</td>
+                        <td>@item.SystemRemark</td>
+                        <td>@UIHelper.FormatDate(item.OperatorTime, 4)</td>
+                        <td>@UIHelper.FormatDate(item.CompleteTime, 4)</td>
+                        <td>@UIHelper.FormatDate(item.ExpTime, 4)</td>
+                        @*<td>@UIHelper.FormatDate(item.Obj_Cdate, 4)</td>*@
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+    <!--分页条-->
+    <div class="panelBar">
+        <script type="text/javascript">
+            $(function () {
+                $("#@Model.SearchInfo.numPerPageName").attr("value", "@Model.SearchInfo.numPerPage");
+            });
+        </script>
+        <div class="pages">
+            <span>显示</span>
+            <select class="combox" id="@Model.SearchInfo.numPerPageName" name="@Model.SearchInfo.numPerPageName" onchange="navTabPageBreak({numPerPage:this.value})">
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+            <span>条，共 @Model.SearchInfo.RecCount 条</span>
+        </div>
+
+        <div class="pagination" targettype="navTab" totalcount="@Model.SearchInfo.RecCount" numperpage="@Model.SearchInfo.numPerPage" pagenumshown="@Model.SearchInfo.pageNumShown" currentpage="@Model.SearchInfo.pageNum"></div>
+    </div>
+</div>
+
+

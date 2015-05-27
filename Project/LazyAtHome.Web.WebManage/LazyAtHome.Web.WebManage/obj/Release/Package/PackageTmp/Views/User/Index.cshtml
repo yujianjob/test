@@ -1,0 +1,135 @@
+﻿@model LazyAtHome.Web.WebManage.Models.User.UserListModel
+
+<form id="pagerForm" method="post" action="@Url.Action("SearchUser")">
+    <input type="hidden" name="status" value="@Model.SearchInfo.status">
+    <input type="hidden" name="keywords" value="@Model.SearchInfo.keywords" />
+    <input type="hidden" name="pageNum" value="@Model.SearchInfo.pageNum" />
+    <input type="hidden" name="numPerPage" value="@Model.SearchInfo.numPerPage" />
+    <input type="hidden" name="orderField" value="@Model.SearchInfo.orderField" />
+</form>
+
+<!--报错信息-->
+@Html.Raw(ViewBag.Script)
+
+<!--搜索条-->
+<div class="pageHeader">
+    <form onsubmit="return navTabSearch(this);" action="@Url.Action("SearchUser")" method="post" rel="pagerForm">
+        <div class="searchBar">
+            <table class="searchContent">
+                <tr>
+                    <td>
+                        @{
+                            var DateFrom = "";
+                            if (Model.SearchInfo.DateFrom != null)
+                            {
+
+                                DateFrom = Convert.ToDateTime(Model.SearchInfo.DateFrom).ToString("yyyy-MM-dd");
+                            }
+                            var DateTo = "";
+                            if (Model.SearchInfo.DateTo != null)
+                            {
+
+                                DateTo = Convert.ToDateTime(Model.SearchInfo.DateTo).ToString("yyyy-MM-dd");
+                            }
+                        }
+                        注册日期：
+                        <input type="text" id="DateFrom" name="DateFrom" value="@DateFrom"
+                               class="date" style="width: 120px" />
+                        至
+                        <input type="text" id="DateTo" name="DateTo" value="@DateTo"
+                               class="date" style="width: 120px" />
+                    </td>
+                    <td>
+                        用户名：<input type="text" name="loginname" value="@Model.SearchInfo.LoginName" maxlength="25" />
+                    </td>
+                    <td>
+                        手机号：<input type="text" name="mpno" value="@Model.SearchInfo.MPNo" maxlength="11" />
+                    </td>
+                    <td>
+                        电子邮件：<input type="text" name="email" value="@Model.SearchInfo.Email" maxlength="100" />
+                    </td>
+                </tr>
+            </table>
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+                    @*<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>*@
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="pageContent">
+    <!--功能按键-->
+    <div class="panelBar">
+        <ul class="toolBar">
+            @*<li><a class="add" href="@Url.Action("")" target="navTab" rel="useredit" title="添加用户" ><span>添加</span></a></li>
+            <li><a class="delete" href="demo/common/ajaxDone.html?uid={uid}" target="ajaxTodo" title="确定要删除吗?"><span>删除</span></a></li>*@
+            <li><a class="edit" href="@Url.Action("EditUser")?uid={uid}" target="navTab" rel="useredit" title="用户信息"><span>查看</span></a></li>
+            <li class="line">line</li>
+            @*<li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targettype="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>*@
+        </ul>
+    </div>
+
+    <!--列表页-->
+    <table class="table" width="100%" layouth="137">
+        <thead>
+            <tr>
+                <th width="10" align="center"></th>
+                <th width="100" align="center">用户名</th>
+                <th width="100" align="center">手机号</th>
+                <th width="150" align="center">电子邮件</th>
+                <th width="100" align="center">余额</th>
+                <th width="100" align="center">积分</th>
+                <th width="100" align="center">交易状态</th>
+                <th width="100" align="center">用户状态</th>
+                <th width="100" align="center">注册时间</th>
+                <th width="80" align="center">注册来源</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (@Model.UserList != null)
+            {
+                int no = 1;
+                foreach (var item in @Model.UserList)
+                {
+                    <tr target="uid" rel="@item.ID">
+                        <td>@(no++)</td>
+                        <td>@item.LoginName</td>
+                        <td>@item.MPNo</td>
+                        <td>@item.Email</td>
+                        <td>@item.Money</td>
+                        <td>@item.Score</td>
+                        <td>@UIHelper.FormatAccountStatus(item.AccountStatus)</td>
+                        <td>@UIHelper.FormatUserStatus(item.UserStatus)</td>
+                        <td>@UIHelper.FormatDate(item.Obj_Cdate)</td>
+                        <td>@UIHelper.FormatRegistSource(item.RegistSource)</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+    <!--分页条-->
+    <div class="panelBar">
+        <script type="text/javascript">
+            $(function () {
+                $("#@Model.SearchInfo.numPerPageName").attr("value", "@Model.SearchInfo.numPerPage");
+            });
+        </script>
+        <div class="pages">
+            <span>显示</span>
+            <select class="combox" id="@Model.SearchInfo.numPerPageName" name="@Model.SearchInfo.numPerPageName" onchange="navTabPageBreak({numPerPage:this.value})">
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+            <span>条，共 @Model.SearchInfo.RecCount 条</span>
+        </div>
+
+        <div class="pagination" targettype="navTab" totalcount="@Model.SearchInfo.RecCount" numperpage="@Model.SearchInfo.numPerPage" pagenumshown="@Model.SearchInfo.pageNumShown" currentpage="@Model.SearchInfo.pageNum"></div>
+    </div>
+
+</div>

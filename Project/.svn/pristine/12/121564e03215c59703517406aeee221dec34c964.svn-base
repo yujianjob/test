@@ -1,0 +1,34 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\zhongshanzhuang1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、中山装一定要熨烫平整，只有使其显得平整而挺括，线条笔直，穿着才能美观大方，要作到此点外，除了要定期对中山装进行干洗外，还要进行细致的熨烫。</p>
+				<p>2、要不卷不挽。穿中山装时，无论如何，都不可以将中山装上衣的衣袖挽上去。</p>
+				<p>3、要少装东西。为保证中山装在外观上不走样，就应当在中山装的口袋里少装东西，或者不装东西。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>商界男士要注意 中山装的搭配。熟知中山装着装规范的人，大都都知道：“中山装的韵味不是单靠中山装本身穿出来的，而是通过中山装的穿着与沉着稳重的形体及语言的搭配，体现出来的。”当然，懒到家会在衣物洁净上给您最放心的承诺。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\zhongshanzhuang2.jpg" /></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>考虑布料的缩水性和变形，水洗后没整烫的话很容易造成衣服变形和出现褶皱，衣服去的快。水洗过会失去中山装原有的硬朗感觉，软塌塌的，因此建议干洗。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

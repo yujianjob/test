@@ -1,0 +1,43 @@
+﻿<div class="my_nav left">
+    <div class="my_navTitle">我的懒到家</div>
+    <div class="my_navList">
+        <dl>
+            <dt>订单中心</dt>
+            <dd>
+                <p><a href="@Url.Action("MyOrders")">我的订单</a></p>
+                <p><a href="@Url.Action("MyOrders", new { ot = 2 })">待付款订单</a></p>
+                <p><a href="@Url.Action("MyOrders", new { ot = 3 })">待收货订单</a></p>
+            </dd>
+        </dl>
+        <dl>
+            <dt>客户服务</dt>
+            <dd>
+                <p><a href="@Url.Action("fxthh")">反洗/退换货</a></p>
+                <p><a href="@Url.Action("OrderCancelRecord")">取消订单记录</a></p>
+                <p><a href="@Url.Action("Complaint")">我的投诉</a></p>
+            </dd>
+        </dl>
+        <dl>
+            <dt>账户中心</dt>
+            <dd>
+                <p class="this"><a href="@Url.Action("MyInfo")">账户信息</a></p>
+                <p><a href="@Url.Action("AccountSafe")">账户安全</a></p>
+                <p><a href="@Url.Action("Balance")">账户余额</a></p>
+                @*<p><a href="@Url.Action("Record")">消费记录</a></p>
+                    <p><a href="@Url.Action("Integral")">我的积分</a></p>*@
+                <p><a href="@Url.Action("MyCoupon")">我的优惠劵</a></p>
+                <p><a href="@Url.Action("LazyCard", "Member")">我的懒人卡</a></p>
+                @*<p><a href="#">充值服务</a></p>*@
+                <p><a href="@Url.Action("ReceiptGoods")">收货地址</a></p>
+            </dd>
+        </dl>
+        <dl>
+            <dt>社区中心</dt>
+            <dd>
+                <p><a href="/Member/Invite">邀请注册</a></p>
+                <p><a href="@Url.Action("Letter")">站内信</a></p>
+                <p><a href="#">邮件订阅</a></p>
+            </dd>
+        </dl>
+    </div>
+</div>

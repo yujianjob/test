@@ -1,0 +1,35 @@
+﻿	<div class="productDetail model1">
+		<!--保养心经 start-->
+		<div class="maintenance">
+			<div class="pic left"><img src="~/Content/images\shuiyi1.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+				<p>1、切勿使用热水洗涤 </p>
+				<p>2、使用过多的洗涤剂会损害衣物材质。 </p>
+				<p>3、千万不要使用漂白剂、含氯漂白剂会损害质料并使睡衣变黄。 </p>
+				<p>4、洗净后阴凉处晾干，暴晒易使其变质、变黄，令其寿命缩短。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--保养心经 end-->
+		<!--洁净畅想 start-->
+		<div class="clean">
+			<div class="txt left">
+				<h2></h2>
+				<p>睡衣作为贴身衣物，人们最注重的应该是要清洁、安全无菌。 懒到家拥有先进的机器设备，清洁去污彻底，360度全方位灭菌消毒，给您安全无毒的保护。</p>
+				<div class="line"></div>
+			</div>
+			<div class="pic right"><img src="~/Content/images/gdpic01.jpg" /></div>
+		</div>
+		<!--洁净畅想 end-->
+		<!--洗涤技巧 start-->
+		<div class="wash">
+			<div class="pic left"><img src="~/Content/images\shuiyi2.jpg"/></div>
+			<div class="txt right">
+				<h2></h2>
+					<p> 很多人习惯把睡衣当家居服穿，这种习惯会让你的睡衣沾满灰尘、细菌、灰尘和油烟。洗浴完睡觉，人体新陈代谢还是在继续，皮肤仍不断分泌油脂和汗液，会沾到睡衣上。一段时间不清洗，这些油脂和汗液会刺激皮肤，有可能导致毛囊炎或出现汗斑。所以，哪怕是天天洗澡的人，睡衣还是要勤清洗，尤其是油性皮肤的人。</p>
+				<div class="line"></div>
+			</div>
+		</div>
+		<!--洗涤技巧 end-->
+	</div>

@@ -1,0 +1,264 @@
+﻿
+@{
+    Layout = null;
+    //ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>懒到家客户端下载</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="Shortcut icon" href="/img/landaojia.ico" type="image/x-icon" />
+    <link href="/Content/bootstrap.css" rel="stylesheet">
+    <link href="/Content/ldj.css" media="screen" rel="stylesheet">
+    <script src="/Scripts/jquery-2.1.1.js"></script>
+    <script src="/Scripts/judgePlatform.js"></script>
+</head>
+<body>
+    <style type="text/css">
+
+@@media screen and (max-width:767px){
+	.tabs li{width:48%;height:50px; line-height:50px; text-align:center;}
+		.tabs li:nth-of-type(1){float:left;background: -webkit-gradient(linear,center top,center bottom,from(#b6d731), to(#98c923));
+	-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;}
+		.tabs li:nth-of-type(2){float:right;background: -webkit-gradient(linear,center top,center bottom,from(#fea43d), to(#fe8b3b));
+	-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;}
+}
+@@media screen and (min-width:767px) {
+    #appBox {
+        width: 400px;
+        margin: 20px auto;
+    }
+
+    .tabs li {
+        width: 45%;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+    }
+
+        .tabs li:nth-of-type(1) {
+            float: left;
+            margin-left: 0%;
+            display: inline;
+            background: -moz-linear-gradient(top,#b6d731,#98c923); /*Mozilla*/
+            background: -webkit-gradient(linear,center top,center bottom,from(#b6d731), to(#98c923));
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+        }
+
+        .tabs li:nth-of-type(2) {
+            float: right;
+            background: -moz-linear-gradient(top,#fea43d,#fe8b3b); /*Mozilla*/
+            background: -webkit-gradient(linear,center top,center bottom,from(#fea43d), to(#fe8b3b));
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+        }
+
+    .app_cont {
+        width: 100%;
+        margin-top: 20px;
+        height: 240px;
+    }
+}
+	.how-it-works{
+	padding:1em 0em;
+}
+	.tabs {list-style:none;padding:0;margin:0}
+	.tabs li:nth-of-type(1) > span{display:block; background:url(/img/androidIcn.png) no-repeat 10px center, url(/img/androidIcnarrow.png) no-repeat 90% center}
+	.tabs li:nth-of-type(2) > span{display:block; background:url(/img/iphoneIcn.png) no-repeat 10px center, url(/img/iphoneIcnarrow.png) no-repeat 90% center}
+
+	.how-it-works .logo{margin-top:10px}
+	#appBox > img{float:left;width:48%;height:10%}
+	.app_cont{width:100%;margin:20px auto;height:240px}
+    </style>
+
+
+
+
+    
+    <div class="how-it-works">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-md-7">
+                    <div class="logo">
+                        <img src="/img/home-logo.png" alt="">
+                    </div>
+                    <h2><img src="/img/adtext1.png"></h2>
+                    <p>懒是一种生活品质 懒是一种生活态度</p>
+                    @*<p>
+                        <a class="btn btn-lg btn-primary btn-shadow bs3-link" href="/Wash" role="button" onclick="ga('send','event','首页','开始体验','首页_列表');">开始体验</a>
+                    </p>*@
+                    <span class="hr">◆</span>
+                    <h3><img src="/img/download.png"></h3>
+                    <div style="margin-top:20px" id="appBox">
+                        @*<img src="/img/androidIcn.png" style="cursor:pointer">
+                        <img src="/img/iphoneIcn.png" style="cursor:pointer">*@
+                        <ul class="tabs">
+                            <li><span>Android</span></li>
+                            <li><span>iPhone</span></li>
+                        </ul>
+                        <div style="clear:both"></div>
+
+                        <div class="app_cont">
+                            <span class="arrow"></span>
+                            <div id="android_func">
+                                <p class="weixin" style="display:none">方法一：<a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.lazyathome.wash">本地下载</a></p>
+                                @*<p class="weixin" style="display:none">方法一：请点击右上角按钮用浏览器打开</p>*@
+                                <p class="mobile" style="display:none">方法一：<a href="/M/Android">本地下载</a></p>
+                                <p class="pc" style="display:none">方法一：<a href="/M/Android">本地下载</a></p>
+                            </div>
+                            <p>方法二：在91市场，腾讯网，机锋市场等中搜索"懒到家洗衣"下载</p>
+                            <!--<p><span>方法三：手机扫描二维码下载</span><img src="img/qrcode.png">
+                            <span style="padding-left:50px;display:inline">（或手机浏览器输入<em style="font-size:12px">http://android.dianping.com/m</em><br>下载）</span>
+                            </p>-->
+                        </div>
+                        <div class="app_cont" style="display:none">
+                            <span class="arrow"></span>
+                            <div id="IOS_func">
+                                @*<p>方法一：<a href="javascript:void(0)" ontouchend="window.open('https://itunes.apple.com/cn/app/id923806169?mt=8#')">去appstore下载</a></p>*@
+                                <p class="weixin" style="display:none">方法一：<a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.lazyathome.wash">去appstore下载</a></p>
+                                @*<p class="weixin" style="display:none">方法一：请点击右上角按钮用浏览器打开</p>*@
+                                <p class="mobile" style="display:none">方法一：<a href="https://itunes.apple.com/cn/app/id923806169">去appstore下载</a></p>
+                                <p class="pc" style="display:none">方法一：<a href="https://itunes.apple.com/cn/app/id923806169">去appstore下载</a></p>
+                            </div>
+                            <p><span>方法二：手机扫描二维码下载</span><img src="/img/ios_applink.png"></p>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 hidden-xs hidden-sm">
+                    <img src="/img/welcome-phone-3.png">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        $("html,body").scrollTop(0);
+        $(".app_cont").hide();
+        var len = $("#appBox > ul li").length;
+        $("#appBox > ul > li").each(function (i) {
+            this.addEventListener("click", function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+
+                if (i == 1) {
+                    $(".app_cont .arrow").css("left", "78%");
+                }
+                else {
+                    $(".app_cont .arrow").css("left", "28%");
+                }
+
+                setTimeout(function () {
+                    $("html,body").animate({ scrollTop: 300 }, 100);
+                    $(".app_cont").hide();
+                    $(".app_cont").eq(i).show();
+                }, 300);
+            }, false);
+        });
+        $(".app_cont").each(function () {
+            this.addEventListener("click", function (e) {
+                e.stopPropagation();
+                //e.preventDefault();
+            }, false);
+        });
+
+        document.body.addEventListener("click", function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            $(".app_cont").hide();
+            $("html,body").scrollTop(0);
+        }, false);
+
+        var ua = navigator.userAgent.toLowerCase();
+        if (ua.match(/MicroMessenger/i) == "micromessenger") {
+            $(".weixin").show();
+            $(".mobile").hide();
+            $(".pc").hide();
+        }
+        else if (browser.versions.android || browser.versions.iPhone || browser.versions.iPad || browser.versions.ios) {
+            $(".mobile").show();
+            $(".weixin").hide();
+            $(".pc").hide();
+        }
+        else {
+            $(".pc").show();
+            $(".weixin").hide();
+            $(".mobile").hide();
+            
+        }
+
+
+
+
+
+        var imgUrl = "http://www.landaojia.com/img/applogo.png";  //图片LOGO注意必须是绝对路径
+        var lineLink = "http://www.landaojia.com/m";   //网站网址，必须是绝对路径
+        var descContent = '哇~超赞的诶，刚体验了懒到家的洗衣服务，超级便捷，只需一键下单，服务人员即可上门取送，轻轻松松坐享洁净，再也不用被脏衣困扰，果真是洗衣神器~有洗衣需求的小伙伴们可以尝试一下哦。手机客户端下载地址：www.landaojia.com/m。'; //分享给朋友或朋友圈时的文字简介
+        var shareTitle = '懒到家洗衣';  //分享title
+        var appid = ''; //apiID，可留空
+
+        function shareFriend() {
+            WeixinJSBridge.invoke('sendAppMessage', {
+                "appid": appid,
+                "img_url": imgUrl,
+                "img_width": "200",
+                "img_height": "200",
+                "link": lineLink,
+                "desc": descContent,
+                "title": shareTitle
+            }, function (res) {
+                //_report('send_msg', res.err_msg);
+            })
+        }
+        function shareTimeline() {
+            WeixinJSBridge.invoke('shareTimeline', {
+                "img_url": imgUrl,
+                "img_width": "200",
+                "img_height": "200",
+                "link": lineLink,
+                "desc": descContent,
+                "title": shareTitle
+            }, function (res) {
+                //_report('timeline', res.err_msg);
+            });
+        }
+        function shareWeibo() {
+            WeixinJSBridge.invoke('shareWeibo', {
+                "content": descContent,
+                "url": lineLink,
+            }, function (res) {
+                //_report('weibo', res.err_msg);
+            });
+        }
+        // 当微信内置浏览器完成内部初始化后会触发WeixinJSBridgeReady事件。
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            // 发送给好友
+            WeixinJSBridge.on('menu:share:appmessage', function (argv) {
+                shareFriend();
+            });
+            // 分享到朋友圈
+            WeixinJSBridge.on('menu:share:timeline', function (argv) {
+                shareTimeline();
+            });
+            // 分享到微博
+            WeixinJSBridge.on('menu:share:weibo', function (argv) {
+                shareWeibo();
+            });
+        }, false);
+
+
+    </script>
+
+</body>
+</html>
+

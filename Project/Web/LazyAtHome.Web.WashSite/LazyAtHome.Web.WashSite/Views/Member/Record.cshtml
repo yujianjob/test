@@ -1,0 +1,112 @@
+﻿@{
+    //ViewBag.Title = "消费记录";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--导航-->
+@{Html.RenderAction("Nav", "Home");}
+
+<!--内容-->
+<div id="content">
+    @{Html.RenderPartial("_MemberLeftNav");}
+    <div class="my_content right">
+        <div class="my_contentTitle">消费记录</div>
+        <div class="height_50"></div>
+        <div class="balance-nums">
+            <div class="account-lf">
+                近一年实际消费额：<span class="lock-balance">￥0</span>&nbsp;&nbsp;&nbsp;&nbsp;<em><a href="#" style="color:#6eb27f">查看您的会员级别</a></em>
+            </div>
+        </div>
+        <div class="my_bangding">
+            <div class="my_bangdingTitle">
+                <ul>
+                    <li class="this li">近三个月记录<span></span><b></b></li>
+                    <li class="li">三个月前数据<span></span><b></b></li>
+                    <div class="clear"></div>
+                </ul>
+            </div>
+            <div class="my_dingdanBox" style="display:block">
+                <div class="my_dingdanTitle">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="150" align="center">时间</td>
+                            <td width="150" align="center">涉及订单号</td>
+                            <td width="150" align="center">消费额扣减</td>
+                            <td width="150" align="center">消费额增加</td>
+                            <td>备注</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="my_dingdanList">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="150" align="center">7922015-05-25</td>
+                            <td width="150" align="center">订单号码</td>
+                            <td width="150" align="center"><span class="expenditure">￥55</span></td>
+                            <td width="150" align="center"><span class="deposit">￥55</span></td>
+                            <td>这里是备注文字</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="my_dingdanPage"><a href="#">上一页</a><span><a href="#" class="this">1</a><a href="#">2</a></span><a href="#">下一页</a></div>
+            </div>
+            <div class="my_dingdanBox">
+                <div class="my_dingdanTitle">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="150" align="center">时间</td>
+                            <td width="150" align="center">涉及订单号</td>
+                            <td width="150" align="center">消费额扣减</td>
+                            <td width="150" align="center">消费额增加</td>
+                            <td>备注</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="my_dingdanList">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="150" align="center">55922015-05-25</td>
+                            <td width="150" align="center">订单号码</td>
+                            <td width="150" align="center"><span class="expenditure">￥55</span></td>
+                            <td width="150" align="center"><span class="deposit">￥55</span></td>
+                            <td>这里是备注文字</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="my_dingdanPage"><a href="#">上一页</a><span><a href="#" class="this">1</a><a href="#">2</a></span><a href="#">下一页</a></div>
+            </div>
+        </div>
+        @{Html.RenderAction("MoreWash", "Wash");}
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/Scripts/gundong.js")
+
+    <script language="javascript" type="text/javascript">
+        $(function () {
+            //左侧导航
+            $('.my_navList dt').click(function () {
+                $(this).parent().find('dd').slideToggle(200);
+                $(this).toggleClass("my_navList_Top");
+            })
+            //滚动
+            var BOX = $('.cartLuxuryList ul');
+            var HHUM = $('.cartLuxuryList li');
+            var LEFT = $('.cartLuxuryZuo');
+            var RIGHT = $('.cartLuxuryYou');
+            var WIDTH = 184;//单个宽度
+            var PLAY = 5000;//自动播放的时间
+            var SPEED = 500;//切换速度
+            var AOUT = true;//是否自动播放
+            IMG(BOX, LEFT, RIGHT, WIDTH, HHUM, PLAY, SPEED, AOUT);
+
+            $('.cartLuxuryList li').hover(function () {
+                $(this).find('.cartLuxuryListImg').addClass('this');
+            }, function () {
+                $(this).find('.cartLuxuryListImg').removeClass('this');
+            })
+        })
+    </script>
+}
